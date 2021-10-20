@@ -16,9 +16,8 @@ after_initialize do
   %w(
     ../lib/question_answer/engine.rb
     ../lib/question_answer/vote.rb
-    ../lib/question_answer/voter.rb
-    ../extensions/category_custom_field_extension.rb
     ../extensions/category_extension.rb
+    ../extensions/category_custom_field_extension.rb
     ../extensions/guardian_extension.rb
     ../extensions/post_action_type_extension.rb
     ../extensions/post_creator_extension.rb
@@ -30,7 +29,7 @@ after_initialize do
     ../extensions/topic_view_extension.rb
     ../extensions/topic_view_serializer_extension.rb
     ../app/controllers/question_answer/votes_controller.rb
-    ../app/serializers/question_answer/voter_serializer.rb
+    ../app/models/question_answer_vote.rb
     ../config/routes.rb
     ../jobs/update_category_post_order.rb
     ../jobs/update_topic_post_order.rb
@@ -71,7 +70,6 @@ after_initialize do
   class ::PostSerializer
     attributes(
       :qa_vote_count,
-      :qa_voted,
       :qa_enabled,
       :last_answerer,
       :last_answered_at,
@@ -84,6 +82,7 @@ after_initialize do
 
   register_post_custom_field_type('vote_history', :json)
   register_post_custom_field_type('vote_count', :integer)
+  register_post_custom_field_type('qa_vote_count', :integer)
 
   class ::Post
     include QuestionAnswer::PostExtension
@@ -123,11 +122,14 @@ after_initialize do
     include QuestionAnswer::TopicTagExtension
   end
 
+  # TODO: Performance of the query degrades as the number of posts a user has voted
+  # on increases. We should probably keep a counter cache in the user's
+  # custom fields.
   add_to_class(:user, :vote_count) do
-    post_ids = posts.pluck(:id)
-
     PostCustomField
-      .where(post_id: post_ids, name: 'vote_count')
+      .joins(post: :user)
+      .where("users.id = ?", self.id)
+      .where(name: 'qa_vote_count')
       .sum('value::int')
   end
 
@@ -137,7 +139,26 @@ after_initialize do
 
   topic_view_post_custom_fields_allowlister do |user, topic|
     if topic.qa_enabled
-      %w{"vote_count", "voted"}
+      %w{qa_vote_count}
     end
+  end
+
+  add_to_class(:topic_view, :user_voted_posts) do |user|
+    @user_voted_posts ||= begin
+      QuestionAnswerVote.where(user: user, post: @posts).distinct.pluck(:post_id)
+    end
+  end
+
+  add_to_class(:topic_view, :user_voted_posts_last_timestamp) do |user|
+    @user_voted_posts_last_timestamp ||= begin
+      QuestionAnswerVote
+        .where(user: user, post: @posts)
+        .group(:post_id, :created_at)
+        .pluck(:post_id, :created_at)
+    end
+  end
+
+  class ::User
+    has_many :question_answer_votes
   end
 end

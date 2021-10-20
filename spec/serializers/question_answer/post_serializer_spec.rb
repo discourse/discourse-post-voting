@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../plugin_helper'
+require 'rails_helper'
 
 describe QuestionAnswer::PostSerializerExtension do
   fab!(:user) { Fabricate(:user) }
@@ -35,7 +35,7 @@ describe QuestionAnswer::PostSerializerExtension do
     %i[last_answerer last_answered_at answer_count last_answer_post_number]
   end
 
-  let(:obj_keys) { %i[qa_vote_count qa_voted qa_enabled] }
+  let(:obj_keys) { %i[qa_vote_count qa_enabled] }
 
   context 'qa enabled' do
     before do

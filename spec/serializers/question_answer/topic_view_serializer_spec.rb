@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../plugin_helper'
+require 'rails_helper'
 
 describe QuestionAnswer::TopicViewSerializerExtension do
   fab!(:category) { Fabricate(:category) }
@@ -50,8 +50,6 @@ describe QuestionAnswer::TopicViewSerializerExtension do
       serializer = create_serializer.call
 
       expect(serializer[:qa_enabled]).to eq(topic_view.qa_enabled)
-      expect(serializer[:qa_votes]).to eq(Topic.qa_votes(topic, user))
-      expect(serializer[:qa_can_vote]).to eq(Topic.qa_can_vote(topic, user))
 
       %i[
         last_answered_at

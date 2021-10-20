@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../plugin_helper'
+require 'rails_helper'
 
 Fabricator(:post_with_sort_order, from: :post) do
   post_number

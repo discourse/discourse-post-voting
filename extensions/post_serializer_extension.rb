@@ -14,7 +14,12 @@ module QuestionAnswer
       }
 
       if user
-        voted = self.qa_voted.include?(user.id)
+        voted =
+          if @topic_view
+            @topic_view.user_voted_posts(user).include?(object.id)
+          else
+            QuestionAnswerVote.exists?(post_id: object.id, user_id: user.id)
+          end
 
         if voted
           summary[:acted] = true
@@ -35,10 +40,6 @@ module QuestionAnswer
 
     def qa_vote_count
       object.qa_vote_count(post_custom_fields)
-    end
-
-    def qa_voted
-      object.qa_voted(post_custom_fields)
     end
 
     def qa_enabled
