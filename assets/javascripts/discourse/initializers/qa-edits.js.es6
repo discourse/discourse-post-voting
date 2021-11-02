@@ -179,11 +179,6 @@ function initPlugin(api) {
     "showComment",
     "answerId",
     "lastComment",
-    "last_answerer",
-    "last_answered_at",
-    "answer_count",
-    "last_answer_post_number",
-    "last_answerer",
     "topicUserId",
     "oneToMany"
   );
@@ -598,123 +593,125 @@ function initPlugin(api) {
     });
   }
 
-  api.reopenWidget("topic-map-summary", {
-    html(attrs, state) {
-      if (attrs.qa_enabled) {
-        return this.qaMap(attrs, state);
-      } else {
-        return this._super(attrs, state);
-      }
-    },
+  // Disable this function override and figure out how we can extend this in core
 
-    qaMap(attrs, state) {
-      const contents = [];
-
-      contents.push(
-        h("li", [
-          h("h4", I18n.t("created_lowercase")),
-          h("div.topic-map-post.created-at", [
-            avatarFor("tiny", {
-              username: attrs.createdByUsername,
-              template: attrs.createdByAvatarTemplate,
-              name: attrs.createdByName,
-            }),
-            dateNode(attrs.topicCreatedAt),
-          ]),
-        ])
-      );
-
-      let lastAnswerUrl = attrs.topicUrl + "/" + attrs.last_answer_post_number;
-      let postType = attrs.oneToMany ? "one_to_many" : "answer";
-
-      contents.push(
-        h(
-          "li",
-          h("a", { attributes: { href: lastAnswerUrl } }, [
-            h("h4", I18n.t(`last_${postType}_lowercase`)),
-            h("div.topic-map-post.last-answer", [
-              avatarFor("tiny", {
-                username: attrs.last_answerer.username,
-                template: attrs.last_answerer.avatar_template,
-                name: attrs.last_answerer.name,
-              }),
-              dateNode(attrs.last_answered_at),
-            ]),
-          ])
-        )
-      );
-
-      contents.push(
-        h("li", [
-          numberNode(attrs.answer_count),
-          h(
-            "h4",
-            I18n.t(`${postType}_lowercase`, { count: attrs.answer_count })
-          ),
-        ])
-      );
-
-      contents.push(
-        h("li.secondary", [
-          numberNode(attrs.topicViews, { className: attrs.topicViewsHeat }),
-          h("h4", I18n.t("views_lowercase", { count: attrs.topicViews })),
-        ])
-      );
-
-      contents.push(
-        h("li.secondary", [
-          numberNode(attrs.participantCount),
-          h("h4", I18n.t("users_lowercase", { count: attrs.participantCount })),
-        ])
-      );
-
-      if (attrs.topicLikeCount) {
-        contents.push(
-          h("li.secondary", [
-            numberNode(attrs.topicLikeCount),
-            h("h4", I18n.t("likes_lowercase", { count: attrs.topicLikeCount })),
-          ])
-        );
-      }
-
-      if (attrs.topicLinkLength > 0) {
-        contents.push(
-          h("li.secondary", [
-            numberNode(attrs.topicLinkLength),
-            h(
-              "h4",
-              I18n.t("links_lowercase", { count: attrs.topicLinkLength })
-            ),
-          ])
-        );
-      }
-
-      if (
-        state.collapsed &&
-        attrs.topicPostsCount > 2 &&
-        attrs.participants.length > 0
-      ) {
-        const participants = renderParticipants.call(
-          this,
-          attrs.userFilters,
-          attrs.participants.slice(0, 3)
-        );
-        contents.push(h("li.avatars", participants));
-      }
-
-      const nav = h(
-        "nav.buttons",
-        this.attach("button", {
-          title: "topic.toggle_information",
-          icon: state.collapsed ? "chevron-down" : "chevron-up",
-          action: "toggleMap",
-          className: "btn",
-        })
-      );
-
-      return [nav, h("ul.clearfix", contents)];
-    },
-  });
+  // api.reopenWidget("topic-map-summary", {
+  //   html(attrs, state) {
+  //     if (attrs.qa_enabled) {
+  //       return this.qaMap(attrs, state);
+  //     } else {
+  //       return this._super(attrs, state);
+  //     }
+  //   },
+  //
+  //   qaMap(attrs, state) {
+  //     const contents = [];
+  //
+  //     contents.push(
+  //       h("li", [
+  //         h("h4", I18n.t("created_lowercase")),
+  //         h("div.topic-map-post.created-at", [
+  //           avatarFor("tiny", {
+  //             username: attrs.createdByUsername,
+  //             template: attrs.createdByAvatarTemplate,
+  //             name: attrs.createdByName,
+  //           }),
+  //           dateNode(attrs.topicCreatedAt),
+  //         ]),
+  //       ])
+  //     );
+  //
+  //     let lastAnswerUrl = attrs.topicUrl + "/" + attrs.last_answer_post_number;
+  //     let postType = attrs.oneToMany ? "one_to_many" : "answer";
+  //
+  //     contents.push(
+  //       h(
+  //         "li",
+  //         h("a", { attributes: { href: lastAnswerUrl } }, [
+  //           h("h4", I18n.t(`last_${postType}_lowercase`)),
+  //           h("div.topic-map-post.last-answer", [
+  //             avatarFor("tiny", {
+  //               username: attrs.last_answerer.username,
+  //               template: attrs.last_answerer.avatar_template,
+  //               name: attrs.last_answerer.name,
+  //             }),
+  //             dateNode(attrs.last_answered_at),
+  //           ]),
+  //         ])
+  //       )
+  //     );
+  //
+  //     contents.push(
+  //       h("li", [
+  //         numberNode(attrs.answer_count),
+  //         h(
+  //           "h4",
+  //           I18n.t(`${postType}_lowercase`, { count: attrs.answer_count })
+  //         ),
+  //       ])
+  //     );
+  //
+  //     contents.push(
+  //       h("li.secondary", [
+  //         numberNode(attrs.topicViews, { className: attrs.topicViewsHeat }),
+  //         h("h4", I18n.t("views_lowercase", { count: attrs.topicViews })),
+  //       ])
+  //     );
+  //
+  //     contents.push(
+  //       h("li.secondary", [
+  //         numberNode(attrs.participantCount),
+  //         h("h4", I18n.t("users_lowercase", { count: attrs.participantCount })),
+  //       ])
+  //     );
+  //
+  //     if (attrs.topicLikeCount) {
+  //       contents.push(
+  //         h("li.secondary", [
+  //           numberNode(attrs.topicLikeCount),
+  //           h("h4", I18n.t("likes_lowercase", { count: attrs.topicLikeCount })),
+  //         ])
+  //       );
+  //     }
+  //
+  //     if (attrs.topicLinkLength > 0) {
+  //       contents.push(
+  //         h("li.secondary", [
+  //           numberNode(attrs.topicLinkLength),
+  //           h(
+  //             "h4",
+  //             I18n.t("links_lowercase", { count: attrs.topicLinkLength })
+  //           ),
+  //         ])
+  //       );
+  //     }
+  //
+  //     if (
+  //       state.collapsed &&
+  //       attrs.topicPostsCount > 2 &&
+  //       attrs.participants.length > 0
+  //     ) {
+  //       const participants = renderParticipants.call(
+  //         this,
+  //         attrs.userFilters,
+  //         attrs.participants.slice(0, 3)
+  //       );
+  //       contents.push(h("li.avatars", participants));
+  //     }
+  //
+  //     const nav = h(
+  //       "nav.buttons",
+  //       this.attach("button", {
+  //         title: "topic.toggle_information",
+  //         icon: state.collapsed ? "chevron-down" : "chevron-up",
+  //         action: "toggleMap",
+  //         className: "btn",
+  //       })
+  //     );
+  //
+  //     return [nav, h("ul.clearfix", contents)];
+  //   },
+  // });
 
   api.reopenWidget("post-admin-menu", {
     html() {

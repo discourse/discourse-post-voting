@@ -5,7 +5,7 @@ module QuestionAnswer
     def actions_summary
       summaries = super.reject { |s| s[:id] == PostActionType.types[:vote] }
 
-      return summaries unless object.qa_enabled
+      return summaries unless self.qa_enabled
 
       user = scope.current_user
       summary = {
@@ -43,43 +43,7 @@ module QuestionAnswer
     end
 
     def qa_enabled
-      object.qa_enabled
-    end
-
-    def last_answerer
-      BasicUserSerializer.new(
-        object.topic.last_answerer,
-        scope: scope,
-        root: false
-      ).as_json
-    end
-
-    def include_last_answerer?
-      object.qa_enabled
-    end
-
-    def last_answered_at
-      object.topic.last_answered_at
-    end
-
-    def include_last_answered_at?
-      object.qa_enabled
-    end
-
-    def answer_count
-      object.topic.answer_count
-    end
-
-    def include_answer_count?
-      object.qa_enabled
-    end
-
-    def last_answer_post_number
-      object.topic.last_answer_post_number
-    end
-
-    def include_last_answer_post_number?
-      object.qa_enabled
+      @topic_view ? @topic_view.qa_enabled : object.qa_enabled
     end
   end
 end
