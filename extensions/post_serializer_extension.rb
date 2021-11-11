@@ -10,7 +10,7 @@ module QuestionAnswer
       user = scope.current_user
       summary = {
         id: PostActionType.types[:vote],
-        count: self.qa_vote_count
+        count: object.qa_vote_count
       }
 
       if user
@@ -36,10 +36,6 @@ module QuestionAnswer
       else
         summaries
       end
-    end
-
-    def qa_vote_count
-      object.qa_vote_count(post_custom_fields)
     end
 
     def qa_enabled

@@ -11,12 +11,16 @@ module QuestionAnswer
         :comment_count,
         :last_answer_post_number,
         :last_answerer,
-        :first_answer_id
+        :top_answer_id
       )
     end
 
-    def first_answer_id
-      object.topic.first_answer&.id
+    def top_answer_id
+      object.topic.top_answer.id
+    end
+
+    def include_top_answer_id?
+      qa_enabled
     end
 
     def qa_enabled

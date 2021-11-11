@@ -76,7 +76,6 @@ after_initialize do
 
   register_post_custom_field_type('vote_history', :json)
   register_post_custom_field_type('vote_count', :integer)
-  register_post_custom_field_type('qa_vote_count', :integer)
 
   class ::Post
     include QuestionAnswer::PostExtension
@@ -120,21 +119,11 @@ after_initialize do
   # on increases. We should probably keep a counter cache in the user's
   # custom fields.
   add_to_class(:user, :vote_count) do
-    PostCustomField
-      .joins(post: :user)
-      .where("users.id = ?", self.id)
-      .where(name: 'qa_vote_count')
-      .sum('value::int')
+    Post.where(user_id: self.id).sum(:qa_vote_count)
   end
 
   add_to_serializer(:user_card, :vote_count) do
     object.vote_count
-  end
-
-  topic_view_post_custom_fields_allowlister do |user, topic|
-    if topic.qa_enabled
-      %w{qa_vote_count}
-    end
   end
 
   add_to_class(:topic_view, :user_voted_posts) do |user|
@@ -155,4 +144,22 @@ after_initialize do
   class ::User
     has_many :question_answer_votes
   end
+
+  TopicView.apply_custom_default_scope do |scope, topic_view|
+    if topic_view.topic.qa_enabled
+      scope = scope
+        .unscope(:order)
+        .order("CASE post_number WHEN 1 THEN 0 ELSE 1 END, qa_vote_count DESC")
+
+      if !topic_view.instance_variable_get(:@replies_to_post_number)
+        scope = scope.where(reply_to_post_number: nil)
+      end
+
+      scope
+    else
+      scope
+    end
+  end
+
+  SiteSetting.enable_filtered_replies_view = true
 end

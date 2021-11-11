@@ -20,9 +20,9 @@ module QuestionAnswer
           end
         end
 
-        post.custom_fields['qa_vote_count'] = post.qa_vote_count + modifier
+        post.qa_vote_count = post.qa_vote_count + modifier
 
-        if post.save_custom_fields(true)
+        if post.save
           post.publish_change_to_clients! :acted
           true
         else

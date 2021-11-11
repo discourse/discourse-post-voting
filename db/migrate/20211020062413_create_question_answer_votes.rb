@@ -47,14 +47,11 @@ class CreateQuestionAnswerVotes < ActiveRecord::Migration[6.1]
     AND question_answer_votes.created_at < Y.created_at
     SQL
 
+    add_column :posts, :qa_vote_count, :integer, default: 0, null: true
+
     execute <<~SQL
-    INSERT INTO post_custom_fields (name, post_id, value, created_at, updated_at)
-    SELECT
-      'qa_vote_count',
-      X.post_id AS post_id,
-      X.count AS value,
-      NOW(),
-      NOW()
+    UPDATE posts p
+    SET qa_vote_count = X.count
     FROM (
       SELECT
         post_id,
@@ -62,6 +59,7 @@ class CreateQuestionAnswerVotes < ActiveRecord::Migration[6.1]
       FROM question_answer_votes
       GROUP BY post_id
     ) AS X
+    WHERE X.post_id = p.id
     SQL
   end
 

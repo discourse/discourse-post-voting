@@ -9,14 +9,6 @@ module QuestionAnswer
       base.has_many :question_answer_votes
     end
 
-    def qa_vote_count(fields = custom_fields)
-      if vote_count = fields['qa_vote_count']
-        [*vote_count].first.to_i
-      else
-        0
-      end
-    end
-
     def qa_enabled
       ::Topic.qa_enabled(topic)
     end

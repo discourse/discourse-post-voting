@@ -11,6 +11,8 @@ import { setAsAnswer, undoVote, whoVoted } from "../lib/qa-utilities";
 import { smallUserAtts } from "discourse/widgets/actions-summary";
 import PostsWithPlaceholders from "discourse/lib/posts-with-placeholders";
 import { next } from "@ember/runloop";
+import transformPost from "discourse/lib/transform-post";
+import Post from "discourse/models/post";
 
 function initPlugin(api) {
   const store = api.container.lookup("store:main");
@@ -20,6 +22,7 @@ function initPlugin(api) {
     menuItems() {
       const attrs = this.attrs;
       let result = this.siteSettings.post_menu.split("|");
+
       if (attrs.qa_enabled) {
         const post = this.findAncestorModel();
         const category = post.topic.category;
@@ -40,6 +43,7 @@ function initPlugin(api) {
 
         result = result.filter((b) => b !== "reply");
       }
+
       return result;
     },
   });
@@ -47,7 +51,7 @@ function initPlugin(api) {
   api.decorateWidget("post:before", function (helper) {
     const result = [];
     const model = helper.getModel();
-    const firstAnswer = helper.widget.model.get("topic.first_answer_id");
+    const firstAnswer = helper.widget.model.get("topic.top_answer_id");
 
     if (helper.attrs.id === firstAnswer && model.qa_enabled) {
       const answerCount = helper.widget.model.get("topic.answer_count");
@@ -73,127 +77,11 @@ function initPlugin(api) {
     return result;
   });
 
-  api.decorateWidget("post:after", function (helper) {
-    const model = helper.getModel();
-    if (model.attachCommentToggle && model.hiddenComments > 0) {
-      let type =
-        Number(helper.widget.siteSettings.qa_comments_default) > 0
-          ? "more"
-          : "all";
-      return helper.attach("link", {
-        action: "showComments",
-        actionParam: model.answerId,
-        rawLabel: I18n.t(`topic.comment.show_comments.${type}`, {
-          count: model.hiddenComments,
-        }),
-        className: "show-comments",
-      });
-    }
-  });
-
-  api.reopenWidget("post-stream", {
-    buildKey: () => "post-stream",
-
-    defaultState(attrs, state) {
-      let defaultState = this._super(attrs, state);
-      defaultState["showComments"] = [];
-      return defaultState;
-    },
-
-    showComments(answerId) {
-      let showComments = this.state.showComments;
-      if (showComments.indexOf(answerId) === -1) {
-        showComments.push(answerId);
-        this.state.showComments = showComments;
-        this.appEvents.trigger("post-stream:refresh", { force: true });
-      }
-    },
-
-    html(attrs, state) {
-      let posts = attrs.posts || [];
-      let postArray = this.capabilities.isAndroid ? posts : posts.toArray();
-
-      if (postArray[0] && postArray[0].qa_enabled) {
-        let answerId = null;
-        let showComments = state.showComments;
-        let defaultComments = Number(this.siteSettings.qa_comments_default);
-        let commentCount = 0;
-        let lastVisible = null;
-
-        postArray.forEach((p, i) => {
-          if (!p.topic) {
-            return;
-          }
-
-          p["oneToMany"] = p.topic.category.qa_one_to_many;
-
-          if (p.reply_to_post_number) {
-            commentCount++;
-            p["comment"] = true;
-            p["showComment"] =
-              showComments.indexOf(answerId) > -1 ||
-              commentCount <= defaultComments;
-            p["answerId"] = answerId;
-            p["attachCommentToggle"] = false;
-
-            if (p["showComment"]) {
-              lastVisible = i;
-            }
-
-            if (
-              (!postArray[i + 1] || !postArray[i + 1].reply_to_post_number) &&
-              !p["showComment"]
-            ) {
-              postArray[lastVisible]["answerId"] = answerId;
-              postArray[lastVisible]["attachCommentToggle"] = true;
-              postArray[lastVisible]["hiddenComments"] =
-                commentCount - defaultComments;
-            }
-          } else {
-            p["attachCommentToggle"] = !p["oneToMany"];
-            p["topicUserId"] = p.topic.user_id;
-            answerId = p.id;
-            commentCount = 0;
-            lastVisible = i;
-          }
-        });
-
-        if (this.capabilities.isAndroid) {
-          attrs.posts = postArray;
-        } else {
-          attrs.posts = PostsWithPlaceholders.create({
-            posts: postArray,
-            store,
-          });
-        }
-      }
-
-      return this._super(attrs, state);
-    },
-  });
-
-  api.includePostAttributes(
-    "qa_enabled",
-    "reply_to_post_number",
-    "comment",
-    "showComment",
-    "answerId",
-    "lastComment",
-    "topicUserId",
-    "oneToMany"
-  );
+  api.includePostAttributes("qa_enabled", "topicUserId", "oneToMany");
 
   api.addPostClassesCallback((attrs) => {
-    if (attrs.qa_enabled && !attrs.firstPost) {
-      if (attrs.comment) {
-        let classes = ["comment"];
-        if (attrs.showComment) {
-          classes.push("show");
-        }
-        return classes;
-      } else {
-        return ["answer"];
-      }
+    if (attrs.qa_enabled && attrs.reply_to_post_number) {
+      return ["comment", "show"];
     }
   });
 
@@ -313,7 +201,7 @@ function initPlugin(api) {
     buildKey: (attrs) => `post-body-${attrs.id}`,
 
     defaultState(attrs) {
-      let state = this._super();
+      let state = this._super(...arguments);
       if (attrs.qa_enabled) {
         state = $.extend({}, state, { voters: [] });
       }
@@ -321,7 +209,8 @@ function initPlugin(api) {
     },
 
     html(attrs, state) {
-      let contents = this._super(attrs, state);
+      let contents = this._super(...arguments);
+
       const model = this.findAncestorModel();
       let action = model.actionByName["vote"];
 
@@ -439,113 +328,6 @@ function initPlugin(api) {
     },
   });
 
-  api.modifyClass("model:post-stream", {
-    prependPost(post) {
-      const stored = this.storePost(post);
-      if (stored) {
-        const posts = this.get("posts");
-        let insertPost = () => posts.unshiftObject(stored);
-
-        const qaEnabled = this.get("topic.qa_enabled");
-        if (qaEnabled && post.post_number === 2 && posts[0].post_number === 1) {
-          insertPost = () => posts.insertAt(1, stored);
-        }
-
-        insertPost();
-      }
-
-      return post;
-    },
-
-    appendPost(post) {
-      const stored = this.storePost(post);
-      if (stored) {
-        const posts = this.get("posts");
-
-        if (!posts.includes(stored)) {
-          const replyingTo = post.get("reply_to_post_number");
-          const qaEnabled = this.get("topic.qa_enabled");
-          let insertPost = () => posts.pushObject(stored);
-
-          if (qaEnabled && replyingTo) {
-            let passed = false;
-            posts.some((p, i) => {
-              if (passed && !p.reply_to_post_number) {
-                insertPost = () => posts.insertAt(i, stored);
-                return true;
-              }
-
-              if (p.post_number === replyingTo && i < posts.length - 1) {
-                passed = true;
-              }
-            });
-          }
-
-          if (!this.get("loadingBelow")) {
-            this.get("postsWithPlaceholders").appendPost(insertPost);
-          } else {
-            insertPost();
-          }
-        }
-
-        if (stored.get("id") !== -1) {
-          this.set("lastAppended", stored);
-        }
-      }
-      return post;
-    },
-  });
-
-  api.modifyClass("component:topic-progress", {
-    @discourseComputed(
-      "postStream.loaded",
-      "topic.currentPost",
-      "postStream.filteredPostsCount",
-      "topic.qa_enabled"
-    )
-    hideProgress(loaded, currentPost, filteredPostsCount, qaEnabled) {
-      return (
-        qaEnabled ||
-        !loaded ||
-        !currentPost ||
-        (!this.site.mobileView && filteredPostsCount < 2)
-      );
-    },
-
-    @discourseComputed(
-      "progressPosition",
-      "topic.last_read_post_id",
-      "topic.qa_enabled"
-    )
-    showBackButton(position, lastReadId, qaEnabled) {
-      if (!lastReadId || qaEnabled) {
-        return;
-      }
-
-      const stream = this.get("postStream.stream");
-      const readPos = stream.indexOf(lastReadId) || 0;
-      return readPos < stream.length - 1 && readPos > position;
-    },
-  });
-
-  api.modifyClass("component:topic-navigation", {
-    _performCheckSize() {
-      if (!this.element || this.isDestroying || this.isDestroyed) {
-        return;
-      }
-
-      if (this.get("topic.qa_enabled")) {
-        const info = this.get("info");
-        info.setProperties({
-          renderTimeline: false,
-          renderAdminMenuButton: true,
-        });
-      } else {
-        this._super(...arguments);
-      }
-    },
-  });
-
   api.reopenWidget("post", {
     html(attrs) {
       if (attrs.cloaked) {
@@ -558,7 +340,6 @@ function initPlugin(api) {
           attrs.canCreatePost = false;
           api.changeWidgetSetting("post-avatar", "size", "small");
         } else {
-          attrs.replyCount = null;
           api.changeWidgetSetting("post-avatar", "size", "large");
         }
       }
@@ -567,7 +348,6 @@ function initPlugin(api) {
     },
 
     openCommentCompose() {
-      this.sendWidgetAction("showComments", this.attrs.id);
       this.sendWidgetAction("replyToPost", this.model).then(() => {
         next(this, () => {
           const composer = api.container.lookup("controller:composer");
@@ -594,7 +374,6 @@ function initPlugin(api) {
   }
 
   // Disable this function override and figure out how we can extend this in core
-
   // api.reopenWidget("topic-map-summary", {
   //   html(attrs, state) {
   //     if (attrs.qa_enabled) {
@@ -717,7 +496,7 @@ function initPlugin(api) {
     html() {
       const result = this._super(...arguments);
 
-      if (this.attrs.qa_enabled && this.attrs.comment) {
+      if (this.attrs.qa_enabled && this.attrs.reply_to_post_number) {
         const button = {
           label: "qa.set_as_answer",
           action: "setAsAnswer",
