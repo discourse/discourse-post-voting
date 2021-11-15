@@ -119,7 +119,6 @@ function initPlugin(api) {
     if (
       attrs.canCreatePost &&
       attrs.qa_enabled &&
-      // !attrs.firstPost &&
       !attrs.reply_to_post_number
     ) {
       let args = {
@@ -148,12 +147,7 @@ function initPlugin(api) {
 
     @discourseComputed("pluginPostSnapshot")
     commenting(post) {
-      return (
-        post &&
-        post.get("topic.qa_enabled") &&
-        // !post.get("firstPost") &&
-        !post.reply_to_post_number
-      );
+      return post && post.get("topic.qa_enabled") && !post.reply_to_post_number;
     },
 
     computeHeaderContent() {
