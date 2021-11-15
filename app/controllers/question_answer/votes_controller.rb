@@ -64,9 +64,10 @@ module QuestionAnswer
     end
 
     def set_as_answer
-      @post.update!(reply_to_post_number: nil)
-
-      Topic.qa_update_vote_order(@post.topic)
+      Post.transaction do
+        @post.update!(reply_to_post_number: nil)
+        PostReply.where(reply_post_id: @post.id).delete_all
+      end
 
       render json: success_json
     end

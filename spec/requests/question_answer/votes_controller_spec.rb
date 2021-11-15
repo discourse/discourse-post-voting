@@ -7,7 +7,15 @@ RSpec.describe QuestionAnswer::VotesController do
   fab!(:topic) { Fabricate(:topic, tags: [tag]) }
   fab!(:qa_post) { Fabricate(:post, topic: topic) } # don't set this as :post
   fab!(:qa_user) { Fabricate(:user) }
-  fab!(:qa_answer) { Fabricate(:post, topic: topic, reply_to_post_number: qa_post.post_number) }
+
+  fab!(:qa_answer) do
+    create_post(
+      raw: "some raw here",
+      topic_id: topic.id,
+      reply_to_post_number: qa_post.post_number
+    )
+  end
+
   fab!(:admin) { Fabricate(:admin) }
   fab!(:category) { Fabricate(:category) }
 
@@ -136,6 +144,7 @@ RSpec.describe QuestionAnswer::VotesController do
 
         expect(response.status).to eq(200)
         expect(qa_answer.reload.reply_to_post_number).to eq(nil)
+        expect(PostReply.exists?(reply_post_id: qa_answer.id)).to eq(false)
       end
     end
 
