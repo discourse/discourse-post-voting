@@ -146,16 +146,17 @@ after_initialize do
   end
 
   TopicView.apply_custom_default_scope do |scope, topic_view|
-    if topic_view.topic.qa_enabled
-      scope = scope
-        .unscope(:order)
-        .order("CASE post_number WHEN 1 THEN 0 ELSE 1 END, qa_vote_count DESC")
-
-      if !topic_view.instance_variable_get(:@replies_to_post_number)
-        scope = scope.where(reply_to_post_number: nil)
-      end
+    if topic_view.topic.qa_enabled &&
+      !topic_view.instance_variable_get(:@replies_to_post_number) &&
+      !topic_view.instance_variable_get(:@post_ids)
 
       scope
+        .unscope(:order)
+        .where(
+          reply_to_post_number: nil,
+          post_type: Post.types[:regular]
+        )
+        .order("CASE post_number WHEN 1 THEN 0 ELSE 1 END, qa_vote_count DESC, post_number ASC")
     else
       scope
     end
