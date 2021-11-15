@@ -17,6 +17,7 @@ import Post from "discourse/models/post";
 function initPlugin(api) {
   const store = api.container.lookup("store:main");
   const currentUser = api.getCurrentUser();
+  const pluginId = "discourse-question-answer";
 
   api.reopenWidget("post-menu", {
     menuItems() {
@@ -137,6 +138,8 @@ function initPlugin(api) {
   });
 
   api.modifyClass("component:composer-actions", {
+    pluginId: pluginId,
+
     @on("init")
     setupPost() {
       const composerPost = this.get("composerModel.post");
@@ -308,6 +311,8 @@ function initPlugin(api) {
   });
 
   api.modifyClass("model:topic", {
+    pluginId: pluginId,
+
     @discourseComputed("qa_enabled")
     showQaTip(qaEnabled) {
       return qaEnabled && this.siteSettings.qa_show_topic_tip;
@@ -315,6 +320,8 @@ function initPlugin(api) {
   });
 
   api.modifyClass("component:topic-footer-buttons", {
+    pluginId: pluginId,
+
     @on("didInsertElement")
     @observes("topic.qa_enabled")
     hideFooterReply() {
