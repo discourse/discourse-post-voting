@@ -48,23 +48,29 @@ function initPlugin(api) {
     },
   });
 
-  api.decorateWidget("post:before", function (helper) {
+  api.decorateWidget("post:after", (helper) => {
     const result = [];
-    const model = helper.getModel();
-    const firstAnswer = helper.widget.model.get("topic.top_answer_id");
+    const post = helper.getModel();
 
-    if (helper.attrs.id === firstAnswer && model.qa_enabled) {
+    if (post && post.qa_enabled && post.post_number === 1) {
       const answerCount = helper.widget.model.get("topic.answer_count");
       const answers = I18n.t("qa.answer_count", { answerCount });
 
       result.push(helper.h("div.qa-answer-count.small-action", answers));
     }
 
+    return result;
+  });
+
+  api.decorateWidget("post:before", function (helper) {
+    const result = [];
+    const model = helper.getModel();
+
     if (
       model &&
+      model.get("qa_enabled") &&
       model.get("post_number") !== 1 &&
-      !model.get("reply_to_post_number") &&
-      model.get("qa_enabled")
+      !model.get("reply_to_post_number")
     ) {
       const qaPost = helper.attach("qa-post", {
         count: model.get("qa_vote_count"),
@@ -80,8 +86,8 @@ function initPlugin(api) {
   api.includePostAttributes("qa_enabled", "topicUserId", "oneToMany");
 
   api.addPostClassesCallback((attrs) => {
-    if (attrs.qa_enabled && attrs.reply_to_post_number) {
-      return ["comment", "show"];
+    if (attrs.qa_enabled) {
+      attrs.reply_to_post_number ? ["qa-comment"] : ["qa-answer"];
     }
   });
 
