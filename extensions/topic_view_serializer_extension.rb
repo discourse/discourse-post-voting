@@ -20,7 +20,7 @@ module QuestionAnswer
     end
 
     def include_top_answer_id?
-      qa_enabled
+      qa_enabled && object.topic.top_answer
     end
 
     def qa_enabled

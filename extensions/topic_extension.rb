@@ -22,11 +22,13 @@ module QuestionAnswer
     end
 
     def top_answer
-      posts
-        .where(reply_to_post_number: nil)
-        .where.not(post_number: 1)
-        .order('qa_vote_count DESC')
-        .first
+      @top_answer ||= begin
+        posts
+          .where(reply_to_post_number: nil)
+          .where.not(post_number: 1)
+          .order('qa_vote_count DESC')
+          .first
+      end
     end
 
     def comments
@@ -120,50 +122,6 @@ module QuestionAnswer
         is_qa_subtype = topic.subtype == 'question'
 
         has_qa_tag || is_qa_category || is_qa_subtype
-      end
-
-      def qa_update_vote_order(topic_id)
-        return unless SiteSetting.qa_enabled
-
-        posts = Post.where(topic_id: topic_id)
-        op = posts.find_by(post_number: 1)
-
-        op.update(sort_order: 1)
-
-        count = 2
-
-        # OP comments
-        op.comments.each do |c|
-          c.update(sort_order: count)
-          count += 1
-        end
-
-        answers = begin
-          posts
-            .where(reply_to_post_number: nil)
-            .where.not(post_number: 1)
-            .order("(
-              SELECT COALESCE ((
-                SELECT value::integer FROM post_custom_fields
-                WHERE post_id = posts.id AND name = 'vote_count'
-              ), 0)
-            ) DESC, post_number ASC")
-        end
-
-        answers.each do |a|
-          a.update(sort_order: count)
-
-          comments = a.comments
-
-          if comments.any?
-            comments.each do |c|
-              count += 1
-              c.update(sort_order: count)
-            end
-          end
-
-          count += 1
-        end
       end
     end
   end

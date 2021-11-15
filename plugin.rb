@@ -17,7 +17,6 @@ after_initialize do
     ../lib/question_answer/engine.rb
     ../lib/question_answer/vote.rb
     ../extensions/category_extension.rb
-    ../extensions/category_custom_field_extension.rb
     ../extensions/guardian_extension.rb
     ../extensions/post_action_type_extension.rb
     ../extensions/post_creator_extension.rb
@@ -25,15 +24,11 @@ after_initialize do
     ../extensions/post_serializer_extension.rb
     ../extensions/topic_extension.rb
     ../extensions/topic_list_item_serializer_extension.rb
-    ../extensions/topic_tag_extension.rb
     ../extensions/topic_view_extension.rb
     ../extensions/topic_view_serializer_extension.rb
     ../app/controllers/question_answer/votes_controller.rb
     ../app/models/question_answer_vote.rb
     ../config/routes.rb
-    ../jobs/update_category_post_order.rb
-    ../jobs/update_topic_post_order.rb
-    ../jobs/qa_update_topics_post_order.rb
   ).each do |path|
     load File.expand_path(path, __FILE__)
   end
@@ -105,14 +100,6 @@ after_initialize do
 
   class ::Category
     include QuestionAnswer::CategoryExtension
-  end
-
-  class ::CategoryCustomField
-    include QuestionAnswer::CategoryCustomFieldExtension
-  end
-
-  class ::TopicTag
-    include QuestionAnswer::TopicTagExtension
   end
 
   # TODO: Performance of the query degrades as the number of posts a user has voted
