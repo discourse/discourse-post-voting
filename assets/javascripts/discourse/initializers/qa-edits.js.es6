@@ -63,7 +63,7 @@ function initPlugin(api) {
     return result;
   });
 
-  api.decorateWidget("post:before", function (helper) {
+  api.decorateWidget("post-avatar:after", function (helper) {
     const result = [];
     const model = helper.getModel();
 
@@ -336,24 +336,6 @@ function initPlugin(api) {
   });
 
   api.reopenWidget("post", {
-    html(attrs) {
-      if (attrs.cloaked) {
-        return "";
-      }
-
-      if (attrs.qa_enabled && !attrs.firstPost) {
-        attrs.replyToUsername = null;
-        if (attrs.reply_to_post_number) {
-          attrs.canCreatePost = false;
-          api.changeWidgetSetting("post-avatar", "size", "small");
-        } else {
-          api.changeWidgetSetting("post-avatar", "size", "large");
-        }
-      }
-
-      return this.attach("post-article", attrs);
-    },
-
     openCommentCompose() {
       this.sendWidgetAction("replyToPost", this.model).then(() => {
         next(this, () => {
