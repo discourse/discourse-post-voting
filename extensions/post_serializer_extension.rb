@@ -38,6 +38,24 @@ module QuestionAnswer
       end
     end
 
+    def comments
+      (@topic_view.comments[object.post_number] || []).map do |post|
+        QaCommentPostSerializer.new(post, scope: scope, root:false).as_json
+      end
+    end
+
+    def include_comments?
+      @topic_view && qa_enabled
+    end
+
+    def comments_count
+      @topic_view.comments_counts&.dig(object.id) || 0
+    end
+
+    def include_comments_count?
+      @topic_view && qa_enabled
+    end
+
     def qa_enabled
       @topic_view ? @topic_view.qa_enabled : object.qa_enabled
     end

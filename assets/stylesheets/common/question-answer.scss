@@ -4,6 +4,55 @@
   box-sizing: border-box;
 }
 
+.qa-comment {
+  width: $topic-body-width;
+  border-top: 1px solid var(--primary-low);
+
+  .qa-comment-post {
+    padding: 0.5em 0;
+
+    .qa-comment-post-info {
+      display: flex;
+      margin-bottom: 1em;
+
+      .qa-comment-post-info-created {
+        display: flex;
+
+        span {
+          flex: 0 0 auto;
+          margin-right: 0;
+          color: var(--primary-med-or-secondary-med);
+        }
+      }
+
+      .qa-comment-post-username {
+        display: flex;
+        margin-right: auto;
+      }
+    }
+  }
+}
+
+.qa-comment-link {
+  margin: 1em 0;
+
+  .qa-comment-seperator {
+    margin: 0 0.8em;
+
+    &::after {
+      content: "|";
+    }
+  }
+
+  .qa-comment-show-more {
+    display: inline;
+  }
+
+  .qa-comment-add {
+    display: inline;
+  }
+}
+
 .qa-button {
   .d-icon {
     margin-right: 0;

@@ -53,11 +53,56 @@ function initPlugin(api) {
     const result = [];
     const post = helper.getModel();
 
-    if (post && post.qa_enabled && post.post_number === 1) {
+    if (post?.qa_enabled && post.post_number === 1) {
       const answerCount = helper.widget.model.get("topic.answer_count");
       const answers = I18n.t("qa.answer_count", { answerCount });
 
       result.push(helper.h("div.qa-answer-count.small-action", answers));
+    }
+
+    return result;
+  });
+
+  api.decorateWidget("post-menu:after", (helper) => {
+    const result = [];
+    const post = helper.getModel();
+
+    if (post && post.qa_enabled && !helper.widget.state.filteredRepliesShown) {
+      const postCommentsLength = post.comments.length;
+
+      const commentLinks = [
+        helper.h("div.qa-comment-add", [
+          helper.attach("link", {
+            className: "qa-comment-add-link",
+            action: "openCommentCompose",
+            contents: () => "Add a comment",
+          }),
+        ]),
+      ];
+
+      if (postCommentsLength > 0) {
+        for (let i = 0; i < postCommentsLength; i++) {
+          result.push(helper.attach("qa-comment", post.comments[i]));
+        }
+
+        const mostPostCount = post.comments_count - postCommentsLength;
+
+        if (mostPostCount > 0) {
+          commentLinks.push(helper.h("span.qa-comment-seperator"));
+
+          commentLinks.push(
+            helper.h("div.qa-comment-show-more", [
+              helper.attach("link", {
+                className: "qa-comment-show-more-link",
+                action: "toggleFilteredRepliesView",
+                contents: () => `Show ${mostPostCount} more comments`,
+              }),
+            ])
+          );
+        }
+      }
+
+      result.push(helper.h("div.qa-comment-link", commentLinks));
     }
 
     return result;
@@ -84,12 +129,17 @@ function initPlugin(api) {
     return result;
   });
 
-  api.includePostAttributes("qa_enabled", "topicUserId", "oneToMany");
+  api.includePostAttributes(
+    "qa_enabled",
+    "topicUserId",
+    "oneToMany",
+    "comments"
+  );
 
   api.addPostClassesCallback((attrs) => {
-    if (attrs.qa_enabled) {
-      attrs.reply_to_post_number ? ["qa-comment"] : ["qa-answer"];
-    }
+    // if (attrs.qa_enabled) {
+    //   attrs.reply_to_post_number ? ["qa-comment"] : ["qa-answer"];
+    // }
   });
 
   api.addPostMenuButton("answer", (attrs) => {
@@ -116,26 +166,26 @@ function initPlugin(api) {
     }
   });
 
-  api.addPostMenuButton("comment", (attrs) => {
-    if (
-      attrs.canCreatePost &&
-      attrs.qa_enabled &&
-      !attrs.reply_to_post_number
-    ) {
-      let args = {
-        action: "openCommentCompose",
-        title: "topic.comment.help",
-        icon: "comment",
-        className: "comment create fade-out",
-      };
-
-      if (!attrs.mobileView) {
-        args.label = "topic.comment.title";
-      }
-
-      return args;
-    }
-  });
+  // api.addPostMenuButton("comment", (attrs) => {
+  //   if (
+  //     attrs.canCreatePost &&
+  //     attrs.qa_enabled &&
+  //     !attrs.reply_to_post_number
+  //   ) {
+  //     let args = {
+  //       action: "openCommentCompose",
+  //       title: "topic.comment.help",
+  //       icon: "comment",
+  //       className: "comment create fade-out",
+  //     };
+  //
+  //     if (!attrs.mobileView) {
+  //       args.label = "topic.comment.title";
+  //     }
+  //
+  //     return args;
+  //   }
+  // });
 
   api.modifyClass("component:composer-actions", {
     pluginId: pluginId,
@@ -233,38 +283,38 @@ function initPlugin(api) {
           );
         }
 
-        if (action.count > 0) {
-          voteLinks.push(
-            this.attach("link", {
-              action: "toggleWhoVoted",
-              rawLabel: `${action.count} ${I18n.t("post.actions.people.vote")}`,
-            })
-          );
-        }
-
-        if (voteLinks.length) {
-          let voteContents = [h("div.vote-links", voteLinks)];
-
-          if (state.voters.length) {
-            voteContents.push(
-              this.attach("small-user-list", {
-                users: state.voters,
-                listClassName: "voters",
-              })
-            );
-          }
-
-          let actionSummaryIndex = contents
-            .map((w) => w && w.name)
-            .indexOf("actions-summary");
-          let insertAt = actionSummaryIndex + 1;
-
-          contents.splice(
-            insertAt - 1,
-            0,
-            h("div.vote-container", voteContents)
-          );
-        }
+        // if (action.count > 0) {
+        //   voteLinks.push(
+        //     this.attach("link", {
+        //       action: "toggleWhoVoted",
+        //       rawLabel: `${action.count} ${I18n.t("post.actions.people.vote")}`,
+        //     })
+        //   );
+        // }
+        //
+        // if (voteLinks.length) {
+        //   let voteContents = [h("div.vote-links", voteLinks)];
+        //
+        //   if (state.voters.length) {
+        //     voteContents.push(
+        //       this.attach("small-user-list", {
+        //         users: state.voters,
+        //         listClassName: "voters",
+        //       })
+        //     );
+        //   }
+        //
+        //   let actionSummaryIndex = contents
+        //     .map((w) => w && w.name)
+        //     .indexOf("actions-summary");
+        //   let insertAt = actionSummaryIndex + 1;
+        //
+        //   contents.splice(
+        //     insertAt - 1,
+        //     0,
+        //     h("div.vote-container", voteContents)
+        //   );
+        // }
       }
 
       return contents;
@@ -518,6 +568,6 @@ export default {
       return;
     }
 
-    withPluginApi("0.8.12", initPlugin);
+    withPluginApi("0.13.0", initPlugin);
   },
 };
