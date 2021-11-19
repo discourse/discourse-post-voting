@@ -1,3 +1,4 @@
+import I18n from "I18n";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import discourseComputed, {
   observes,
@@ -55,30 +56,52 @@ function initPlugin(api) {
 
     if (post?.qa_enabled && post.post_number === 1) {
       const answerCount = helper.widget.model.get("topic.answer_count");
-      const answers = I18n.t("qa.answer_count", { answerCount });
 
-      result.push(helper.h("div.qa-answer-count.small-action", answers));
+      if (answerCount > 0) {
+        const answers = I18n.t("qa.answer_count", { answerCount });
+
+        result.push(helper.h("div.qa-answer-count.small-action", answers));
+      }
     }
 
     return result;
+  });
+
+  api.reopenWidget("post-menu", {
+    openCommentComposer() {
+      const post = this.findAncestorModel();
+
+      this.sendWidgetAction("toggleFilteredRepliesView").then(() => {
+        this.sendWidgetAction("replyToPost", post);
+      });
+    },
   });
 
   api.decorateWidget("post-menu:after", (helper) => {
     const result = [];
     const post = helper.getModel();
 
-    if (post && post.qa_enabled && !helper.widget.state.filteredRepliesShown) {
-      const postCommentsLength = post.comments.length;
+    if (
+      post &&
+      post.qa_enabled &&
+      !post.reply_to_post_number &&
+      !helper.widget.state.filteredRepliesShown
+    ) {
+      const commentLinks = [];
 
-      const commentLinks = [
-        helper.h("div.qa-comment-add", [
-          helper.attach("link", {
-            className: "qa-comment-add-link",
-            action: "openCommentCompose",
-            contents: () => "Add a comment",
-          }),
-        ]),
-      ];
+      if (helper.widget.attrs.canCreatePost) {
+        commentLinks.push(
+          helper.h("div.qa-comment-add", [
+            helper.attach("link", {
+              className: "qa-comment-add-link",
+              action: "openCommentComposer",
+              contents: () => I18n.t("qa.post.add_comment"),
+            }),
+          ])
+        );
+      }
+
+      const postCommentsLength = post.comments?.length || 0;
 
       if (postCommentsLength > 0) {
         for (let i = 0; i < postCommentsLength; i++) {
@@ -95,7 +118,8 @@ function initPlugin(api) {
               helper.attach("link", {
                 className: "qa-comment-show-more-link",
                 action: "toggleFilteredRepliesView",
-                contents: () => `Show ${mostPostCount} more comments`,
+                contents: () =>
+                  I18n.t("qa.post.show_comment", { count: mostPostCount }),
               }),
             ])
           );
@@ -137,9 +161,9 @@ function initPlugin(api) {
   );
 
   api.addPostClassesCallback((attrs) => {
-    // if (attrs.qa_enabled) {
-    //   attrs.reply_to_post_number ? ["qa-comment"] : ["qa-answer"];
-    // }
+    if (attrs.qa_enabled) {
+      return attrs.reply_to_post_number ? ["qa-is-comment"] : ["qa-is-answer"];
+    }
   });
 
   api.addPostMenuButton("answer", (attrs) => {
