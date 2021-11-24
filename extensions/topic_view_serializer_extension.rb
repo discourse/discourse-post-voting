@@ -10,17 +10,8 @@ module QuestionAnswer
         :answer_count,
         :comment_count,
         :last_answer_post_number,
-        :last_answerer,
-        :top_answer_id
+        :last_answerer
       )
-    end
-
-    def top_answer_id
-      object.topic.top_answer.id
-    end
-
-    def include_top_answer_id?
-      qa_enabled && object.topic.top_answer
     end
 
     def qa_enabled
