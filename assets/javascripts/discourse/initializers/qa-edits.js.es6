@@ -12,7 +12,6 @@ import { setAsAnswer, undoVote, whoVoted } from "../lib/qa-utilities";
 import { smallUserAtts } from "discourse/widgets/actions-summary";
 import PostsWithPlaceholders from "discourse/lib/posts-with-placeholders";
 import { next } from "@ember/runloop";
-import transformPost from "discourse/lib/transform-post";
 import Post from "discourse/models/post";
 
 function initPlugin(api) {
@@ -24,48 +23,8 @@ function initPlugin(api) {
     return attrs.qa_enabled;
   });
 
-  api.removePostMenuButton("like", (attrs, _state, siteSettings, settings) => {
-    if (attrs.qa_enabled) {
-      const type = attrs.firstPost
-        ? "questions"
-        : attrs.reply_to_post_number
-        ? "comments"
-        : "answers";
-
-      debugger;
-
-      const disableLikes =
-        siteSettings.qa_disable_like_on_answers ||
-        (category && category[`qa_disable_like_on_${type}`]);
-    }
-  });
-
-  api.reopenWidget("post-menu", {
-    menuItems() {
-      const attrs = this.attrs;
-      let result = this.siteSettings.post_menu.split("|");
-
-      if (attrs.qa_enabled) {
-        const post = this.findAncestorModel();
-        const category = post.topic.category;
-
-        let type = attrs.firstPost
-          ? "questions"
-          : attrs.reply_to_post_number
-          ? "comments"
-          : "answers";
-
-        let disableLikes =
-          this.siteSettings.qa_disable_like_on_answers ||
-          (category && category[`qa_disable_like_on_${type}`]);
-
-        if (disableLikes) {
-          result = result.filter((b) => b !== "like");
-        }
-      }
-
-      return result;
-    },
+  api.removePostMenuButton("like", (attrs) => {
+    return attrs.qa_disable_like;
   });
 
   api.decorateWidget("post:after", (helper) => {
@@ -175,7 +134,8 @@ function initPlugin(api) {
     "qa_enabled",
     "topicUserId",
     "oneToMany",
-    "comments"
+    "comments",
+    "qa_disable_like"
   );
 
   api.addPostClassesCallback((attrs) => {
