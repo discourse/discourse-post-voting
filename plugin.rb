@@ -120,13 +120,17 @@ after_initialize do
   end
 
   add_to_class(:topic_view, :user_voted_posts) do |user|
-    @user_voted_posts ||= begin
+    @user_voted_posts ||= {}
+
+    @user_voted_posts[user.id] ||= begin
       QuestionAnswerVote.where(user: user, post: @posts).distinct.pluck(:post_id)
     end
   end
 
   add_to_class(:topic_view, :user_voted_posts_last_timestamp) do |user|
-    @user_voted_posts_last_timestamp ||= begin
+    @user_voted_posts_last_timestamp ||= {}
+
+    @user_voted_posts_last_timestamp[user.id] ||= begin
       QuestionAnswerVote
         .where(user: user, post: @posts)
         .group(:post_id, :created_at)

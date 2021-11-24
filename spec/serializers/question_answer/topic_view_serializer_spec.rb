@@ -3,77 +3,46 @@
 require 'rails_helper'
 
 describe QuestionAnswer::TopicViewSerializerExtension do
-  fab!(:category) { Fabricate(:category) }
+  fab!(:category) do
+    Fabricate(:category).tap do |c|
+      c.custom_fields["qa_enabled"] = true
+      c.save!
+    end
+  end
+
   fab!(:topic) { Fabricate(:topic, category: category) }
   fab!(:post) { Fabricate(:post, topic: topic) }
+  fab!(:answer) { Fabricate(:post, topic: topic, reply_to_post_number: nil) }
+  fab!(:comment) { Fabricate(:post, reply_to_post_number: answer.post_number, topic: topic) }
   fab!(:user) { Fabricate(:user) }
+  fab!(:guardian) { Guardian.new(user) }
   let(:topic_view) { TopicView.new(topic, user) }
-  let(:create_serializer) do
-    ->() do
-      scope = Guardian.new(user)
 
-      TopicViewSerializer.new(topic_view, scope: scope, root: false).as_json
-    end
-  end
-  let(:new_attrs) do
-    %i[
-      qa_enabled
-      qa_votes
-      qa_can_vote
-      last_answered_at
-      last_commented_on
-      answer_count
-      comment_count
-      last_answer_post_number
-      last_answerer
-    ]
-  end
-  let(:dependent_attrs) do
-    %i[
-      last_answered_at
-      last_commented_on
-      answer_count
-      comment_count
-      last_answer_post_number
-      last_answerer
-    ]
+  before do
+    SiteSetting.qa_enabled = true
   end
 
-  context 'enabled' do
-    before do
-      category.custom_fields['qa_enabled'] = true
-      category.save!
-      category.reload
-    end
+  it 'should return correct values' do
+    payload = TopicViewSerializer.new(topic_view, scope: guardian, root: false).as_json
 
-    it 'should return correct values' do
-      serializer = create_serializer.call
-
-      expect(serializer[:qa_enabled]).to eq(topic_view.qa_enabled)
-
-      %i[
-        last_answered_at
-        last_commented_on
-        answer_count
-        comment_count
-        last_answer_post_number
-      ].each do |attr|
-        expect(serializer[attr]).to eq(topic.send(attr))
-      end
-
-      expect(serializer[:last_answerer][:id]).to eq(topic.last_answerer.id)
-    end
+    expect(payload[:qa_enabled]).to eq(true)
+    expect(payload[:last_answered_at]).to eq(answer.created_at)
+    expect(payload[:last_commented_on]).to eq(comment.created_at)
+    expect(payload[:answer_count]).to eq(1)
+    expect(payload[:last_answer_post_number]).to eq(answer.post_number)
+    expect(payload[:last_answerer][:id]).to eq(answer.user.id)
   end
 
-  context 'disabled' do
-    before { SiteSetting.qa_enabled = false }
+  it 'should not include dependent_attrs when plugin is disabled' do
+    SiteSetting.qa_enabled = false
 
-    it 'should not include dependent_attrs' do
-      serializer = create_serializer.call
+    payload = TopicViewSerializer.new(topic_view, scope: guardian, root: false).as_json
 
-      dependent_attrs.each do |attr|
-        expect(serializer.key?(attr)).to eq(false)
-      end
-    end
+    expect(payload[:qa_enabled]).to eq(nil)
+    expect(payload[:last_answered_at]).to eq(nil)
+    expect(payload[:last_commented_on]).to eq(nil)
+    expect(payload[:answer_count]).to eq(nil)
+    expect(payload[:last_answer_post_number]).to eq(nil)
+    expect(payload[:last_answerer]).to eq(nil)
   end
 end

@@ -49,10 +49,6 @@ describe Topic do
     expect(topic.answers.size).to eq(answers.size)
   end
 
-  it 'should return correct comment_count' do
-    expect(topic.comments.size).to eq(comments.size)
-  end
-
   it 'should return correct last_answered_at' do
     expected = answers.last.created_at
 

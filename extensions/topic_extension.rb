@@ -21,14 +21,14 @@ module QuestionAnswer
       end
     end
 
-    def top_answer
-      @top_answer ||= begin
-        posts
-          .where(reply_to_post_number: nil)
-          .where.not(post_number: 1)
-          .order('qa_vote_count DESC')
-          .first
-      end
+    def answer_count
+      answers.count - 1 ## minus first post
+    end
+
+    def last_answered_at
+      return unless answers.any?
+
+      answers.last[:created_at]
     end
 
     def comments
@@ -39,19 +39,6 @@ module QuestionAnswer
       end
     end
 
-    def answer_count
-      answers.count - 1 ## minus first post
-    end
-
-    def comment_count
-      comments.count
-    end
-
-    def last_answered_at
-      return unless answers.any?
-
-      answers.last[:created_at]
-    end
 
     def last_commented_on
       return unless comments.any?
