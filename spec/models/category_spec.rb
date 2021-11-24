@@ -2,8 +2,9 @@
 
 require 'rails_helper'
 
-describe QuestionAnswer::CategoryExtension do
+describe Category do
   fab!(:category) { Fabricate(:category) }
+
   let(:fields) do
     %w[
       qa_enabled

@@ -2,11 +2,12 @@
 
 require 'rails_helper'
 
-describe QuestionAnswer::PostExtension do
+describe Post do
   fab!(:user1) { Fabricate(:user) }
   fab!(:user2) { Fabricate(:user) }
   fab!(:user3) { Fabricate(:user) }
-  fab!(:post) { Fabricate(:post_with_long_raw_content) }
+  fab!(:post) { Fabricate(:post) }
+  fab!(:tag) { Fabricate(:tag, name: 'qa') }
   let(:up) { QuestionAnswer::Vote::UP }
   let(:create) { QuestionAnswer::Vote::CREATE }
   let(:destroy) { QuestionAnswer::Vote::DESTROY }
@@ -16,9 +17,35 @@ describe QuestionAnswer::PostExtension do
       QuestionAnswer::Vote.vote(post, user, { direction: up, action: create })
     end
   end
+
   let(:undo_vote) do
     ->(user) do
       QuestionAnswer::Vote.vote(post, user, { direction: up, action: destroy })
+    end
+  end
+
+  before do
+    SiteSetting.qa_enabled = true
+    SiteSetting.qa_tags = "#{tag.name}"
+  end
+
+  context "validation" do
+    it "ensures that comments are only nested one level deep" do
+      post.topic.tags << tag
+
+      post_2 = Fabricate(:post, reply_to_post_number: post.post_number, topic: post.topic)
+
+      post_3 = Fabricate.build(:post,
+        reply_to_post_number: post_2.post_number,
+        topic: post.topic,
+        user: post_2.user
+      )
+
+      expect(post_3.valid?).to eq(false)
+
+      expect(post_3.errors.full_messages).to contain_exactly(
+        I18n.t("post.qa.errors.depth")
+      )
     end
   end
 

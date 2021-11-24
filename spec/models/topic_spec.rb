@@ -6,7 +6,7 @@ Fabricator(:comment, from: :post) do
   reply_to_post_number
 end
 
-describe QuestionAnswer::TopicExtension do
+describe Topic do
   fab!(:user) { Fabricate(:user) }
   fab!(:category) { Fabricate(:category) }
   fab!(:topic) { Fabricate(:topic, category: category) }
