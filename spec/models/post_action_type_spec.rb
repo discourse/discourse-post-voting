@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe QuestionAnswer::PostActionTypeExtension do
+describe PostActionType do
   it 'should recognize vote action' do
     expect(PostActionType.types[:vote]).to eq(100)
   end
