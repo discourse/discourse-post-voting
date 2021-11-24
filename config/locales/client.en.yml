@@ -83,4 +83,5 @@ en:
           one: Show %{count} more comment
           other: Show %{count} more comments
       answer_count: "{{answerCount}} Answers"
+      comments_count: "{{commentsCount}} Comments"
       set_as_answer: "Move to Answers"

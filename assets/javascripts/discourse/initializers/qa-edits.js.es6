@@ -27,17 +27,39 @@ function initPlugin(api) {
     return attrs.qa_disable_like;
   });
 
-  api.decorateWidget("post:after", (helper) => {
+  api.decorateWidget("post:before", (helper) => {
     const result = [];
     const post = helper.getModel();
 
-    if (post?.qa_enabled && post.post_number === 1) {
-      const answerCount = helper.widget.model.get("topic.answer_count");
+    if (post.qa_enabled && post.id === post.topic.postStream.stream[1]) {
+      const topicController = helper.widget.register.lookup("controller:topic");
 
-      if (answerCount > 0) {
-        const answers = I18n.t("qa.answer_count", { answerCount });
+      if (topicController.replies_to_post_number) {
+        const commentsCount = post.topic
+          .get("postStream")
+          .postForPostNumber(
+            parseInt(topicController.replies_to_post_number, 10)
+          ).comments_count;
 
-        result.push(helper.h("div.qa-answer-count.small-action", answers));
+        if (commentsCount > 0) {
+          result.push(
+            helper.h(
+              "div.qa-comments-count.small-action",
+              I18n.t("qa.comments_count", { commentsCount })
+            )
+          );
+        }
+      } else {
+        const answerCount = post.topic.answer_count;
+
+        if (answerCount > 0) {
+          result.push(
+            helper.h(
+              "div.qa-answer-count.small-action",
+              I18n.t("qa.answer_count", { answerCount })
+            )
+          );
+        }
       }
     }
 
@@ -49,7 +71,18 @@ function initPlugin(api) {
       const post = this.findAncestorModel();
 
       this.sendWidgetAction("toggleFilteredRepliesView").then(() => {
-        this.sendWidgetAction("replyToPost", post);
+        this.sendWidgetAction("replyToPost", post).then(() => {
+          next(this, () => {
+            // FIXME: We have to do this because core on the client side does not allow
+            // a post to be a reply to the first post. We need to do this to
+            // support comments on the first post.
+            const composer = api.container.lookup("controller:composer");
+
+            if (!composer.model.post) {
+              composer.model.set("post", post);
+            }
+          });
+        });
       });
     },
   });
