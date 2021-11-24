@@ -185,7 +185,7 @@ after_initialize do
     WHERE post_replies.post_id IN (#{post_ids.join(",")})
     SQL
 
-    Post.where("id IN (#{comment_post_ids_sql})").each do |post|
+    Post.where("id IN (#{comment_post_ids_sql})").order(post_number: :asc).each do |post|
       topic_view.comments[post.reply_to_post_number] ||= []
       topic_view.comments[post.reply_to_post_number] << post
     end
