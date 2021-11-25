@@ -39,8 +39,6 @@ function initPlugin(api) {
           ? 2
           : 1;
 
-      console.log(positionInStream);
-
       if (post.id === post.topic.postStream.stream[positionInStream]) {
         if (topicController.replies_to_post_number) {
           const commentsCount = post.topic

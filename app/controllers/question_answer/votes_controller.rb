@@ -72,12 +72,15 @@ module QuestionAnswer
       render json: success_json
     end
 
+    VOTERS_LIMIT = 20
+
     def voters
-      # TODO: Need to paginate
       # TODO: Probably a site setting to hide/show voters
       voters = User
         .joins(:question_answer_votes)
         .where(question_answer_votes: { post_id: @post.id })
+        .order("question_answer_votes.created_at DESC")
+        .limit(VOTERS_LIMIT)
 
       render_json_dump(
         voters: serialize_data(voters, BasicUserSerializer)

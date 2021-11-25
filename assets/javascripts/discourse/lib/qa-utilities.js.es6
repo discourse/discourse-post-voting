@@ -1,8 +1,6 @@
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import { ajax } from "discourse/lib/ajax";
 
-const voteActionId = 100;
-
 const vote = function (type, data) {
   return ajax("/qa/vote", {
     type,
@@ -34,4 +32,4 @@ export function setAsAnswer(post) {
   }).catch(popupAjaxError);
 }
 
-export { undoVote, castVote, voteActionId, whoVoted };
+export { undoVote, castVote, whoVoted };

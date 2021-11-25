@@ -5,7 +5,8 @@ require 'rails_helper'
 RSpec.describe QuestionAnswer::VotesController do
   fab!(:tag) { Fabricate(:tag) }
   fab!(:topic) { Fabricate(:topic, tags: [tag]) }
-  fab!(:qa_post) { Fabricate(:post, topic: topic) } # don't set this as :post
+  fab!(:qa_post) { Fabricate(:post, topic: topic) }
+  fab!(:qa_post_2) { Fabricate(:post, topic: topic) }
   fab!(:qa_user) { Fabricate(:user) }
 
   fab!(:qa_answer) do
@@ -111,27 +112,38 @@ RSpec.describe QuestionAnswer::VotesController do
   end
 
   describe '#voters' do
-    before { sign_in(qa_user) }
+    fab!(:user) { Fabricate(:user) }
+
+    it 'should return the right response for an anon user' do
+      get '/qa/voters.json', params: { post_id: qa_post.id }
+
+      expect(response.status).to eq(403)
+    end
 
     it 'should return the right response if post does not exist' do
+      sign_in(qa_user)
+
       get '/qa/voters.json', params: { post_id: -1 }
 
       expect(response.status).to eq(404)
     end
 
-    it 'should return correct users' do
-      post '/qa/vote.json', params: { post_id: qa_post.id }
+    it 'should return correct users respecting limits' do
+      sign_in(qa_user)
 
-      expect(response.status).to eq(200)
+      QuestionAnswerVote.create!(post: qa_post, user: user)
+      QuestionAnswerVote.create!(post: qa_post, user: qa_user)
+      QuestionAnswerVote.create!(post: qa_post_2, user: user)
 
-      get '/qa/voters.json', params: { post_id: qa_post.id }
+      stub_const(QuestionAnswer::VotesController, "VOTERS_LIMIT", 1) do
+        get '/qa/voters.json', params: { post_id: qa_post.id }
+      end
 
       expect(response.status).to eq(200)
 
       parsed = JSON.parse(response.body)
 
-      expect(parsed['voters'].map { |u| u['id'] })
-        .to contain_exactly(qa_user.id)
+      expect(parsed['voters'].map { |u| u['id'] }).to contain_exactly(qa_user.id)
     end
   end
 
