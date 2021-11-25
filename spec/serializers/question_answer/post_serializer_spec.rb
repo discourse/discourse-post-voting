@@ -50,46 +50,6 @@ describe QuestionAnswer::PostSerializerExtension do
       expect(serializer[:qa_enabled]).to eq(true)
     end
 
-    describe '#actions_summary' do
-      let(:get_summary) do
-        ->(g = guardian) do
-          serializer = create_serializer.call(g)
-
-          serializer[:actions_summary]
-            .find { |x| x[:id] == PostActionType.types[:vote] }
-        end
-      end
-
-      it 'should not include qa action if has no votes and not logged in' do
-        g = Guardian.new
-
-        expect(get_summary.call(g)).to eq(nil)
-      end
-
-      it 'should include qa action if not logged in but has votes' do
-        g = Guardian.new
-        vote.call(user)
-
-        expect(get_summary.call(g)).to be_truthy
-      end
-
-      it 'should include qa summary if has votes' do
-        vote.call(user)
-
-        expect(get_summary.call).to be_truthy
-      end
-
-      it 'should can_act if never voted' do
-        expect(get_summary.call[:can_act]).to eq(true)
-      end
-
-      it 'should acted if voted' do
-        vote.call(user)
-
-        expect(get_summary.call[:acted]).to eq(true)
-      end
-    end
-
     it 'should return correct value from post' do
       QuestionAnswer::Vote.vote(post, user, { direction: up, action: create })
 
