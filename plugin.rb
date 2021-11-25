@@ -23,7 +23,6 @@ after_initialize do
     ../extensions/post_serializer_extension.rb
     ../extensions/topic_extension.rb
     ../extensions/topic_list_item_serializer_extension.rb
-    ../extensions/topic_view_extension.rb
     ../extensions/topic_view_serializer_extension.rb
     ../app/controllers/question_answer/votes_controller.rb
     ../app/models/question_answer_vote.rb
@@ -85,8 +84,6 @@ after_initialize do
   class ::TopicView
     attr_accessor :comments,
                   :comments_counts
-
-    prepend QuestionAnswer::TopicViewExtension
   end
 
   class ::TopicViewSerializer
@@ -110,6 +107,10 @@ after_initialize do
 
   add_to_serializer(:user_card, :vote_count) do
     object.vote_count
+  end
+
+  add_to_class(:topic_view, :qa_enabled) do
+    @qa_enabled ||= @topic.qa_enabled
   end
 
   add_to_class(:topic_view, :user_voted_posts) do |user|
