@@ -18,7 +18,6 @@ after_initialize do
     ../lib/question_answer/vote.rb
     ../extensions/category_extension.rb
     ../extensions/guardian_extension.rb
-    ../extensions/post_action_type_extension.rb
     ../extensions/post_creator_extension.rb
     ../extensions/post_extension.rb
     ../extensions/post_serializer_extension.rb
@@ -77,12 +76,6 @@ after_initialize do
 
   class ::Post
     include QuestionAnswer::PostExtension
-  end
-
-  PostActionType.types[:vote] = 100
-
-  class ::PostActionType
-    singleton_class.prepend QuestionAnswer::PostActionTypeExtension
   end
 
   class ::Topic
