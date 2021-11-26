@@ -8,7 +8,7 @@ import { h } from "virtual-dom";
 import { avatarFor } from "discourse/widgets/post";
 import { dateNode, numberNode } from "discourse/helpers/node";
 import { REPLY } from "discourse/models/composer";
-import { setAsAnswer, undoVote, whoVoted } from "../lib/qa-utilities";
+import { setAsAnswer } from "../lib/qa-utilities";
 import PostsWithPlaceholders from "discourse/lib/posts-with-placeholders";
 import { next } from "@ember/runloop";
 import Post from "discourse/models/post";
@@ -176,7 +176,7 @@ function initPlugin(api) {
     "oneToMany",
     "comments",
     "qa_disable_like",
-    "qa_user_voted"
+    "qa_user_voted_direction"
   );
 
   api.addPostClassesCallback((attrs) => {

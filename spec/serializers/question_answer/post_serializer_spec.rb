@@ -7,18 +7,17 @@ describe QuestionAnswer::PostSerializerExtension do
   fab!(:category) { Fabricate(:category) }
   fab!(:topic) { Fabricate(:topic, category: category) }
   fab!(:post) { Fabricate(:post, topic: topic) }
-  let(:up) { QuestionAnswer::Vote::UP }
-  let(:create) { QuestionAnswer::Vote::CREATE }
-  let(:destroy) { QuestionAnswer::Vote::DESTROY }
+  let(:up) { QuestionAnswerVote.directions[:up] }
+
   let(:guardian) { Guardian.new(user) }
   let(:vote) do
     ->(u) do
-      QuestionAnswer::Vote.vote(post, u, { direction: up, action: create })
+      QuestionAnswer::VoteManager.vote(post, u, direction: up)
     end
   end
   let(:undo_vote) do
     ->(u) do
-      QuestionAnswer::Vote.vote(post, u, { direction: up, action: destroy })
+      QuestionAnswer::VoteManager.remove_vote(post, u)
     end
   end
   let(:create_serializer) do
@@ -51,7 +50,7 @@ describe QuestionAnswer::PostSerializerExtension do
     end
 
     it 'should return correct value from post' do
-      QuestionAnswer::Vote.vote(post, user, { direction: up, action: create })
+      QuestionAnswer::VoteManager.vote(post, user, direction: up)
 
       serialized = PostSerializer.new(post, scope: guardian, root: false).as_json
 

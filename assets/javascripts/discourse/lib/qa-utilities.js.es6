@@ -5,10 +5,10 @@ const vote = function (type, data) {
   return ajax("/qa/vote", {
     type,
     data,
-  }).catch(popupAjaxError);
+  });
 };
 
-const undoVote = function (data) {
+const removeVote = function (data) {
   return vote("DELETE", data);
 };
 
@@ -32,4 +32,4 @@ export function setAsAnswer(post) {
   }).catch(popupAjaxError);
 }
 
-export { undoVote, castVote, whoVoted };
+export { removeVote, castVote, whoVoted };

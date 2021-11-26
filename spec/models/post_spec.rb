@@ -8,25 +8,12 @@ describe Post do
   fab!(:user3) { Fabricate(:user) }
   fab!(:post) { Fabricate(:post) }
   fab!(:tag) { Fabricate(:tag, name: 'qa') }
-  let(:up) { QuestionAnswer::Vote::UP }
-  let(:create) { QuestionAnswer::Vote::CREATE }
-  let(:destroy) { QuestionAnswer::Vote::DESTROY }
+  let(:up) { QuestionAnswerVote.directions[:up] }
   let(:users) { [user1, user2, user3] }
-  let(:vote) do
-    ->(user) do
-      QuestionAnswer::Vote.vote(post, user, { direction: up, action: create })
-    end
-  end
-
-  let(:undo_vote) do
-    ->(user) do
-      QuestionAnswer::Vote.vote(post, user, { direction: up, action: destroy })
-    end
-  end
 
   before do
     SiteSetting.qa_enabled = true
-    SiteSetting.qa_tags = "#{tag.name}"
+    SiteSetting.qa_tags = tag.name
   end
 
   context "validation" do
@@ -53,28 +40,11 @@ describe Post do
     expect(Post.ignored_columns.include?("vote_count")).to eq(true)
   end
 
-  it 'should return the post vote count correctly' do
-    # no one voted
-    expect(post.qa_vote_count).to eq(0)
-
-    users.each do |u|
-      vote.call(u)
-    end
-
-    expect(post.qa_vote_count).to eq(users.size)
-
-    users.each do |u|
-      undo_vote.call(u)
-    end
-
-    expect(post.qa_vote_count).to eq(0)
-  end
-
   it 'should return last voted correctly' do
     freeze_time do
       expect(post.qa_last_voted(user1.id)).to eq(nil)
 
-      vote.call(user1)
+      QuestionAnswer::VoteManager.vote(post, user1)
 
       expect(post.qa_last_voted(user1.id)).to eq_time(Time.zone.now)
     end
@@ -83,7 +53,7 @@ describe Post do
   it 'should return qa_can_vote correctly' do
     expect(post.qa_can_vote(user1.id)).to eq(true)
 
-    vote.call(user1)
+    QuestionAnswer::VoteManager.vote(post, user1)
 
     expect(post.qa_can_vote(user1.id)).to eq(false)
 

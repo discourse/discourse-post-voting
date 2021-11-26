@@ -1,8 +1,9 @@
 import { createWidget } from "discourse/widgets/widget";
-import { castVote, whoVoted } from "../lib/qa-utilities";
+import { removeVote, castVote, whoVoted } from "../lib/qa-utilities";
 import { h } from "virtual-dom";
 import { smallUserAtts } from "discourse/widgets/actions-summary";
 import { iconNode } from "discourse-common/lib/icon-library";
+import { popupAjaxError } from "discourse/lib/ajax-error";
 
 export default createWidget("qa-post", {
   tagName: "div.qa-post",
@@ -23,7 +24,7 @@ export default createWidget("qa-post", {
     const contents = [
       this.attach("qa-button", {
         direction: "up",
-        voted: attrs.post.qa_user_voted,
+        voted: attrs.post.qa_user_voted_direction == "up",
       }),
     ];
     const voteCount = attrs.post.qa_vote_count;
@@ -40,7 +41,7 @@ export default createWidget("qa-post", {
       if (state.voters.length > 0) {
         contents.push(
           h(".qa-post-list", [
-            h("span.qa-post-list-icon", iconNode("angle-up")),
+            h("span.qa-post-list-icon", iconNode("caret-up")),
             h("span.qa-post-list-count", `${voteCount}`),
             this.attach("small-user-list", {
               users: state.voters,
@@ -55,7 +56,18 @@ export default createWidget("qa-post", {
           contents.push(this.attach("span", "and ${countDiff} more users..."));
         }
       }
+    } else {
+      contents.push(
+        h("span.qa-post-toggle-voters", `${attrs.post.qa_vote_count || 0}`)
+      );
     }
+
+    contents.push(
+      this.attach("qa-button", {
+        direction: "down",
+        voted: attrs.post.qa_user_voted_direction == "down",
+      })
+    );
 
     return contents;
   },
@@ -88,21 +100,59 @@ export default createWidget("qa-post", {
     });
   },
 
-  vote(direction) {
-    const user = this.currentUser;
+  removeVote(direction) {
+    const post = this.attrs.post;
+    const countChange = direction === "up" ? -1 : 1;
 
-    if (!user) {
+    post.setProperties({
+      qa_user_voted_direction: null,
+      qa_vote_count: post.qa_vote_count + countChange,
+    });
+
+    const voteCount = post.qa_vote_count;
+
+    removeVote({ post_id: post.id }).catch((error) => {
+      post.setProperties({
+        qa_user_voted_direction: direction,
+        qa_vote_count: voteCount - countChange,
+      });
+
+      this.scheduleRerender();
+
+      popupAjaxError(error);
+    });
+  },
+
+  vote(direction) {
+    if (!this.currentUser) {
       return this.sendShowLogin();
     }
 
     const post = this.attrs.post;
 
     let vote = {
-      user_id: user.id,
       post_id: post.id,
       direction,
     };
 
-    castVote({ vote });
+    const countChange = direction === "up" ? 1 : -1;
+
+    this.attrs.post.setProperties({
+      qa_user_voted_direction: direction,
+      qa_vote_count: post.qa_vote_count + countChange,
+    });
+
+    const voteCount = post.qa_vote_count;
+
+    castVote(vote).catch(() => {
+      post.setProperties({
+        qa_user_voted_direction: null,
+        qa_vote_count: voteCount - countChange,
+      });
+
+      this.scheduleRerender();
+
+      popupAjaxError(error);
+    });
   },
 });

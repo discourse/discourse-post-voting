@@ -22,12 +22,12 @@ describe Topic do
       )
     end.sort_by(&:created_at)
   end
-  let(:up) { QuestionAnswer::Vote::UP }
-  let(:create) { QuestionAnswer::Vote::CREATE }
-  let(:destroy) { QuestionAnswer::Vote::DESTROY }
+
+  let(:up) { QuestionAnswerVote.directions[:up] }
+
   let(:vote) do
     -> (post, u) do
-      QuestionAnswer::Vote.vote(post, u, direction: up, action: create)
+      QuestionAnswer::VoteManager.vote(post, u, direction: up)
     end
   end
 

@@ -70,6 +70,14 @@
     border: 1px solid var(--primary-low);
   }
 
+  .qa-post-list-voters {
+    display: flex;
+
+    a {
+      margin-left: 0.5em;
+    }
+  }
+
   .qa-post-list-count,
   .qa-post-list-icon {
     margin: 0.15em 0.25em 0 0.25em;
@@ -80,6 +88,7 @@
   .qa-button {
     .d-icon {
       margin-right: 0;
+      font-size: $font-up-3;
     }
 
     &.qa-button-voted {
@@ -92,6 +101,7 @@
   .qa-button,
   .qa-post-toggle-voters {
     background: $secondary;
+    padding: 0.25em 0.5em;
 
     &:hover {
       background: dark-light-diff($primary, $secondary, 65%, -75%);

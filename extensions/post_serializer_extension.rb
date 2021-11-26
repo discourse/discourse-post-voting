@@ -20,11 +20,11 @@ module QuestionAnswer
       @topic_view && qa_enabled
     end
 
-    def qa_user_voted
-      @topic_view.posts_user_voted.include?(object.id)
+    def qa_user_voted_direction
+      @topic_view.posts_user_voted[object.id]
     end
 
-    def include_qa_user_voted?
+    def include_qa_user_voted_direction?
       @topic_view && qa_enabled && @topic_view.posts_user_voted.present?
     end
 

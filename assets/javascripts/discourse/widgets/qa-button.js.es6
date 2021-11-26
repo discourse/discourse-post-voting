@@ -11,6 +11,10 @@ export default createWidget("qa-button", {
       result.push("qa-button-upvote");
     }
 
+    if (attrs.direction === "down") {
+      result.push("qa-button-downvote");
+    }
+
     if (attrs.voted) {
       result.push("qa-button-voted");
     }
@@ -23,6 +27,9 @@ export default createWidget("qa-button", {
   },
 
   click() {
-    this.sendWidgetAction("vote", this.attrs.direction);
+    this.sendWidgetAction(
+      this.attrs.voted ? "removeVote" : "vote",
+      this.attrs.direction
+    );
   },
 });

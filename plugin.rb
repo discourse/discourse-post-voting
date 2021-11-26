@@ -15,7 +15,7 @@ enabled_site_setting :qa_enabled
 after_initialize do
   %w(
     ../lib/question_answer/engine.rb
-    ../lib/question_answer/vote.rb
+    ../lib/question_answer/vote_manager.rb
     ../extensions/category_extension.rb
     ../extensions/guardian_extension.rb
     ../extensions/post_creator_extension.rb
@@ -64,7 +64,7 @@ after_initialize do
   class ::PostSerializer
     attributes :qa_vote_count,
                :qa_enabled,
-               :qa_user_voted,
+               :qa_user_voted_direction,
                :comments,
                :comments_count
 
@@ -202,11 +202,16 @@ after_initialize do
       topic_view.comments_counts[result.post_id] = result.comments_count
     end
 
+    topic_view.posts_user_voted = {}
+
     if topic_view.guardian.user
-      topic_view.posts_user_voted =
-        QuestionAnswerVote
-          .where(user: topic_view.guardian.user, post_id: post_ids)
-          .pluck(:post_id)
+      QuestionAnswerVote
+        .where(user: topic_view.guardian.user, post_id: post_ids)
+        .pluck(:post_id, :direction)
+        .each do |post_id, direction|
+
+        topic_view.posts_user_voted[post_id] = direction
+      end
     end
   end
 

@@ -131,9 +131,9 @@ RSpec.describe QuestionAnswer::VotesController do
     it 'should return correct users respecting limits' do
       sign_in(qa_user)
 
-      QuestionAnswerVote.create!(post: qa_post, user: user)
-      QuestionAnswerVote.create!(post: qa_post, user: qa_user)
-      QuestionAnswerVote.create!(post: qa_post_2, user: user)
+      Fabricate(:qa_vote, post: qa_post, user: user)
+      Fabricate(:qa_vote, post: qa_post, user: qa_user)
+      Fabricate(:qa_vote, post: qa_post_2, user: user)
 
       stub_const(QuestionAnswer::VotesController, "VOTERS_LIMIT", 1) do
         get '/qa/voters.json', params: { post_id: qa_post.id }
