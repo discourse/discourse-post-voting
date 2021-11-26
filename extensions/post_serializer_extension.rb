@@ -20,6 +20,14 @@ module QuestionAnswer
       @topic_view && qa_enabled
     end
 
+    def qa_user_voted
+      @topic_view.posts_user_voted.include?(object.id)
+    end
+
+    def include_qa_user_voted?
+      @topic_view && qa_enabled && @topic_view.posts_user_voted.present?
+    end
+
     def qa_disable_like
       return true if SiteSetting.qa_disable_like_on_answers
       return !!category.qa_disable_like_on_questions if object.post_number == 1

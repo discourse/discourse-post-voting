@@ -11,11 +11,15 @@ export default createWidget("qa-button", {
       result.push("qa-button-upvote");
     }
 
+    if (attrs.voted) {
+      result.push("qa-button-voted");
+    }
+
     return result;
   },
 
   html(attrs) {
-    return iconNode(`angle-${attrs.direction}`);
+    return iconNode(`caret-${attrs.direction}`);
   },
 
   click() {

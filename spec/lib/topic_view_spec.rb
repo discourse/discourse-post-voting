@@ -9,16 +9,19 @@ describe TopicView do
   fab!(:post) { create_post(topic: topic) }
 
   fab!(:answer) { create_post(topic: topic) }
+  fab!(:answer_2) { create_post(topic: topic) }
   fab!(:comment) { create_post(topic: topic, reply_to_post_number: answer.post_number) }
   fab!(:comment_2) { create_post(topic: topic, reply_to_post_number: answer.post_number) }
   fab!(:comment_3) { create_post(topic: topic, reply_to_post_number: 1) }
+  fab!(:vote) { QuestionAnswerVote.create!(post: answer, user: user) }
+  fab!(:vote_2) { QuestionAnswerVote.create!(post: answer_2, user: user) }
 
   before do
     SiteSetting.qa_enabled = true
-    SiteSetting.qa_tags = "#{tag.name}"
+    SiteSetting.qa_tags = tag.name
   end
 
-  it "should preload comments and comments count correctly" do
+  it "should preload comments, comments count and user voted status correctly" do
     topic_view = TopicView.new(topic, user)
 
     expect(topic_view.comments[answer.post_number].map(&:id))
@@ -29,5 +32,7 @@ describe TopicView do
 
     expect(topic_view.comments_counts[answer.id]).to eq(2)
     expect(topic_view.comments_counts[post.id]).to eq(1)
+
+    expect(topic_view.posts_user_voted).to contain_exactly(answer.id, answer_2.id)
   end
 end

@@ -175,7 +175,8 @@ function initPlugin(api) {
     "topicUserId",
     "oneToMany",
     "comments",
-    "qa_disable_like"
+    "qa_disable_like",
+    "qa_user_voted"
   );
 
   api.addPostClassesCallback((attrs) => {

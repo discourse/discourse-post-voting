@@ -64,6 +64,7 @@ after_initialize do
   class ::PostSerializer
     attributes :qa_vote_count,
                :qa_enabled,
+               :qa_user_voted,
                :comments,
                :comments_count
 
@@ -83,7 +84,8 @@ after_initialize do
 
   class ::TopicView
     attr_accessor :comments,
-                  :comments_counts
+                  :comments_counts,
+                  :posts_user_voted
   end
 
   class ::TopicViewSerializer
@@ -157,6 +159,7 @@ after_initialize do
     topic_view.comments = {}
 
     post_ids = topic_view.posts.pluck(:id)
+    post_ids_sql = post_ids.join(",")
 
     comment_post_ids_sql = <<~SQL
     SELECT
@@ -176,7 +179,7 @@ after_initialize do
       ) X
       WHERE X.post_id = post_replies.reply_post_id
     ) Y ON true
-    WHERE post_replies.post_id IN (#{post_ids.join(",")})
+    WHERE post_replies.post_id IN (#{post_ids_sql})
     SQL
 
     Post.where("id IN (#{comment_post_ids_sql})").order(post_number: :asc).each do |post|
@@ -189,7 +192,7 @@ after_initialize do
       post_replies.post_id,
       COUNT(*) AS comments_count
     FROM post_replies
-    WHERE post_replies.post_id IN (#{post_ids.join(",")})
+    WHERE post_replies.post_id IN (#{post_ids_sql})
     GROUP BY post_replies.post_id
     SQL
 
@@ -197,6 +200,13 @@ after_initialize do
 
     DB.query(comments_counts_sql).each do |result|
       topic_view.comments_counts[result.post_id] = result.comments_count
+    end
+
+    if topic_view.guardian.user
+      topic_view.posts_user_voted =
+        QuestionAnswerVote
+          .where(user: topic_view.guardian.user, post_id: post_ids)
+          .pluck(:post_id)
     end
   end
 

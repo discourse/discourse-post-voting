@@ -20,7 +20,12 @@ export default createWidget("qa-post", {
   },
 
   html(attrs, state) {
-    const contents = [this.attach("qa-button", { direction: "up" })];
+    const contents = [
+      this.attach("qa-button", {
+        direction: "up",
+        voted: attrs.post.qa_user_voted,
+      }),
+    ];
     const voteCount = attrs.post.qa_vote_count;
 
     if (voteCount > 0) {
