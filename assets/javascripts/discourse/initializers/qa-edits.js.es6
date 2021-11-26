@@ -4,17 +4,13 @@ import discourseComputed, {
   observes,
   on,
 } from "discourse-common/utils/decorators";
-import { h } from "virtual-dom";
-import { avatarFor } from "discourse/widgets/post";
-import { dateNode, numberNode } from "discourse/helpers/node";
+// import { avatarFor } from "discourse/widgets/post";
+// import { dateNode, numberNode } from "discourse/helpers/node";
 import { REPLY } from "discourse/models/composer";
 import { setAsAnswer } from "../lib/qa-utilities";
-import PostsWithPlaceholders from "discourse/lib/posts-with-placeholders";
 import { next } from "@ember/runloop";
-import Post from "discourse/models/post";
 
 function initPlugin(api) {
-  const store = api.container.lookup("store:main");
   const currentUser = api.getCurrentUser();
   const pluginId = "discourse-question-answer";
 
@@ -332,18 +328,18 @@ function initPlugin(api) {
     },
   });
 
-  function renderParticipants(userFilters, participants) {
-    if (!participants) {
-      return;
-    }
-
-    userFilters = userFilters || [];
-    return participants.map((p) => {
-      return this.attach("topic-participant", p, {
-        state: { toggled: userFilters.includes(p.username) },
-      });
-    });
-  }
+  // function renderParticipants(userFilters, participants) {
+  //   if (!participants) {
+  //     return;
+  //   }
+  //
+  //   userFilters = userFilters || [];
+  //   return participants.map((p) => {
+  //     return this.attach("topic-participant", p, {
+  //       state: { toggled: userFilters.includes(p.username) },
+  //     });
+  //   });
+  // }
 
   // Disable this function override and figure out how we can extend this in core
   // api.reopenWidget("topic-map-summary", {
@@ -485,7 +481,7 @@ function initPlugin(api) {
     setAsAnswer() {
       const post = this.findAncestorModel();
 
-      setAsAnswer(post).then((result) => {
+      setAsAnswer(post).then(() => {
         location.reload();
       });
     },

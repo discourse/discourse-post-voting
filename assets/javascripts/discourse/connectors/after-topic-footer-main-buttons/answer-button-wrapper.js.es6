@@ -11,7 +11,7 @@ export default {
     let showCreateAnswer =
       qaEnabled &&
       canCreatePost &&
-      (!oneToMany || topic.user_id == currentUser.id);
+      (!oneToMany || topic.user_id === currentUser.id);
     let label;
     let title;
 

@@ -1,5 +1,5 @@
 import { createWidget } from "discourse/widgets/widget";
-import { removeVote, castVote, whoVoted } from "../lib/qa-utilities";
+import { castVote, removeVote, whoVoted } from "../lib/qa-utilities";
 import { h } from "virtual-dom";
 import { smallUserAtts } from "discourse/widgets/actions-summary";
 import { iconNode } from "discourse-common/lib/icon-library";
@@ -24,7 +24,7 @@ export default createWidget("qa-post", {
     const contents = [
       this.attach("qa-button", {
         direction: "up",
-        voted: attrs.post.qa_user_voted_direction == "up",
+        voted: attrs.post.qa_user_voted_direction === "up",
       }),
     ];
     const voteCount = attrs.post.qa_vote_count;
@@ -65,7 +65,7 @@ export default createWidget("qa-post", {
     contents.push(
       this.attach("qa-button", {
         direction: "down",
-        voted: attrs.post.qa_user_voted_direction == "down",
+        voted: attrs.post.qa_user_voted_direction === "down",
       })
     );
 
@@ -144,7 +144,7 @@ export default createWidget("qa-post", {
 
     const voteCount = post.qa_vote_count;
 
-    castVote(vote).catch(() => {
+    castVote(vote).catch((error) => {
       post.setProperties({
         qa_user_voted_direction: null,
         qa_vote_count: voteCount - countChange,
