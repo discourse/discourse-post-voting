@@ -13,9 +13,9 @@ describe TopicView do
   fab!(:comment) { create_post(topic: topic, reply_to_post_number: answer.post_number) }
   fab!(:comment_2) { create_post(topic: topic, reply_to_post_number: answer.post_number) }
   fab!(:comment_3) { create_post(topic: topic, reply_to_post_number: 1) }
-  fab!(:vote) { Fabricate(:qa_vote, post: answer, user: user) }
+  let(:vote) { Fabricate(:qa_vote, post: answer, user: user) }
 
-  fab!(:vote_2) do
+  let(:vote_2) do
     Fabricate(:qa_vote,
       post: answer_2,
       user: user,
@@ -26,6 +26,8 @@ describe TopicView do
   before do
     SiteSetting.qa_enabled = true
     SiteSetting.qa_tags = tag.name
+    vote
+    vote_2
   end
 
   it "should preload comments, comments count and user voted status correctly" do

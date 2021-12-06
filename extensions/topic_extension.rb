@@ -17,6 +17,7 @@ module QuestionAnswer
       @answers ||= begin
         posts
           .where(reply_to_post_number: nil)
+          .where.not(post_number: 1)
           .order(post_number: :asc)
       end
     end

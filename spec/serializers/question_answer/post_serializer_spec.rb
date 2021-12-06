@@ -6,32 +6,17 @@ describe QuestionAnswer::PostSerializerExtension do
   fab!(:user) { Fabricate(:user) }
   fab!(:category) { Fabricate(:category) }
   fab!(:topic) { Fabricate(:topic, category: category) }
-  fab!(:post) { Fabricate(:post, topic: topic) }
+  fab!(:post) { Fabricate(:post, topic: topic, post_number: 1) }
+  fab!(:answer) { Fabricate(:post, topic: topic, post_number: 2) }
+  fab!(:comment) { create_post(topic: topic, reply_to_post_number: answer.post_number) }
+  let(:topic_view) { TopicView.new(topic, user) }
   let(:up) { QuestionAnswerVote.directions[:up] }
-
   let(:guardian) { Guardian.new(user) }
-  let(:vote) do
-    ->(u) do
-      QuestionAnswer::VoteManager.vote(post, u, direction: up)
-    end
-  end
-  let(:undo_vote) do
-    ->(u) do
-      QuestionAnswer::VoteManager.remove_vote(post, u)
-    end
-  end
-  let(:create_serializer) do
-    ->(g = guardian) do
-      PostSerializer.new(
-        post,
-        scope: g,
-        root: false
-      ).as_json
-    end
-  end
 
-  let(:dependent_keys) do
-    %i[last_answerer last_answered_at answer_count last_answer_post_number]
+  let(:serialized) do
+    serializer = PostSerializer.new(answer, scope: guardian, root: false)
+    serializer.topic_view = topic_view
+    serializer.as_json
   end
 
   context 'qa enabled' do
@@ -41,33 +26,24 @@ describe QuestionAnswer::PostSerializerExtension do
       category.reload
     end
 
-    it 'should qa_enabled' do
-      serializer = create_serializer.call
-
-      expect(serializer[:qa_enabled]).to eq(true)
-    end
-
-    it 'should return correct value from post' do
-      QuestionAnswer::VoteManager.vote(post, user, direction: up)
-
-      serialized = PostSerializer.new(post, scope: guardian, root: false).as_json
+    it 'should return the right attributes' do
+      QuestionAnswer::VoteManager.vote(answer, user, direction: up)
 
       expect(serialized[:qa_vote_count]).to eq(1)
+      expect(serialized[:qa_user_voted_direction]).to eq(up)
       expect(serialized[:qa_enabled]).to eq(true)
+      expect(serialized[:comments_count]).to eq(1)
+      expect(serialized[:comments].first[:id]).to eq(comment.id)
     end
   end
 
   context 'qa disabled' do
-    it 'should not qa_enabled' do
-      serializer = create_serializer.call
-
-      expect(serializer[:qa_enabled]).to eq(false)
-    end
-
     it 'should not include dependent_keys' do
-      dependent_keys.each do |k|
-        expect(create_serializer.call.has_key?(k)).to eq(false)
-      end
+      expect(serialized[:qa_vote_count]).to eq(nil)
+      expect(serialized[:qa_user_voted_direction]).to eq(nil)
+      expect(serialized[:comments_count]).to eq(nil)
+      expect(serialized[:comments]).to eq(nil)
+      expect(serialized[:qa_enabled]).to eq(false)
     end
   end
 end

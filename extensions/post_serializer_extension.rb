@@ -2,6 +2,24 @@
 
 module QuestionAnswer
   module PostSerializerExtension
+    def self.included(base)
+      base.attributes(
+        :qa_vote_count,
+        :qa_enabled,
+        :qa_user_voted_direction,
+        :comments,
+        :comments_count
+      )
+    end
+
+    def qa_vote_count
+      object.qa_vote_count
+    end
+
+    def include_qa_vote_count?
+      qa_enabled
+    end
+
     def comments
       (@topic_view.comments[object.post_number] || []).map do |post|
         QaCommentPostSerializer.new(post, scope: scope, root:false).as_json

@@ -50,13 +50,7 @@ after_initialize do
   end
 
   class ::PostSerializer
-    attributes :qa_vote_count,
-               :qa_enabled,
-               :qa_user_voted_direction,
-               :comments,
-               :comments_count
-
-    prepend QuestionAnswer::PostSerializerExtension
+    include QuestionAnswer::PostSerializerExtension
   end
 
   register_post_custom_field_type('vote_history', :json)

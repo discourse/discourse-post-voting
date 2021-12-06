@@ -4,9 +4,16 @@ require 'rails_helper'
 
 describe QuestionAnswer::VoteManager do
   fab!(:user)  { Fabricate(:user) }
-  fab!(:post)  { Fabricate(:post) }
+  fab!(:post)  { Fabricate(:post, post_number: 2) }
+  fab!(:tag)  { Fabricate(:tag) }
   fab!(:up) { QuestionAnswerVote.directions[:up] }
   fab!(:down) { QuestionAnswerVote.directions[:down] }
+
+  before do
+    SiteSetting.qa_enabled = true
+    SiteSetting.qa_tags = tag.name
+    post.topic.tags << tag
+  end
 
   describe '.vote' do
     it 'can create an upvote' do

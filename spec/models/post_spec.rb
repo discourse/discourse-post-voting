@@ -6,7 +6,7 @@ describe Post do
   fab!(:user1) { Fabricate(:user) }
   fab!(:user2) { Fabricate(:user) }
   fab!(:user3) { Fabricate(:user) }
-  fab!(:post) { Fabricate(:post) }
+  fab!(:post) { Fabricate(:post, post_number: 2) }
   fab!(:tag) { Fabricate(:tag, name: 'qa') }
   let(:up) { QuestionAnswerVote.directions[:up] }
   let(:users) { [user1, user2, user3] }
@@ -14,12 +14,11 @@ describe Post do
   before do
     SiteSetting.qa_enabled = true
     SiteSetting.qa_tags = tag.name
+    post.topic.tags << tag
   end
 
   context "validation" do
     it "ensures that comments are only nested one level deep" do
-      post.topic.tags << tag
-
       post_2 = Fabricate(:post, reply_to_post_number: post.post_number, topic: post.topic)
 
       post_3 = Fabricate.build(:post,
