@@ -138,6 +138,16 @@ after_initialize do
     end
   end
 
+  TopicList.on_preload do |topics|
+    Category.preload_custom_fields(topics.map(&:category), %w[
+      qa_enabled
+      qa_disable_like_on_answers
+      qa_disable_like_on_questions
+      qa_disable_like_on_comments
+    ])
+  end
+
+
   TopicView.on_preload do |topic_view|
     topic_view.comments = {}
 

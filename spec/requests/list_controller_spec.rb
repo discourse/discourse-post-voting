@@ -30,11 +30,6 @@ describe ListController do
     non_qa = topics.find { |t| t["id"] == topic.id }
 
     expect(qa["last_read_post_number"]).to eq(nil)
-    expect(qa["qa_enabled"]).to eq(true)
-    expect(qa["answer_count"]).to eq(1)
-
-    expect(non_qa["qa_enabled"]).to eq(nil)
-    expect(non_qa["answer_count"]).to eq(nil)
     expect(non_qa["last_read_post_number"]).to eq(2)
   end
 
@@ -54,11 +49,6 @@ describe ListController do
     non_qa = topics.find { |t| t["id"] == topic.id }
 
     expect(qa["last_read_post_number"]).to eq(2)
-    expect(qa["qa_enabled"]).to eq(nil)
-    expect(qa["answer_count"]).to eq(nil)
-
     expect(non_qa["qa_enabled"]).to eq(nil)
-    expect(non_qa["answer_count"]).to eq(nil)
-    expect(non_qa["last_read_post_number"]).to eq(2)
   end
 end
