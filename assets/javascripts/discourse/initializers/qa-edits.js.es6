@@ -203,27 +203,6 @@ function initPlugin(api) {
     }
   });
 
-  // api.addPostMenuButton("comment", (attrs) => {
-  //   if (
-  //     attrs.canCreatePost &&
-  //     attrs.qa_enabled &&
-  //     !attrs.reply_to_post_number
-  //   ) {
-  //     let args = {
-  //       action: "openCommentCompose",
-  //       title: "topic.comment.help",
-  //       icon: "comment",
-  //       className: "comment create fade-out",
-  //     };
-  //
-  //     if (!attrs.mobileView) {
-  //       args.label = "topic.comment.title";
-  //     }
-  //
-  //     return args;
-  //   }
-  // });
-
   api.modifyClass("component:composer-actions", {
     pluginId: pluginId,
 
