@@ -12,7 +12,6 @@ describe QuestionAnswer::TopicViewSerializerExtension do
 
   fab!(:topic) { Fabricate(:topic, category: category) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
-  fab!(:post) { Fabricate(:post, topic: topic) }
   fab!(:answer) { Fabricate(:post, topic: topic, reply_to_post_number: nil) }
   fab!(:comment) { Fabricate(:post, reply_to_post_number: answer.post_number, topic: topic) }
   fab!(:user) { Fabricate(:user) }

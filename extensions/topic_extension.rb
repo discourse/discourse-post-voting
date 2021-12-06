@@ -23,7 +23,7 @@ module QuestionAnswer
     end
 
     def answer_count
-      answers.count - 1 ## minus first post
+      answers.count
     end
 
     def last_answered_at

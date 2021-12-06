@@ -12,7 +12,7 @@ module QuestionAnswer
     end
 
     def include_qa_enabled?
-      Topic.qa_enabled object
+      object.qa_enabled
     end
 
     def answer_count
@@ -21,6 +21,21 @@ module QuestionAnswer
 
     def include_answer_count?
       include_qa_enabled?
+    end
+
+    # For Q&A topics, we always want to link to the first post because timeline
+    # ordering is not consistent with last unread.
+    def last_read_post_number
+      return nil if include_qa_enabled?
+      super
+    end
+
+    def include_last_read_post_number?
+      if include_qa_enabled?
+        true
+      else
+        super
+      end
     end
   end
 end
