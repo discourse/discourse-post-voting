@@ -27,7 +27,7 @@ module QuestionAnswer
     end
 
     def last_answered_at
-      return unless answers.any?
+      return unless answers.present?
 
       answers.last[:created_at]
     end
@@ -42,7 +42,7 @@ module QuestionAnswer
 
 
     def last_commented_on
-      return unless comments.any?
+      return unless comments.present?
 
       comments.last[:created_at]
     end
