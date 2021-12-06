@@ -167,7 +167,6 @@ function initPlugin(api) {
   api.includePostAttributes(
     "qa_enabled",
     "topicUserId",
-    "oneToMany",
     "comments",
     "qa_disable_like",
     "qa_user_voted_direction"
@@ -180,13 +179,8 @@ function initPlugin(api) {
   });
 
   api.addPostMenuButton("answer", (attrs) => {
-    if (
-      attrs.canCreatePost &&
-      attrs.qa_enabled &&
-      attrs.firstPost &&
-      (!attrs.oneToMany || attrs.topicUserId === currentUser.id)
-    ) {
-      let postType = attrs.oneToMany ? "one_to_many" : "answer";
+    if (attrs.canCreatePost && attrs.qa_enabled && attrs.firstPost) {
+      let postType = "answer";
 
       let args = {
         action: "replyToPost",

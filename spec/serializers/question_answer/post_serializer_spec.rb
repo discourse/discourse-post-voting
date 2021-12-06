@@ -37,8 +37,6 @@ describe QuestionAnswer::PostSerializerExtension do
   context 'qa enabled' do
     before do
       category.custom_fields['qa_enabled'] = true
-      category.custom_fields['qa_one_to_many'] = true
-
       category.save!
       category.reload
     end

@@ -17,8 +17,6 @@ after_initialize do
     ../lib/question_answer/engine.rb
     ../lib/question_answer/vote_manager.rb
     ../extensions/category_extension.rb
-    ../extensions/guardian_extension.rb
-    ../extensions/post_creator_extension.rb
     ../extensions/post_extension.rb
     ../extensions/post_serializer_extension.rb
     ../extensions/topic_extension.rb
@@ -39,7 +37,6 @@ after_initialize do
 
   %w[
     qa_enabled
-    qa_one_to_many
     qa_disable_like_on_answers
     qa_disable_like_on_questions
     qa_disable_like_on_comments
@@ -50,15 +47,6 @@ after_initialize do
     if Site.respond_to?(:preloaded_category_custom_fields)
       Site.preloaded_category_custom_fields << key
     end
-  end
-
-  class ::Guardian
-    attr_accessor :post_opts
-    prepend QuestionAnswer::GuardianExtension
-  end
-
-  class ::PostCreator
-    prepend QuestionAnswer::PostCreatorExtension
   end
 
   class ::PostSerializer
