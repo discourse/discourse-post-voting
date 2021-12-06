@@ -112,7 +112,9 @@ after_initialize do
   end
 
   add_to_class(:topic_view, :qa_enabled) do
-    @qa_enabled ||= @topic.qa_enabled
+    return @qa_enabled if defined?(@qa_enabled)
+
+    @qa_enabled = @topic.qa_enabled
   end
 
   add_to_class(:topic_view, :user_voted_posts) do |user|
