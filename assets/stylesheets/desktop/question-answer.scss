@@ -88,7 +88,7 @@
   .qa-button {
     .d-icon {
       margin-right: 0;
-      font-size: $font-up-3;
+      font-size: var(--font-up-3);
     }
 
     &.qa-button-voted {
@@ -100,12 +100,12 @@
 
   .qa-button,
   .qa-post-toggle-voters {
-    background: $secondary;
+    background: var(--secondary);
     padding: 0.25em 0.5em;
 
     &:hover {
       background: dark-light-diff($primary, $secondary, 65%, -75%);
-      color: $secondary;
+      color: var(--secondary);
     }
   }
 }
