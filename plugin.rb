@@ -24,7 +24,6 @@ after_initialize do
     ../extensions/topic_view_serializer_extension.rb
     ../app/controllers/question_answer/votes_controller.rb
     ../app/models/question_answer_vote.rb
-    ../app/serializers/qa_comment_post_serializer.rb
     ../config/routes.rb
   ).each do |path|
     load File.expand_path(path, __FILE__)

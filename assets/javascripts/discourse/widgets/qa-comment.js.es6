@@ -1,6 +1,7 @@
 import { createWidget } from "discourse/widgets/widget";
 import { h } from "virtual-dom";
 import { dateNode } from "discourse/helpers/node";
+import RawHtml from "discourse/widgets/raw-html";
 
 export default createWidget("qa-comment", {
   tagName: "div.qa-comment",
@@ -15,7 +16,12 @@ export default createWidget("qa-comment", {
             dateNode(new Date(attrs.created_at))
           ),
         ]),
-        h("div.qa-comment-post-body", attrs.excerpt),
+        h(
+          "div.qa-comment-post-body",
+          new RawHtml({
+            html: attrs.cooked,
+          })
+        ),
       ]),
     ];
   },
