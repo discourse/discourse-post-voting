@@ -29,9 +29,6 @@ plugins:
   qa_tl4_vote_limit:
     default: 4
     client: true
-  qa_tl_allow_multiple_votes_per_post:
-    default: false
-    client: true
   qa_blacklist_tags:
     type: list
     default: ""

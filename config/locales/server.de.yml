@@ -10,7 +10,6 @@ de:
     qa_tl2_vote_limit: "Maximale Anzahl an Stimmen für Nutzer mit Vertrauensstufe 2"
     qa_tl3_vote_limit: "Maximale Anzahl an Stimmen für Nutzer mit Vertrauensstufe 3"
     qa_tl4_vote_limit: "Maximale Anzahl an Stimmen für Nutzer mit Vertrauensstufe 4"
-    qa_tl_allow_multiple_votes_per_post: "Erlaube, dass Nutzer mehrfach für einen Beitrag stimmen dürfen."
     qa_blacklist_tags: "Schlagwörter, die QnA für ein Thema deaktivieren"
 
   post_action_types:
