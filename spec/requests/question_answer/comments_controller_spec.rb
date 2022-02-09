@@ -75,6 +75,7 @@ RSpec.describe QuestionAnswer::CommentsController do
       expect(comment["username"]).to eq(comment_2.user.username)
       expect(comment["created_at"].present?).to eq(true)
       expect(comment["cooked"]).to eq(comment_2.cooked)
+      expect(comment["user_voted"]).to eq(false)
 
       comment = payload["comments"].last
 

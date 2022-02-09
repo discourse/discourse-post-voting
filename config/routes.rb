@@ -4,6 +4,8 @@ QuestionAnswer::Engine.routes.draw do
   resource :vote
   get 'voters' => 'votes#voters'
   post 'set_as_answer' => 'votes#set_as_answer'
+  post 'vote/comment' => 'votes#create_comment_vote'
+  delete 'vote/comment' => 'votes#destroy_comment_vote'
 
   get "comments" => 'comments#load_more_comments'
   post "comments" => 'comments#create'
