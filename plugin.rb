@@ -194,6 +194,7 @@ after_initialize do
     topic_view.comments_counts = QuestionAnswerComment.where(post_id: post_ids).group(:post_id).count
 
     topic_view.posts_user_voted = {}
+    topic_view.comments_user_voted = {}
 
     if topic_view.guardian.user
       QuestionAnswerVote
@@ -202,6 +203,16 @@ after_initialize do
         .each do |post_id, direction|
 
         topic_view.posts_user_voted[post_id] = direction
+      end
+
+      QuestionAnswerVote
+        .joins("INNER JOIN question_answer_comments qa_comments ON qa_comments.id = question_answer_votes.votable_id")
+        .where(user: topic_view.guardian.user, votable_type: 'QuestionAnswerComment')
+        .where("qa_comments.post_id IN (?)", post_ids)
+        .pluck(:votable_id)
+        .each do |votable_id|
+
+        topic_view.comments_user_voted[votable_id] = true
       end
     end
 

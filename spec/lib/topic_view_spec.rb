@@ -45,7 +45,10 @@ describe TopicView do
     expect(topic_view.posts_user_voted).to eq(nil)
   end
 
-  it "should preload comments, comments count and user voted status for a given topic" do
+  it "should preload comments, comments count, user voted status for a given topic" do
+    QuestionAnswer::VoteManager.vote(comment, user)
+    QuestionAnswer::VoteManager.vote(comment_2, comment_2.user)
+
     topic_view = TopicView.new(topic, user)
 
     expect(topic_view.comments[answer.id].map(&:id)).to contain_exactly(comment.id, comment_2.id)
@@ -57,6 +60,10 @@ describe TopicView do
     expect(topic_view.posts_user_voted).to eq({
       answer.id => QuestionAnswerVote.directions[:up],
       answer_2.id => QuestionAnswerVote.directions[:down]
+    })
+
+    expect(topic_view.comments_user_voted).to eq({
+      comment.id => true
     })
   end
 
