@@ -26,10 +26,5 @@ class AddPolymorphicColumnsToQuestionAnswerVotes < ActiveRecord::Migration[6.1]
 
   def down
     raise ActiveRecord::IrreversibleMigration
-    # remove_column :question_answer_votes, :votable_type
-    # remove_column :question_answer_votes, :votable_id
-    # add_column :question_answer_votes, :post_id, :integer, null: false
-    # add_index :question_answer_votes, [:post_id, :user_id], unique: true
-    # remove_index :question_answer_votes, [:votable_type, :votable_id, :user_id], name: 'idx_votable_user_id'
   end
 end
