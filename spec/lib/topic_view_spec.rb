@@ -13,11 +13,11 @@ describe TopicView do
   let(:comment) { Fabricate(:qa_comment, post: answer) }
   let(:comment_2) { Fabricate(:qa_comment, post: answer) }
   let(:comment_3) { Fabricate(:qa_comment, post: post) }
-  let(:vote) { Fabricate(:qa_vote, post: answer, user: user) }
+  let(:vote) { Fabricate(:qa_vote, votable: answer, user: user) }
 
   let(:vote_2) do
     Fabricate(:qa_vote,
-      post: answer_2,
+      votable: answer_2,
       user: user,
       direction: QuestionAnswerVote.directions[:down]
     )

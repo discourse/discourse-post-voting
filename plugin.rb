@@ -126,8 +126,8 @@ after_initialize do
     @user_voted_posts_last_timestamp[user.id] ||= begin
       QuestionAnswerVote
         .where(user: user, post: @posts)
-        .group(:post_id, :created_at)
-        .pluck(:post_id, :created_at)
+        .group(:votable_id, :created_at)
+        .pluck(:votable_id, :created_at)
     end
   end
 
@@ -197,8 +197,8 @@ after_initialize do
 
     if topic_view.guardian.user
       QuestionAnswerVote
-        .where(user: topic_view.guardian.user, post_id: post_ids)
-        .pluck(:post_id, :direction)
+        .where(user: topic_view.guardian.user, votable_type: 'Post', votable_id: post_ids)
+        .pluck(:votable_id, :direction)
         .each do |post_id, direction|
 
         topic_view.posts_user_voted[post_id] = direction
@@ -206,7 +206,7 @@ after_initialize do
     end
 
     topic_view.posts_voted_on =
-      QuestionAnswerVote.where(post_id: post_ids).distinct.pluck(:post_id)
+      QuestionAnswerVote.where(votable_type: 'Post', votable_id: post_ids).distinct.pluck(:votable_id)
   end
 
   SiteSetting.enable_filtered_replies_view = true

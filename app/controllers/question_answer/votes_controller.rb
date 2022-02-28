@@ -72,7 +72,7 @@ module QuestionAnswer
       # TODO: Probably a site setting to hide/show voters
       voters = User
         .joins(:question_answer_votes)
-        .where(question_answer_votes: { post_id: @post.id })
+        .where(question_answer_votes: { votable_id: @post.id, votable_type: 'Post' })
         .order("question_answer_votes.created_at DESC")
         .select("users.*", "question_answer_votes.direction")
         .limit(VOTERS_LIMIT)

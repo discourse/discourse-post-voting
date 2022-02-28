@@ -53,7 +53,7 @@ RSpec.describe QuestionAnswer::VotesController do
 
       vote = answer.question_answer_votes.first
 
-      expect(vote.post_id).to eq(answer.id)
+      expect(vote.votable_id).to eq(answer.id)
       expect(vote.user_id).to eq(qa_user.id)
     end
 
@@ -78,7 +78,7 @@ RSpec.describe QuestionAnswer::VotesController do
 
       vote = answer.question_answer_votes.first
 
-      expect(vote.post_id).to eq(answer.id)
+      expect(vote.votable_id).to eq(answer.id)
       expect(vote.user_id).to eq(qa_user.id)
 
       delete '/qa/vote.json', params: { post_id: answer.id }
@@ -133,20 +133,20 @@ RSpec.describe QuestionAnswer::VotesController do
       sign_in(qa_user)
 
       Fabricate(:qa_vote,
-        post: answer,
+        votable: answer,
         user: Fabricate(:user),
         direction: QuestionAnswerVote.directions[:down]
       )
 
-      Fabricate(:qa_vote, post: answer, user: user)
+      Fabricate(:qa_vote, votable: answer, user: user)
 
       Fabricate(:qa_vote,
-        post: answer,
+        votable: answer,
         user: qa_user,
         direction: QuestionAnswerVote.directions[:down]
       )
 
-      Fabricate(:qa_vote, post: answer_2, user: user)
+      Fabricate(:qa_vote, votable: answer_2, user: user)
 
       stub_const(QuestionAnswer::VotesController, "VOTERS_LIMIT", 2) do
         get '/qa/voters.json', params: { post_id: answer.id }
