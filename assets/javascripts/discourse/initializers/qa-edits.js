@@ -1,7 +1,8 @@
 import I18n from "I18n";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
-const ORDER_BY_ACTIVITY_FILTER = "activity";
+export const ORDER_BY_ACTIVITY_FILTER = "activity";
+const pluginId = "discourse-question-answer";
 
 function initPlugin(api) {
   api.registerCustomPostMessageCallback(
@@ -38,7 +39,7 @@ function initPlugin(api) {
   });
 
   api.modifyClass("model:post-stream", {
-    pluginId: "discourse-question-answer",
+    pluginId,
 
     orderStreamByActivity() {
       this.cancelFilter();
@@ -57,7 +58,7 @@ function initPlugin(api) {
       this._topicController()
         .model.postStream.orderStreamByVotes()
         .then(() => {
-          this._topicController().updateQueryParams();
+          this._refreshController();
         });
     },
 
@@ -65,8 +66,13 @@ function initPlugin(api) {
       this._topicController()
         .model.postStream.orderStreamByActivity()
         .then(() => {
-          this._topicController().updateQueryParams();
+          this._refreshController();
         });
+    },
+
+    _refreshController() {
+      this._topicController().updateQueryParams();
+      this._topicController().appEvents.trigger("qa-topic-updated");
     },
 
     _topicController() {

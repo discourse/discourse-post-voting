@@ -224,11 +224,21 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
       "sort by votes button is disabled by default"
     );
 
+    assert.ok(
+      !!document.querySelector("body.qa-topic"),
+      "appends the right class to body when loading Q&A topic"
+    );
+
     await click(".qa-answers-headers-sort-activity");
 
     assert.ok(
       filteredByActivity,
       "refreshes post stream with the right filter"
+    );
+
+    assert.ok(
+      !!document.querySelector("body.qa-topic-sort-by-activity"),
+      "appends the right class to body when topic is filtered by activity"
     );
 
     assert.ok(
@@ -241,6 +251,11 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     assert.ok(
       query(".qa-answers-headers-sort-votes[disabled=true]"),
       "disables sort by votes button"
+    );
+
+    assert.ok(
+      !!document.querySelector("body.qa-topic"),
+      "appends the right class to body when topic is filtered by votes"
     );
 
     assert.notOk(
