@@ -1,3 +1,4 @@
+import discourseComputed from "discourse-common/utils/decorators";
 import I18n from "I18n";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { readOnly } from "@ember/object/computed";
@@ -51,6 +52,29 @@ function initPlugin(api) {
     orderStreamByVotes() {
       this.cancelFilter();
       return this.refreshAndJumptoSecondVisible();
+    },
+  });
+
+  api.modifyClass("model:topic", {
+    pluginId,
+
+    @discourseComputed("last_read_post_number", "highest_post_number", "url")
+    lastUnreadUrl(lastReadPostNumber, highestPostNumber) {
+      if (this.qa_enabled) {
+        if (highestPostNumber <= lastReadPostNumber) {
+          // link to OP if no unread
+          return this.urlForPostNumber(1);
+        } else if (lastReadPostNumber === highestPostNumber - 1) {
+          return this.urlForPostNumber(lastReadPostNumber + 1);
+        } else {
+          // sort by activity if user has 2+ unread posts
+          return `${this.urlForPostNumber(
+            lastReadPostNumber + 1
+          )}?filter=activity`;
+        }
+      }
+
+      return this._super(...arguments);
     },
   });
 
