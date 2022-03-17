@@ -20,6 +20,8 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
+  padding: 0.5em;
+  padding-right: 0;
 
   .qa-answers-headers-count {
     font-size: var(--font-up-1);
@@ -51,6 +53,10 @@
       cursor: default;
     }
   }
+}
+
+.qa-comments {
+  width: 100%;
 }
 
 .qa-comment {
@@ -140,11 +146,11 @@
       margin-left: 0.5em;
     }
   }
-}
 
-.qa-comment:hover {
-  .qa-comment-actions {
-    display: inline-block;
+  &:hover {
+    .qa-comment-actions {
+      display: inline-block;
+    }
   }
 }
 
@@ -181,6 +187,18 @@
 
 .qa-post {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5em;
+
+  .qa-button {
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    font-size: var(--font-up-5);
+  }
+
   .qa-post-list {
     position: absolute;
     top: 4em;
@@ -224,30 +242,5 @@
     background: var(--secondary);
     padding-top: 0;
     padding-bottom: 0;
-  }
-}
-
-/// FROM DESKTOP
-
-.qa-answers-header {
-  padding: 0.5em;
-  padding-right: 0;
-}
-
-.qa-comments {
-  width: 100%;
-}
-
-.qa-post {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 0.5em;
-
-  .qa-button {
-    padding-top: 0.1em;
-    padding-bottom: 0.1em;
-    font-size: var(--font-up-5);
   }
 }

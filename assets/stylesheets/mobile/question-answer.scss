@@ -1,24 +1,26 @@
-.qa-answers-header {
-  padding-top: 0;
-  padding-bottom: 1em;
-  border-top: none;
-  border-bottom: 1px solid var(--primary-low);
-  margin-bottom: 1em;
-}
+.qa-is-answer {
+  .qa-answers-header {
+    padding: 0;
+    padding-bottom: 1em;
+    border-top: none;
+    border-bottom: 1px solid var(--primary-low);
+    margin-bottom: 1em;
+  }
+  .topic-avatar {
+    position: relative;
+  }
 
-.qa-is-answer .topic-avatar {
-  position: relative;
+  // TODO: avoid using magic values here
+  // and in .qa-post below
+  .topic-body .cooked {
+    margin-left: 55px;
+    min-height: 55px;
+  }
 }
 
 .qa-post {
-  background-color: var(--secondary);
   position: absolute;
   left: 0px;
   top: 45px;
   width: 45px;
-}
-
-.qa-is-answer .topic-body .cooked {
-  margin-left: 55px;
-  min-height: 55px;
 }
