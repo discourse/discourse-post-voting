@@ -201,14 +201,16 @@
 
   .qa-post-list {
     position: absolute;
-    top: 4em;
-    box-shadow: shadow("card");
+    z-index: 2;
     background-color: var(--secondary);
+    border: 1px solid var(--primary-low);
+    box-shadow: shadow("card");
     display: flex;
     flex-direction: column;
+    top: 4em;
     padding: 0.5em;
-    border: 1px solid var(--primary-low);
-    z-index: 2;
+    max-width: 90vw;
+    overflow: auto;
 
     .qa-post-list-voters-wrapper {
       display: flex;
@@ -239,7 +241,6 @@
   }
 
   .qa-post-toggle-voters {
-    background: var(--secondary);
     padding-top: 0;
     padding-bottom: 0;
   }
