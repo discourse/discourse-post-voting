@@ -24,7 +24,7 @@ describe Topic do
 
   context "validations" do
     describe '#subtype' do
-      it "should not allow Q&A formated topics to be created when qa_enabled site setting is not enabled" do
+      it "should not allow Q&A formatted topics to be created when qa_enabled site setting is not enabled" do
         SiteSetting.qa_enabled = false
 
         topic = Fabricate.build(:topic, archetype: Archetype.default, subtype: Topic::QA_SUBTYPE)
