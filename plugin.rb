@@ -87,12 +87,6 @@ after_initialize do
     object.vote_count
   end
 
-  add_to_class(:topic_view, :qa_enabled) do
-    return @qa_enabled if defined?(@qa_enabled)
-
-    @qa_enabled = @topic.qa_enabled
-  end
-
   add_to_class(:topic_view, :user_voted_posts) do |user|
     @user_voted_posts ||= {}
 
@@ -113,7 +107,7 @@ after_initialize do
   end
 
   TopicView.apply_custom_default_scope do |scope, topic_view|
-    if topic_view.topic.qa_enabled &&
+    if topic_view.topic.is_qa? &&
       !topic_view.instance_variable_get(:@replies_to_post_number) &&
       !topic_view.instance_variable_get(:@post_ids)
 
@@ -135,7 +129,7 @@ after_initialize do
   end
 
   TopicView.on_preload do |topic_view|
-    next if !topic_view.qa_enabled
+    next if !topic_view.topic.is_qa?
 
     topic_view.comments = {}
 

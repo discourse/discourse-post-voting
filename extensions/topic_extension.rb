@@ -60,10 +60,6 @@ module QuestionAnswer
       @last_answerer ||= User.find(answers.last[:user_id])
     end
 
-    def qa_enabled
-      Topic.qa_enabled(self)
-    end
-
     def is_qa?
       @is_qa ||= SiteSetting.qa_enabled && self.subtype == Topic::QA_SUBTYPE
     end
@@ -80,15 +76,6 @@ module QuestionAnswer
           .joins("INNER JOIN posts ON posts.id = question_answer_votes.votable_id")
           .where(user: user, votable_type: 'Post')
           .where("posts.topic_id = ?", topic.id)
-      end
-
-      def qa_enabled(topic)
-        return false unless SiteSetting.qa_enabled
-        return false if !topic
-        return false if topic.category && topic.category.topic_id == topic.id
-
-        tags = topic.tags.map(&:name)
-        !(tags & SiteSetting.qa_tags.split('|')).empty?
       end
     end
 
