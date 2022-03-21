@@ -196,4 +196,21 @@ after_initialize do
     topic_view.posts_voted_on =
       QuestionAnswerVote.where(votable_type: 'Post', votable_id: post_ids).distinct.pluck(:votable_id)
   end
+
+  add_permitted_post_create_param(:create_as_qa)
+
+  # TODO: Core should be exposing the following as proper plugin interfaces.
+  NewPostManager.add_plugin_payload_attribute(:subtype)
+  TopicSubtype.register(Topic::QA_SUBTYPE)
+
+  NewPostManager.add_handler do |manager|
+    if !manager.args[:topic_id] &&
+      manager.args[:create_as_qa] == 'true' &&
+      (manager.args[:archetype].blank? || manager.args[:archetype] == Archetype.default)
+
+      manager.args[:subtype] = Topic::QA_SUBTYPE
+    end
+
+    false
+  end
 end
