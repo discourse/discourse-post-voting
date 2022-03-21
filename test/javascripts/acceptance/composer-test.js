@@ -59,7 +59,7 @@ acceptance("Discourse Question Answer - composer", function (needs) {
     assert.notStrictEqual(
       query(".action-title").textContent.trim(),
       I18n.t("composer.create_qa.label"),
-      "revets to original composer title when Q&A format is disabled"
+      "reverts to original composer title when Q&A format is disabled"
     );
 
     await composerActionTitle.expand();
