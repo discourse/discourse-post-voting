@@ -33,14 +33,20 @@ en:
       other: answers
     qa:
       post:
-        submit_comment: "comment"
-        edit_comment: "edit"
-        cancel_comment: "cancel"
-        add_comment: "Add a comment"
-        show_comment:
-          one: Show %{count} more comment
-          other: Show %{count} more comments
-        delete_comment_confirm: "Are you sure you want to delete this comment?"
+        qa_comment:
+          composer:
+            too_short: "Enter at least %{count} characters"
+            length_ok: "%{count} characters left..."
+            too_long: "Comment cannot be longer than %{count} characters"
+          submit: "comment"
+          edit: "edit"
+          cancel: "cancel"
+          add: "Add a comment"
+          show:
+            one: Show %{count} more comment
+            other: Show %{count} more comments
+          delete:
+            confirm: "Are you sure you want to delete this comment?"
       topic:
         sort_by: "Sort by"
         votes: "Votes"
