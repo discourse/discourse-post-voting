@@ -25,8 +25,6 @@ en:
       user_over_limit: "You cannot exceed the number of votes for your trust level."
       one_vote_per_post: "You can only vote once for each post."
 
-    user_vote_count: "<strong>{{voteCount}}</strong> Upvotes"
-
     last_answer_lowercase: last answer
     answer_lowercase:
       one: answer
@@ -35,9 +33,15 @@ en:
       post:
         qa_comment:
           composer:
-            too_short: "Enter at least %{count} characters"
-            length_ok: "%{count} characters left..."
-            too_long: "Comment cannot be longer than %{count} characters"
+            too_short:
+              one: "Enter at least %{count} character"
+              other: "Enter at least %{count} characters"
+            length_ok:
+              one: "%{count} character left..."
+              other: "%{count} characters left..."
+            too_long:
+              one: "Comment cannot be longer than %{count} character"
+              other: "Comment cannot be longer than %{count} characters"
           submit: "comment"
           edit: "edit"
           cancel: "cancel"
@@ -52,5 +56,5 @@ en:
         votes: "Votes"
         activity: "Activity"
         answer_count:
-          one: "{{count}} Answer"
-          other: "{{count}} Answers"
+          one: "%{count} Answer"
+          other: "%{count} Answers"
