@@ -3,15 +3,15 @@
 module QuestionAnswer
   module TopicListItemSerializerExtension
     def self.included(base)
-      base.attributes :qa_enabled
+      base.attributes :is_qa
     end
 
-    def qa_enabled
-      object.qa_enabled
+    def is_qa
+      object.is_qa?
     end
 
-    def include_qa_enabled?
-      object.qa_enabled
+    def include_is_qa?
+      object.is_qa?
     end
   end
 end

@@ -96,17 +96,17 @@ function qaEnabledTopicResponse() {
 
 function qaTopicListResponse() {
   // will link to OP
-  topicList.topic_list.topics[0].qa_enabled = true;
+  topicList.topic_list.topics[0].is_qa = true;
   topicList.topic_list.topics[0].last_read_post_number =
     topicList.topic_list.topics[0].highest_post_number;
 
   // will sort by activity
-  topicList.topic_list.topics[1].qa_enabled = true;
+  topicList.topic_list.topics[1].is_qa = true;
   topicList.topic_list.topics[1].last_read_post_number =
     topicList.topic_list.topics[1].highest_post_number - 2;
 
   // will link to last post
-  topicList.topic_list.topics[3].qa_enabled = true;
+  topicList.topic_list.topics[3].is_qa = true;
   topicList.topic_list.topics[3].last_read_post_number =
     topicList.topic_list.topics[3].highest_post_number - 1;
 

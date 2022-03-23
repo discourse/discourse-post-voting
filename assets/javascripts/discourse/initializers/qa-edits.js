@@ -55,7 +55,7 @@ function initPlugin(api) {
   });
 
   function customLastUnreadUrl(context) {
-    if (context.qa_enabled && context.last_read_post_number) {
+    if (context.is_qa && context.last_read_post_number) {
       if (context.highest_post_number <= context.last_read_post_number) {
         // link to OP if no unread
         return context.urlForPostNumber(1);
