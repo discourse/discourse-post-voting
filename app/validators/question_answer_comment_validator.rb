@@ -14,5 +14,7 @@ class QuestionAnswerCommentValidator < ActiveModel::Validator
 
     sentinel = TextSentinel.body_sentinel(record.raw)
     record.errors.add(:raw, I18n.t(:is_invalid)) unless sentinel.valid?
+
+    WatchedWordsValidator.new(attributes: [:raw]).validate(record)
   end
 end

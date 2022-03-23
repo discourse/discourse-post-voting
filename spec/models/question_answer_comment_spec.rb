@@ -70,6 +70,15 @@ describe QuestionAnswerComment do
       expect(qa_comment.valid?).to eq(false)
       expect(qa_comment.errors[:raw]).to eq([I18n.t("is_invalid")])
     end
+
+    it 'does not allow comment to be created when raw contains a blocked watch word' do
+      watched_word = Fabricate(:watched_word, action: WatchedWord.actions[:block])
+
+      qa_comment = QuestionAnswerComment.new(raw: "contains #{watched_word.word}", post: post, user: user)
+
+      expect(qa_comment.valid?).to eq(false)
+      expect(qa_comment.errors[:base]).to eq([I18n.t('contains_blocked_word', word: watched_word.word)])
+    end
   end
 
   context 'callbacks' do
