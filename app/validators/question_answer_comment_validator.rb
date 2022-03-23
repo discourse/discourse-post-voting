@@ -11,5 +11,8 @@ class QuestionAnswerCommentValidator < ActiveModel::Validator
     StrippedLengthValidator.validate(
       record, :raw, record.raw, SiteSetting.min_post_length..SiteSetting.qa_comment_max_raw_length
     )
+
+    sentinel = TextSentinel.body_sentinel(record.raw)
+    record.errors.add(:raw, I18n.t(:is_invalid)) unless sentinel.valid?
   end
 end
