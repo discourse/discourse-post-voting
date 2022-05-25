@@ -55,7 +55,6 @@ createWidget("qa-comments-menu-composer", {
       data: { raw: this.state.value, post_id: this.attrs.id },
     })
       .then((response) => {
-        this.sendWidgetAction("appendComments", [response]);
         this.state.value = "";
         this.sendWidgetAction("closeComposer");
       })
