@@ -10,7 +10,6 @@
 %i[common mobile].each do |type|
   register_asset "stylesheets/#{type}/question-answer.scss", type
 end
-register_asset "stylesheets/common/question-answer-crawler.scss"
 
 enabled_site_setting :qa_enabled
 
