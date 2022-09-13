@@ -191,4 +191,13 @@ after_initialize do
 
     false
   end
+
+  register_category_custom_field_type(QuestionAnswer::CREATE_AS_QA_DEFAULT, :boolean)
+  if Site.respond_to? :preloaded_category_custom_fields
+    Site.preloaded_category_custom_fields << QuestionAnswer::CREATE_AS_QA_DEFAULT
+  end
+  add_to_class(:category, :create_as_qa_default) do
+    ActiveModel::Type::Boolean.new.cast(self.custom_fields[QuestionAnswer::CREATE_AS_QA_DEFAULT])
+  end
+  add_to_serializer(:basic_category, :create_as_qa_default) { object.create_as_qa_default }
 end
