@@ -6,10 +6,26 @@
 
 he:
   js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+      titles:
+        question_answer_user_commented: "תגובה חדשה"
+      popup:
+        question_answer_user_commented: 'נוספה תגובה מאת %{username} על „%{topic}” - %{site_title}'
+    composer:
+      create_qa:
+        label: "יצירת נושא שו״ת"
+      composer_actions:
+        create_as_qa:
+          label: "החלפת מצב שו״ת"
+          desc: "הנושא ייווצר בתבנית שו״ת"
+        remove_as_qa:
+          label: "הסרת שו״ת"
+          desc: "הנושא ייווצר בתבנית הרגילה"
     post:
       actions:
         undo:
-          vote: "בטל הצבעה."
+          vote: "ביטול הצבעה."
         people:
           vote: "הצביעו לפוסט."
         by_you:
@@ -19,3 +35,50 @@ he:
       user_over_limit: "הגעת לכמות המקסימלית של ההצבעות."
       one_vote_per_post: "ניתן להצביע רק פעם אחת לפוסט."
     last_answer_lowercase: תשובה אחרונה
+    answer_lowercase:
+      one: תשובה
+      two: תשובות
+      many: תשובות
+      other: תשובות
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "נא להקליד תו %{count} לפחות"
+              two: "נא להקליד %{count} תווים לפחות"
+              many: "נא להקליד %{count} תווים לפחות"
+              other: "נא להקליד %{count} תווים לפחות"
+            length_ok:
+              one: "נותר תו %{count}…"
+              two: "נותרו %{count} תווים…"
+              many: "נותרו %{count} תווים…"
+              other: "נותרו %{count} תווים…"
+            too_long:
+              one: "תגובה לא יכולה להיות ארוכה מתו %{count}"
+              two: "תגובה לא יכולה להיות ארוכה מ־%{count} תווים"
+              many: "תגובה לא יכולה להיות ארוכה מ־%{count} תווים"
+              other: "תגובה לא יכולה להיות ארוכה מ־%{count} תווים"
+          submit: "הוספת תגובה"
+          edit: "עריכה"
+          cancel: "ביטול"
+          add: "הוספת תגובה"
+          show:
+            one: הצגת תגובה %{count} נוספת
+            two: הצגת %{count} תגובות נוספות
+            many: הצגת %{count} תגובות נוספות
+            other: הצגת %{count} תגובות נוספות
+          delete:
+            confirm: "למחוק את ההערה הזאת?"
+      topic:
+        answer:
+          label: "מענה"
+          help: "התחלת כתיבת תשובה"
+        sort_by: "מיון לפי"
+        votes: "הצבעות"
+        activity: "פעילות"
+        answer_count:
+          one: "תשובה %{count}"
+          two: "%{count} תשובות"
+          many: "%{count} תשובות"
+          other: "%{count} תשובות"

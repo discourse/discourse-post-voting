@@ -5,20 +5,47 @@
 # https://translate.discourse.org/
 
 he:
+  post:
+    qa:
+      errors:
+        replying_to_post_not_permited: "אסור לך ליצור פוסט בתגובה לפוסט אחר."
+        voting_not_permitted: "אסור לך להצביע לפוסט זה."
+        comment_cannot_be_downvoted: "אפשר להצביע לתגובות בלבד."
+        self_voting_not_permitted: "אסור לך להצביע על פוסט או תגובה שלך."
+  topic:
+    qa:
+      errors:
+        qa_not_enabled: "שו״ת לא מופעל."
+        subtype_not_allowed: "אפשר ליצור נושאים בתבנית שו״ת רק על גבי נושאים רגילים."
+        cannot_change_to_qa_subtype: "החלפת תת־הסוג לשו״ת אסורה."
+      answer_count:
+        one: "תשובה %{count}"
+        two: "%{count} תשובות"
+        many: "%{count} תשובות"
+        other: "%{count} תשובות"
   site_settings:
-    qa_tags: "תגיות כדי לאפשר Q&A בפוסט"
-    qa_enabled: "אפשר תוסף Q&A"
+    qa_tags: "תגיות להפעלת שו״ת על נושא"
+    qa_enabled: "הפעלת תוסף שו״ת"
+    qa_enable_likes_on_answers: "הפעלת כפתור לייק על שאלות בנושאי שו״ת"
     qa_undo_vote_action_window: "מספר הדקות שמשתמשים רשאים לבטל הצבעות בנושאי QnA (הזן 0 ללא הגבלה)"
+    qa_comment_limit_per_post: "מספר התגובות המותר על כל שאלה או תשובה"
   post_action_types:
     vote:
       title: 'הצבעה'
-      description: 'הצבעה עבור פוסט'
+      description: 'הצבעה לפוסט'
       short_description: 'הצבעה עבור פוסט'
       long_form: 'הצבעת עבור הפוסט'
   vote:
     error:
       user_has_not_voted: "משתמש לא הצביע."
-      user_over_limit: "הגעת לכמות המקסימלית של ההצבעות."
-      already_voted: "ניתן להצביע רק פעם אחת לשאלה."
-      undo_vote_action_window: "ניתן לבטל הצבעות %{minutes} דקות לאחר ההצבעה."
-      one_vote_per_post: "אתה יכול להצביע רק פעם אחת לכל פוסט."
+      user_over_limit: "אסור לחרוג מכמות ההצבעות לדרגת האמון שלך."
+      already_voted: "אפשר להצביע רק פעם אחת לכל שאלה."
+      undo_vote_action_window: "ניתן לבטל הצבעות עד %{minutes} דקות לאחר ההצבעה."
+      one_vote_per_post: "אפשר להצביע רק פעם אחת לכל פוסט."
+      one_vote_per_comment: "אפשר להצביע רק פעם אחת לכל תגובה."
+  qa:
+    comment:
+      errors:
+        qa_not_enabled: "הוספת תגובה לפוסט שאינו נושא בתבנית שו״ת אסור"
+        not_permitted: "הוספת תגובה על פוסט משויך אסורה."
+        limit_exceeded: "הגעת למגבלה של %{limit} תגובות לפוסט."
