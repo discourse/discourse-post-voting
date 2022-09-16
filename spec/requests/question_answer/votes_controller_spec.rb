@@ -68,7 +68,7 @@ RSpec.describe QuestionAnswer::VotesController do
         post '/qa/vote.json', params: { post_id: answer.id, direction: QuestionAnswerVote.directions[:down] }
 
         expect(response.status).to eq(403)
-        expect(JSON.parse(response.body)['errors'][0]).to eq(I18n.t('vote.error.undo_vote_action_window', minutes: 1))
+        expect(JSON.parse(response.body)['errors'][0]).to eq(I18n.t('vote.error.undo_vote_action_window', count: 1))
       end
     end
   end
@@ -109,10 +109,7 @@ RSpec.describe QuestionAnswer::VotesController do
         delete '/qa/vote.json', params: { post_id: answer.id }
 
         expect(response.status).to eq(403)
-
-        msg = I18n.t('vote.error.undo_vote_action_window', minutes: 1)
-
-        expect(JSON.parse(response.body)['errors'][0]).to eq(msg)
+        expect(JSON.parse(response.body)['errors'][0]).to eq(I18n.t('vote.error.undo_vote_action_window', count: 1))
       end
     end
   end
