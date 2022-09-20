@@ -19,4 +19,3 @@ es:
     error:
       user_has_not_voted: "El usuario no ha votado."
       already_voted: "Solo puedes votar una vez por pregunta."
-      undo_vote_action_window: "Solo puedes deshacer votos hasta %{minutes} después de votar."

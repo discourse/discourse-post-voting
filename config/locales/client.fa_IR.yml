@@ -8,6 +8,9 @@ fa_IR:
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
+    category:
+      qa_settings_heading: پاسخ سوال
+      create_as_qa_default: موضوعات جدید مربوط به پرسش و پاسخ به طور پیش‌فرض در این دسته‌بندی هستند.
     composer:
       create_qa:
         label: "ایجاد موضوع پرسش و پاسخ"

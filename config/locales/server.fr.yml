@@ -19,4 +19,3 @@ fr:
     error:
       user_has_not_voted: "L'utilisateur n'a pas voté."
       already_voted: "Vous ne pouvez voter qu'une fois par question."
-      undo_vote_action_window: "Vous ne pouvez annuler des votes %{minutes}qu'après avoir voté."

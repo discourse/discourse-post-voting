@@ -5,3 +5,83 @@
 # https://translate.discourse.org/
 
 ru:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+      titles:
+        question_answer_user_commented: "Новый комментарий"
+      popup:
+        question_answer_user_commented: 'Пользователь %{username} оставил комментарий в теме %{topic} - %{site_title}'
+    category:
+      qa_settings_heading: Вопрос-Ответ
+      create_as_qa_default: Новые темы в этом разделе по умолчанию отображаются в формате «Вопрос-Ответ».
+    composer:
+      create_qa:
+        label: "Создать тему в формате 'Вопрос-Ответ'"
+      composer_actions:
+        create_as_qa:
+          label: "Вопрос-Ответ"
+          desc: "Тема будет создана в формате 'Вопрос-Ответ'"
+        remove_as_qa:
+          label: "Обычный формат"
+          desc: "Тема будет создана в обычном формате"
+    post:
+      actions:
+        undo:
+          vote: "Отменить голос."
+        people:
+          vote: "Проголосовал за это сообщение."
+        by_you:
+          vote: "Вы проголосовали за это сообщение."
+    vote:
+      already_voted: "Вы можете проголосовать только один раз за вопрос."
+      user_over_limit: "Вы не можете превышать количество голосов, установленного для вашего уровня доверия."
+      one_vote_per_post: "Вы можете проголосовать только один раз за каждое сообщение."
+    last_answer_lowercase: последний ответ
+    answer_lowercase:
+      one: ответ
+      few: ответа
+      many: ответов
+      other: ответов
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Введите не менее %{count} символа"
+              few: "Введите не менее %{count} символов"
+              many: "Введите не менее %{count}  символов"
+              other: "Введите не менее %{count}  символов"
+            length_ok:
+              one: "Осталось %{count} символ..."
+              few: "Осталось %{count} символа..."
+              many: "Осталось %{count} символов..."
+              other: "Осталось %{count} символов..."
+            too_long:
+              one: "Комментарий не может быть длиннее %{count} символа"
+              few: "Комментарий не может быть длиннее %{count} символов"
+              many: "Комментарий не может быть длиннее %{count} символов"
+              other: "Комментарий не может быть длиннее %{count} символов"
+          submit: "Добавить комментарий"
+          edit: "Изменить"
+          cancel: "Отменить"
+          add: "Добавить комментарий"
+          show:
+            one: Показать ещё %{count} комментарий
+            few: Показать ещё %{count} комментария
+            many: Показать ещё %{count} комментариев
+            other: Показать ещё %{count} комментариев
+          delete:
+            confirm: "Вы действительно хотите удалить этот комментарий?"
+      topic:
+        answer:
+          label: "Ответ"
+          help: "Начать составлять ответ"
+        sort_by: "Сортировать по"
+        votes: "Голосам"
+        activity: "Активности"
+        answer_count:
+          one: "%{count} ответ"
+          few: "%{count} ответа"
+          many: "%{count} ответов"
+          other: "%{count} ответов"

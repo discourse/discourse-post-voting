@@ -15,4 +15,3 @@ fi:
     error:
       user_has_not_voted: "Käyttäjä ei ole äänestänyt."
       already_voted: "Voi äänestää vain yhtä vastausta tähän kysymykseen."
-      undo_vote_action_window: "Sinulla on %{minutes} minuuttia aikaa perua annettu ääni. "

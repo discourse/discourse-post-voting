@@ -20,5 +20,4 @@ de:
       user_has_not_voted: "Nutzer hat nicht abgestimmt."
       user_over_limit: "Du kannst nicht öfter abstimmen, als es deine Vertrauensstufe erlaubt."
       already_voted: "Du kannst nur einmal pro Frage abstimmen."
-      undo_vote_action_window: "Du kannst Stimmen für ein Thema maximal %{minutes} nach dem Abstimmen rückgängig machen."
       one_vote_per_post: "Du kannst nur einmal pro Beitrag abstimmen."
