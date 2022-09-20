@@ -2,7 +2,7 @@ import I18n from "I18n";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 export const ORDER_BY_ACTIVITY_FILTER = "activity";
-const pluginId = "discourse-question-answer";
+const pluginId = "discourse-upvotes";
 
 function initPlugin(api) {
   api.removePostMenuButton("reply", (attrs) => {

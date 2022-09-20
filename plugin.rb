@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# name: discourse-question-answer
+# name: discourse-upvotes
 # about: Allows a topic to be created in the Q&A format
 # version: 0.0.1
 # authors: Alan Tan
-# url: https://github.com/discourse/discourse-question-answer
+# url: https://github.com/discourse/discourse-upvotes
 # transpile_js: true
 
 %i[common mobile].each do |type|
