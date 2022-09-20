@@ -40,7 +40,6 @@ he:
       user_has_not_voted: "משתמש לא הצביע."
       user_over_limit: "אסור לחרוג מכמות ההצבעות לדרגת האמון שלך."
       already_voted: "אפשר להצביע רק פעם אחת לכל שאלה."
-      undo_vote_action_window: "ניתן לבטל הצבעות עד %{minutes} דקות לאחר ההצבעה."
       one_vote_per_post: "אפשר להצביע רק פעם אחת לכל פוסט."
       one_vote_per_comment: "אפשר להצביע רק פעם אחת לכל תגובה."
   qa:
