@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-module QuestionAnswer
+module Upvotes
   module TopicListItemSerializerExtension
     def self.included(base)
-      base.attributes :is_qa
+      base.attributes :is_upvotes
     end
 
-    def is_qa
-      object.is_qa?
+    def is_upvotes
+      object.is_upvotes?
     end
 
-    def include_is_qa?
-      object.is_qa?
+    def include_is_upvotes?
+      object.is_upvotes?
     end
   end
 end

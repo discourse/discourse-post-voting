@@ -4,18 +4,18 @@ require 'rails_helper'
 
 describe TopicView do
   fab!(:user) { Fabricate(:user) }
-  fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, subtype: Topic::UPVOTES_SUBTYPE) }
   fab!(:post) { create_post(topic: topic) }
 
   fab!(:answer) { create_post(topic: topic) }
   fab!(:answer_2) { create_post(topic: topic) }
-  let(:comment) { Fabricate(:qa_comment, post: answer) }
-  let(:comment_2) { Fabricate(:qa_comment, post: answer) }
-  let(:comment_3) { Fabricate(:qa_comment, post: post) }
-  let(:vote) { Fabricate(:qa_vote, votable: answer, user: user) }
+  let(:comment) { Fabricate(:upvotes_comment, post: answer) }
+  let(:comment_2) { Fabricate(:upvotes_comment, post: answer) }
+  let(:comment_3) { Fabricate(:upvotes_comment, post: post) }
+  let(:vote) { Fabricate(:upvotes_vote, votable: answer, user: user) }
 
   let(:vote_2) do
-    Fabricate(:qa_vote,
+    Fabricate(:upvotes_vote,
       votable: answer_2,
       user: user,
       direction: QuestionAnswerVote.directions[:down]
@@ -23,7 +23,7 @@ describe TopicView do
   end
 
   before do
-    SiteSetting.qa_enabled = true
+    SiteSetting.upvotes_enabled = true
     vote
     vote_2
     comment
@@ -44,8 +44,8 @@ describe TopicView do
   end
 
   it "should preload comments, comments count, user voted status for a given topic" do
-    QuestionAnswer::VoteManager.vote(comment, user)
-    QuestionAnswer::VoteManager.vote(comment_2, comment_3.user)
+    Upvotes::VoteManager.vote(comment, user)
+    Upvotes::VoteManager.vote(comment_2, comment_3.user)
 
     topic_view = TopicView.new(topic, user)
 
@@ -75,7 +75,7 @@ describe TopicView do
   end
 
   it "should preload the right comments even if comments have been deleted" do
-    comment_4 = Fabricate(:qa_comment, post: answer)
+    comment_4 = Fabricate(:upvotes_comment, post: answer)
     comment.trash!
 
     stub_const(TopicView, "PRELOAD_COMMENTS_COUNT", 2) do
@@ -87,26 +87,26 @@ describe TopicView do
   end
 
   describe '#filter_posts_near' do
-    fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+    fab!(:topic) { Fabricate(:topic, subtype: Topic::UPVOTES_SUBTYPE) }
     fab!(:post) { create_post(topic: topic) }
 
     fab!(:answer_plus_2_votes) do
       create_post(topic: topic).tap do |p|
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
+        Upvotes::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
+        Upvotes::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
       end
     end
 
     fab!(:answer_minus_2_votes) do
       create_post(topic: topic).tap do |p|
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
+        Upvotes::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
+        Upvotes::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
       end
     end
 
     fab!(:answer_minus_1_vote) do
       create_post(topic: topic).tap do |p|
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
+        Upvotes::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
       end
     end
 
@@ -114,14 +114,14 @@ describe TopicView do
 
     fab!(:answer_plus_1_vote_deleted) do
       create_post(topic: topic).tap do |p|
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
+        Upvotes::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
         p.trash!
       end
     end
 
     fab!(:answer_plus_1_vote) do
       create_post(topic: topic).tap do |p|
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
+        Upvotes::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
       end
     end
 

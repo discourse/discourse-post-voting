@@ -8,7 +8,7 @@ class QuestionAnswerCommentSerializer < ApplicationSerializer
              :created_at,
              :raw,
              :cooked,
-             :qa_vote_count,
+             :upvotes_vote_count,
              :user_voted
 
   attr_accessor :comments_user_voted
@@ -27,5 +27,9 @@ class QuestionAnswerCommentSerializer < ApplicationSerializer
     else
       scope.present? && object.votes.exists?(user: scope.user)
     end
+  end
+
+  def upvotes_vote_count
+    object.qa_vote_count
   end
 end

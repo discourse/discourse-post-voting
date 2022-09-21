@@ -8,18 +8,18 @@
 # transpile_js: true
 
 %i[common mobile].each do |type|
-  register_asset "stylesheets/#{type}/question-answer.scss", type
+  register_asset "stylesheets/#{type}/upvotes.scss", type
 end
-register_asset "stylesheets/common/question-answer-crawler.scss"
+register_asset "stylesheets/common/upvotes-crawler.scss"
 
-enabled_site_setting :qa_enabled
+enabled_site_setting :upvotes_enabled
 
 after_initialize do
   %w(
-    ../lib/question_answer/engine.rb
-    ../lib/question_answer/vote_manager.rb
-    ../lib/question_answer/guardian.rb
-    ../lib/question_answer/comment_creator.rb
+    ../lib/upvotes/engine.rb
+    ../lib/upvotes/vote_manager.rb
+    ../lib/upvotes/guardian.rb
+    ../lib/upvotes/comment_creator.rb
     ../extensions/post_extension.rb
     ../extensions/post_serializer_extension.rb
     ../extensions/topic_extension.rb
@@ -29,8 +29,8 @@ after_initialize do
     ../extensions/user_extension.rb
     ../extensions/composer_messages_finder_extension.rb
     ../app/validators/question_answer_comment_validator.rb
-    ../app/controllers/question_answer/votes_controller.rb
-    ../app/controllers/question_answer/comments_controller.rb
+    ../app/controllers/upvotes/votes_controller.rb
+    ../app/controllers/upvotes/comments_controller.rb
     ../app/models/question_answer_vote.rb
     ../app/models/question_answer_comment.rb
     ../app/serializers/basic_voter_serializer.rb
@@ -49,15 +49,15 @@ after_initialize do
   register_post_custom_field_type('vote_count', :integer)
 
   reloadable_patch do
-    Post.include(QuestionAnswer::PostExtension)
-    Topic.include(QuestionAnswer::TopicExtension)
-    PostSerializer.include(QuestionAnswer::PostSerializerExtension)
-    TopicView.prepend(QuestionAnswer::TopicViewExtension)
-    TopicViewSerializer.include(QuestionAnswer::TopicViewSerializerExtension)
-    TopicListItemSerializer.include(QuestionAnswer::TopicListItemSerializerExtension)
-    User.include(QuestionAnswer::UserExtension)
-    Guardian.include(QuestionAnswer::Guardian)
-    ComposerMessagesFinder.prepend(QuestionAnswer::ComposerMessagesFinderExtension)
+    Post.include(Upvotes::PostExtension)
+    Topic.include(Upvotes::TopicExtension)
+    PostSerializer.include(Upvotes::PostSerializerExtension)
+    TopicView.prepend(Upvotes::TopicViewExtension)
+    TopicViewSerializer.include(Upvotes::TopicViewSerializerExtension)
+    TopicListItemSerializer.include(Upvotes::TopicListItemSerializerExtension)
+    User.include(Upvotes::UserExtension)
+    Guardian.include(Upvotes::Guardian)
+    ComposerMessagesFinder.prepend(Upvotes::ComposerMessagesFinderExtension)
   end
 
   # TODO: Performance of the query degrades as the number of posts a user has voted
@@ -91,7 +91,7 @@ after_initialize do
   end
 
   TopicView.apply_custom_default_scope do |scope, topic_view|
-    if topic_view.topic.is_qa? &&
+    if topic_view.topic.is_upvotes? &&
       !topic_view.instance_variable_get(:@replies_to_post_number) &&
       !topic_view.instance_variable_get(:@post_ids)
 
@@ -113,7 +113,7 @@ after_initialize do
   end
 
   TopicView.on_preload do |topic_view|
-    next if !topic_view.topic.is_qa?
+    next if !topic_view.topic.is_upvotes?
 
     topic_view.comments = {}
 
@@ -128,11 +128,11 @@ after_initialize do
       SELECT 1
       FROM (
         SELECT
-          qa_comments.id
-        FROM question_answer_comments qa_comments
-        WHERE qa_comments.post_id = question_answer_comments.post_id
-        AND qa_comments.deleted_at IS NULL
-        ORDER BY qa_comments.id ASC
+          upvotes_comments.id
+        FROM question_answer_comments upvotes_comments
+        WHERE upvotes_comments.post_id = question_answer_comments.post_id
+        AND upvotes_comments.deleted_at IS NULL
+        ORDER BY upvotes_comments.id ASC
         LIMIT #{TopicView::PRELOAD_COMMENTS_COUNT}
       ) X
       WHERE X.id = question_answer_comments.id
@@ -141,9 +141,9 @@ after_initialize do
     AND question_answer_comments.deleted_at IS NULL
     SQL
 
-    QuestionAnswerComment.includes(:user).where("id IN (#{comment_ids_sql})").order(id: :asc).each do |qa_comment|
-      topic_view.comments[qa_comment.post_id] ||= []
-      topic_view.comments[qa_comment.post_id] << qa_comment
+    QuestionAnswerComment.includes(:user).where("id IN (#{comment_ids_sql})").order(id: :asc).each do |upvotes_comment|
+      topic_view.comments[upvotes_comment.post_id] ||= []
+      topic_view.comments[upvotes_comment.post_id] << upvotes_comment
     end
 
     topic_view.comments_counts = QuestionAnswerComment.where(post_id: post_ids).group(:post_id).count
@@ -161,9 +161,9 @@ after_initialize do
       end
 
       QuestionAnswerVote
-        .joins("INNER JOIN question_answer_comments qa_comments ON qa_comments.id = question_answer_votes.votable_id")
+        .joins("INNER JOIN question_answer_comments upvotes_comments ON upvotes_comments.id = question_answer_votes.votable_id")
         .where(user: topic_view.guardian.user, votable_type: 'QuestionAnswerComment')
-        .where("qa_comments.post_id IN (?)", post_ids)
+        .where("upvotes_comments.post_id IN (?)", post_ids)
         .pluck(:votable_id)
         .each do |votable_id|
 
@@ -175,29 +175,29 @@ after_initialize do
       QuestionAnswerVote.where(votable_type: 'Post', votable_id: post_ids).distinct.pluck(:votable_id)
   end
 
-  add_permitted_post_create_param(:create_as_qa)
+  add_permitted_post_create_param(:create_as_upvotes)
 
   # TODO: Core should be exposing the following as proper plugin interfaces.
   NewPostManager.add_plugin_payload_attribute(:subtype)
-  TopicSubtype.register(Topic::QA_SUBTYPE)
+  TopicSubtype.register(Topic::UPVOTES_SUBTYPE)
 
   NewPostManager.add_handler do |manager|
     if !manager.args[:topic_id] &&
-      manager.args[:create_as_qa] == 'true' &&
+      manager.args[:create_as_upvotes] == 'true' &&
       (manager.args[:archetype].blank? || manager.args[:archetype] == Archetype.default)
 
-      manager.args[:subtype] = Topic::QA_SUBTYPE
+      manager.args[:subtype] = Topic::UPVOTES_SUBTYPE
     end
 
     false
   end
 
-  register_category_custom_field_type(QuestionAnswer::CREATE_AS_QA_DEFAULT, :boolean)
+  register_category_custom_field_type(Upvotes::CREATE_AS_UPVOTES_DEFAULT, :boolean)
   if Site.respond_to? :preloaded_category_custom_fields
-    Site.preloaded_category_custom_fields << QuestionAnswer::CREATE_AS_QA_DEFAULT
+    Site.preloaded_category_custom_fields << Upvotes::CREATE_AS_UPVOTES_DEFAULT
   end
-  add_to_class(:category, :create_as_qa_default) do
-    ActiveModel::Type::Boolean.new.cast(self.custom_fields[QuestionAnswer::CREATE_AS_QA_DEFAULT])
+  add_to_class(:category, :create_as_upvotes_default) do
+    ActiveModel::Type::Boolean.new.cast(self.custom_fields[Upvotes::CREATE_AS_UPVOTES_DEFAULT])
   end
-  add_to_serializer(:basic_category, :create_as_qa_default) { object.create_as_qa_default }
+  add_to_serializer(:basic_category, :create_as_upvotes_default) { object.create_as_upvotes_default }
 end

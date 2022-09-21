@@ -5,10 +5,6 @@
 # https://translate.discourse.org/
 
 de:
-  site_settings:
-    qa_tags: "Schlagwörter, die QnA für ein Thema aktivieren"
-    qa_enabled: "Aktiviere das QA Plugin"
-    qa_undo_vote_action_window: "Anzahl an Minuten, in denen Nutzer Stimmen in QnA Themen zurücknehmen können (0 bedeutet kein Limit)"
   post_action_types:
     vote:
       title: 'Abstimmen'

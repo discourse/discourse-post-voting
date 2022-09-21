@@ -8,29 +8,29 @@ export default {
   initialize(container) {
     const siteSettings = container.lookup("site-settings:main");
 
-    if (!siteSettings.qa_enabled) {
+    if (!siteSettings.upvotes_enabled) {
       return;
     }
 
     withPluginApi("0.13.0", (api) => {
-      api.serializeOnCreate("create_as_qa", "createAsQA");
+      api.serializeOnCreate("create_as_upvotes", "createAsupvotes");
 
       api.customizeComposerText({
         actionTitle(model) {
-          if (model.createAsQA) {
-            return I18n.t("composer.create_qa.label");
-          } else if (model.topic?.is_qa) {
-            return I18n.t("qa.topic.answer.label");
+          if (model.createAsupvotes) {
+            return I18n.t("composer.create_upvotes.label");
+          } else if (model.topic?.is_upvotes) {
+            return I18n.t("upvotes.topic.answer.label");
           } else {
             return null;
           }
         },
 
         saveLabel(model) {
-          if (model.createAsQA) {
-            return "composer.create_qa.label";
-          } else if (model.topic?.is_qa) {
-            return "qa.topic.answer.label";
+          if (model.createAsupvotes) {
+            return "composer.create_upvotes.label";
+          } else if (model.topic?.is_upvotes) {
+            return "upvotes.topic.answer.label";
           } else {
             return null;
           }
@@ -40,8 +40,8 @@ export default {
       api.modifyClass("component:composer-actions", {
         pluginId: "discourse-upvotes",
 
-        toggleQASelected(options, model) {
-          model.toggleProperty("createAsQA");
+        toggleupvotesSelected(options, model) {
+          model.toggleProperty("createAsupvotes");
           model.notifyPropertyChange("replyOptions");
           model.notifyPropertyChange("action");
         },
@@ -49,26 +49,30 @@ export default {
 
       api.modifySelectKit("composer-actions").appendContent((options) => {
         if (options.action === CREATE_TOPIC) {
-          if (options.composerModel.createAsQA) {
+          if (options.composerModel.createAsupvotes) {
             return [
               {
-                name: I18n.t("composer.composer_actions.remove_as_qa.label"),
+                name: I18n.t(
+                  "composer.composer_actions.remove_as_upvotes.label"
+                ),
                 description: I18n.t(
-                  "composer.composer_actions.remove_as_qa.desc"
+                  "composer.composer_actions.remove_as_upvotes.desc"
                 ),
                 icon: "plus",
-                id: "toggleQA",
+                id: "toggleupvotes",
               },
             ];
           } else {
             return [
               {
-                name: I18n.t("composer.composer_actions.create_as_qa.label"),
+                name: I18n.t(
+                  "composer.composer_actions.create_as_upvotes.label"
+                ),
                 description: I18n.t(
-                  "composer.composer_actions.create_as_qa.desc"
+                  "composer.composer_actions.create_as_upvotes.desc"
                 ),
                 icon: "plus",
-                id: "toggleQA",
+                id: "toggleupvotes",
               },
             ];
           }
@@ -81,11 +85,11 @@ export default {
         pluginId: "discourse-upvotes",
 
         @observes("categoryId")
-        categoryCreateAsQADefault() {
-          const createAsQA = this.category?.create_as_qa_default;
+        categoryCreateAsupvotesDefault() {
+          const createAsupvotes = this.category?.create_as_upvotes_default;
 
-          if (this.creatingTopic && createAsQA !== this.createAsQA) {
-            this.set("createAsQA", createAsQA);
+          if (this.creatingTopic && createAsupvotes !== this.createAsupvotes) {
+            this.set("createAsupvotes", createAsupvotes);
             this.notifyPropertyChange("replyOptions");
             this.notifyPropertyChange("action");
           }

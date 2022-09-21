@@ -2,24 +2,24 @@
 
 describe TopicsController do
   fab!(:user) { Fabricate(:user) }
-  fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, subtype: Topic::UPVOTES_SUBTYPE) }
   fab!(:post) { create_post(topic: topic) }
-  fab!(:qa_comment) { Fabricate(:qa_comment, raw: "this is a comment!", post: post) }
+  fab!(:upvotes_comment) { Fabricate(:upvotes_comment, raw: "this is a comment!", post: post) }
 
   fab!(:answer) { create_post(topic: topic) }
   fab!(:answer_2) { create_post(topic: topic) }
   fab!(:answer_3) { create_post(topic: topic) }
 
   fab!(:vote) do
-    QuestionAnswer::VoteManager.vote(answer_2, user, direction: QuestionAnswerVote.directions[:up])
+    Upvotes::VoteManager.vote(answer_2, user, direction: QuestionAnswerVote.directions[:up])
   end
 
   fab!(:vote_2) do
-    QuestionAnswer::VoteManager.vote(answer, user, direction: QuestionAnswerVote.directions[:down])
+    Upvotes::VoteManager.vote(answer, user, direction: QuestionAnswerVote.directions[:down])
   end
 
   before do
-    SiteSetting.qa_enabled = true
+    SiteSetting.upvotes_enabled = true
   end
 
   describe '#show' do
@@ -43,7 +43,7 @@ describe TopicsController do
       expect(payload["post_stream"]["posts"].map { |p| p["id"] }).to eq([post.id, answer.id, answer_2.id, answer_3.id])
     end
 
-    it "includes QA comments for crawler view" do
+    it "includes upvotes comments for crawler view" do
       skip "temporarily disable crawler view test while the perf issues are being worked on"
 
       get "/t/#{topic.slug}/#{topic.id}.html"
@@ -52,8 +52,8 @@ describe TopicsController do
 
       crawler_html = response.body
 
-      expect(crawler_html).to match(/<span class="qa-comment-cooked" itemprop="comment"><p>this is a comment!<\/p><\/span>/)
-      expect(crawler_html).to match(/<span class="qa-answer-count-span" itemprop="answerCount">3<\/span>/)
+      expect(crawler_html).to match(/<span class="upvotes-comment-cooked" itemprop="comment"><p>this is a comment!<\/p><\/span>/)
+      expect(crawler_html).to match(/<span class="upvotes-answer-count-span" itemprop="answerCount">3<\/span>/)
     end
   end
 end

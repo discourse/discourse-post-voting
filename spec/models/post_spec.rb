@@ -6,14 +6,14 @@ describe Post do
   fab!(:user1) { Fabricate(:user) }
   fab!(:user2) { Fabricate(:user) }
   fab!(:user3) { Fabricate(:user) }
-  fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, subtype: Topic::UPVOTES_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:post) { Fabricate(:post, topic: topic) }
   let(:up) { QuestionAnswerVote.directions[:up] }
   let(:users) { [user1, user2, user3] }
 
   before do
-    SiteSetting.qa_enabled = true
+    SiteSetting.upvotes_enabled = true
   end
 
   context "validation" do
@@ -23,7 +23,7 @@ describe Post do
       expect(post.valid?).to eq(false)
 
       expect(post.errors.full_messages).to contain_exactly(
-        I18n.t("post.qa.errors.replying_to_post_not_permited")
+        I18n.t("post.upvotes.errors.replying_to_post_not_permited")
       )
     end
   end
@@ -34,19 +34,19 @@ describe Post do
 
   it 'should return last voted correctly' do
     freeze_time do
-      expect(post.qa_last_voted(user1.id)).to eq(nil)
+      expect(post.upvotes_last_voted(user1.id)).to eq(nil)
 
-      QuestionAnswer::VoteManager.vote(post, user1)
+      Upvotes::VoteManager.vote(post, user1)
 
-      expect(post.qa_last_voted(user1.id)).to eq_time(Time.zone.now)
+      expect(post.upvotes_last_voted(user1.id)).to eq_time(Time.zone.now)
     end
   end
 
-  it 'should return qa_can_vote correctly' do
-    expect(post.qa_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(true)
+  it 'should return upvotes_can_vote correctly' do
+    expect(post.upvotes_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(true)
 
-    QuestionAnswer::VoteManager.vote(post, user1)
+    Upvotes::VoteManager.vote(post, user1)
 
-    expect(post.qa_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(false)
+    expect(post.upvotes_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(false)
   end
 end

@@ -1,17 +1,17 @@
 plugins:
-  qa_enabled:
+  upvotes_enabled:
     client: true
     default: true
-  qa_undo_vote_action_window:
+  upvotes_undo_vote_action_window:
     default: 10
-  qa_comment_limit_per_post:
+  upvotes_comment_limit_per_post:
     default: 10
     min: 1
     client: true
-  qa_comment_max_raw_length:
+  upvotes_comment_max_raw_length:
     client: true
     hidden: true
     default: 600
-  qa_enable_likes_on_answers:
+  upvotes_enable_likes_on_answers:
     client: true
     default: false

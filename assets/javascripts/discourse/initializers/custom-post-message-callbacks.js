@@ -5,13 +5,13 @@ export default {
   initialize(container) {
     const siteSettings = container.lookup("site-settings:main");
 
-    if (!siteSettings.qa_enabled) {
+    if (!siteSettings.upvotes_enabled) {
       return;
     }
 
     withPluginApi("1.2.0", (api) => {
       api.registerCustomPostMessageCallback(
-        "qa_post_comment_edited",
+        "upvotes_post_comment_edited",
         (topicController, message) => {
           const postStream = topicController.get("model.postStream");
           const post = postStream.findLoadedPost(message.id);
@@ -40,7 +40,7 @@ export default {
       );
 
       api.registerCustomPostMessageCallback(
-        "qa_post_comment_trashed",
+        "upvotes_post_comment_trashed",
         (topicController, message) => {
           const postStream = topicController.get("model.postStream");
           const post = postStream.findLoadedPost(message.id);
@@ -64,7 +64,7 @@ export default {
       );
 
       api.registerCustomPostMessageCallback(
-        "qa_post_commented",
+        "upvotes_post_commented",
         (topicController, message) => {
           const postStream = topicController.get("model.postStream");
           const post = postStream.findLoadedPost(message.id);
@@ -92,19 +92,22 @@ export default {
       );
 
       api.registerCustomPostMessageCallback(
-        "qa_post_voted",
+        "upvotes_post_voted",
         (topicController, message) => {
           const postStream = topicController.get("model.postStream");
           const post = postStream.findLoadedPost(message.id);
 
           if (post) {
             const props = {
-              qa_vote_count: message.qa_vote_count,
-              qa_has_votes: message.qa_has_votes,
+              upvotes_vote_count: message.upvotes_vote_count,
+              upvotes_has_votes: message.upvotes_has_votes,
             };
 
-            if (topicController.currentUser.id === message.qa_user_voted_id) {
-              props.qa_user_voted_direction = message.qa_user_voted_direction;
+            if (
+              topicController.currentUser.id === message.upvotes_user_voted_id
+            ) {
+              props.upvotes_user_voted_direction =
+                message.upvotes_user_voted_direction;
             }
 
             post.setProperties(props);

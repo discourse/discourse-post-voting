@@ -9,7 +9,7 @@ class QuestionAnswerCommentValidator < ActiveModel::Validator
 
   def raw_validator(record)
     StrippedLengthValidator.validate(
-      record, :raw, record.raw, SiteSetting.min_post_length..SiteSetting.qa_comment_max_raw_length
+      record, :raw, record.raw, SiteSetting.min_post_length..SiteSetting.upvotes_comment_max_raw_length
     )
 
     sentinel = TextSentinel.body_sentinel(record.raw)

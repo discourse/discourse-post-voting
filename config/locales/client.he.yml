@@ -12,16 +12,6 @@ he:
         question_answer_user_commented: "תגובה חדשה"
       popup:
         question_answer_user_commented: 'נוספה תגובה מאת %{username} על „%{topic}” - %{site_title}'
-    composer:
-      create_qa:
-        label: "יצירת נושא שו״ת"
-      composer_actions:
-        create_as_qa:
-          label: "החלפת מצב שו״ת"
-          desc: "הנושא ייווצר בתבנית שו״ת"
-        remove_as_qa:
-          label: "הסרת שו״ת"
-          desc: "הנושא ייווצר בתבנית הרגילה"
     post:
       actions:
         undo:
@@ -40,9 +30,9 @@ he:
       two: תשובות
       many: תשובות
       other: תשובות
-    qa:
+    upvotes:
       post:
-        qa_comment:
+        upvotes_comment:
           composer:
             too_short:
               one: "נא להקליד תו %{count} לפחות"

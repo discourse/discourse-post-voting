@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-module QuestionAnswer
+module Upvotes
   module TopicExtension
     def self.included(base)
       base.extend(ClassMethods)
       base.validate :ensure_regular_topic, on: [:create]
-      base.validate :ensure_no_qa_subtype, on: [:update]
-      base.const_set :QA_SUBTYPE, 'question_answer'
+      base.validate :ensure_no_upvotes_subtype, on: [:update]
+      base.const_set :UPVOTES_SUBTYPE, 'upvotes'
     end
 
     def reload(options = nil)
       @answers = nil
       @comments = nil
       @last_answerer = nil
-      @is_qa = nil
+      @is_upvotes = nil
       super(options)
     end
 
@@ -63,15 +63,14 @@ module QuestionAnswer
       @last_answerer ||= User.find(answers.last[:user_id])
     end
 
-    def is_qa?
-      @is_qa ||= SiteSetting.qa_enabled && self.subtype == Topic::QA_SUBTYPE
+    def is_upvotes?
+      @is_upvotes ||= SiteSetting.upvotes_enabled && self.subtype == Topic::UPVOTES_SUBTYPE
     end
 
     # class methods
     module ClassMethods
-      # rename to something like qa_user_votes?
-      def qa_votes(topic, user)
-        return nil if !user || !SiteSetting.qa_enabled
+      def upvotes(topic, user)
+        return nil if !user || !SiteSetting.upvotes_enabled
 
         # This is a very inefficient way since the performance degrades as the
         # number of voted posts in the topic increases.
@@ -84,19 +83,19 @@ module QuestionAnswer
 
     private
 
-    def ensure_no_qa_subtype
-      if will_save_change_to_subtype? && self.subtype == Topic::QA_SUBTYPE
-        self.errors.add(:base, I18n.t("topic.qa.errors.cannot_change_to_qa_subtype"))
+    def ensure_no_upvotes_subtype
+      if will_save_change_to_subtype? && self.subtype == Topic::UPVOTES_SUBTYPE
+        self.errors.add(:base, I18n.t("topic.upvotes.errors.cannot_change_to_upvotes_subtype"))
       end
     end
 
     def ensure_regular_topic
-      return if self.subtype != Topic::QA_SUBTYPE
+      return if self.subtype != Topic::UPVOTES_SUBTYPE
 
-      if !SiteSetting.qa_enabled
-        self.errors.add(:base, I18n.t("topic.qa.errors.qa_not_enabled"))
+      if !SiteSetting.upvotes_enabled
+        self.errors.add(:base, I18n.t("topic.upvotes.errors.upvotes_not_enabled"))
       elsif self.archetype != Archetype.default
-        self.errors.add(:base, I18n.t("topic.qa.errors.subtype_not_allowed"))
+        self.errors.add(:base, I18n.t("topic.upvotes.errors.subtype_not_allowed"))
       end
     end
   end

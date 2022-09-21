@@ -6,4 +6,4 @@
 
 it:
   site_settings:
-    qa_tags: "Etichette per attivare Q&A sugli argomenti"
+    upvotes_tags: "Etichette per attivare Q&A sugli argomenti"

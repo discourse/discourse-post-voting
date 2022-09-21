@@ -8,7 +8,7 @@ describe ComposerMessagesFinder do
   context '.check_sequential_replies' do
     fab!(:user) { Fabricate(:user) }
     fab!(:topic) { Fabricate(:topic) }
-    fab!(:qa_topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+    fab!(:upvotes_topic) { Fabricate(:topic, subtype: Topic::UPVOTES_SUBTYPE) }
 
     before do
       SiteSetting.educate_until_posts = 4
@@ -25,7 +25,7 @@ describe ComposerMessagesFinder do
     end
 
     it "doesn't notify user about sequential replies for Q&A topics" do
-      finder = ComposerMessagesFinder.new(user, composer_action: 'reply', topic_id: qa_topic.id)
+      finder = ComposerMessagesFinder.new(user, composer_action: 'reply', topic_id: upvotes_topic.id)
       expect(finder.check_sequential_replies).to be_blank
     end
   end

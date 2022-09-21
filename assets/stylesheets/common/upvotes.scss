@@ -1,0 +1,271 @@
+.upvotes-topic,
+.upvotes-topic-sort-by-activity {
+  .time-gap,
+  .topic-post-visited-line,
+  .timeline-date-wrapper,
+  .timeline-last-read,
+  .timeline-ago {
+    display: none;
+  }
+
+  .time-gap + .topic-post,
+  .topic-post-visited + .topic-post {
+    .topic-avatar,
+    .topic-body {
+      border-top: 1px solid var(--primary-low);
+    }
+  }
+
+  // disable reactions by default
+  .discourse-reactions-actions {
+    display: none;
+  }
+}
+
+.upvotes-answers-header {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  padding: 0.5em;
+  padding-right: 0;
+
+  .upvotes-answers-headers-count {
+    font-size: var(--font-up-1);
+  }
+
+  .upvotes-answers-headers-sort {
+    margin-left: auto;
+
+    .btn {
+      color: var(--primary-high);
+      border: 1px solid var(--primary-low-mid);
+      &:hover {
+        background-color: var(--primary-very-low);
+      }
+
+      + .btn {
+        margin-left: 0.3em;
+      }
+
+      &:first-of-type {
+        margin-left: 0.5em;
+      }
+    }
+
+    .btn.active[disabled] {
+      background-color: var(--primary-low);
+      color: var(--primary);
+      opacity: 1;
+      cursor: default;
+    }
+  }
+}
+
+.upvotes-comments {
+  width: 100%;
+  padding-top: 5px;
+}
+
+.upvotes-comment {
+  font-size: var(--font-down-1);
+  border-top: 1px solid var(--primary-low);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0.7em 0;
+  word-break: break-word;
+
+  &.upvotes-comment-deleted {
+    background-color: var(--danger-low-mid);
+  }
+
+  .upvotes-comment-actions-vote {
+    margin-right: 0.5em;
+    display: inline-grid;
+    grid-auto-flow: column;
+    align-items: flex-start;
+
+    .upvotes-comment-actions-vote-count {
+      text-align: center;
+      width: auto;
+      min-width: 16px;
+      padding: 0.1em 0;
+      color: var(--primary-low-mid-or-secondary-high);
+    }
+
+    .btn {
+      font-size: var(--font-up-3);
+      background: none;
+      padding: 0;
+
+      &.upvotes-button-voted {
+        .d-icon {
+          color: var(--success);
+        }
+      }
+    }
+  }
+
+  .upvotes-comment-post {
+    .upvotes-comment-cooked {
+      p {
+        display: inline;
+      }
+    }
+
+    .upvotes-comment-info-separator {
+      margin: 0 0.3em;
+    }
+
+    .upvotes-comment-info-username {
+      display: inline;
+      margin-right: 0.3em;
+    }
+
+    .upvotes-comment-info-created {
+      color: var(--primary-med-or-secondary-med);
+    }
+
+    .upvotes-comment-actions {
+      display: none;
+      margin-left: 0.3em;
+
+      .upvotes-comment-actions-edit-link {
+        color: var(--primary-med-or-secondary-med);
+        margin-right: 0.25em;
+      }
+
+      .upvotes-comment-actions-delete-link {
+        color: var(--primary-med-or-secondary-med);
+      }
+
+      .upvotes-comment-actions-delete-link:hover {
+        color: var(--danger);
+      }
+    }
+  }
+
+  .upvotes-comment-editor {
+    margin: 0.5em 0;
+    width: 100%;
+
+    textarea {
+      width: 100%;
+      margin-bottom: 0;
+    }
+
+    .upvotes-comment-editor-cancel {
+      margin-left: 0.5em;
+    }
+  }
+
+  &:hover {
+    .upvotes-comment-actions {
+      display: inline-block;
+    }
+  }
+}
+
+.upvotes-comment-composer {
+  width: 100%;
+
+  .upvotes-comment-composer-textarea {
+    width: 100%;
+    margin: 0.5em 0;
+  }
+
+  .upvotes-comment-composer-flash {
+    width: 100%;
+    color: var(--primary-med-or-secondary-med);
+
+    &.error {
+      color: var(--danger-hover);
+    }
+
+    margin-bottom: 0.5em;
+  }
+}
+
+.upvotes-comments-menu {
+  font-size: var(--font-down-1);
+  margin: 0;
+
+  .upvotes-comments-menu-composer-cancel {
+    margin-left: 0.5em;
+  }
+
+  .upvotes-comments-menu-seperator {
+    margin: 0 0.8em;
+    display: inline;
+
+    &::after {
+      content: "|";
+    }
+  }
+
+  .upvotes-comments-menu-show-more,
+  .upvotes-comments-menu-add-link {
+    display: inline;
+  }
+}
+
+.upvotes-post {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5em;
+
+  .upvotes-button {
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    font-size: var(--font-up-5);
+  }
+
+  .upvotes-post-list {
+    position: absolute;
+    z-index: 2;
+    background-color: var(--secondary);
+    border: 1px solid var(--primary-low);
+    box-shadow: shadow("card");
+    display: flex;
+    flex-direction: column;
+    top: 4em;
+    padding: 0.5em;
+    max-width: 90vw;
+    overflow: auto;
+
+    .upvotes-post-list-voters-wrapper {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  .upvotes-post-list-voters {
+    display: flex;
+
+    a {
+      margin-left: 0.25em;
+      margin-bottom: 0.25em;
+    }
+  }
+
+  .upvotes-post-list-count,
+  .upvotes-post-list-icon {
+    margin: 0.15em 0.25em 0 0.25em;
+    font-size: var(--font-up-1);
+    color: var(--primary-low-mid);
+  }
+
+  .upvotes-button-voted {
+    .d-icon {
+      color: var(--success);
+    }
+  }
+
+  .upvotes-post-toggle-voters {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}

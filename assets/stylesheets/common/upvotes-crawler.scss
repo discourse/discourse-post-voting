@@ -1,0 +1,34 @@
+body.crawler,
+body > noscript {
+  .crawler-post {
+    border-top: 3px solid var(--primary-low);
+  }
+
+  .upvotes-comments {
+    padding-top: 15px;
+
+    .upvotes-comment-row {
+      display: flex;
+      border-top: 1px solid var(--primary-low);
+      padding: 5px 0px 5px 0px;
+
+      .upvotes-comment-cooked p,
+      .upvotes-comment-creator {
+        display: inline;
+      }
+
+      .upvotes-comment-info-separator {
+        display: inline;
+        margin: 0 0.3em;
+      }
+    }
+  }
+
+  .upvotes-answer-count {
+    padding-top: 20px;
+
+    .upvotes-answer-count-span {
+      display: none;
+    }
+  }
+}

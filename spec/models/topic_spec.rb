@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Topic do
   fab!(:user) { Fabricate(:user) }
   fab!(:category) { Fabricate(:category) }
-  fab!(:topic) { Fabricate(:topic, category: category, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, category: category, subtype: Topic::UPVOTES_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
 
   fab!(:answers) do
@@ -16,7 +16,7 @@ describe Topic do
     answer = answers.first
 
     5.times.map do
-      Fabricate(:qa_comment, post: answer)
+      Fabricate(:upvotes_comment, post: answer)
     end.sort_by(&:created_at)
   end
 
@@ -24,32 +24,32 @@ describe Topic do
 
   context "validations" do
     describe '#subtype' do
-      it "should not allow Q&A formatted topics to be created when qa_enabled site setting is not enabled" do
-        SiteSetting.qa_enabled = false
+      it "should not allow Q&A formatted topics to be created when upvotes_enabled site setting is not enabled" do
+        SiteSetting.upvotes_enabled = false
 
-        topic = Fabricate.build(:topic, archetype: Archetype.default, subtype: Topic::QA_SUBTYPE)
+        topic = Fabricate.build(:topic, archetype: Archetype.default, subtype: Topic::UPVOTES_SUBTYPE)
 
         expect(topic.valid?).to eq(false)
-        expect(topic.errors.full_messages).to eq([I18n.t("topic.qa.errors.qa_not_enabled")])
+        expect(topic.errors.full_messages).to eq([I18n.t("topic.upvotes.errors.upvotes_not_enabled")])
       end
 
       it "should not allow topic to change to Q&A subtype once it has been created" do
         topic_2 = Fabricate(:topic)
-        topic_2.subtype = Topic::QA_SUBTYPE
+        topic_2.subtype = Topic::UPVOTES_SUBTYPE
 
         expect(topic_2.valid?).to eq(false)
-        expect(topic_2.errors.full_messages).to eq([I18n.t("topic.qa.errors.cannot_change_to_qa_subtype")])
+        expect(topic_2.errors.full_messages).to eq([I18n.t("topic.upvotes.errors.cannot_change_to_upvotes_subtype")])
       end
 
       it "should only allow Q&A subtype to be set on regular topics" do
-        topic = Fabricate.build(:topic, archetype: Archetype.default, subtype: Topic::QA_SUBTYPE)
+        topic = Fabricate.build(:topic, archetype: Archetype.default, subtype: Topic::UPVOTES_SUBTYPE)
 
         expect(topic.valid?).to eq(true)
 
         topic.archetype = Archetype.private_message
 
         expect(topic.valid?).to eq(false)
-        expect(topic.errors.full_messages).to eq([I18n.t("topic.qa.errors.subtype_not_allowed")])
+        expect(topic.errors.full_messages).to eq([I18n.t("topic.upvotes.errors.subtype_not_allowed")])
       end
     end
   end
@@ -96,25 +96,25 @@ describe Topic do
     expect(topic.last_answerer.id).to eq(expected)
   end
 
-  describe '.qa_votes' do
+  describe '.upvotes' do
     it 'should return nil if user is blank' do
-      expect(Topic.qa_votes(topic, nil)).to eq(nil)
+      expect(Topic.upvotes(topic, nil)).to eq(nil)
     end
 
     it 'should return nil if disabled' do
-      SiteSetting.qa_enabled = false
+      SiteSetting.upvotes_enabled = false
 
-      expect(Topic.qa_votes(topic, user)).to eq(nil)
+      expect(Topic.upvotes(topic, user)).to eq(nil)
     end
 
     it 'should return voted post IDs' do
       expected = answers.first(3).map do |a|
-        QuestionAnswer::VoteManager.vote(a, user, direction: up)
+        Upvotes::VoteManager.vote(a, user, direction: up)
 
         a.id
       end.sort
 
-      expect(Topic.qa_votes(topic, user).pluck(:votable_id))
+      expect(Topic.upvotes(topic, user).pluck(:votable_id))
         .to contain_exactly(*expected)
     end
   end

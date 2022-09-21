@@ -45,7 +45,7 @@ ru:
       other: ответов
     qa:
       post:
-        qa_comment:
+        upvotes_comment:
           composer:
             too_short:
               one: "Введите не менее %{count} символа"
