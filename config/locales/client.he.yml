@@ -12,6 +12,9 @@ he:
         question_answer_user_commented: "תגובה חדשה"
       popup:
         question_answer_user_commented: 'נוספה תגובה מאת %{username} על „%{topic}” - %{site_title}'
+    category:
+      qa_settings_heading: מענה על שאלות
+      create_as_qa_default: נושאים חדשים מגיעים לשו״ת בקטגוריה הזאת.
     composer:
       create_qa:
         label: "יצירת נושא שו״ת"
