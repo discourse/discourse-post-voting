@@ -18,7 +18,7 @@ describe QuestionAnswer::PostSerializerExtension do
     serializer.as_json
   end
 
-  context 'qa enabled' do
+  context 'with qa enabled' do
     before do
       SiteSetting.qa_enabled = true
     end
@@ -33,7 +33,7 @@ describe QuestionAnswer::PostSerializerExtension do
     end
   end
 
-  context 'qa disabled' do
+  context 'with qa disabled' do
     before do
       SiteSetting.qa_enabled = false
     end

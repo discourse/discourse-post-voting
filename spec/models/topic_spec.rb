@@ -22,7 +22,7 @@ describe Topic do
 
   let(:up) { QuestionAnswerVote.directions[:up] }
 
-  context "validations" do
+  describe "validations" do
     describe '#subtype' do
       it "should not allow Q&A formatted topics to be created when qa_enabled site setting is not enabled" do
         SiteSetting.qa_enabled = false

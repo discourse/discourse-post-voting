@@ -12,7 +12,7 @@ describe QuestionAnswerComment do
     SiteSetting.qa_enabled = true
   end
 
-  context 'validations' do
+  describe 'validations' do
     it 'does not allow comments to be created when post is in reply to another post' do
       post_2 = Fabricate(:post, topic: topic)
 
@@ -81,7 +81,7 @@ describe QuestionAnswerComment do
     end
   end
 
-  context 'callbacks' do
+  describe 'callbacks' do
     it 'cooks raw before saving' do
       qa_comment = QuestionAnswerComment.new(raw: 'this is a **post**', post: post, user: user)
 

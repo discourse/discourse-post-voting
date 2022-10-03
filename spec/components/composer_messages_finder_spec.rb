@@ -5,7 +5,7 @@ require 'composer_messages_finder'
 
 describe ComposerMessagesFinder do
 
-  context '.check_sequential_replies' do
+  describe '.check_sequential_replies' do
     fab!(:user) { Fabricate(:user) }
     fab!(:topic) { Fabricate(:topic) }
     fab!(:qa_topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }

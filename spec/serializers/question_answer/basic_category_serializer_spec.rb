@@ -15,7 +15,7 @@ describe BasicCategorySerializer do
     category.save_custom_fields(true)
   end
 
-  context 'qa enabled' do
+  context 'with qa enabled' do
     before do
       SiteSetting.qa_enabled = true
     end
@@ -25,7 +25,7 @@ describe BasicCategorySerializer do
     end
   end
 
-  context 'qa disabled' do
+  context 'with qa disabled' do
     before do
       SiteSetting.qa_enabled = false
     end
