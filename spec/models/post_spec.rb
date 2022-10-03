@@ -16,7 +16,7 @@ describe Post do
     SiteSetting.qa_enabled = true
   end
 
-  context "validation" do
+  describe "validation" do
     it "ensures that post cannot be created with reply_to_post_number set" do
       post.reply_to_post_number = 3
 

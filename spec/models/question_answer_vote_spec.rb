@@ -14,8 +14,8 @@ describe QuestionAnswerVote do
     SiteSetting.qa_enabled = true
   end
 
-  context 'validations' do
-    context 'posts' do
+  describe 'validations' do
+    context 'with posts' do
       it 'ensures votes cannot be created when QnA is disabled' do
         SiteSetting.qa_enabled = false
 
@@ -57,7 +57,7 @@ describe QuestionAnswerVote do
       end
     end
 
-    context 'comments' do
+    describe 'comments' do
       fab!(:qa_comment) { Fabricate(:qa_comment, post: post) }
 
       it 'ensures vote cannot be created on a comment when QnA is disabled' do
