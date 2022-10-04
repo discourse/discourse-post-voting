@@ -24,6 +24,7 @@ describe PostsController do
     end
 
     it "ignores create_as_qa param when trying to create private message" do
+      Group.refresh_automatic_groups!
       post "/posts.json", params: {
         raw: 'this is some raw',
         title: 'this is some title',
