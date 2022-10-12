@@ -33,6 +33,9 @@ acceptance("Discourse Question Answer - composer", function (needs) {
   test("Creating new topic with Q&A format", async function (assert) {
     await visit("/");
     await click("#create-topic");
+    const categoryChooser = selectKit(".category-chooser");
+    await categoryChooser.expand();
+    await categoryChooser.selectRowByValue(2);
 
     const composerActions = selectKit(".composer-actions");
     await composerActions.expand();
