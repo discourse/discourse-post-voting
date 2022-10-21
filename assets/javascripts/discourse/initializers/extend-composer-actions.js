@@ -38,7 +38,7 @@ export default {
       });
 
       api.modifyClass("component:composer-actions", {
-        pluginId: "discourse-upvotes",
+        pluginId: "discourse-post-voting",
 
         toggleQASelected(options, model) {
           model.toggleProperty("createAsQA");
@@ -78,7 +78,7 @@ export default {
       });
 
       api.modifyClass("model:composer", {
-        pluginId: "discourse-upvotes",
+        pluginId: "discourse-post-voting",
 
         @observes("categoryId")
         categoryCreateAsQADefault() {
