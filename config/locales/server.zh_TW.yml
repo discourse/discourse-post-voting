@@ -5,3 +5,30 @@
 # https://translate.discourse.org/
 
 zh_TW:
+  post:
+    qa:
+      errors:
+        replying_to_post_not_permited: "您無法建立回覆其他貼文的貼文。"
+        voting_not_permitted: "你不被允許對這篇文章投票。"
+        comment_cannot_be_downvoted: "您只能在評論投票。"
+        self_voting_not_permitted: "您不得對自己的貼文或評論進行投票。"
+  topic:
+    qa:
+      errors:
+        qa_not_enabled: "問答未啟用。"
+        subtype_not_allowed: "Q&A 格式化的主題只能在一般主題上建立。"
+        cannot_change_to_qa_subtype: "不允許將主題的子類型變更為「問答集」。"
+      answer_count:
+        other: "%{count} 個回答"
+  site_settings:
+    qa_tags: "啟用主題問答的標籤"
+    qa_enabled: "啟用 Q&A 插件"
+  post_action_types:
+    vote:
+      title: '投票'
+      description: '為這篇文章投票'
+      short_description: '為這篇文章投票'
+  vote:
+    error:
+      user_has_not_voted: "使用者尚未投票。"
+      already_voted: "每個問題只能投票一次。"
