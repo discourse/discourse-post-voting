@@ -532,7 +532,7 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     );
 
     await click("#post_1 .qa-comment-actions-delete-link");
-    await click("a.btn-primary");
+    await click("button.btn-danger");
 
     assert.ok(
       exists("#post_1 #qa-comment-1.qa-comment-deleted"),
@@ -562,7 +562,7 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     const comments = queryAll("#post_2 .qa-comment-actions-delete-link");
 
     await click(comments[comments.length - 1]);
-    await click("a.btn-primary");
+    await click("button.btn-danger");
 
     assert.ok(
       !exists("#post_2 .qa-comments-menu-show-more-link"),

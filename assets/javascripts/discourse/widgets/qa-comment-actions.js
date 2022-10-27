@@ -5,6 +5,7 @@ import { ajax } from "discourse/lib/ajax";
 
 createWidget("qa-comment-actions", {
   tagName: "span.qa-comment-actions",
+  services: ["dialog"],
 
   html(attrs) {
     return [
@@ -25,22 +26,18 @@ createWidget("qa-comment-actions", {
   },
 
   deleteComment(data) {
-    return bootbox.confirm(
-      I18n.t("qa.post.qa_comment.delete.confirm"),
-      I18n.t("no_value"),
-      I18n.t("yes_value"),
-      (result) => {
-        if (result) {
-          ajax("/qa/comments", {
-            type: "DELETE",
-            data,
+    this.dialog.deleteConfirm({
+      message: I18n.t("qa.post.qa_comment.delete.confirm"),
+      didConfirm: () => {
+        ajax("/qa/comments", {
+          type: "DELETE",
+          data,
+        })
+          .then(() => {
+            this.sendWidgetAction("removeComment", data.comment_id);
           })
-            .then(() => {
-              this.sendWidgetAction("removeComment", data.comment_id);
-            })
-            .catch(popupAjaxError);
-        }
-      }
-    );
+          .catch(popupAjaxError);
+      },
+    });
   },
 });
