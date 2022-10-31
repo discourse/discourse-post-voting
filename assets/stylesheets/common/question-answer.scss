@@ -61,6 +61,25 @@
   }
 }
 
+.rtl .qa-answers-header {
+  .qa-answers-headers-sort {
+    margin-left: unset;
+    margin-right: auto;
+
+    .btn {
+      + .btn {
+        margin-left: 0em;
+        margin-right: 0.3em;
+      }
+
+      &:first-of-type {
+        margin-left: 0em;
+        margin-right: 0.5em;
+      }
+    }
+  }
+}
+
 .qa-comments {
   width: 100%;
   padding-top: 5px;
