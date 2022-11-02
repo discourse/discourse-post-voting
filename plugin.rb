@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# name: discourse-upvotes
-# about: Allows a topic to be created in the Q&A format
+# name: discourse-post-voting
+# about: Allows a topic's post to be voted on
 # version: 0.0.1
 # authors: Alan Tan
-# url: https://github.com/discourse/discourse-upvotes
+# url: https://github.com/discourse/discourse-post-voting
 # transpile_js: true
 
 %i[common mobile].each do |type|

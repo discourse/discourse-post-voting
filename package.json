@@ -1,7 +1,7 @@
 {
-  "name": "discourse-upvotes",
+  "name": "discourse-post-voting",
   "version": "0.1",
-  "repository": "https://github.com/discourse/discourse-upvotes",
+  "repository": "https://github.com/discourse/discourse-post-voting",
   "author": "Alan Tan",
   "license": "MIT",
   "devDependencies": {
