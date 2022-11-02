@@ -109,7 +109,7 @@ describe Topic do
 
     it 'should return voted post IDs' do
       expected = answers.first(3).map do |a|
-        QuestionAnswer::VoteManager.vote(a, user, direction: up)
+        PostVoting::VoteManager.vote(a, user, direction: up)
 
         a.id
       end.sort

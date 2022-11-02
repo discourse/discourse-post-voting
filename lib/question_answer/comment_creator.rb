@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuestionAnswer
+module PostVoting
   class CommentCreator
     def self.create(attributes)
       qa_comment = QuestionAnswerComment.new(attributes)

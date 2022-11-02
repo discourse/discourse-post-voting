@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuestionAnswer
+module PostVoting
   module TopicExtension
     def self.included(base)
       base.extend(ClassMethods)

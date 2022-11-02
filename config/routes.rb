@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-QuestionAnswer::Engine.routes.draw do
+PostVoting::Engine.routes.draw do
   resource :vote
   get 'voters' => 'votes#voters'
 
@@ -13,5 +13,5 @@ QuestionAnswer::Engine.routes.draw do
 end
 
 Discourse::Application.routes.append do
-  mount ::QuestionAnswer::Engine, at: 'qa'
+  mount ::PostVoting::Engine, at: 'qa'
 end

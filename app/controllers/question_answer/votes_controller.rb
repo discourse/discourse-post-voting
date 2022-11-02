@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuestionAnswer
+module PostVoting
   class VotesController < ::ApplicationController
     before_action :ensure_logged_in
     before_action :find_vote_post, only: [:create, :destroy, :voters]
@@ -10,7 +10,7 @@ module QuestionAnswer
     def create
       ensure_can_vote(@post)
 
-      if QuestionAnswer::VoteManager.vote(@post, current_user, direction: vote_params[:direction])
+      if PostVoting::VoteManager.vote(@post, current_user, direction: vote_params[:direction])
         render json: success_json
       else
         render json: failed_json, status: 422
@@ -22,7 +22,7 @@ module QuestionAnswer
       ensure_can_see_comment!(comment)
       ensure_can_vote(comment)
 
-      if QuestionAnswer::VoteManager.vote(comment, current_user, direction: QuestionAnswerVote.directions[:up])
+      if PostVoting::VoteManager.vote(comment, current_user, direction: QuestionAnswerVote.directions[:up])
         render json: success_json
       else
         render json: failed_json, status: 422
@@ -38,7 +38,7 @@ module QuestionAnswer
         )
       end
 
-      if !QuestionAnswer::VoteManager.can_undo(@post, current_user)
+      if !PostVoting::VoteManager.can_undo(@post, current_user)
         msg = I18n.t('vote.error.undo_vote_action_window', count: SiteSetting.qa_undo_vote_action_window.to_i)
 
         render_json_error(msg, status: 403)
@@ -46,7 +46,7 @@ module QuestionAnswer
         return
       end
 
-      if QuestionAnswer::VoteManager.remove_vote(@post, current_user)
+      if PostVoting::VoteManager.remove_vote(@post, current_user)
         render json: success_json
       else
         render json: failed_json, status: 422
@@ -65,7 +65,7 @@ module QuestionAnswer
         )
       end
 
-      if QuestionAnswer::VoteManager.remove_vote(comment, current_user)
+      if PostVoting::VoteManager.remove_vote(comment, current_user)
         render json: success_json
       else
         render json: failed_json, status: 422
@@ -135,7 +135,7 @@ module QuestionAnswer
         direction = vote_params[:direction] || QuestionAnswerVote.directions[:up]
         if QuestionAnswerVote.exists?(votable: votable, user_id: current_user.id, direction: direction)
           error_message = "vote.error.one_vote_per_post"
-        elsif !QuestionAnswer::VoteManager.can_undo(votable, current_user)
+        elsif !PostVoting::VoteManager.can_undo(votable, current_user)
           error_message = "vote.error.undo_vote_action_window"
           error_message_params = { count: SiteSetting.qa_undo_vote_action_window.to_i }
         end

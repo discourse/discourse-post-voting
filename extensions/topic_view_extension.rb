@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuestionAnswer
+module PostVoting
   module TopicViewExtension
     def self.prepended(base)
       base.attr_accessor(

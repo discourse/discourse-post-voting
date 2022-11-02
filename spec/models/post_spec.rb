@@ -36,7 +36,7 @@ describe Post do
     freeze_time do
       expect(post.qa_last_voted(user1.id)).to eq(nil)
 
-      QuestionAnswer::VoteManager.vote(post, user1)
+      PostVoting::VoteManager.vote(post, user1)
 
       expect(post.qa_last_voted(user1.id)).to eq_time(Time.zone.now)
     end
@@ -45,7 +45,7 @@ describe Post do
   it 'should return qa_can_vote correctly' do
     expect(post.qa_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(true)
 
-    QuestionAnswer::VoteManager.vote(post, user1)
+    PostVoting::VoteManager.vote(post, user1)
 
     expect(post.qa_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(false)
   end

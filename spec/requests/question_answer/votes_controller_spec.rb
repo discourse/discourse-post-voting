@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe QuestionAnswer::VotesController do
+RSpec.describe PostVoting::VotesController do
   fab!(:user) { Fabricate(:user) }
   fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
@@ -139,7 +139,7 @@ RSpec.describe QuestionAnswer::VotesController do
       Fabricate(:qa_vote, votable: answer, user: user)
       Fabricate(:qa_vote, votable: answer_2, user: user)
 
-      stub_const(QuestionAnswer::VotesController, "VOTERS_LIMIT", 2) do
+      stub_const(PostVoting::VotesController, "VOTERS_LIMIT", 2) do
         get '/qa/voters.json', params: { post_id: answer.id }
       end
 
@@ -237,7 +237,7 @@ RSpec.describe QuestionAnswer::VotesController do
     end
 
     it "should be able to remove a user's vote from a comment" do
-      QuestionAnswer::VoteManager.vote(qa_comment, user, direction: QuestionAnswerVote.directions[:up])
+      PostVoting::VoteManager.vote(qa_comment, user, direction: QuestionAnswerVote.directions[:up])
 
       sign_in(user)
 

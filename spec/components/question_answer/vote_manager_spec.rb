@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe QuestionAnswer::VoteManager do
+describe PostVoting::VoteManager do
   fab!(:user)  { Fabricate(:user) }
   fab!(:user_2)  { Fabricate(:user) }
   fab!(:user_3)  { Fabricate(:user) }
@@ -19,7 +19,7 @@ describe QuestionAnswer::VoteManager do
   describe '.vote' do
     it 'can create an upvote' do
       message = MessageBus.track_publish("/topic/#{post.topic_id}") do
-        QuestionAnswer::VoteManager.vote(post, user, direction: up)
+        PostVoting::VoteManager.vote(post, user, direction: up)
       end.first
 
       expect(QuestionAnswerVote.exists?(votable: post, user: user, direction: up))
@@ -36,7 +36,7 @@ describe QuestionAnswer::VoteManager do
 
     it 'can create a downvote' do
       message = MessageBus.track_publish("/topic/#{post.topic_id}") do
-        QuestionAnswer::VoteManager.vote(post, user, direction: down)
+        PostVoting::VoteManager.vote(post, user, direction: down)
       end.first
 
       expect(QuestionAnswerVote.exists?(votable: post, user: user, direction: down))
@@ -52,18 +52,18 @@ describe QuestionAnswer::VoteManager do
     end
 
     it 'can change an upvote to a downvote' do
-      QuestionAnswer::VoteManager.vote(post, user, direction: up)
-      QuestionAnswer::VoteManager.vote(post, user_2, direction: up)
-      QuestionAnswer::VoteManager.vote(post, user, direction: down)
+      PostVoting::VoteManager.vote(post, user, direction: up)
+      PostVoting::VoteManager.vote(post, user_2, direction: up)
+      PostVoting::VoteManager.vote(post, user, direction: down)
 
       expect(post.qa_vote_count).to eq(0)
     end
 
     it 'can change a downvote to upvote' do
-      QuestionAnswer::VoteManager.vote(post, user, direction: down)
-      QuestionAnswer::VoteManager.vote(post, user_2, direction: down)
-      QuestionAnswer::VoteManager.vote(post, user_3, direction: down)
-      QuestionAnswer::VoteManager.vote(post, user, direction: up)
+      PostVoting::VoteManager.vote(post, user, direction: down)
+      PostVoting::VoteManager.vote(post, user_2, direction: down)
+      PostVoting::VoteManager.vote(post, user_3, direction: down)
+      PostVoting::VoteManager.vote(post, user, direction: up)
 
       expect(post.qa_vote_count).to eq(-1)
     end
@@ -71,10 +71,10 @@ describe QuestionAnswer::VoteManager do
 
   describe '.remove_vote' do
     it "should remove a user's upvote" do
-      vote = QuestionAnswer::VoteManager.vote(post, user, direction: up)
+      vote = PostVoting::VoteManager.vote(post, user, direction: up)
 
       message = MessageBus.track_publish("/topic/#{post.topic_id}") do
-        QuestionAnswer::VoteManager.remove_vote(vote.votable, vote.user)
+        PostVoting::VoteManager.remove_vote(vote.votable, vote.user)
       end.first
 
       expect(QuestionAnswerVote.exists?(id: vote.id)).to eq(false)
@@ -88,13 +88,13 @@ describe QuestionAnswer::VoteManager do
     end
 
     it "should remove a user's downvote" do
-      vote = QuestionAnswer::VoteManager.vote(post, Fabricate(:user), direction: up)
-      vote_2 = QuestionAnswer::VoteManager.vote(post, Fabricate(:user), direction: up)
-      vote_3 = QuestionAnswer::VoteManager.vote(post, user, direction: down)
+      vote = PostVoting::VoteManager.vote(post, Fabricate(:user), direction: up)
+      vote_2 = PostVoting::VoteManager.vote(post, Fabricate(:user), direction: up)
+      vote_3 = PostVoting::VoteManager.vote(post, user, direction: down)
 
       message = MessageBus.track_publish("/topic/#{post.topic_id}") do
         expect do
-          QuestionAnswer::VoteManager.remove_vote(post, user)
+          PostVoting::VoteManager.remove_vote(post, user)
         end.to change { vote.votable.reload.qa_vote_count }.from(1).to(2)
       end.first
 

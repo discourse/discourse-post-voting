@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe QuestionAnswer::TopicViewSerializerExtension do
+describe PostVoting::TopicViewSerializerExtension do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:answer) { Fabricate(:post, topic: topic, reply_to_post_number: nil) }
@@ -16,10 +16,10 @@ describe QuestionAnswer::TopicViewSerializerExtension do
   end
 
   it 'should return correct values' do
-    QuestionAnswer::VoteManager.vote(topic_post, user)
-    QuestionAnswer::VoteManager.vote(answer, user)
-    QuestionAnswer::VoteManager.vote(answer, Fabricate(:user))
-    QuestionAnswer::VoteManager.vote(comment, user)
+    PostVoting::VoteManager.vote(topic_post, user)
+    PostVoting::VoteManager.vote(answer, user)
+    PostVoting::VoteManager.vote(answer, Fabricate(:user))
+    PostVoting::VoteManager.vote(comment, user)
 
     payload = TopicViewSerializer.new(topic_view, scope: guardian, root: false).as_json
 

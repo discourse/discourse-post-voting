@@ -49,15 +49,15 @@ after_initialize do
   register_post_custom_field_type('vote_count', :integer)
 
   reloadable_patch do
-    Post.include(QuestionAnswer::PostExtension)
-    Topic.include(QuestionAnswer::TopicExtension)
-    PostSerializer.include(QuestionAnswer::PostSerializerExtension)
-    TopicView.prepend(QuestionAnswer::TopicViewExtension)
-    TopicViewSerializer.include(QuestionAnswer::TopicViewSerializerExtension)
-    TopicListItemSerializer.include(QuestionAnswer::TopicListItemSerializerExtension)
-    User.include(QuestionAnswer::UserExtension)
-    Guardian.include(QuestionAnswer::Guardian)
-    ComposerMessagesFinder.prepend(QuestionAnswer::ComposerMessagesFinderExtension)
+    Post.include(PostVoting::PostExtension)
+    Topic.include(PostVoting::TopicExtension)
+    PostSerializer.include(PostVoting::PostSerializerExtension)
+    TopicView.prepend(PostVoting::TopicViewExtension)
+    TopicViewSerializer.include(PostVoting::TopicViewSerializerExtension)
+    TopicListItemSerializer.include(PostVoting::TopicListItemSerializerExtension)
+    User.include(PostVoting::UserExtension)
+    Guardian.include(PostVoting::Guardian)
+    ComposerMessagesFinder.prepend(PostVoting::ComposerMessagesFinderExtension)
   end
 
   # TODO: Performance of the query degrades as the number of posts a user has voted
@@ -192,12 +192,12 @@ after_initialize do
     false
   end
 
-  register_category_custom_field_type(QuestionAnswer::CREATE_AS_QA_DEFAULT, :boolean)
+  register_category_custom_field_type(PostVoting::CREATE_AS_QA_DEFAULT, :boolean)
   if Site.respond_to? :preloaded_category_custom_fields
-    Site.preloaded_category_custom_fields << QuestionAnswer::CREATE_AS_QA_DEFAULT
+    Site.preloaded_category_custom_fields << PostVoting::CREATE_AS_QA_DEFAULT
   end
   add_to_class(:category, :create_as_qa_default) do
-    ActiveModel::Type::Boolean.new.cast(self.custom_fields[QuestionAnswer::CREATE_AS_QA_DEFAULT])
+    ActiveModel::Type::Boolean.new.cast(self.custom_fields[PostVoting::CREATE_AS_QA_DEFAULT])
   end
   add_to_serializer(:basic_category, :create_as_qa_default) { object.create_as_qa_default }
 end

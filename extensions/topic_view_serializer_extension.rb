@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuestionAnswer
+module PostVoting
   module TopicViewSerializerExtension
     def self.included(base)
       base.attributes(
