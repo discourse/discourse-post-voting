@@ -16,10 +16,10 @@ enabled_site_setting :qa_enabled
 
 after_initialize do
   %w(
-    ../lib/question_answer/engine.rb
-    ../lib/question_answer/vote_manager.rb
-    ../lib/question_answer/guardian.rb
-    ../lib/question_answer/comment_creator.rb
+    ../lib/post_voting/engine.rb
+    ../lib/post_voting/vote_manager.rb
+    ../lib/post_voting/guardian.rb
+    ../lib/post_voting/comment_creator.rb
     ../extensions/post_extension.rb
     ../extensions/post_serializer_extension.rb
     ../extensions/topic_extension.rb
@@ -29,8 +29,8 @@ after_initialize do
     ../extensions/user_extension.rb
     ../extensions/composer_messages_finder_extension.rb
     ../app/validators/question_answer_comment_validator.rb
-    ../app/controllers/question_answer/votes_controller.rb
-    ../app/controllers/question_answer/comments_controller.rb
+    ../app/controllers/post_voting/votes_controller.rb
+    ../app/controllers/post_voting/comments_controller.rb
     ../app/models/question_answer_vote.rb
     ../app/models/question_answer_comment.rb
     ../app/serializers/basic_voter_serializer.rb
