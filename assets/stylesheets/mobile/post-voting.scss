@@ -1,6 +1,6 @@
-.qa-topic,
-.qa-topic-sort-by-activity {
-  .qa-answers-header {
+.post-voting-topic,
+.post-voting-topic-sort-by-activity {
+  .post-voting-answers-header {
     padding: 0;
     padding-bottom: 1em;
     border-top: none;
@@ -12,19 +12,19 @@
   }
 
   // TODO: avoid using magic values here
-  // and in .qa-post below
+  // and in .post-voting-post below
   .topic-body .cooked {
     margin-left: 55px;
     min-height: 55px;
   }
 }
 
-.qa-post {
+.post-voting-post {
   position: absolute;
   left: 0px;
   top: 45px;
   width: 45px;
-  .qa-post-list {
+  .post-voting-post-list {
     left: -5px;
   }
 }

@@ -1,5 +1,5 @@
-.qa-topic,
-.qa-topic-sort-by-activity {
+.post-voting-topic,
+.post-voting-topic-sort-by-activity {
   .time-gap,
   .topic-post-visited-line,
   .timeline-date-wrapper,
@@ -22,18 +22,18 @@
   }
 }
 
-.qa-answers-header {
+.post-voting-answers-header {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   padding: 0.5em;
   padding-right: 0;
 
-  .qa-answers-headers-count {
+  .post-voting-answers-headers-count {
     font-size: var(--font-up-1);
   }
 
-  .qa-answers-headers-sort {
+  .post-voting-answers-headers-sort {
     margin-left: auto;
 
     .btn {
@@ -80,12 +80,12 @@
   }
 }
 
-.qa-comments {
+.post-voting-comments {
   width: 100%;
   padding-top: 5px;
 }
 
-.qa-comment {
+.post-voting-comment {
   font-size: var(--font-down-1);
   border-top: 1px solid var(--primary-low);
   display: flex;
@@ -94,17 +94,17 @@
   padding: 0.7em 0;
   word-break: break-word;
 
-  &.qa-comment-deleted {
+  &.post-voting-comment-deleted {
     background-color: var(--danger-low-mid);
   }
 
-  .qa-comment-actions-vote {
+  .post-voting-comment-actions-vote {
     margin-right: 0.5em;
     display: inline-grid;
     grid-auto-flow: column;
     align-items: flex-start;
 
-    .qa-comment-actions-vote-count {
+    .post-voting-comment-actions-vote-count {
       text-align: center;
       width: auto;
       min-width: 16px;
@@ -117,7 +117,7 @@
       background: none;
       padding: 0;
 
-      &.qa-button-voted {
+      &.post-voting-button-voted {
         .d-icon {
           color: var(--success);
         }
@@ -125,46 +125,46 @@
     }
   }
 
-  .qa-comment-post {
-    .qa-comment-cooked {
+  .post-voting-comment-post {
+    .post-voting-comment-cooked {
       p {
         display: inline;
       }
     }
 
-    .qa-comment-info-separator {
+    .post-voting-comment-info-separator {
       margin: 0 0.3em;
     }
 
-    .qa-comment-info-username {
+    .post-voting-comment-info-username {
       display: inline;
       margin-right: 0.3em;
     }
 
-    .qa-comment-info-created {
+    .post-voting-comment-info-created {
       color: var(--primary-med-or-secondary-med);
     }
 
-    .qa-comment-actions {
+    .post-voting-comment-actions {
       display: none;
       margin-left: 0.3em;
 
-      .qa-comment-actions-edit-link {
+      .post-voting-comment-actions-edit-link {
         color: var(--primary-med-or-secondary-med);
         margin-right: 0.25em;
       }
 
-      .qa-comment-actions-delete-link {
+      .post-voting-comment-actions-delete-link {
         color: var(--primary-med-or-secondary-med);
       }
 
-      .qa-comment-actions-delete-link:hover {
+      .post-voting-comment-actions-delete-link:hover {
         color: var(--danger);
       }
     }
   }
 
-  .qa-comment-editor {
+  .post-voting-comment-editor {
     margin: 0.5em 0;
     width: 100%;
 
@@ -173,27 +173,27 @@
       margin-bottom: 0;
     }
 
-    .qa-comment-editor-cancel {
+    .post-voting-comment-editor-cancel {
       margin-left: 0.5em;
     }
   }
 
   &:hover {
-    .qa-comment-actions {
+    .post-voting-comment-actions {
       display: inline-block;
     }
   }
 }
 
-.qa-comment-composer {
+.post-voting-comment-composer {
   width: 100%;
 
-  .qa-comment-composer-textarea {
+  .post-voting-comment-composer-textarea {
     width: 100%;
     margin: 0.5em 0;
   }
 
-  .qa-comment-composer-flash {
+  .post-voting-comment-composer-flash {
     width: 100%;
     color: var(--primary-med-or-secondary-med);
 
@@ -205,15 +205,15 @@
   }
 }
 
-.qa-comments-menu {
+.post-voting-comments-menu {
   font-size: var(--font-down-1);
   margin: 0;
 
-  .qa-comments-menu-composer-cancel {
+  .post-voting-comments-menu-composer-cancel {
     margin-left: 0.5em;
   }
 
-  .qa-comments-menu-seperator {
+  .post-voting-comments-menu-separator {
     margin: 0 0.8em;
     display: inline;
 
@@ -222,13 +222,13 @@
     }
   }
 
-  .qa-comments-menu-show-more,
-  .qa-comments-menu-add-link {
+  .post-voting-comments-menu-show-more,
+  .post-voting-comments-menu-add-link {
     display: inline;
   }
 }
 
-.qa-post {
+.post-voting-post {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -236,13 +236,13 @@
   justify-content: center;
   margin-top: 0.5em;
 
-  .qa-button {
+  .post-voting-button {
     padding-top: 0.1em;
     padding-bottom: 0.1em;
     font-size: var(--font-up-5);
   }
 
-  .qa-post-list {
+  .post-voting-post-list {
     position: absolute;
     z-index: 2;
     background-color: var(--secondary);
@@ -255,13 +255,13 @@
     max-width: 90vw;
     overflow: auto;
 
-    .qa-post-list-voters-wrapper {
+    .post-voting-post-list-voters-wrapper {
       display: flex;
       flex-direction: row;
     }
   }
 
-  .qa-post-list-voters {
+  .post-voting-post-list-voters {
     display: flex;
 
     a {
@@ -270,20 +270,20 @@
     }
   }
 
-  .qa-post-list-count,
-  .qa-post-list-icon {
+  .post-voting-post-list-count,
+  .post-voting-post-list-icon {
     margin: 0.15em 0.25em 0 0.25em;
     font-size: var(--font-up-1);
     color: var(--primary-low-mid);
   }
 
-  .qa-button-voted {
+  .post-voting-button-voted {
     .d-icon {
       color: var(--success);
     }
   }
 
-  .qa-post-toggle-voters {
+  .post-voting-post-toggle-voters {
     padding-top: 0;
     padding-bottom: 0;
   }

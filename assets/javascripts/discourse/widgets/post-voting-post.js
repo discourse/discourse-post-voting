@@ -1,13 +1,13 @@
 import { createWidget } from "discourse/widgets/widget";
-import { castVote, removeVote, whoVoted } from "../lib/qa-utilities";
+import { castVote, removeVote, whoVoted } from "../lib/post-voting-utilities";
 import { h } from "virtual-dom";
 import { smallUserAtts } from "discourse/widgets/actions-summary";
 import { iconNode } from "discourse-common/lib/icon-library";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 
-export default createWidget("qa-post", {
-  tagName: "div.qa-post",
-  buildKey: (attrs) => `qa-post-${attrs.post.id}`,
+export default createWidget("post-voting-post", {
+  tagName: "div.post-voting-post",
+  buildKey: (attrs) => `post-voting-post-${attrs.post.id}`,
 
   sendShowLogin() {
     const appRoute = this.register.lookup("route:application");
@@ -23,19 +23,19 @@ export default createWidget("qa-post", {
 
   html(attrs, state) {
     const contents = [
-      this.attach("qa-button", {
+      this.attach("post-voting-button", {
         direction: "up",
         loading: state.loading,
         voted: attrs.post.qa_user_voted_direction === "up",
       }),
     ];
 
-    if (attrs.post.qa_has_votes) {
+    if (attrs.post.post_voting_has_votes) {
       contents.push(
         this.attach("button", {
           action: "toggleWhoVoted",
           contents: `${attrs.post.qa_vote_count}`,
-          className: "qa-post-toggle-voters btn btn-flat",
+          className: "post-voting-post-toggle-voters btn btn-flat",
         })
       );
 
@@ -51,21 +51,21 @@ export default createWidget("qa-post", {
           }
         });
 
-        const qaPostVotersList = [];
+        const postVotersList = [];
         const upVotersList = this._postVotersList("up", upVoters);
 
         if (upVotersList) {
-          qaPostVotersList.push(upVotersList);
+          postVotersList.push(upVotersList);
         }
 
         const downVotersList = this._postVotersList("down", downVoters);
 
         if (downVotersList) {
-          qaPostVotersList.push(downVotersList);
+          postVotersList.push(downVotersList);
         }
 
-        if (qaPostVotersList.length > 0) {
-          contents.push(h(".qa-post-list", qaPostVotersList));
+        if (postVotersList.length > 0) {
+          contents.push(h(".post-voting-post-list", postVotersList));
         }
 
         const countDiff = attrs.post.qa_vote_count - state.voters.length;
@@ -76,12 +76,15 @@ export default createWidget("qa-post", {
       }
     } else {
       contents.push(
-        h("span.qa-post-toggle-voters", `${attrs.post.qa_vote_count || 0}`)
+        h(
+          "span.post-voting-post-toggle-voters",
+          `${attrs.post.qa_vote_count || 0}`
+        )
       );
     }
 
     contents.push(
-      this.attach("qa-button", {
+      this.attach("post-voting-button", {
         direction: "down",
         loading: state.loading,
         voted: attrs.post.qa_user_voted_direction === "down",
@@ -95,12 +98,12 @@ export default createWidget("qa-post", {
     if (voters.length > 0) {
       const icon = direction === "up" ? "caret-up" : "caret-down";
 
-      return h("div.qa-post-list-voters-wrapper", [
-        h("span.qa-post-list-icon", iconNode(icon)),
-        h("span.qa-post-list-count", `${voters.length}`),
+      return h("div.post-voting-post-list-voters-wrapper", [
+        h("span.post-voting-post-list-icon", iconNode(icon)),
+        h("span.post-voting-post-list-count", `${voters.length}`),
         this.attach("small-user-list", {
           users: voters,
-          listClassName: "qa-post-list-voters",
+          listClassName: "post-voting-post-list-voters",
         }),
       ]);
     }

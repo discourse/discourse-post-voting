@@ -1,8 +1,8 @@
 import { createWidget } from "discourse/widgets/widget";
 import { iconNode } from "discourse-common/lib/icon-library";
 
-export default createWidget("qa-button", {
-  tagName: "button.btn.btn-flat.no-text.qa-button",
+export default createWidget("post-voting-button", {
+  tagName: "button.btn.btn-flat.no-text.post-voting-button",
 
   buildAttributes(attrs) {
     const attributes = {};
@@ -18,15 +18,15 @@ export default createWidget("qa-button", {
     const result = [];
 
     if (attrs.direction === "up") {
-      result.push("qa-button-upvote");
+      result.push("post-voting-button-upvote");
     }
 
     if (attrs.direction === "down") {
-      result.push("qa-button-downvote");
+      result.push("post-voting-button-downvote");
     }
 
     if (attrs.voted) {
-      result.push("qa-button-voted");
+      result.push("post-voting-button-voted");
     }
 
     return result;

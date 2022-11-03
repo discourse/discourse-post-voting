@@ -3,19 +3,19 @@ import I18n from "I18n";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import { ajax } from "discourse/lib/ajax";
 
-createWidget("qa-comment-actions", {
-  tagName: "span.qa-comment-actions",
+createWidget("post-voting-comment-actions", {
+  tagName: "span.post-voting-comment-actions",
   services: ["dialog"],
 
   html(attrs) {
     return [
       this.attach("link", {
-        className: "qa-comment-actions-edit-link",
+        className: "post-voting-comment-actions-edit-link",
         action: "expandEditor",
         icon: "pencil-alt",
       }),
       this.attach("link", {
-        className: "qa-comment-actions-delete-link",
+        className: "post-voting-comment-actions-delete-link",
         action: "deleteComment",
         icon: "far-trash-alt",
         actionParam: {

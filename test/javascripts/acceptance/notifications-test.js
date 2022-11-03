@@ -3,7 +3,7 @@ import { test } from "qunit";
 import { visit } from "@ember/test-helpers";
 import { acceptance, queryAll } from "discourse/tests/helpers/qunit-helpers";
 
-acceptance("Discourse Question Answer - notifications", function (needs) {
+acceptance("Discourse Post Voting - notifications", function (needs) {
   needs.user();
 
   needs.pretender((server, helper) => {
@@ -43,7 +43,7 @@ acceptance("Discourse Question Answer - notifications", function (needs) {
     assert.ok(
       notification
         .querySelector("a")
-        .href.includes("/t/some-slug/59#qa-comment-123"),
+        .href.includes("/t/some-slug/59#post-voting-comment-123"),
       "displays a link with a hash fragment pointing to the comment id"
     );
 

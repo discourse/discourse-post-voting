@@ -6,20 +6,20 @@ import I18n from "I18n";
 import { parsePostData } from "discourse/tests/helpers/create-pretender";
 import Category from "discourse/models/category";
 
-let createAsQASetInRequest = false;
+let createAsPostVotingSetInRequest = false;
 
-acceptance("Discourse Question Answer - composer", function (needs) {
+acceptance("Discourse Post Voting - composer", function (needs) {
   needs.user();
   needs.settings({ qa_enabled: true });
 
   needs.hooks.afterEach(() => {
-    createAsQASetInRequest = false;
+    createAsPostVotingSetInRequest = false;
   });
 
   needs.pretender((server, helper) => {
     server.post("/posts", (request) => {
       if (parsePostData(request.requestBody).create_as_qa === "true") {
-        createAsQASetInRequest = true;
+        createAsPostVotingSetInRequest = true;
       }
 
       return helper.response({
@@ -30,7 +30,7 @@ acceptance("Discourse Question Answer - composer", function (needs) {
     });
   });
 
-  test("Creating new topic with Q&A format", async function (assert) {
+  test("Creating new topic with post voting format", async function (assert) {
     await visit("/");
     await click("#create-topic");
     const categoryChooser = selectKit(".category-chooser");
@@ -46,7 +46,7 @@ acceptance("Discourse Question Answer - composer", function (needs) {
     assert.strictEqual(
       query(".action-title").textContent.trim(),
       I18n.t("composer.create_post_voting.label"),
-      "displays the right composer action title when creating Q&A topic"
+      "displays the right composer action title when creating Post Voting topic"
     );
 
     assert.strictEqual(
@@ -63,7 +63,7 @@ acceptance("Discourse Question Answer - composer", function (needs) {
     assert.notStrictEqual(
       query(".action-title").textContent.trim(),
       I18n.t("composer.create_post_voting.label"),
-      "reverts to original composer title when Q&A format is disabled"
+      "reverts to original composer title when post voting format is disabled"
     );
 
     await composerActions.expand();
@@ -76,12 +76,12 @@ acceptance("Discourse Question Answer - composer", function (needs) {
     await click(".create");
 
     assert.ok(
-      createAsQASetInRequest,
-      "submits the right request to create topic as Q&A formatted"
+      createAsPostVotingSetInRequest,
+      "submits the right request to create topic as Post Voting formatted"
     );
   });
 
-  test("Creating new topic in category with Q&A create default", async function (assert) {
+  test("Creating new topic in category with Post Voting create default", async function (assert) {
     Category.findById(2).set("create_as_qa_default", true);
 
     await visit("/");

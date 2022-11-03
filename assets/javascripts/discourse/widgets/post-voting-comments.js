@@ -1,8 +1,8 @@
 import { createWidget } from "discourse/widgets/widget";
 
-export default createWidget("qa-comments", {
-  tagName: "div.qa-comments",
-  buildKey: (attrs) => `qa-comments-${attrs.id}`,
+export default createWidget("post-voting-comments", {
+  tagName: "div.post-voting-comments",
+  buildKey: (attrs) => `post-voting-comments-${attrs.id}`,
 
   html(attrs) {
     const result = [];
@@ -10,13 +10,13 @@ export default createWidget("qa-comments", {
 
     if (postCommentsLength > 0) {
       for (let i = 0; i < postCommentsLength; i++) {
-        result.push(this.attach("qa-comment", attrs.comments[i]));
+        result.push(this.attach("post-voting-comment", attrs.comments[i]));
       }
     }
 
     if (attrs.canCreatePost) {
       result.push(
-        this.attach("qa-comments-menu", {
+        this.attach("post-voting-comments-menu", {
           id: attrs.id,
           postNumber: attrs.post_number,
           moreCommentCount: attrs.comments_count - postCommentsLength,

@@ -22,7 +22,7 @@ import I18n from "I18n";
 const topicResponse = cloneJSON(topicFixtures["/t/280/1.json"]);
 const topicList = cloneJSON(discoveryFixtures["/latest.json"]);
 
-function qaEnabledTopicResponse() {
+function postVotingEnabledTopicResponse() {
   topicResponse.post_stream.posts[0]["qa_vote_count"] = 0;
   topicResponse.post_stream.posts[0]["comments_count"] = 1;
   topicResponse.post_stream.posts[0]["qa_has_votes"] = false;
@@ -101,7 +101,7 @@ function qaEnabledTopicResponse() {
   return topicResponse;
 }
 
-function qaTopicListResponse() {
+function postVotingTopicListResponse() {
   // will link to OP
   topicList.topic_list.topics[0].is_qa = true;
   topicList.topic_list.topics[0].last_read_post_number =
@@ -122,7 +122,7 @@ function qaTopicListResponse() {
 
 let filteredByActivity = false;
 
-function setupQA(needs) {
+function setupPostVoting(needs) {
   needs.settings({
     qa_enabled: true,
     min_post_length: 5,
@@ -142,7 +142,7 @@ function setupQA(needs) {
         filteredByActivity = false;
       }
 
-      return helper.response(qaEnabledTopicResponse());
+      return helper.response(postVotingEnabledTopicResponse());
     });
 
     server.get("/qa/comments", () => {
@@ -201,33 +201,33 @@ function setupQA(needs) {
     });
 
     server.get("/latest.json", () => {
-      return helper.response(qaTopicListResponse());
+      return helper.response(postVotingTopicListResponse());
     });
   });
 }
 
-acceptance("Discourse Question Answer - anon user", function (needs) {
-  setupQA(needs);
+acceptance("Discourse Post Voting - anon user", function (needs) {
+  setupPostVoting(needs);
 
   test("Viewing comments", async function (assert) {
     await visit("/t/280");
 
     assert.strictEqual(
-      queryAll("#post_1 .qa-comment").length,
+      queryAll("#post_1 .post-voting-comment").length,
       1,
       "displays the right number of comments for the first post"
     );
 
     assert.strictEqual(
-      queryAll("#post_2 .qa-comment").length,
+      queryAll("#post_2 .post-voting-comment").length,
       5,
       "displays the right number of comments for the second post"
     );
 
-    await click(".qa-comments-menu-show-more-link");
+    await click(".post-voting-comments-menu-show-more-link");
 
     assert.strictEqual(
-      queryAll("#post_2 .qa-comment").length,
+      queryAll("#post_2 .post-voting-comment").length,
       6,
       "displays the right number of comments after loading more"
     );
@@ -235,58 +235,58 @@ acceptance("Discourse Question Answer - anon user", function (needs) {
 
   test("adding a comment", async function (assert) {
     await visit("/t/280");
-    await click(".qa-comment-add-link");
+    await click(".post-voting-comment-add-link");
 
     assert.ok(exists(".login-modal"), "displays the login modal");
   });
 
   test("voting a comment", async function (assert) {
     await visit("/t/280");
-    await click("#post_2 #qa-comment-2 .qa-button-upvote");
+    await click("#post_2 #post-voting-comment-2 .post-voting-button-upvote");
 
     assert.ok(exists(".login-modal"), "displays the login modal");
   });
 });
 
-acceptance("Discourse Question Answer - logged in user", function (needs) {
-  setupQA(needs);
+acceptance("Discourse Post Voting - logged in user", function (needs) {
+  setupPostVoting(needs);
   needs.user();
 
-  test("Q&A features do not leak into non-Q&A topics", async function (assert) {
+  test("Post Voting features do not leak into non-Post Voting topics", async function (assert) {
     await visit("/t/130");
 
     assert.ok(exists("#post_1 button.reply"), "displays the reply button");
 
     assert.notOk(
-      exists(".qa-answers-header"),
-      "does not display the Q&A answers header"
+      exists(".post-voting-answers-header"),
+      "does not display the Post Voting answers header"
     );
   });
 
-  test("non Q&A topics do not have Q&A specific class on body tag", async function (assert) {
+  test("non Post Voting topics do not have Post Voting specific class on body tag", async function (assert) {
     await visit("/t/130");
 
     assert.notOk(
-      !!document.querySelector("body.qa-topic"),
-      "does not append Q&A specific class on body tag"
+      !!document.querySelector("body.post-voting-topic"),
+      "does not append Post Voting specific class on body tag"
     );
 
     await visit("/t/280");
 
     assert.ok(
-      !!document.querySelector("body.qa-topic"),
-      "appends Q&A specific class on body tag"
+      !!document.querySelector("body.post-voting-topic"),
+      "appends Post Voting specific class on body tag"
     );
 
     await visit("/t/130");
 
     assert.notOk(
-      !!document.querySelector("body.qa-topic"),
-      "does not append Q&A specific class on body tag"
+      !!document.querySelector("body.post-voting-topic"),
+      "does not append Post Voting specific class on body tag"
     );
   });
 
-  test("Q&A topics has relevant copy on reply button", async function (assert) {
+  test("Post Voting topics has relevant copy on reply button", async function (assert) {
     await visit("/t/280");
 
     assert.strictEqual(
@@ -300,16 +300,16 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await visit("/t/280");
 
     assert.ok(
-      query(".qa-answers-headers-sort-votes[disabled=true]"),
+      query(".post-voting-answers-headers-sort-votes[disabled=true]"),
       "sort by votes button is disabled by default"
     );
 
     assert.ok(
-      !!document.querySelector("body.qa-topic"),
-      "appends the right class to body when loading Q&A topic"
+      !!document.querySelector("body.post-voting-topic"),
+      "appends the right class to body when loading Post Voting topic"
     );
 
-    await click(".qa-answers-headers-sort-activity");
+    await click(".post-voting-answers-headers-sort-activity");
 
     assert.ok(
       filteredByActivity,
@@ -317,24 +317,24 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     );
 
     assert.ok(
-      !!document.querySelector("body.qa-topic-sort-by-activity"),
+      !!document.querySelector("body.post-voting-topic-sort-by-activity"),
       "appends the right class to body when topic is filtered by activity"
     );
 
     assert.ok(
-      query(".qa-answers-headers-sort-activity[disabled=true]"),
+      query(".post-voting-answers-headers-sort-activity[disabled=true]"),
       "disabled sort by activity button"
     );
 
-    await click(".qa-answers-headers-sort-votes");
+    await click(".post-voting-answers-headers-sort-votes");
 
     assert.ok(
-      query(".qa-answers-headers-sort-votes[disabled=true]"),
+      query(".post-voting-answers-headers-sort-votes[disabled=true]"),
       "disables sort by votes button"
     );
 
     assert.ok(
-      !!document.querySelector("body.qa-topic"),
+      !!document.querySelector("body.post-voting-topic"),
       "appends the right class to body when topic is filtered by votes"
     );
 
@@ -374,12 +374,12 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
 
   test("validations for comment length", async function (assert) {
     await visit("/t/280");
-    await click("#post_1 .qa-comment-add-link");
+    await click("#post_1 .post-voting-comment-add-link");
 
-    await fillIn(".qa-comment-composer-textarea", "a".repeat(4));
+    await fillIn(".post-voting-comment-composer-textarea", "a".repeat(4));
 
     assert.strictEqual(
-      query(".qa-comment-composer-flash").textContent.trim(),
+      query(".post-voting-comment-composer-flash").textContent.trim(),
       I18n.t("post_voting.post.post_voting_comment.composer.too_short", {
         count: 5,
       }),
@@ -387,14 +387,14 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     );
 
     assert.ok(
-      exists(".qa-comments-menu-composer-submit[disabled=true]"),
+      exists(".post-voting-comments-menu-composer-submit[disabled=true]"),
       "submit comment button is disabled"
     );
 
-    await fillIn(".qa-comment-composer-textarea", "a".repeat(6));
+    await fillIn(".post-voting-comment-composer-textarea", "a".repeat(6));
 
     assert.strictEqual(
-      query(".qa-comment-composer-flash").textContent.trim(),
+      query(".post-voting-comment-composer-flash").textContent.trim(),
       I18n.t("post_voting.post.post_voting_comment.composer.length_ok", {
         count: 44,
       }),
@@ -402,14 +402,14 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     );
 
     assert.notOk(
-      exists(".qa-comments-menu-composer-submit[disabled=true]"),
+      exists(".post-voting-comments-menu-composer-submit[disabled=true]"),
       "submit comment button is enabled"
     );
 
-    await fillIn(".qa-comment-composer-textarea", "a".repeat(51));
+    await fillIn(".post-voting-comment-composer-textarea", "a".repeat(51));
 
     assert.strictEqual(
-      query(".qa-comment-composer-flash").textContent.trim(),
+      query(".post-voting-comment-composer-flash").textContent.trim(),
       I18n.t("post_voting.post.post_voting_comment.composer.too_long", {
         count: 50,
       }),
@@ -417,7 +417,7 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     );
 
     assert.ok(
-      exists(".qa-comments-menu-composer-submit[disabled=true]"),
+      exists(".post-voting-comments-menu-composer-submit[disabled=true]"),
       "submit comment button is disabled"
     );
   });
@@ -426,24 +426,27 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await visit("/t/280");
 
     assert.strictEqual(
-      queryAll("#post_1 .qa-comment").length,
+      queryAll("#post_1 .post-voting-comment").length,
       1,
       "displays the right number of comments for the first post"
     );
 
-    await click("#post_1 .qa-comment-add-link");
+    await click("#post_1 .post-voting-comment-add-link");
 
     assert.strictEqual(
-      queryAll("#post_1 .qa-comment").length,
+      queryAll("#post_1 .post-voting-comment").length,
       2,
       "loads all comments when composer is expanded"
     );
 
-    await fillIn(".qa-comment-composer-textarea", "this is some comment");
-    await click(".qa-comments-menu-composer-submit");
+    await fillIn(
+      ".post-voting-comment-composer-textarea",
+      "this is some comment"
+    );
+    await click(".post-voting-comments-menu-composer-submit");
 
     assert.strictEqual(
-      queryAll("#post_1 .qa-comment").length,
+      queryAll("#post_1 .post-voting-comment").length,
       3,
       "should add the new comment"
     );
@@ -451,23 +454,30 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
 
   test("adding a comment with keyboard shortcut", async function (assert) {
     await visit("/t/280");
-    await click("#post_1 .qa-comment-add-link");
+    await click("#post_1 .post-voting-comment-add-link");
 
     assert.strictEqual(
-      queryAll("#post_1 .qa-comment").length,
+      queryAll("#post_1 .post-voting-comment").length,
       2,
       "loads all comments when composer is expanded"
     );
 
-    await fillIn(".qa-comment-composer-textarea", "this is a new test comment");
+    await fillIn(
+      ".post-voting-comment-composer-textarea",
+      "this is a new test comment"
+    );
 
-    await triggerEvent(".qa-comments-menu-composer-submit", "keydown", {
-      key: "Enter",
-      ctrlKey: true,
-    });
+    await triggerEvent(
+      ".post-voting-comments-menu-composer-submit",
+      "keydown",
+      {
+        key: "Enter",
+        ctrlKey: true,
+      }
+    );
 
     assert.strictEqual(
-      queryAll("#post_1 .qa-comment").length,
+      queryAll("#post_1 .post-voting-comment").length,
       3,
       "should add the new comment"
     );
@@ -479,17 +489,17 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await visit("/t/280");
 
     assert.strictEqual(
-      query("#post_1 .qa-comment-cooked").textContent,
+      query("#post_1 .post-voting-comment-cooked").textContent,
       "Test comment 1",
       "displays the right content for the given comment"
     );
 
-    await click("#post_1 .qa-comment-actions-edit-link");
+    await click("#post_1 .post-voting-comment-actions-edit-link");
 
-    await fillIn(".qa-comment-composer-textarea", "a".repeat(4));
+    await fillIn(".post-voting-comment-composer-textarea", "a".repeat(4));
 
     assert.strictEqual(
-      query(".qa-comment-composer-flash").textContent.trim(),
+      query(".post-voting-comment-composer-flash").textContent.trim(),
       I18n.t("post_voting.post.post_voting_comment.composer.too_short", {
         count: 5,
       }),
@@ -497,14 +507,17 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     );
 
     assert.ok(
-      exists(".qa-comment-editor-submit[disabled=true]"),
+      exists(".post-voting-comment-editor-submit[disabled=true]"),
       "submit comment button is disabled"
     );
 
-    await fillIn("#post_1 .qa-comment-editor-1 textarea", "editing this");
+    await fillIn(
+      "#post_1 .post-voting-comment-editor-1 textarea",
+      "editing this"
+    );
 
     assert.strictEqual(
-      query(".qa-comment-composer-flash").textContent.trim(),
+      query(".post-voting-comment-composer-flash").textContent.trim(),
       I18n.t("post_voting.post.post_voting_comment.composer.length_ok", {
         count: 38,
       }),
@@ -512,20 +525,22 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     );
 
     assert.notOk(
-      exists(".qa-comment-editor-submit[disabled=true]"),
+      exists(".post-voting-comment-editor-submit[disabled=true]"),
       "submit comment button is enabled"
     );
 
-    await click("#post_1 .qa-comment-editor-1 .qa-comment-editor-submit");
+    await click(
+      "#post_1 .post-voting-comment-editor-1 .post-voting-comment-editor-submit"
+    );
 
     assert.strictEqual(
-      query("#post_1 .qa-comment-cooked").textContent,
+      query("#post_1 .post-voting-comment-cooked").textContent,
       "editing this",
       "displays the right content after comment has been edited"
     );
 
     assert.ok(
-      !exists("#post_1 .qa-comment-editor-1"),
+      !exists("#post_1 .post-voting-comment-editor-1"),
       "hides editor after comment has been edited"
     );
   });
@@ -536,16 +551,16 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await visit("/t/280");
 
     assert.strictEqual(
-      queryAll("#post_1 .qa-comment").length,
+      queryAll("#post_1 .post-voting-comment").length,
       1,
       "displays the right number of comments for the first post"
     );
 
-    await click("#post_1 .qa-comment-actions-delete-link");
+    await click("#post_1 .post-voting-comment-actions-delete-link");
     await click("button.btn-danger");
 
     assert.ok(
-      exists("#post_1 #qa-comment-1.qa-comment-deleted"),
+      exists("#post_1 #post-voting-comment-1.post-voting-comment-deleted"),
       "adds the right class to deleted comment"
     );
   });
@@ -556,31 +571,33 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await visit("/t/280");
 
     assert.strictEqual(
-      queryAll("#post_2 .qa-comment").length,
+      queryAll("#post_2 .post-voting-comment").length,
       5,
       "displays the right number of comments for the second post"
     );
 
-    await click("#post_2 .qa-comments-menu-show-more-link");
+    await click("#post_2 .post-voting-comments-menu-show-more-link");
 
     assert.strictEqual(
-      queryAll("#post_2 .qa-comment").length,
+      queryAll("#post_2 .post-voting-comment").length,
       6,
       "appends the loaded comments"
     );
 
-    const comments = queryAll("#post_2 .qa-comment-actions-delete-link");
+    const comments = queryAll(
+      "#post_2 .post-voting-comment-actions-delete-link"
+    );
 
     await click(comments[comments.length - 1]);
     await click("button.btn-danger");
 
     assert.ok(
-      !exists("#post_2 .qa-comments-menu-show-more-link"),
+      !exists("#post_2 .post-voting-comments-menu-show-more-link"),
       "updates the comment count such that show more link is not displayed"
     );
 
     assert.ok(
-      exists("#post_2 #qa-comment-7.qa-comment-deleted"),
+      exists("#post_2 #post-voting-comment-7.post-voting-comment-deleted"),
       "adds the right class to deleted comment"
     );
   });
@@ -589,12 +606,16 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await visit("/t/280");
 
     assert.ok(
-      !exists("#post_2 #qa-comment-2 .qa-comment-actions-vote-count"),
+      !exists(
+        "#post_2 #post-voting-comment-2 .post-voting-comment-actions-vote-count"
+      ),
       "does not display element if vote count is zero"
     );
 
     assert.strictEqual(
-      query("#post_2 #qa-comment-3 .qa-comment-actions-vote-count").textContent,
+      query(
+        "#post_2 #post-voting-comment-3 .post-voting-comment-actions-vote-count"
+      ).textContent,
       "3",
       "displays the right vote count"
     );
@@ -603,18 +624,22 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
   test("voting on a comment and removing vote", async function (assert) {
     await visit("/t/280");
 
-    await click("#post_2 #qa-comment-2 .qa-button-upvote");
+    await click("#post_2 #post-voting-comment-2 .post-voting-button-upvote");
 
     assert.strictEqual(
-      query("#post_2 #qa-comment-2 .qa-comment-actions-vote-count").textContent,
+      query(
+        "#post_2 #post-voting-comment-2 .post-voting-comment-actions-vote-count"
+      ).textContent,
       "1",
       "updates the comment vote count correctly"
     );
 
-    await click("#post_2 #qa-comment-2 .qa-button-upvote");
+    await click("#post_2 #post-voting-comment-2 .post-voting-button-upvote");
 
     assert.ok(
-      !exists("#post_2 #qa-comment-2 .qa-comment-actions-vote-count"),
+      !exists(
+        "#post_2 #post-voting-comment-2 .post-voting-comment-actions-vote-count"
+      ),
       "updates the comment vote count correctly"
     );
   });
@@ -653,13 +678,13 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await settled();
 
     assert.strictEqual(
-      query("#post_2 span.qa-post-toggle-voters").textContent,
+      query("#post_2 span.post-voting-post-toggle-voters").textContent,
       "0",
       "displays the right count"
     );
 
     assert.notOk(
-      exists("#post_2 .qa-button-upvote.qa-button-voted"),
+      exists("#post_2 .post-voting-button-upvote.post-voting-button-voted"),
       "does not highlight the upvote button"
     );
   });
@@ -679,7 +704,7 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await settled();
 
     assert.strictEqual(
-      query("#post_2 span.qa-post-toggle-voters").textContent,
+      query("#post_2 span.post-voting-post-toggle-voters").textContent,
       "0",
       "does not render a button to show post voters"
     );
@@ -700,18 +725,18 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await settled();
 
     assert.strictEqual(
-      query("#post_2 .qa-post-toggle-voters").textContent,
+      query("#post_2 .post-voting-post-toggle-voters").textContent,
       "5",
       "displays the right post vote count"
     );
 
     assert.ok(
-      exists("#post_2 .qa-button-upvote.qa-button-voted"),
+      exists("#post_2 .post-voting-button-upvote.post-voting-button-voted"),
       "highlights the upvote button for the current user"
     );
 
     assert.notOk(
-      exists("#post_2 .qa-button-downvote.qa-button-voted"),
+      exists("#post_2 .post-voting-button-downvote.post-voting-button-voted"),
       "does not highlight the downvote button for the current user"
     );
   });
@@ -731,13 +756,13 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await settled();
 
     assert.strictEqual(
-      query("#post_2 .qa-post-toggle-voters").textContent,
+      query("#post_2 .post-voting-post-toggle-voters").textContent,
       "5",
       "displays the right post vote count"
     );
 
     assert.ok(
-      exists("#post_2 .qa-button-upvote.qa-button-voted"),
+      exists("#post_2 .post-voting-button-upvote.post-voting-button-voted"),
       "highlights the upvote button for the current user"
     );
   });
@@ -755,7 +780,7 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await settled();
 
     assert.ok(
-      !exists("#post_1 #qa-comment-5678"),
+      !exists("#post_1 #post-voting-comment-5678"),
       "it does not append comment when comment has already been loaded"
     );
   });
@@ -782,7 +807,7 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await settled();
 
     assert.ok(
-      !exists("#post_1 #qa-comment-5678"),
+      !exists("#post_1 #post-voting-comment-5678"),
       "it does not append comment"
     );
   });
@@ -807,7 +832,7 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await settled();
 
     assert.ok(
-      query("#post_1 #qa-comment-5678").textContent.includes(
+      query("#post_1 #post-voting-comment-5678").textContent.includes(
         "Test comment ABC"
       ),
       "it appends comment to comments stream"
@@ -834,12 +859,12 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await settled();
 
     assert.ok(
-      !exists("#post_2 #qa-comment-5678"),
+      !exists("#post_2 #post-voting-comment-5678"),
       "it does not append comment when there are more comments to load"
     );
 
     assert.ok(
-      exists("#post_2 .qa-comments-menu-show-more-link"),
+      exists("#post_2 .post-voting-comments-menu-show-more-link"),
       "updates the comments count to reflect the new comment"
     );
   });
@@ -857,7 +882,7 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await settled();
 
     assert.notOk(
-      exists("#post_2 .qa-comments-menu-show-more-link"),
+      exists("#post_2 .post-voting-comments-menu-show-more-link"),
       "removes the show more comments link"
     );
   });
@@ -875,7 +900,7 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await settled();
 
     assert.ok(
-      exists("#post_2 #qa-comment-2.qa-comment-deleted"),
+      exists("#post_2 #post-voting-comment-2.post-voting-comment-deleted"),
       "adds the right class to the comment"
     );
   });
@@ -894,16 +919,20 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
     await settled();
 
     assert.strictEqual(
-      query("#post_1 #qa-comment-1 .qa-comment-cooked").textContent.trim(),
+      query(
+        "#post_1 #post-voting-comment-1 .post-voting-comment-cooked"
+      ).textContent.trim(),
       "this is a new comment cooked",
       "it updates the content of the comment"
     );
 
-    await click("#post_1 #qa-comment-1 .qa-comment-actions-edit-link");
+    await click(
+      "#post_1 #post-voting-comment-1 .post-voting-comment-actions-edit-link"
+    );
 
     assert.strictEqual(
       query(
-        "#post_1 #qa-comment-1 .qa-comment-composer textarea"
+        "#post_1 #post-voting-comment-1 .post-voting-comment-composer textarea"
       ).textContent.trim(),
       "this is a new comment raw",
       "it updates the content of the comment editor"

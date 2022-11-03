@@ -6,23 +6,23 @@ import { formatUsername } from "discourse/lib/utilities";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 
-export function buildAnchorId(qaCommentId) {
-  return `qa-comment-${qaCommentId}`;
+export function buildAnchorId(commentId) {
+  return `post-voting-comment-${commentId}`;
 }
 
-export default createWidget("qa-comment", {
+export default createWidget("post-voting-comment", {
   tagName: "div",
-  buildKey: (attrs) => `qa-comment-${attrs.id}`,
+  buildKey: (attrs) => `post-voting-comment-${attrs.id}`,
 
   buildId(attrs) {
     return buildAnchorId(attrs.id);
   },
 
   buildClasses(attrs) {
-    const result = ["qa-comment"];
+    const result = ["post-voting-comment"];
 
     if (attrs.deleted) {
-      result.push("qa-comment-deleted");
+      result.push("post-voting-comment-deleted");
     }
 
     return result;
@@ -39,18 +39,18 @@ export default createWidget("qa-comment", {
 
   html(attrs, state) {
     if (state.isEditing) {
-      return [this.attach("qa-comment-editor", attrs)];
+      return [this.attach("post-voting-comment-editor", attrs)];
     } else {
       const result = [
         h(
-          "span.qa-comment-cooked",
+          "span.post-voting-comment-cooked",
           new RawHtml({
             html: attrs.cooked,
           })
         ),
-        h("span.qa-comment-info-separator", "–"),
+        h("span.post-voting-comment-info-separator", "–"),
         h(
-          "a.qa-comment-info-username",
+          "a.post-voting-comment-info-username",
           {
             attributes: {
               "data-user-card": attrs.username,
@@ -58,33 +58,36 @@ export default createWidget("qa-comment", {
           },
           formatUsername(attrs.username)
         ),
-        h("span.qa-comment-info-created", dateNode(new Date(attrs.created_at))),
+        h(
+          "span.post-voting-comment-info-created",
+          dateNode(new Date(attrs.created_at))
+        ),
       ];
 
       if (
         this.currentUser &&
         (attrs.user_id === this.currentUser.id || this.currentUser.admin)
       ) {
-        result.push(this.attach("qa-comment-actions", attrs));
+        result.push(this.attach("post-voting-comment-actions", attrs));
       }
 
       let vote_counter = null;
       if (attrs.qa_vote_count) {
         vote_counter = h(
-          "span.qa-comment-actions-vote-count",
+          "span.post-voting-comment-actions-vote-count",
           `${attrs.qa_vote_count}`
         );
       }
       return [
-        h("div.qa-comment-actions-vote", [
+        h("div.post-voting-comment-actions-vote", [
           vote_counter,
-          this.attach("qa-button", {
+          this.attach("post-voting-button", {
             direction: "up",
             loading: state.isVoting,
             voted: attrs.user_voted,
           }),
         ]),
-        h("div.qa-comment-post", result),
+        h("div.post-voting-comment-post", result),
       ];
     }
   },

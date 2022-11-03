@@ -6,9 +6,9 @@ import { ajax } from "discourse/lib/ajax";
 import { schedule } from "@ember/runloop";
 import I18n from "I18n";
 
-export default createWidget("qa-comments-menu", {
-  tagName: "div.qa-comments-menu",
-  buildKey: (attrs) => `qa-comments-menu-${attrs.id}`,
+export default createWidget("post-voting-comments-menu", {
+  tagName: "div.post-voting-comments-menu",
+  buildKey: (attrs) => `post-voting-comments-menu-${attrs.id}`,
 
   defaultState() {
     return { expanded: false };
@@ -18,11 +18,11 @@ export default createWidget("qa-comments-menu", {
     const result = [];
 
     if (state.expanded) {
-      result.push(this.attach("qa-comments-menu-composer", attrs));
+      result.push(this.attach("post-voting-comments-menu-composer", attrs));
     } else {
       result.push(
         this.attach("link", {
-          className: "qa-comment-add-link",
+          className: "post-voting-comment-add-link",
           action: this.currentUser ? "expandComposer" : "showLogin",
           actionParam: {
             postId: attrs.id,
@@ -36,13 +36,13 @@ export default createWidget("qa-comments-menu", {
 
     if (attrs.moreCommentCount > 0) {
       if (!state.expanded) {
-        result.push(h("span.qa-comments-menu-seperator"));
+        result.push(h("span.post-voting-comments-menu-separator"));
       }
 
       result.push(
-        h("div.qa-comments-menu-show-more", [
+        h("div.post-voting-comments-menu-show-more", [
           this.attach("link", {
-            className: "qa-comments-menu-show-more-link",
+            className: "post-voting-comments-menu-show-more-link",
             action: "fetchComments",
             actionParam: {
               post_id: attrs.id,
@@ -69,7 +69,7 @@ export default createWidget("qa-comments-menu", {
     }).then(() => {
       schedule("afterRender", () => {
         const textArea = document.querySelector(
-          `#post_${data.postNumber} .qa-comment-composer .qa-comment-composer-textarea`
+          `#post_${data.postNumber} .post-voting-comment-composer .post-voting-comment-composer-textarea`
         );
 
         textArea.focus();
