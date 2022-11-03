@@ -24,7 +24,7 @@ describe QuestionAnswerVote do
         expect(qa_vote.valid?).to eq(false)
 
         expect(qa_vote.errors.full_messages).to contain_exactly(
-          I18n.t("post.qa.errors.qa_not_enabled")
+          I18n.t("post.post_voting.errors.qa_not_enabled")
         )
       end
 
@@ -36,7 +36,7 @@ describe QuestionAnswerVote do
         expect(qa_vote.valid?).to eq(false)
 
         expect(qa_vote.errors.full_messages).to contain_exactly(
-          I18n.t("post.qa.errors.voting_not_permitted")
+          I18n.t("post.post_voting.errors.voting_not_permitted")
         )
       end
 
@@ -52,7 +52,7 @@ describe QuestionAnswerVote do
 
         expect(qa_vote.valid?).to eq(false)
         expect(qa_vote.errors.full_messages).to contain_exactly(
-          I18n.t("post.qa.errors.self_voting_not_permitted")
+          I18n.t("post.post_voting.errors.self_voting_not_permitted")
         )
       end
     end
@@ -69,7 +69,7 @@ describe QuestionAnswerVote do
         expect(qa_vote.valid?).to eq(false)
 
         expect(qa_vote.errors.full_messages).to contain_exactly(
-          I18n.t("post.qa.errors.qa_not_enabled")
+          I18n.t("post.post_voting.errors.qa_not_enabled")
         )
       end
 
@@ -79,7 +79,7 @@ describe QuestionAnswerVote do
         expect(qa_vote.valid?).to eq(false)
 
         expect(qa_vote.errors.full_messages).to contain_exactly(
-          I18n.t("post.qa.errors.comment_cannot_be_downvoted")
+          I18n.t("post.post_voting.errors.comment_cannot_be_downvoted")
         )
       end
     end

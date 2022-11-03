@@ -40,35 +40,35 @@ acceptance("Discourse Question Answer - composer", function (needs) {
     const composerActions = selectKit(".composer-actions");
     await composerActions.expand();
     await composerActions.selectKitSelectRowByName(
-      I18n.t("composer.composer_actions.create_as_qa.label")
+      I18n.t("composer.composer_actions.create_as_post_voting.label")
     );
 
     assert.strictEqual(
       query(".action-title").textContent.trim(),
-      I18n.t("composer.create_qa.label"),
+      I18n.t("composer.create_post_voting.label"),
       "displays the right composer action title when creating Q&A topic"
     );
 
     assert.strictEqual(
       query(".create .d-button-label").textContent.trim(),
-      I18n.t("composer.create_qa.label"),
+      I18n.t("composer.create_post_voting.label"),
       "displays the right label for composer create button"
     );
 
     await composerActions.expand();
     await composerActions.selectKitSelectRowByName(
-      I18n.t("composer.composer_actions.remove_as_qa.label")
+      I18n.t("composer.composer_actions.remove_as_post_voting.label")
     );
 
     assert.notStrictEqual(
       query(".action-title").textContent.trim(),
-      I18n.t("composer.create_qa.label"),
+      I18n.t("composer.create_post_voting.label"),
       "reverts to original composer title when Q&A format is disabled"
     );
 
     await composerActions.expand();
     await composerActions.selectKitSelectRowByName(
-      I18n.t("composer.composer_actions.create_as_qa.label")
+      I18n.t("composer.composer_actions.create_as_post_voting.label")
     );
 
     await fillIn("#reply-title", "this is some random topic title");
@@ -98,7 +98,7 @@ acceptance("Discourse Question Answer - composer", function (needs) {
 
     assert.strictEqual(
       query(".action-title").innerText.trim(),
-      I18n.t("composer.create_qa.label")
+      I18n.t("composer.create_post_voting.label")
     );
   });
 });

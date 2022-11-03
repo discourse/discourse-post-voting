@@ -291,7 +291,7 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
 
     assert.strictEqual(
       query(".reply.create .d-button-label").textContent.trim(),
-      I18n.t("qa.topic.answer.label"),
+      I18n.t("post_voting.topic.answer.label"),
       "displays the correct reply label"
     );
   });
@@ -380,7 +380,9 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
 
     assert.strictEqual(
       query(".qa-comment-composer-flash").textContent.trim(),
-      I18n.t("qa.post.qa_comment.composer.too_short", { count: 5 }),
+      I18n.t("post_voting.post.post_voting_comment.composer.too_short", {
+        count: 5,
+      }),
       "displays the right message about raw length when it is too short"
     );
 
@@ -393,7 +395,9 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
 
     assert.strictEqual(
       query(".qa-comment-composer-flash").textContent.trim(),
-      I18n.t("qa.post.qa_comment.composer.length_ok", { count: 44 }),
+      I18n.t("post_voting.post.post_voting_comment.composer.length_ok", {
+        count: 44,
+      }),
       "displays the right message about raw length when it is OK"
     );
 
@@ -406,7 +410,9 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
 
     assert.strictEqual(
       query(".qa-comment-composer-flash").textContent.trim(),
-      I18n.t("qa.post.qa_comment.composer.too_long", { count: 50 }),
+      I18n.t("post_voting.post.post_voting_comment.composer.too_long", {
+        count: 50,
+      }),
       "displays the right message about raw length when it is too long"
     );
 
@@ -484,7 +490,9 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
 
     assert.strictEqual(
       query(".qa-comment-composer-flash").textContent.trim(),
-      I18n.t("qa.post.qa_comment.composer.too_short", { count: 5 }),
+      I18n.t("post_voting.post.post_voting_comment.composer.too_short", {
+        count: 5,
+      }),
       "displays the right message about raw length when it is too short"
     );
 
@@ -497,7 +505,9 @@ acceptance("Discourse Question Answer - logged in user", function (needs) {
 
     assert.strictEqual(
       query(".qa-comment-composer-flash").textContent.trim(),
-      I18n.t("qa.post.qa_comment.composer.length_ok", { count: 38 }),
+      I18n.t("post_voting.post.post_voting_comment.composer.length_ok", {
+        count: 38,
+      }),
       "displays the right message when comment lenght is OK"
     );
 

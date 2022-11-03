@@ -20,7 +20,7 @@ createWidget("qa-comment-composer", {
         result.push(
           h(
             "div.qa-comment-composer-flash.error",
-            I18n.t("qa.post.qa_comment.composer.too_short", {
+            I18n.t("post_voting.post.post_voting_comment.composer.too_short", {
               count: this.siteSettings.min_post_length,
             })
           )
@@ -31,7 +31,7 @@ createWidget("qa-comment-composer", {
         result.push(
           h(
             "div.qa-comment-composer-flash",
-            I18n.t("qa.post.qa_comment.composer.length_ok", {
+            I18n.t("post_voting.post.post_voting_comment.composer.length_ok", {
               count:
                 this.siteSettings.qa_comment_max_raw_length -
                 state.value.length,
@@ -44,7 +44,7 @@ createWidget("qa-comment-composer", {
         result.push(
           h(
             "div.qa-comment-composer-flash.error",
-            I18n.t("qa.post.qa_comment.composer.too_long", {
+            I18n.t("post_voting.post.post_voting_comment.composer.too_long", {
               count: this.siteSettings.qa_comment_max_raw_length,
             })
           )

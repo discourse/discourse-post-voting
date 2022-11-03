@@ -30,7 +30,7 @@ describe Topic do
         topic = Fabricate.build(:topic, archetype: Archetype.default, subtype: Topic::QA_SUBTYPE)
 
         expect(topic.valid?).to eq(false)
-        expect(topic.errors.full_messages).to eq([I18n.t("topic.qa.errors.qa_not_enabled")])
+        expect(topic.errors.full_messages).to eq([I18n.t("topic.post_voting.errors.qa_not_enabled")])
       end
 
       it "should not allow topic to change to Q&A subtype once it has been created" do
@@ -38,7 +38,7 @@ describe Topic do
         topic_2.subtype = Topic::QA_SUBTYPE
 
         expect(topic_2.valid?).to eq(false)
-        expect(topic_2.errors.full_messages).to eq([I18n.t("topic.qa.errors.cannot_change_to_qa_subtype")])
+        expect(topic_2.errors.full_messages).to eq([I18n.t("topic.post_voting.errors.cannot_change_to_qa_subtype")])
       end
 
       it "should only allow Q&A subtype to be set on regular topics" do
@@ -49,7 +49,7 @@ describe Topic do
         topic.archetype = Archetype.private_message
 
         expect(topic.valid?).to eq(false)
-        expect(topic.errors.full_messages).to eq([I18n.t("topic.qa.errors.subtype_not_allowed")])
+        expect(topic.errors.full_messages).to eq([I18n.t("topic.post_voting.errors.subtype_not_allowed")])
       end
     end
   end

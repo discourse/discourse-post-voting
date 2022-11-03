@@ -21,14 +21,14 @@ createWidget("qa-comment-editor", {
       this.attach("button", {
         action: "editComment",
         disabled: state.submitDisabled,
-        contents: I18n.t("qa.post.qa_comment.edit"),
+        contents: I18n.t("post_voting.post.post_voting_comment.edit"),
         icon: "pencil-alt",
         className: "btn-primary qa-comment-editor-submit",
       }),
       this.attach("link", {
         action: "collapseEditor",
         className: "qa-comment-editor-cancel",
-        contents: () => I18n.t("qa.post.qa_comment.cancel"),
+        contents: () => I18n.t("post_voting.post.post_voting_comment.cancel"),
       }),
     ];
   },

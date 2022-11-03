@@ -49,11 +49,11 @@ class QuestionAnswerComment < ActiveRecord::Base
 
   def ensure_can_comment
     if !post.is_qa_topic?
-      errors.add(:base, I18n.t("qa.comment.errors.qa_not_enabled"))
+      errors.add(:base, I18n.t("post_voting.comment.errors.qa_not_enabled"))
     elsif post.reply_to_post_number.present?
-      errors.add(:base, I18n.t("qa.comment.errors.not_permitted"))
+      errors.add(:base, I18n.t("post_voting.comment.errors.not_permitted"))
     elsif self.class.where(post_id: self.post_id).count >= SiteSetting.qa_comment_limit_per_post
-      errors.add(:base, I18n.t("qa.comment.errors.limit_exceeded", limit: SiteSetting.qa_comment_limit_per_post))
+      errors.add(:base, I18n.t("post_voting.comment.errors.limit_exceeded", limit: SiteSetting.qa_comment_limit_per_post))
     end
   end
 end

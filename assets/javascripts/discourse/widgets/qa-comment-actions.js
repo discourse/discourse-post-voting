@@ -27,7 +27,7 @@ createWidget("qa-comment-actions", {
 
   deleteComment(data) {
     this.dialog.deleteConfirm({
-      message: I18n.t("qa.post.qa_comment.delete.confirm"),
+      message: I18n.t("post_voting.post.post_voting_comment.delete.confirm"),
       didConfirm: () => {
         ajax("/qa/comments", {
           type: "DELETE",

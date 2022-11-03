@@ -18,9 +18,9 @@ export default {
       api.customizeComposerText({
         actionTitle(model) {
           if (model.createAsQA) {
-            return I18n.t("composer.create_qa.label");
+            return I18n.t("composer.create_post_voting.label");
           } else if (model.topic?.is_qa) {
-            return I18n.t("qa.topic.answer.label");
+            return I18n.t("post_voting.topic.answer.label");
           } else {
             return null;
           }
@@ -28,9 +28,9 @@ export default {
 
         saveLabel(model) {
           if (model.createAsQA) {
-            return "composer.create_qa.label";
+            return "composer.create_post_voting.label";
           } else if (model.topic?.is_qa) {
-            return "qa.topic.answer.label";
+            return "post_voting.topic.answer.label";
           } else {
             return null;
           }
@@ -52,9 +52,11 @@ export default {
           if (options.composerModel.createAsQA) {
             return [
               {
-                name: I18n.t("composer.composer_actions.remove_as_qa.label"),
+                name: I18n.t(
+                  "composer.composer_actions.remove_as_post_voting.label"
+                ),
                 description: I18n.t(
-                  "composer.composer_actions.remove_as_qa.desc"
+                  "composer.composer_actions.remove_as_post_voting.desc"
                 ),
                 icon: "plus",
                 id: "toggleQA",
@@ -63,9 +65,11 @@ export default {
           } else {
             return [
               {
-                name: I18n.t("composer.composer_actions.create_as_qa.label"),
+                name: I18n.t(
+                  "composer.composer_actions.create_as_post_voting.label"
+                ),
                 description: I18n.t(
-                  "composer.composer_actions.create_as_qa.desc"
+                  "composer.composer_actions.create_as_post_voting.desc"
                 ),
                 icon: "plus",
                 id: "toggleQA",

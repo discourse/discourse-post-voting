@@ -6,18 +6,18 @@
 
 he:
   post:
-    qa:
+    post_voting:
       errors:
         replying_to_post_not_permited: "אסור לך ליצור פוסט בתגובה לפוסט אחר."
         voting_not_permitted: "אסור לך להצביע לפוסט זה."
         comment_cannot_be_downvoted: "אפשר להצביע לתגובות בלבד."
         self_voting_not_permitted: "אסור לך להצביע על פוסט או תגובה שלך."
   topic:
-    qa:
+    post_voting:
       errors:
-        qa_not_enabled: "שו״ת לא מופעל."
+        post_voting_not_enabled: "שו״ת לא מופעל."
         subtype_not_allowed: "אפשר ליצור נושאים בתבנית שו״ת רק על גבי נושאים רגילים."
-        cannot_change_to_qa_subtype: "החלפת תת־הסוג לשו״ת אסורה."
+        cannot_change_to_post_voting_subtype: "החלפת תת־הסוג לשו״ת אסורה."
       answer_count:
         one: "תשובה %{count}"
         two: "%{count} תשובות"
@@ -47,9 +47,9 @@ he:
         other: "אי אפשר לבטל הצבעה %{count} דקות לאחר ההצבעה."
       one_vote_per_post: "אפשר להצביע רק פעם אחת לכל פוסט."
       one_vote_per_comment: "אפשר להצביע רק פעם אחת לכל תגובה."
-  qa:
+  post_voting:
     comment:
       errors:
-        qa_not_enabled: "הוספת תגובה לפוסט שאינו נושא בתבנית שו״ת אסור"
+        post_voting_not_enabled: "הוספת תגובה לפוסט שאינו נושא בתבנית שו״ת אסור"
         not_permitted: "הוספת תגובה על פוסט משויך אסורה."
         limit_exceeded: "הגעת למגבלה של %{limit} תגובות לפוסט."

@@ -130,7 +130,7 @@ module PostVoting
       error_message_params = {}
 
       if votable.user_id == current_user.id
-        error_message = "post.qa.errors.self_voting_not_permitted"
+        error_message = "post.post_voting.errors.self_voting_not_permitted"
       elsif votable.class.name == "Post"
         direction = vote_params[:direction] || QuestionAnswerVote.directions[:up]
         if QuestionAnswerVote.exists?(votable: votable, user_id: current_user.id, direction: direction)
