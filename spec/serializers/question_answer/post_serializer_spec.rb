@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe QuestionAnswer::PostSerializerExtension do
+describe PostVoting::PostSerializerExtension do
   fab!(:user) { Fabricate(:user) }
   fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
@@ -24,7 +24,7 @@ describe QuestionAnswer::PostSerializerExtension do
     end
 
     it 'should return the right attributes' do
-      QuestionAnswer::VoteManager.vote(answer, user, direction: up)
+      PostVoting::VoteManager.vote(answer, user, direction: up)
 
       expect(serialized[:qa_vote_count]).to eq(1)
       expect(serialized[:qa_user_voted_direction]).to eq(up)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuestionAnswer
+module PostVoting
   module Guardian
     def can_edit_comment?(comment)
       return false if !self.user

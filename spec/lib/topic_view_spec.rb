@@ -44,8 +44,8 @@ describe TopicView do
   end
 
   it "should preload comments, comments count, user voted status for a given topic" do
-    QuestionAnswer::VoteManager.vote(comment, user)
-    QuestionAnswer::VoteManager.vote(comment_2, comment_3.user)
+    PostVoting::VoteManager.vote(comment, user)
+    PostVoting::VoteManager.vote(comment_2, comment_3.user)
 
     topic_view = TopicView.new(topic, user)
 
@@ -92,21 +92,21 @@ describe TopicView do
 
     fab!(:answer_plus_2_votes) do
       create_post(topic: topic).tap do |p|
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
+        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
+        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
       end
     end
 
     fab!(:answer_minus_2_votes) do
       create_post(topic: topic).tap do |p|
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
+        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
+        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
       end
     end
 
     fab!(:answer_minus_1_vote) do
       create_post(topic: topic).tap do |p|
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
+        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
       end
     end
 
@@ -114,14 +114,14 @@ describe TopicView do
 
     fab!(:answer_plus_1_vote_deleted) do
       create_post(topic: topic).tap do |p|
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
+        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
         p.trash!
       end
     end
 
     fab!(:answer_plus_1_vote) do
       create_post(topic: topic).tap do |p|
-        QuestionAnswer::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
+        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
       end
     end
 

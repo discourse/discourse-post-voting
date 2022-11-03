@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuestionAnswer
+module PostVoting
   class CommentsController < ::ApplicationController
     before_action :find_post, only: [:load_more_comments, :create]
     before_action :ensure_qa_enabled, only: [:load_more_comments, :create]
@@ -28,7 +28,7 @@ module QuestionAnswer
         raise Discourse::InvalidAccess
       end
 
-      comment = QuestionAnswer::CommentCreator.create(
+      comment = PostVoting::CommentCreator.create(
         user: current_user,
         post_id: @post.id,
         raw: comments_params[:raw]

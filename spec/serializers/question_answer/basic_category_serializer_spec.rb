@@ -11,7 +11,7 @@ describe BasicCategorySerializer do
   end
 
   before do
-    category.custom_fields[QuestionAnswer::CREATE_AS_QA_DEFAULT] = true
+    category.custom_fields[PostVoting::CREATE_AS_QA_DEFAULT] = true
     category.save_custom_fields(true)
   end
 

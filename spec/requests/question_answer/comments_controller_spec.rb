@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe QuestionAnswer::CommentsController do
+RSpec.describe PostVoting::CommentsController do
   fab!(:user) { Fabricate(:user) }
   fab!(:admin) { Fabricate(:admin) }
   fab!(:group) { Fabricate(:group) }

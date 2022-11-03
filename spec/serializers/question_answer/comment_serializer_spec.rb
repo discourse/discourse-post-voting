@@ -10,7 +10,7 @@ describe QuestionAnswerCommentSerializer do
 
   before do
     SiteSetting.qa_enabled = true
-    QuestionAnswer::VoteManager.vote(qa_comment, post.user)
+    PostVoting::VoteManager.vote(qa_comment, post.user)
   end
 
   it 'returns the right attributes for an anonymous user' do

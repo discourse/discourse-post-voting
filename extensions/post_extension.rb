@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuestionAnswer
+module PostVoting
   module PostExtension
     def self.included(base)
       base.ignored_columns = %w[vote_count]

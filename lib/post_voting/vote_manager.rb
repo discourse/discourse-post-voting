@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuestionAnswer
+module PostVoting
   class VoteManager
     def self.vote(obj, user, direction: nil)
       direction ||= QuestionAnswerVote.directions[:up]
