@@ -28,14 +28,14 @@ function initPlugin(api) {
 
     const args = {
       action: "replyToPost",
-      title: "qa.topic.answer.help",
+      title: "post_voting.topic.answer.help",
       icon: "reply",
       className: "reply create fade-out",
       position: "last",
     };
 
     if (!attrs.mobileView) {
-      args.label = "qa.topic.answer.label";
+      args.label = "post_voting.topic.answer.label";
     }
 
     return args;
@@ -136,13 +136,13 @@ function initPlugin(api) {
       helper.h("div.qa-answers-header.small-action", [
         helper.h(
           "span.qa-answers-headers-count",
-          I18n.t("qa.topic.answer_count", { count: answersCount })
+          I18n.t("post_voting.topic.answer_count", { count: answersCount })
         ),
         helper.h("span.qa-answers-headers-sort", [
-          helper.h("span", I18n.t("qa.topic.sort_by")),
+          helper.h("span", I18n.t("post_voting.topic.sort_by")),
           helper.attach("button", {
             action: "orderByVotes",
-            contents: I18n.t("qa.topic.votes"),
+            contents: I18n.t("post_voting.topic.votes"),
             disabled: topicController.filter !== ORDER_BY_ACTIVITY_FILTER,
             className: `qa-answers-headers-sort-votes ${
               topicController.filter === ORDER_BY_ACTIVITY_FILTER
@@ -152,7 +152,7 @@ function initPlugin(api) {
           }),
           helper.attach("button", {
             action: "orderByActivity",
-            contents: I18n.t("qa.topic.activity"),
+            contents: I18n.t("post_voting.topic.activity"),
             disabled: topicController.filter === ORDER_BY_ACTIVITY_FILTER,
             className: `qa-answers-headers-sort-activity ${
               topicController.filter === ORDER_BY_ACTIVITY_FILTER

@@ -41,7 +41,7 @@ module PostVoting
           reply_to_post_number != 1 &&
           is_qa_topic?
 
-        errors.add(:base, I18n.t("post.qa.errors.replying_to_post_not_permited"))
+        errors.add(:base, I18n.t("post.post_voting.errors.replying_to_post_not_permited"))
       end
     end
   end

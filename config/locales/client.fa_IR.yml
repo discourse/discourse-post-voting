@@ -24,9 +24,9 @@ fa_IR:
     answer_lowercase:
       one: پاسخ
       other: پاسخ
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           edit: "ویرایش"
           cancel: "لغو"
       topic:

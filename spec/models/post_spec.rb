@@ -23,7 +23,7 @@ describe Post do
       expect(post.valid?).to eq(false)
 
       expect(post.errors.full_messages).to contain_exactly(
-        I18n.t("post.qa.errors.replying_to_post_not_permited")
+        I18n.t("post.post_voting.errors.replying_to_post_not_permited")
       )
     end
   end

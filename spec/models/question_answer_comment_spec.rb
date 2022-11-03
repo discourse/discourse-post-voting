@@ -25,7 +25,7 @@ describe QuestionAnswerComment do
       qa_comment = QuestionAnswerComment.new(raw: 'this is a **post**', post: post_3, user: user)
 
       expect(qa_comment.valid?).to eq(false)
-      expect(qa_comment.errors.full_messages).to contain_exactly(I18n.t("qa.comment.errors.not_permitted"))
+      expect(qa_comment.errors.full_messages).to contain_exactly(I18n.t("post_voting.comment.errors.not_permitted"))
     end
 
     it 'does not allow comments to be created when SiteSetting.qa_comment_limit_per_post has been reached' do
@@ -37,7 +37,7 @@ describe QuestionAnswerComment do
       expect(qa_comment.valid?).to eq(false)
 
       expect(qa_comment.errors.full_messages).to contain_exactly(
-        I18n.t("qa.comment.errors.limit_exceeded", limit: SiteSetting.qa_comment_limit_per_post)
+        I18n.t("post_voting.comment.errors.limit_exceeded", limit: SiteSetting.qa_comment_limit_per_post)
       )
     end
 

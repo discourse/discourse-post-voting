@@ -20,7 +20,7 @@ createWidget("qa-comments-menu-composer", {
       this.attach("button", {
         action: "submitComment",
         disabled: state.submitDisabled,
-        contents: I18n.t("qa.post.qa_comment.submit"),
+        contents: I18n.t("post_voting.post.post_voting_comment.submit"),
         icon: "reply",
         className: "btn-primary qa-comments-menu-composer-submit",
       })
@@ -30,7 +30,7 @@ createWidget("qa-comments-menu-composer", {
       this.attach("link", {
         action: "closeComposer",
         className: "qa-comments-menu-composer-cancel",
-        contents: () => I18n.t("qa.post.qa_comment.cancel"),
+        contents: () => I18n.t("post_voting.post.post_voting_comment.cancel"),
       })
     );
 

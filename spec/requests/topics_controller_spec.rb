@@ -53,7 +53,7 @@ describe TopicsController do
       crawler_html = response.body
 
       expect(crawler_html).to match(/<span class="qa-comment-cooked" itemprop="comment"><p>this is a comment!<\/p><\/span>/)
-      expect(crawler_html).to match(/<span class="qa-answer-count-span" itemprop="answerCount">3<\/span>/)
+      expect(crawler_html).to match(/<span class="qa-answer-count-span" itemprop="replyCount">3<\/span>/)
     end
   end
 end

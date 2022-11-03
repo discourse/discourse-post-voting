@@ -29,7 +29,7 @@ export default createWidget("qa-comments-menu", {
             postNumber: attrs.postNumber,
             lastCommentId: attrs.lastCommentId,
           },
-          contents: () => I18n.t("qa.post.qa_comment.add"),
+          contents: () => I18n.t("post_voting.post.post_voting_comment.add"),
         })
       );
     }
@@ -49,7 +49,7 @@ export default createWidget("qa-comments-menu", {
               last_comment_id: attrs.lastCommentId,
             },
             contents: () =>
-              I18n.t("qa.post.qa_comment.show", {
+              I18n.t("post_voting.post.post_voting_comment.show", {
                 count: attrs.moreCommentCount,
               }),
           }),

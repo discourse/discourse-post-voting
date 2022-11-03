@@ -13,16 +13,16 @@ he:
       popup:
         question_answer_user_commented: 'נוספה תגובה מאת %{username} על „%{topic}” - %{site_title}'
     category:
-      qa_settings_heading: מענה על שאלות
-      create_as_qa_default: נושאים חדשים מגיעים לשו״ת בקטגוריה הזאת.
+      post_voting_settings_heading: מענה על שאלות
+      create_as_post_voting_default: נושאים חדשים מגיעים לשו״ת בקטגוריה הזאת.
     composer:
-      create_qa:
+      create_post_voting:
         label: "יצירת נושא שו״ת"
       composer_actions:
-        create_as_qa:
+        create_as_post_voting:
           label: "החלפת מצב שו״ת"
           desc: "הנושא ייווצר בתבנית שו״ת"
-        remove_as_qa:
+        remove_as_post_voting:
           label: "הסרת שו״ת"
           desc: "הנושא ייווצר בתבנית הרגילה"
     post:
@@ -43,9 +43,9 @@ he:
       two: תשובות
       many: תשובות
       other: תשובות
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "נא להקליד תו %{count} לפחות"
