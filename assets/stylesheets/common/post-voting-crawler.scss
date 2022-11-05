@@ -4,30 +4,30 @@ body > noscript {
     border-top: 3px solid var(--primary-low);
   }
 
-  .qa-comments {
+  .post-voting-comments {
     padding-top: 15px;
 
-    .qa-comment-row {
+    .post-voting-comment-row {
       display: flex;
       border-top: 1px solid var(--primary-low);
       padding: 5px 0px 5px 0px;
 
-      .qa-comment-cooked p,
-      .qa-comment-creator {
+      .post-voting-comment-cooked p,
+      .post-voting-comment-creator {
         display: inline;
       }
 
-      .qa-comment-info-separator {
+      .post-voting-comment-info-separator {
         display: inline;
         margin: 0 0.3em;
       }
     }
   }
 
-  .qa-answer-count {
+  .post-voting-answer-count {
     padding-top: 20px;
 
-    .qa-answer-count-span {
+    .post-voting-answer-count-span {
       display: none;
     }
   }

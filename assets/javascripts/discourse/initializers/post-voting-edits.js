@@ -133,18 +133,18 @@ function initPlugin(api) {
     }
 
     result.push(
-      helper.h("div.qa-answers-header.small-action", [
+      helper.h("div.post-voting-answers-header.small-action", [
         helper.h(
-          "span.qa-answers-headers-count",
+          "span.post-voting-answers-headers-count",
           I18n.t("post_voting.topic.answer_count", { count: answersCount })
         ),
-        helper.h("span.qa-answers-headers-sort", [
+        helper.h("span.post-voting-answers-headers-sort", [
           helper.h("span", I18n.t("post_voting.topic.sort_by")),
           helper.attach("button", {
             action: "orderByVotes",
             contents: I18n.t("post_voting.topic.votes"),
             disabled: topicController.filter !== ORDER_BY_ACTIVITY_FILTER,
-            className: `qa-answers-headers-sort-votes ${
+            className: `post-voting-answers-headers-sort-votes ${
               topicController.filter === ORDER_BY_ACTIVITY_FILTER
                 ? ""
                 : "active"
@@ -154,7 +154,7 @@ function initPlugin(api) {
             action: "orderByActivity",
             contents: I18n.t("post_voting.topic.activity"),
             disabled: topicController.filter === ORDER_BY_ACTIVITY_FILTER,
-            className: `qa-answers-headers-sort-activity ${
+            className: `post-voting-answers-headers-sort-activity ${
               topicController.filter === ORDER_BY_ACTIVITY_FILTER
                 ? "active"
                 : ""
@@ -176,7 +176,7 @@ function initPlugin(api) {
       !attrs.reply_to_post_number &&
       !helper.widget.state.filteredRepliesShown
     ) {
-      result.push(helper.attach("qa-comments", attrs));
+      result.push(helper.attach("post-voting-comments", attrs));
     }
 
     return result;
@@ -187,12 +187,12 @@ function initPlugin(api) {
     const model = helper.getModel();
 
     if (model.topic?.is_qa) {
-      const qaPost = helper.attach("qa-post", {
+      const postVotingPost = helper.attach("post-voting-post", {
         count: model.get("qa_vote_count"),
         post: model,
       });
 
-      result.push(qaPost);
+      result.push(postVotingPost);
     }
 
     return result;
@@ -207,7 +207,7 @@ function initPlugin(api) {
 }
 
 export default {
-  name: "qa-edits",
+  name: "post-voting-edits",
   initialize(container) {
     const siteSettings = container.lookup("site-settings:main");
 

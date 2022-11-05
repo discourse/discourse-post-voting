@@ -1,5 +1,5 @@
 import Component from "@ember/component";
-import { ORDER_BY_ACTIVITY_FILTER } from "../initializers/qa-edits";
+import { ORDER_BY_ACTIVITY_FILTER } from "../initializers/post-voting-edits";
 import { scheduleOnce } from "@ember/runloop";
 
 export default Component.extend({
@@ -31,15 +31,15 @@ export default Component.extend({
     this._removeClass();
 
     if (this.topic.postStream.filter === ORDER_BY_ACTIVITY_FILTER) {
-      body.classList.add("qa-topic-sort-by-activity");
+      body.classList.add("post-voting-topic-sort-by-activity");
     } else {
-      body.classList.add("qa-topic");
+      body.classList.add("post-voting-topic");
     }
   },
 
   _removeClass() {
     const body = document.getElementsByTagName("body")[0];
-    body.classList.remove("qa-topic");
-    body.classList.remove("qa-topic-sort-by-activity");
+    body.classList.remove("post-voting-topic");
+    body.classList.remove("post-voting-topic-sort-by-activity");
   },
 });

@@ -3,12 +3,15 @@ import I18n from "I18n";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import { ajax } from "discourse/lib/ajax";
 
-createWidget("qa-comment-editor", {
+createWidget("post-voting-comment-editor", {
   tagName: "div",
-  buildKey: (attrs) => `qa-comment-editor-${attrs.id}`,
+  buildKey: (attrs) => `post-voting-comment-editor-${attrs.id}`,
 
   buildClasses(attrs) {
-    return ["qa-comment-editor", `qa-comment-editor-${attrs.id}`];
+    return [
+      "post-voting-comment-editor",
+      `post-voting-comment-editor-${attrs.id}`,
+    ];
   },
 
   defaultState(attrs) {
@@ -17,17 +20,17 @@ createWidget("qa-comment-editor", {
 
   html(attrs, state) {
     return [
-      this.attach("qa-comment-composer", attrs),
+      this.attach("post-voting-comment-composer", attrs),
       this.attach("button", {
         action: "editComment",
         disabled: state.submitDisabled,
         contents: I18n.t("post_voting.post.post_voting_comment.edit"),
         icon: "pencil-alt",
-        className: "btn-primary qa-comment-editor-submit",
+        className: "btn-primary post-voting-comment-editor-submit",
       }),
       this.attach("link", {
         action: "collapseEditor",
-        className: "qa-comment-editor-cancel",
+        className: "post-voting-comment-editor-cancel",
         contents: () => I18n.t("post_voting.post.post_voting_comment.cancel"),
       }),
     ];

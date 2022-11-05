@@ -3,9 +3,9 @@ import I18n from "I18n";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import { ajax } from "discourse/lib/ajax";
 
-createWidget("qa-comments-menu-composer", {
-  tagName: "div.qa-comments-menu-composer",
-  buildKey: (attrs) => `qa-comments-menu-composer-${attrs.id}`,
+createWidget("post-voting-comments-menu-composer", {
+  tagName: "div.post-voting-comments-menu-composer",
+  buildKey: (attrs) => `post-voting-comments-menu-composer-${attrs.id}`,
 
   defaultState() {
     return { value: "", submitDisabled: true };
@@ -14,7 +14,7 @@ createWidget("qa-comments-menu-composer", {
   html(attrs, state) {
     const result = [];
 
-    result.push(this.attach("qa-comment-composer", attrs));
+    result.push(this.attach("post-voting-comment-composer", attrs));
 
     result.push(
       this.attach("button", {
@@ -22,14 +22,14 @@ createWidget("qa-comments-menu-composer", {
         disabled: state.submitDisabled,
         contents: I18n.t("post_voting.post.post_voting_comment.submit"),
         icon: "reply",
-        className: "btn-primary qa-comments-menu-composer-submit",
+        className: "btn-primary post-voting-comments-menu-composer-submit",
       })
     );
 
     result.push(
       this.attach("link", {
         action: "closeComposer",
-        className: "qa-comments-menu-composer-cancel",
+        className: "post-voting-comments-menu-composer-cancel",
         contents: () => I18n.t("post_voting.post.post_voting_comment.cancel"),
       })
     );
