@@ -17,7 +17,7 @@ zh_TW:
       create_as_qa_default: 此類別中的新主題預設為「問答」。
     composer:
       create_qa:
-        label: "建立問答主題"
+        label: "建立問答類主題"
       composer_actions:
         create_as_qa:
           label: "切換問答"

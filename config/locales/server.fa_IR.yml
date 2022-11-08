@@ -6,9 +6,9 @@
 
 fa_IR:
   topic:
-    post_voting:
+    qa:
       errors:
-        post_voting_not_enabled: "پرسش و پاسخ فعال نیست."
+        qa_not_enabled: "پرسش و پاسخ فعال نیست."
       answer_count:
         one: "%{count} پاسخ"
         other: "%{count} پاسخ"

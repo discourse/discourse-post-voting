@@ -43,9 +43,9 @@ ru:
       few: ответа
       many: ответов
       other: ответов
-    post_voting:
+    qa:
       post:
-        post_voting_comment:
+        qa_comment:
           composer:
             too_short:
               one: "Введите не менее %{count} символа"

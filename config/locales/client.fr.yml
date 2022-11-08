@@ -6,14 +6,70 @@
 
 fr:
   js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+      titles:
+        question_answer_user_commented: "nouveau commentaire"
+      popup:
+        question_answer_user_commented: '%{username} a commenté dans « %{topic} » - %{site_title}'
+    category:
+      qa_settings_heading: Question-réponse
+      create_as_qa_default: Les nouveaux sujets sont définis par défaut sur Q&R dans cette catégorie.
+    composer:
+      create_qa:
+        label: "Créer un sujet de Q&R"
+      composer_actions:
+        create_as_qa:
+          label: "Activer/désactiver Q&R"
+          desc: "Le sujet sera créé dans le format Questions-réponses"
+        remove_as_qa:
+          label: "Supprimer les Q&R"
+          desc: "Le sujet sera créé dans le format normal"
     post:
       actions:
         undo:
-          vote: "Annuler le vote"
+          vote: "Annulez votre vote positif."
         people:
-          vote: "voté pour cela"
+          vote: "a voté pour ce message."
         by_you:
-          vote: "Vous avez voté pour ce post"
+          vote: "Vous avez voté pour ce message."
     vote:
-      already_voted: "Vous ne pouvez voter qu'une fois par question."
+      already_voted: "Vous ne pouvez voter qu'une seule fois par question."
+      user_over_limit: "Vous ne pouvez pas dépasser le nombre de votes correspondant à votre niveau de confiance."
+      one_vote_per_post: "Vous ne pouvez voter qu'une seule fois pour chaque message."
     last_answer_lowercase: dernière réponse
+    answer_lowercase:
+      one: réponse
+      other: réponses
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Saisissez au moins %{count} caractère"
+              other: "Saisissez au moins %{count} caractères"
+            length_ok:
+              one: "Il reste %{count} caractère…"
+              other: "Il reste %{count} caractères…"
+            too_long:
+              one: "Le commentaire ne peut pas comporter plus de %{count} caractère"
+              other: "Le commentaire ne peut pas comporter plus de %{count} caractères"
+          submit: "Ajouter un commentaire"
+          edit: "modifier"
+          cancel: "annuler"
+          add: "Ajouter un commentaire"
+          show:
+            one: Afficher %{count} commentaire supplémentaire
+            other: Afficher %{count} commentaires supplémentaires
+          delete:
+            confirm: "Voulez-vous vraiment supprimer ce commentaire ?"
+      topic:
+        answer:
+          label: "Réponse"
+          help: "commencez à rédiger une réponse"
+        sort_by: "Trier par"
+        votes: "Votes"
+        activity: "Activité"
+        answer_count:
+          one: "%{count} réponse"
+          other: "%{count} réponses"

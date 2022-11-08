@@ -6,5 +6,70 @@
 
 it:
   js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+      titles:
+        question_answer_user_commented: "nuovo commento"
+      popup:
+        question_answer_user_commented: '%{username} ha commentato in "%{topic}" - %{site_title}'
+    category:
+      qa_settings_heading: Domande e risposte
+      create_as_qa_default: I nuovi argomenti diventano automaticamente Domande e risposte in questa categoria.
+    composer:
+      create_qa:
+        label: "Crea argomento Domande e risposte"
+      composer_actions:
+        create_as_qa:
+          label: "Attiva domande e risposte"
+          desc: "L'argomento verrà creato nel formato Domande e risposte"
+        remove_as_qa:
+          label: "Rimuovi domande e risposte"
+          desc: "L'argomento verrà creato nel formato normale"
+    post:
+      actions:
+        undo:
+          vote: "Annulla il tuo voto a favore."
+        people:
+          vote: "ha votato a favore di questo messaggio."
+        by_you:
+          vote: "Hai votato a favore di questo messaggio."
     vote:
       already_voted: "Puoi votare una sola volta per domanda."
+      user_over_limit: "Non puoi superare il numero di voti per il tuo livello di attendibilità."
+      one_vote_per_post: "Puoi votare una sola volta per messaggio."
+    last_answer_lowercase: ultima risposta
+    answer_lowercase:
+      one: risposta
+      other: risposte
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Inserisci almeno %{count} carattere"
+              other: "Inserisci almeno %{count} caratteri"
+            length_ok:
+              one: "%{count} carattere rimasto..."
+              other: "%{count} caratteri rimasti..."
+            too_long:
+              one: "Il commento non può essere più lungo di %{count} carattere"
+              other: "Il commento non può essere più lungo di %{count} caratteri"
+          submit: "Aggiungi un commento"
+          edit: "modifica"
+          cancel: "annulla"
+          add: "Aggiungi un commento"
+          show:
+            one: Mostra %{count} altro commento
+            other: Mostra altri %{count} commenti
+          delete:
+            confirm: "Vuoi davvero eliminare questo commento?"
+      topic:
+        answer:
+          label: "Risposta"
+          help: "iniziare a comporre una risposta"
+        sort_by: "Ordina per"
+        votes: "Voti"
+        activity: "Attività"
+        answer_count:
+          one: "%{count} risposta"
+          other: "%{count} risposte"

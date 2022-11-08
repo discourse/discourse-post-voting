@@ -5,17 +5,47 @@
 # https://translate.discourse.org/
 
 es:
+  post:
+    qa:
+      errors:
+        replying_to_post_not_permited: "No puedes crear un mensaje en respuesta a otro mensaje."
+        voting_not_permitted: "No tienes permitido votar en esta publicación."
+        comment_cannot_be_downvoted: "Solo puedes votar comentarios."
+        self_voting_not_permitted: "No puedes votar en tu propia publicación o comentario."
+  topic:
+    qa:
+      errors:
+        qa_not_enabled: "Las preguntas y respuestas no están activadas."
+        subtype_not_allowed: "Los temas con formato de preguntas y respuestas solo pueden crearse en temas normales."
+        cannot_change_to_qa_subtype: "No se permite cambiar el subtipo de un tema a Preguntas y respuestas."
+      answer_count:
+        one: "%{count} respuesta"
+        other: "%{count} respuestas"
   site_settings:
     qa_tags: "Etiquetas para activar PyR en un tema"
     qa_enabled: "Activar el plugin de Preguntas y Respuestas (Q&A - PyR)"
+    qa_enable_likes_on_answers: "Habilitar el botón Me gusta en las respuestas en los temas de Preguntas y respuestas"
     qa_undo_vote_action_window: "Número de minutos en los cuales los usuarios tienen permitido deshacer sus votos en temas PyR (introducir 0 para no poner límite)"
+    qa_comment_limit_per_post: "Número de comentarios permitidos en cada pregunta o respuesta"
   post_action_types:
     vote:
       title: 'Votar'
-      description: 'Votar este mensaje'
-      short_description: 'Votar este mensaje'
-      long_form: 'ha votado este mensaje'
+      description: 'Vota por esta publicación'
+      short_description: 'Vota por esta publicación'
+      long_form: 'ha votado esta publicación'
   vote:
     error:
       user_has_not_voted: "El usuario no ha votado."
+      user_over_limit: "No puedes superar el número de votos para tu nivel de confianza."
       already_voted: "Solo puedes votar una vez por pregunta."
+      undo_vote_action_window:
+        one: "No puedes deshacer el voto %{count} minuto después de votar."
+        other: "No puedes deshacer el voto %{count} minutos después de votar."
+      one_vote_per_post: "Solo puedes votar una vez por cada publicación."
+      one_vote_per_comment: "Solo puedes votar una vez por cada comentario."
+  qa:
+    comment:
+      errors:
+        qa_not_enabled: "No está permitido comentar una publicación que no esté en un tema con formato de Preguntas y respuestas"
+        not_permitted: "No se permite comentar los mensajes asociados."
+        limit_exceeded: "Se ha alcanzado el límite de %{limit} comentarios por publicación."
