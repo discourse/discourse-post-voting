@@ -9,13 +9,13 @@ export default Component.extend({
     this._super(...arguments);
     this._refreshClass();
 
-    this.appEvents.on("qa-topic-updated", this, this._updateClass);
+    this.appEvents.on("post-voting-topic-updated", this, this._updateClass);
   },
 
   willDestroyElement() {
     this._super(...arguments);
     this._removeClass();
-    this.appEvents.off("qa-topic-updated", this, this._updateClass);
+    this.appEvents.off("post-voting-topic-updated", this, this._updateClass);
   },
 
   _refreshClass() {

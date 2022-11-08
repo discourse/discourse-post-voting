@@ -87,7 +87,7 @@ export default createWidget("post-voting-comments-menu", {
       return Promise.resolve();
     }
 
-    return ajax("/qa/comments", {
+    return ajax("/post_voting/comments", {
       type: "GET",
       data,
     })

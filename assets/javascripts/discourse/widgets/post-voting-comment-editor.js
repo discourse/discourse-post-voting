@@ -52,7 +52,7 @@ createWidget("post-voting-comment-editor", {
   editComment() {
     this.state.submitDisabled = true;
 
-    return ajax("/qa/comments", {
+    return ajax("/post_voting/comments", {
       type: "PUT",
       data: {
         comment_id: this.attrs.id,

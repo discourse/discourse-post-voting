@@ -53,7 +53,7 @@ createWidget("post-voting-comments-menu-composer", {
   submitComment() {
     this.state.submitDisabled = true;
 
-    return ajax("/qa/comments", {
+    return ajax("/post_voting/comments", {
       type: "POST",
       data: { raw: this.state.value, post_id: this.attrs.id },
     })

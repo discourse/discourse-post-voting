@@ -98,7 +98,7 @@ export default createWidget("post-voting-comment", {
     this.attrs.qa_vote_count--;
     this.attrs.user_voted = false;
 
-    return ajax("/qa/vote/comment", {
+    return ajax("/post_voting/vote/comment", {
       type: "DELETE",
       data: { comment_id: this.attrs.id },
     })
@@ -126,7 +126,7 @@ export default createWidget("post-voting-comment", {
     this.attrs.qa_vote_count++;
     this.attrs.user_voted = true;
 
-    return ajax("/qa/vote/comment", {
+    return ajax("/post_voting/vote/comment", {
       type: "POST",
       data: { comment_id: this.attrs.id },
     })

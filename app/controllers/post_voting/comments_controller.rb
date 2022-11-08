@@ -75,9 +75,9 @@ module PostVoting
 
       comment.trash!
 
-      Scheduler::Defer.later("Publish trash Q&A comment") do
+      Scheduler::Defer.later("Publish trash post voting comment") do
         comment.post.publish_change_to_clients!(
-          :qa_post_comment_trashed,
+          :post_voting_post_comment_trashed,
           comment_id: comment.id,
           comments_count: QuestionAnswerComment.where(post_id: comment.post_id).count
         )

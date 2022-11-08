@@ -11,7 +11,7 @@ export default {
 
     withPluginApi("1.2.0", (api) => {
       api.registerCustomPostMessageCallback(
-        "qa_post_comment_edited",
+        "post_voting_post_comment_edited",
         (topicController, message) => {
           const postStream = topicController.get("model.postStream");
           const post = postStream.findLoadedPost(message.id);
@@ -40,7 +40,7 @@ export default {
       );
 
       api.registerCustomPostMessageCallback(
-        "qa_post_comment_trashed",
+        "post_voting_post_comment_trashed",
         (topicController, message) => {
           const postStream = topicController.get("model.postStream");
           const post = postStream.findLoadedPost(message.id);
@@ -64,7 +64,7 @@ export default {
       );
 
       api.registerCustomPostMessageCallback(
-        "qa_post_commented",
+        "post_voting_post_commented",
         (topicController, message) => {
           const postStream = topicController.get("model.postStream");
           const post = postStream.findLoadedPost(message.id);
@@ -92,7 +92,7 @@ export default {
       );
 
       api.registerCustomPostMessageCallback(
-        "qa_post_voted",
+        "post_voting_post_voted",
         (topicController, message) => {
           const postStream = topicController.get("model.postStream");
           const post = postStream.findLoadedPost(message.id);

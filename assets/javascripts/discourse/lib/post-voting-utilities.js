@@ -2,7 +2,7 @@ import { popupAjaxError } from "discourse/lib/ajax-error";
 import { ajax } from "discourse/lib/ajax";
 
 const vote = function (type, data) {
-  return ajax("/qa/vote", {
+  return ajax("/post_voting/vote", {
     type,
     data,
   });
@@ -17,7 +17,7 @@ const castVote = function (data) {
 };
 
 const whoVoted = function (data) {
-  return ajax("/qa/voters", {
+  return ajax("/post_voting/voters", {
     type: "GET",
     data,
   }).catch(popupAjaxError);

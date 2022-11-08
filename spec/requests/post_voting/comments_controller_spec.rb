@@ -25,7 +25,7 @@ RSpec.describe PostVoting::CommentsController do
     it 'returns the right response when user is not allowed to view post' do
       category.update!(read_restricted: true)
 
-      get "/qa/comments.json", params: {
+      get "/post_voting/comments.json", params: {
         post_id: answer.id, last_comment_id: comment.id
       }
 
@@ -33,7 +33,7 @@ RSpec.describe PostVoting::CommentsController do
     end
 
     it 'returns the right response when post_id is invalid' do
-      get "/qa/comments.json", params: {
+      get "/post_voting/comments.json", params: {
         post_id: -999999, last_comment_id: comment.id
       }
 
@@ -41,7 +41,7 @@ RSpec.describe PostVoting::CommentsController do
     end
 
     it 'returns the right response' do
-      get "/qa/comments.json", params: {
+      get "/post_voting/comments.json", params: {
         post_id: answer.id, last_comment_id: comment.id
       }
 
@@ -73,7 +73,7 @@ RSpec.describe PostVoting::CommentsController do
       category.set_permissions(group => :readonly)
       category.save!
 
-      post "/qa/comments.json", params: {
+      post "/post_voting/comments.json", params: {
         post_id: answer.id,
         raw: "this is some content",
       }
@@ -82,7 +82,7 @@ RSpec.describe PostVoting::CommentsController do
     end
 
     it 'returns the right response when post_id is invalid' do
-      post "/qa/comments.json", params: {
+      post "/post_voting/comments.json", params: {
         post_id: -999999,
         raw: "this is some content",
       }
@@ -93,7 +93,7 @@ RSpec.describe PostVoting::CommentsController do
     it 'publishes a comment created MessageBus message when a new comment is created' do
       message = MessageBus.track_publish("/topic/#{answer.topic_id}") do
         expect do
-          post "/qa/comments.json", params: {
+          post "/post_voting/comments.json", params: {
             post_id: answer.id,
             raw: "this is some content",
           }
@@ -121,7 +121,7 @@ RSpec.describe PostVoting::CommentsController do
 
       message = MessageBus.track_publish("/notification-alert/#{answer.user_id}") do
         expect do
-          post "/qa/comments.json", params: {
+          post "/post_voting/comments.json", params: {
             post_id: answer.id,
             raw: "this is some content",
           }
@@ -148,7 +148,7 @@ RSpec.describe PostVoting::CommentsController do
 
     it 'returns the right response after creating a new comment' do
       expect do
-        post "/qa/comments.json", params: {
+        post "/post_voting/comments.json", params: {
           post_id: answer.id,
           raw: "this is some content",
         }
@@ -168,7 +168,7 @@ RSpec.describe PostVoting::CommentsController do
 
   describe '#update' do
     it 'should return 403 for an anon user' do
-      put "/qa/comments.json", params: {
+      put "/post_voting/comments.json", params: {
         comment_id: comment.id,
         raw: 'this is some new raw'
       }
@@ -179,7 +179,7 @@ RSpec.describe PostVoting::CommentsController do
     it 'should return 404 when comment_id is not associated to a valid record' do
       sign_in(comment.user)
 
-      put "/qa/comments.json", params: {
+      put "/post_voting/comments.json", params: {
         comment_id: -999999,
         raw: 'this is some new raw'
       }
@@ -193,7 +193,7 @@ RSpec.describe PostVoting::CommentsController do
       category.set_permissions(group => :readonly)
       category.save!
 
-      put "/qa/comments.json", params: {
+      put "/post_voting/comments.json", params: {
         comment_id: comment.id,
         raw: 'this is some new raw'
       }
@@ -204,7 +204,7 @@ RSpec.describe PostVoting::CommentsController do
     it 'should return 403 when a user is trying to update the comment of another user' do
       sign_in(Fabricate(:user))
 
-      put "/qa/comments.json", params: {
+      put "/post_voting/comments.json", params: {
         comment_id: comment.id,
         raw: 'this is some new raw'
       }
@@ -215,7 +215,7 @@ RSpec.describe PostVoting::CommentsController do
     it 'should allow an admin to update the comment' do
       sign_in(admin)
 
-      put "/qa/comments.json", params: {
+      put "/post_voting/comments.json", params: {
         comment_id: comment.id,
         raw: 'this is some new raw'
       }
@@ -232,7 +232,7 @@ RSpec.describe PostVoting::CommentsController do
       sign_in(comment.user)
 
       message = MessageBus.track_publish("/topic/#{comment.post.topic_id}") do
-        put "/qa/comments.json", params: {
+        put "/post_voting/comments.json", params: {
           comment_id: comment.id,
           raw: 'this is some new raw'
         }
@@ -254,7 +254,7 @@ RSpec.describe PostVoting::CommentsController do
 
   describe '#destroy' do
     it 'should return 403 for an anon user' do
-      delete "/qa/comments.json", params: { comment_id: comment.id }
+      delete "/post_voting/comments.json", params: { comment_id: comment.id }
 
       expect(response.status).to eq(403)
     end
@@ -262,7 +262,7 @@ RSpec.describe PostVoting::CommentsController do
     it 'should return 404 when comment_id param given does not exist' do
       sign_in(comment.user)
 
-      delete "/qa/comments.json", params: { comment_id: -99999 }
+      delete "/post_voting/comments.json", params: { comment_id: -99999 }
 
       expect(response.status).to eq(404)
     end
@@ -273,7 +273,7 @@ RSpec.describe PostVoting::CommentsController do
       category.set_permissions(group => :readonly)
       category.save!
 
-      delete "/qa/comments.json", params: { comment_id: comment.id }
+      delete "/post_voting/comments.json", params: { comment_id: comment.id }
 
       expect(response.status).to eq(403)
     end
@@ -281,7 +281,7 @@ RSpec.describe PostVoting::CommentsController do
     it "should return 403 when a user is trying to delete another user's comment" do
       sign_in(Fabricate(:user))
 
-      delete "/qa/comments.json", params: { comment_id: comment.id }
+      delete "/post_voting/comments.json", params: { comment_id: comment.id }
 
       expect(response.status).to eq(403)
     end
@@ -289,7 +289,7 @@ RSpec.describe PostVoting::CommentsController do
     it "should allow an admin to delete a comment of another user" do
       sign_in(admin)
 
-      delete "/qa/comments.json", params: { comment_id: comment.id }
+      delete "/post_voting/comments.json", params: { comment_id: comment.id }
 
       expect(response.status).to eq(200)
       expect(QuestionAnswerComment.with_deleted.where("deleted_at IS NOT NULL AND id = ?", comment.id).exists?).to eq(true)
@@ -299,7 +299,7 @@ RSpec.describe PostVoting::CommentsController do
       sign_in(comment.user)
 
       message = MessageBus.track_publish("/topic/#{comment.post.topic_id}") do
-        delete "/qa/comments.json", params: { comment_id: comment.id }
+        delete "/post_voting/comments.json", params: { comment_id: comment.id }
 
         expect(response.status).to eq(200)
       end.first
