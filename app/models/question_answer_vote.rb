@@ -40,7 +40,7 @@ class QuestionAnswerVote < ActiveRecord::Base
       errors.add(:base, I18n.t("post.post_voting.errors.comment_cannot_be_downvoted"))
     end
 
-    if !comment.post.is_qa_topic?
+    if !comment.post.is_post_voting_topic?
       errors.add(:base, I18n.t("post.post_voting.errors.post_voting_not_enabled"))
     end
   end
@@ -48,7 +48,7 @@ class QuestionAnswerVote < ActiveRecord::Base
   def ensure_valid_post
     post = votable
 
-    if !post.is_qa_topic?
+    if !post.is_post_voting_topic?
       errors.add(:base, I18n.t("post.post_voting.errors.post_voting_not_enabled"))
     elsif post.reply_to_post_number.present?
       errors.add(:base, I18n.t("post.post_voting.errors.voting_not_permitted"))

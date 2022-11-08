@@ -11,7 +11,7 @@ describe BasicCategorySerializer do
   end
 
   before do
-    category.custom_fields[PostVoting::CREATE_AS_QA_DEFAULT] = true
+    category.custom_fields[PostVoting::CREATE_AS_POST_VOTING_DEFAULT] = true
     category.save_custom_fields(true)
   end
 
@@ -20,8 +20,8 @@ describe BasicCategorySerializer do
       SiteSetting.qa_enabled = true
     end
 
-    it 'should return qa category attributes' do
-      expect(serialized[:create_as_qa_default]).to eq(true)
+    it 'should return post_voting category attributes' do
+      expect(serialized[:create_as_post_voting_default]).to eq(true)
     end
   end
 
@@ -31,7 +31,7 @@ describe BasicCategorySerializer do
     end
 
     it 'should not return qa category attributes' do
-      expect(serialized.key?(:create_as_qa_default)).to eq(false)
+      expect(serialized.key?(:create_as_post_voting_default)).to eq(false)
     end
   end
 end

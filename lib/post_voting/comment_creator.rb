@@ -37,7 +37,7 @@ module PostVoting
         post_number: comment.post.post_number,
         topic_id: comment.post.topic_id,
         data: {
-          qa_comment_id: comment.id,
+          post_voting_comment_id: comment.id,
           display_username: comment.user.username
         }.to_json,
       )

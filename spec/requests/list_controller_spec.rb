@@ -5,9 +5,9 @@ require 'rails_helper'
 describe ListController do
   fab!(:user) { Fabricate(:user) }
   fab!(:category) { Fabricate(:category) }
-  fab!(:qa_topic) { Fabricate(:topic, category: category, subtype: Topic::QA_SUBTYPE) }
-  fab!(:qa_topic_post) { Fabricate(:post, topic: qa_topic) }
-  fab!(:qa_topic_answer) { create_post(topic: qa_topic, reply_to_post: nil) }
+  fab!(:post_voting_topic) { Fabricate(:topic, category: category, subtype: Topic::POST_VOTING_SUBTYPE) }
+  fab!(:post_voting_topic_post) { Fabricate(:post, topic: post_voting_topic) }
+  fab!(:post_voting_topic_answer) { create_post(topic: post_voting_topic, reply_to_post: nil) }
   fab!(:topic) { Fabricate(:topic) }
 
   before do
@@ -15,8 +15,8 @@ describe ListController do
     sign_in(user)
   end
 
-  it 'should return the right attributes for Q&A topics' do
-    TopicUser.create!(user: user, topic: qa_topic, last_read_post_number: 2)
+  it 'should return the right attributes for Post Voting topics' do
+    TopicUser.create!(user: user, topic: post_voting_topic, last_read_post_number: 2)
     TopicUser.create!(user: user, topic: topic, last_read_post_number: 2)
 
     get "/latest.json"
@@ -24,18 +24,17 @@ describe ListController do
     expect(response.status).to eq(200)
 
     topics = response.parsed_body["topic_list"]["topics"]
+    post_voting = topics.find { |t| t["id"] == post_voting_topic.id }
+    non_post_voting = topics.find { |t| t["id"] == topic.id }
 
-    qa = topics.find { |t| t["id"] == qa_topic.id }
-    non_qa = topics.find { |t| t["id"] == topic.id }
-
-    expect(qa["is_qa"]).to eq(true)
-    expect(non_qa["is_qa"]).to eq(nil)
+    expect(post_voting["is_post_voting"]).to eq(true)
+    expect(non_post_voting["is_post_voting"]).to eq(nil)
   end
 
-  it 'should return the right attributes when Q&A is disabled' do
+  it 'should return the right attributes when Post Voting is disabled' do
     SiteSetting.qa_enabled = false
 
-    TopicUser.create!(user: user, topic: qa_topic, last_read_post_number: 2)
+    TopicUser.create!(user: user, topic: post_voting_topic, last_read_post_number: 2)
     TopicUser.create!(user: user, topic: topic, last_read_post_number: 2)
 
     get "/latest.json"
@@ -44,10 +43,10 @@ describe ListController do
 
     topics = response.parsed_body["topic_list"]["topics"]
 
-    qa = topics.find { |t| t["id"] == qa_topic.id }
-    non_qa = topics.find { |t| t["id"] == topic.id }
+    post_voting = topics.find { |t| t["id"] == post_voting_topic.id }
+    non_post_voting = topics.find { |t| t["id"] == topic.id }
 
-    expect(qa["is_qa"]).to eq(nil)
-    expect(non_qa["is_qa"]).to eq(nil)
+    expect(post_voting["is_post_voting"]).to eq(nil)
+    expect(non_post_voting["is_post_voting"]).to eq(nil)
   end
 end

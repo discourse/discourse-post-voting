@@ -2,9 +2,9 @@
 
 describe TopicsController do
   fab!(:user) { Fabricate(:user) }
-  fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:post) { create_post(topic: topic) }
-  fab!(:comment) { Fabricate(:qa_comment, raw: "this is a comment!", post: post) }
+  fab!(:comment) { Fabricate(:post_voting_comment, raw: "this is a comment!", post: post) }
 
   fab!(:answer) { create_post(topic: topic) }
   fab!(:answer_2) { create_post(topic: topic) }

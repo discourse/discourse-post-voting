@@ -18,7 +18,7 @@ acceptance("Discourse Post Voting - composer", function (needs) {
 
   needs.pretender((server, helper) => {
     server.post("/posts", (request) => {
-      if (parsePostData(request.requestBody).create_as_qa === "true") {
+      if (parsePostData(request.requestBody).create_as_post_voting === "true") {
         createAsPostVotingSetInRequest = true;
       }
 
@@ -82,7 +82,7 @@ acceptance("Discourse Post Voting - composer", function (needs) {
   });
 
   test("Creating new topic in category with Post Voting create default", async function (assert) {
-    Category.findById(2).set("create_as_qa_default", true);
+    Category.findById(2).set("create_as_post_voting_default", true);
 
     await visit("/");
     await click("#create-topic");

@@ -29,7 +29,7 @@ module PostVoting
     # to figure out what the "row_number" for each post. From there, we can then properly fetch the window of posts
     # near a given post number.
     def filter_posts_near(post_number)
-      return super unless topic.is_qa?
+      return super unless topic.is_post_voting?
       return super if @filter == TopicView::ACTIVITY_FILTER
 
       post_number = 1 if post_number == 0

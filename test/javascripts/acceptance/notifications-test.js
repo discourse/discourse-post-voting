@@ -20,7 +20,7 @@ acceptance("Discourse Post Voting - notifications", function (needs) {
             slug: "some-slug",
             data: {
               display_username: "someuser",
-              qa_comment_id: 123,
+              post_voting_comment_id: 123,
             },
           },
         ],

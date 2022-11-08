@@ -6,7 +6,7 @@ describe PostVoting::VoteManager do
   fab!(:user)  { Fabricate(:user) }
   fab!(:user_2)  { Fabricate(:user) }
   fab!(:user_3)  { Fabricate(:user) }
-  fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:post)  { Fabricate(:post, topic: topic) }
   fab!(:up) { QuestionAnswerVote.directions[:up] }
@@ -28,10 +28,10 @@ describe PostVoting::VoteManager do
       expect(post.qa_vote_count).to eq(1)
 
       expect(message.data[:id]).to eq(post.id)
-      expect(message.data[:qa_user_voted_id]).to eq(user.id)
-      expect(message.data[:qa_vote_count]).to eq(1)
-      expect(message.data[:qa_user_voted_direction]).to eq(up)
-      expect(message.data[:qa_has_votes]).to eq(true)
+      expect(message.data[:post_voting_user_voted_id]).to eq(user.id)
+      expect(message.data[:post_voting_vote_count]).to eq(1)
+      expect(message.data[:post_voting_user_voted_direction]).to eq(up)
+      expect(message.data[:post_voting_has_votes]).to eq(true)
     end
 
     it 'can create a downvote' do
@@ -45,10 +45,10 @@ describe PostVoting::VoteManager do
       expect(post.qa_vote_count).to eq(-1)
 
       expect(message.data[:id]).to eq(post.id)
-      expect(message.data[:qa_user_voted_id]).to eq(user.id)
-      expect(message.data[:qa_vote_count]).to eq(-1)
-      expect(message.data[:qa_user_voted_direction]).to eq(down)
-      expect(message.data[:qa_has_votes]).to eq(true)
+      expect(message.data[:post_voting_user_voted_id]).to eq(user.id)
+      expect(message.data[:post_voting_vote_count]).to eq(-1)
+      expect(message.data[:post_voting_user_voted_direction]).to eq(down)
+      expect(message.data[:post_voting_has_votes]).to eq(true)
     end
 
     it 'can change an upvote to a downvote' do
@@ -81,10 +81,10 @@ describe PostVoting::VoteManager do
       expect(vote.votable.qa_vote_count).to eq(0)
 
       expect(message.data[:id]).to eq(post.id)
-      expect(message.data[:qa_user_voted_id]).to eq(user.id)
-      expect(message.data[:qa_vote_count]).to eq(0)
-      expect(message.data[:qa_user_voted_direction]).to eq(nil)
-      expect(message.data[:qa_has_votes]).to eq(false)
+      expect(message.data[:post_voting_user_voted_id]).to eq(user.id)
+      expect(message.data[:post_voting_vote_count]).to eq(0)
+      expect(message.data[:post_voting_user_voted_direction]).to eq(nil)
+      expect(message.data[:post_voting_has_votes]).to eq(false)
     end
 
     it "should remove a user's downvote" do

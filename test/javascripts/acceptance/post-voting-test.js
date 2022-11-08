@@ -23,9 +23,9 @@ const topicResponse = cloneJSON(topicFixtures["/t/280/1.json"]);
 const topicList = cloneJSON(discoveryFixtures["/latest.json"]);
 
 function postVotingEnabledTopicResponse() {
-  topicResponse.post_stream.posts[0]["qa_vote_count"] = 0;
+  topicResponse.post_stream.posts[0]["post_voting_vote_count"] = 0;
   topicResponse.post_stream.posts[0]["comments_count"] = 1;
-  topicResponse.post_stream.posts[0]["qa_has_votes"] = false;
+  topicResponse.post_stream.posts[0]["post_voting_has_votes"] = false;
 
   topicResponse.post_stream.posts[0]["comments"] = [
     {
@@ -38,10 +38,10 @@ function postVotingEnabledTopicResponse() {
     },
   ];
 
-  topicResponse.post_stream.posts[1]["qa_vote_count"] = 2;
-  topicResponse.post_stream.posts[1]["qa_has_votes"] = true;
+  topicResponse.post_stream.posts[1]["post_voting_vote_count"] = 2;
+  topicResponse.post_stream.posts[1]["post_voting_has_votes"] = true;
   topicResponse.post_stream.posts[1]["comments_count"] = 6;
-  topicResponse.post_stream.posts[1]["qa_user_voted_direction"] = "up";
+  topicResponse.post_stream.posts[1]["post_voting_user_voted_direction"] = "up";
 
   topicResponse.post_stream.posts[1]["comments"] = [
     {
@@ -51,7 +51,7 @@ function postVotingEnabledTopicResponse() {
       username: "someusername",
       created_at: "2022-01-12T08:21:54.175Z",
       cooked: "<p>Test comment 2</p>",
-      qa_vote_count: 0,
+      post_voting_vote_count: 0,
       user_voted: false,
     },
     {
@@ -61,7 +61,7 @@ function postVotingEnabledTopicResponse() {
       username: "someusername",
       created_at: "2022-01-12T08:21:54.175Z",
       cooked: "<p>Test comment 3</p>",
-      qa_vote_count: 3,
+      post_voting_vote_count: 3,
       user_voted: false,
     },
     {
@@ -71,7 +71,7 @@ function postVotingEnabledTopicResponse() {
       username: "someusername2",
       created_at: "2022-01-12T08:21:54.175Z",
       cooked: "<p>Test comment 4</p>",
-      qa_vote_count: 0,
+      post_voting_vote_count: 0,
       user_voted: false,
     },
     {
@@ -81,7 +81,7 @@ function postVotingEnabledTopicResponse() {
       username: "someusername3",
       created_at: "2022-01-12T08:21:54.175Z",
       cooked: "<p>Test comment 5</p>",
-      qa_vote_count: 0,
+      post_voting_vote_count: 0,
       user_voted: false,
     },
     {
@@ -91,29 +91,29 @@ function postVotingEnabledTopicResponse() {
       username: "someusername4",
       created_at: "2022-01-12T08:21:54.175Z",
       cooked: "<p>Test comment 6</p>",
-      qa_vote_count: 0,
+      post_voting_vote_count: 0,
       user_voted: false,
     },
   ];
 
-  topicResponse["is_qa"] = true;
+  topicResponse["is_post_voting"] = true;
 
   return topicResponse;
 }
 
 function postVotingTopicListResponse() {
   // will link to OP
-  topicList.topic_list.topics[0].is_qa = true;
+  topicList.topic_list.topics[0].is_post_voting = true;
   topicList.topic_list.topics[0].last_read_post_number =
     topicList.topic_list.topics[0].highest_post_number;
 
   // will sort by activity
-  topicList.topic_list.topics[1].is_qa = true;
+  topicList.topic_list.topics[1].is_post_voting = true;
   topicList.topic_list.topics[1].last_read_post_number =
     topicList.topic_list.topics[1].highest_post_number - 2;
 
   // will link to last post
-  topicList.topic_list.topics[3].is_qa = true;
+  topicList.topic_list.topics[3].is_post_voting = true;
   topicList.topic_list.topics[3].last_read_post_number =
     topicList.topic_list.topics[3].highest_post_number - 1;
 
@@ -669,10 +669,10 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     publishToMessageBus("/topic/280", {
       type: "post_voting_post_voted",
       id: topicResponse.post_stream.posts[1].id,
-      qa_vote_count: 0,
-      qa_has_votes: false,
-      qa_user_voted_id: 19,
-      qa_user_voted_direction: null,
+      post_voting_vote_count: 0,
+      post_voting_has_votes: false,
+      post_voting_user_voted_id: 19,
+      post_voting_user_voted_direction: null,
     });
 
     await settled();
@@ -695,10 +695,10 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     publishToMessageBus("/topic/280", {
       type: "post_voting_post_voted",
       id: topicResponse.post_stream.posts[1].id,
-      qa_vote_count: 0,
-      qa_has_votes: false,
-      qa_user_voted_id: 280,
-      qa_user_voted_direction: "down",
+      post_voting_vote_count: 0,
+      post_voting_has_votes: false,
+      post_voting_user_voted_id: 280,
+      post_voting_user_voted_direction: "down",
     });
 
     await settled();
@@ -716,10 +716,10 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     publishToMessageBus("/topic/280", {
       type: "post_voting_post_voted",
       id: topicResponse.post_stream.posts[1].id,
-      qa_vote_count: 5,
-      qa_has_votes: true,
-      qa_user_voted_id: 123456,
-      qa_user_voted_direction: "down",
+      post_voting_vote_count: 5,
+      post_voting_has_votes: true,
+      post_voting_user_voted_id: 123456,
+      post_voting_user_voted_direction: "down",
     });
 
     await settled();
@@ -747,10 +747,10 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     publishToMessageBus("/topic/280", {
       type: "post_voting_post_voted",
       id: topicResponse.post_stream.posts[1].id,
-      qa_vote_count: 5,
-      qa_has_votes: true,
-      qa_user_voted_id: 19,
-      qa_user_voted_direction: "up",
+      post_voting_vote_count: 5,
+      post_voting_has_votes: true,
+      post_voting_user_voted_id: 19,
+      post_voting_user_voted_direction: "up",
     });
 
     await settled();

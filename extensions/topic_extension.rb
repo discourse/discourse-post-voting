@@ -5,15 +5,15 @@ module PostVoting
     def self.included(base)
       base.extend(ClassMethods)
       base.validate :ensure_regular_topic, on: [:create]
-      base.validate :ensure_no_qa_subtype, on: [:update]
-      base.const_set :QA_SUBTYPE, 'question_answer'
+      base.validate :ensure_no_post_voting_subtype, on: [:update]
+      base.const_set :POST_VOTING_SUBTYPE, 'question_answer'
     end
 
     def reload(options = nil)
       @answers = nil
       @comments = nil
       @last_answerer = nil
-      @is_qa = nil
+      @is_post_voting = nil
       super(options)
     end
 
@@ -63,14 +63,13 @@ module PostVoting
       @last_answerer ||= User.find(answers.last[:user_id])
     end
 
-    def is_qa?
-      @is_qa ||= SiteSetting.qa_enabled && self.subtype == Topic::QA_SUBTYPE
+    def is_post_voting?
+      @is_post_voting ||= SiteSetting.qa_enabled && self.subtype == Topic::POST_VOTING_SUBTYPE
     end
 
     # class methods
     module ClassMethods
-      # rename to something like qa_user_votes?
-      def qa_votes(topic, user)
+      def post_voting_votes(topic, user)
         return nil if !user || !SiteSetting.qa_enabled
 
         # This is a very inefficient way since the performance degrades as the
@@ -84,14 +83,14 @@ module PostVoting
 
     private
 
-    def ensure_no_qa_subtype
-      if will_save_change_to_subtype? && self.subtype == Topic::QA_SUBTYPE
+    def ensure_no_post_voting_subtype
+      if will_save_change_to_subtype? && self.subtype == Topic::POST_VOTING_SUBTYPE
         self.errors.add(:base, I18n.t("topic.post_voting.errors.cannot_change_to_post_voting_subtype"))
       end
     end
 
     def ensure_regular_topic
-      return if self.subtype != Topic::QA_SUBTYPE
+      return if self.subtype != Topic::POST_VOTING_SUBTYPE
 
       if !SiteSetting.qa_enabled
         self.errors.add(:base, I18n.t("topic.post_voting.errors.post_voting_not_enabled"))

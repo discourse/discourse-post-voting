@@ -7,21 +7,21 @@ module PostVoting
 
       base.has_many :question_answer_votes, as: :votable, dependent: :delete_all
       base.has_many :question_answer_comments, dependent: :destroy
-      base.validate :ensure_only_answer
+      base.validate :ensure_only_replies
     end
 
-    def is_qa_topic?
-      topic.is_qa?
+    def is_post_voting_topic?
+      topic.is_post_voting?
     end
 
-    def qa_last_voted(user_id)
+    def post_voting_last_voted(user_id)
       QuestionAnswerVote
         .where(votable: self, user_id: user_id)
         .order(created_at: :desc)
         .pluck_first(:created_at)
     end
 
-    def qa_can_vote(user_id, direction = nil)
+    def post_voting_can_vote(user_id, direction = nil)
       direction ||= QuestionAnswerVote.directions[:up]
       !QuestionAnswerVote.exists?(votable: self, user_id: user_id, direction: direction)
     end
@@ -35,11 +35,11 @@ module PostVoting
 
     private
 
-    def ensure_only_answer
+    def ensure_only_replies
       if will_save_change_to_reply_to_post_number? &&
           reply_to_post_number &&
           reply_to_post_number != 1 &&
-          is_qa_topic?
+          is_post_voting_topic?
 
         errors.add(:base, I18n.t("post.post_voting.errors.replying_to_post_not_permited"))
       end

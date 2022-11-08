@@ -4,10 +4,10 @@ require 'rails_helper'
 
 describe PostVoting::PostSerializerExtension do
   fab!(:user) { Fabricate(:user) }
-  fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:answer) { Fabricate(:post, topic: topic) }
-  fab!(:comment) { Fabricate(:qa_comment, post: answer) }
+  fab!(:comment) { Fabricate(:post_voting_comment, post: answer) }
   let(:topic_view) { TopicView.new(topic, user) }
   let(:up) { QuestionAnswerVote.directions[:up] }
   let(:guardian) { Guardian.new(user) }
@@ -26,8 +26,8 @@ describe PostVoting::PostSerializerExtension do
     it 'should return the right attributes' do
       PostVoting::VoteManager.vote(answer, user, direction: up)
 
-      expect(serialized[:qa_vote_count]).to eq(1)
-      expect(serialized[:qa_user_voted_direction]).to eq(up)
+      expect(serialized[:post_voting_vote_count]).to eq(1)
+      expect(serialized[:post_voting_user_voted_direction]).to eq(up)
       expect(serialized[:comments_count]).to eq(1)
       expect(serialized[:comments].first[:id]).to eq(comment.id)
     end

@@ -55,18 +55,18 @@ module PostVoting
     end
 
     def self.can_undo(post, user)
-      return true if post.qa_last_voted(user.id).blank?
+      return true if post.post_voting_last_voted(user.id).blank?
       window = SiteSetting.qa_undo_vote_action_window.to_i
-      window.zero? || post.qa_last_voted(user.id).to_i > window.minutes.ago.to_i
+      window.zero? || post.post_voting_last_voted(user.id).to_i > window.minutes.ago.to_i
     end
 
     def self.publish_changes(obj, user, vote_count, direction)
       if obj.is_a?(Post)
         obj.publish_change_to_clients!(:post_voting_post_voted,
-          qa_user_voted_id: user.id,
-          qa_vote_count: vote_count,
-          qa_user_voted_direction: direction,
-          qa_has_votes: QuestionAnswerVote.exists?(votable: obj)
+          post_voting_user_voted_id: user.id,
+          post_voting_vote_count: vote_count,
+          post_voting_user_voted_direction: direction,
+          post_voting_has_votes: QuestionAnswerVote.exists?(votable: obj)
         )
       end
     end

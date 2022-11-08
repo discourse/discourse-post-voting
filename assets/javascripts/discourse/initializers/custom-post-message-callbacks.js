@@ -99,12 +99,16 @@ export default {
 
           if (post) {
             const props = {
-              qa_vote_count: message.qa_vote_count,
-              qa_has_votes: message.qa_has_votes,
+              post_voting_vote_count: message.post_voting_vote_count,
+              post_voting_has_votes: message.post_voting_has_votes,
             };
 
-            if (topicController.currentUser.id === message.qa_user_voted_id) {
-              props.qa_user_voted_direction = message.qa_user_voted_direction;
+            if (
+              topicController.currentUser.id ===
+              message.post_voting_user_voted_id
+            ) {
+              props.post_voting_user_voted_direction =
+                message.post_voting_user_voted_direction;
             }
 
             post.setProperties(props);

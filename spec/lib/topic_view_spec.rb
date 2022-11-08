@@ -4,18 +4,18 @@ require 'rails_helper'
 
 describe TopicView do
   fab!(:user) { Fabricate(:user) }
-  fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:post) { create_post(topic: topic) }
 
   fab!(:answer) { create_post(topic: topic) }
   fab!(:answer_2) { create_post(topic: topic) }
-  let(:comment) { Fabricate(:qa_comment, post: answer) }
-  let(:comment_2) { Fabricate(:qa_comment, post: answer) }
-  let(:comment_3) { Fabricate(:qa_comment, post: post) }
-  let(:vote) { Fabricate(:qa_vote, votable: answer, user: user) }
+  let(:comment) { Fabricate(:post_voting_comment, post: answer) }
+  let(:comment_2) { Fabricate(:post_voting_comment, post: answer) }
+  let(:comment_3) { Fabricate(:post_voting_comment, post: post) }
+  let(:vote) { Fabricate(:post_voting_vote, votable: answer, user: user) }
 
   let(:vote_2) do
-    Fabricate(:qa_vote,
+    Fabricate(:post_voting_vote,
       votable: answer_2,
       user: user,
       direction: QuestionAnswerVote.directions[:down]
@@ -31,7 +31,7 @@ describe TopicView do
     comment_3
   end
 
-  it 'does not preload Q&A related records for non-Q&A topics' do
+  it 'does not preload Post Voting related records for non-Post Voting topics' do
     topic_2 = Fabricate(:topic)
     topic_2_post = Fabricate(:post, topic: topic_2)
     Fabricate(:post, topic: topic_2, reply_to_post_number: topic_2_post.post_number)
@@ -75,7 +75,7 @@ describe TopicView do
   end
 
   it "should preload the right comments even if comments have been deleted" do
-    comment_4 = Fabricate(:qa_comment, post: answer)
+    comment_4 = Fabricate(:post_voting_comment, post: answer)
     comment.trash!
 
     stub_const(TopicView, "PRELOAD_COMMENTS_COUNT", 2) do
@@ -87,7 +87,7 @@ describe TopicView do
   end
 
   describe '#filter_posts_near' do
-    fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+    fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
     fab!(:post) { create_post(topic: topic) }
 
     fab!(:answer_plus_2_votes) do
