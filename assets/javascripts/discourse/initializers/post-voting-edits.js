@@ -6,12 +6,12 @@ const pluginId = "discourse-post-voting";
 
 function initPlugin(api) {
   api.removePostMenuButton("reply", (attrs) => {
-    return attrs.qa_has_votes !== undefined;
+    return attrs.post_voting_has_votes !== undefined;
   });
 
   api.removePostMenuButton("like", (_attrs, _state, siteSetting) => {
     return (
-      _attrs.qa_has_votes !== undefined &&
+      _attrs.post_voting_has_votes !== undefined &&
       _attrs.post_number !== 1 &&
       !siteSetting.qa_enable_likes_on_answers
     );
@@ -19,7 +19,7 @@ function initPlugin(api) {
 
   api.addPostMenuButton("answer", (attrs) => {
     if (
-      attrs.qa_has_votes === undefined ||
+      attrs.post_voting_has_votes === undefined ||
       attrs.post_number !== 1 ||
       !attrs.canCreatePost
     ) {
@@ -57,7 +57,7 @@ function initPlugin(api) {
   });
 
   function customLastUnreadUrl(context) {
-    if (context.is_qa && context.last_read_post_number) {
+    if (context.is_post_voting && context.last_read_post_number) {
       if (context.highest_post_number <= context.last_read_post_number) {
         // link to OP if no unread
         return context.urlForPostNumber(1);
@@ -107,7 +107,7 @@ function initPlugin(api) {
     const result = [];
     const post = helper.getModel();
 
-    if (!post.topic.is_qa) {
+    if (!post.topic.is_post_voting) {
       return result;
     }
 
@@ -172,7 +172,7 @@ function initPlugin(api) {
     const attrs = helper.widget.attrs;
 
     if (
-      attrs.qa_has_votes !== undefined &&
+      attrs.post_voting_has_votes !== undefined &&
       !attrs.reply_to_post_number &&
       !helper.widget.state.filteredRepliesShown
     ) {
@@ -186,9 +186,9 @@ function initPlugin(api) {
     const result = [];
     const model = helper.getModel();
 
-    if (model.topic?.is_qa) {
+    if (model.topic?.is_post_voting) {
       const postVotingPost = helper.attach("post-voting-post", {
-        count: model.get("qa_vote_count"),
+        count: model.get("post_voting_vote_count"),
         post: model,
       });
 
@@ -201,8 +201,8 @@ function initPlugin(api) {
   api.includePostAttributes(
     "comments",
     "comments_count",
-    "qa_user_voted_direction",
-    "qa_has_votes"
+    "post_voting_user_voted_direction",
+    "post_voting_has_votes"
   );
 }
 

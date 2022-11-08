@@ -13,13 +13,13 @@ export default {
     }
 
     withPluginApi("0.13.0", (api) => {
-      api.serializeOnCreate("create_as_qa", "createAsQA");
+      api.serializeOnCreate("create_as_post_voting", "createAsPostVoting");
 
       api.customizeComposerText({
         actionTitle(model) {
-          if (model.createAsQA) {
+          if (model.createAsPostVoting) {
             return I18n.t("composer.create_post_voting.label");
-          } else if (model.topic?.is_qa) {
+          } else if (model.topic?.is_post_voting) {
             return I18n.t("post_voting.topic.answer.label");
           } else {
             return null;
@@ -27,9 +27,9 @@ export default {
         },
 
         saveLabel(model) {
-          if (model.createAsQA) {
+          if (model.createAsPostVoting) {
             return "composer.create_post_voting.label";
-          } else if (model.topic?.is_qa) {
+          } else if (model.topic?.is_post_voting) {
             return "post_voting.topic.answer.label";
           } else {
             return null;
@@ -40,8 +40,8 @@ export default {
       api.modifyClass("component:composer-actions", {
         pluginId: "discourse-post-voting",
 
-        toggleQASelected(options, model) {
-          model.toggleProperty("createAsQA");
+        togglePostVotingSelected(options, model) {
+          model.toggleProperty("createAsPostVoting");
           model.notifyPropertyChange("replyOptions");
           model.notifyPropertyChange("action");
         },
@@ -49,7 +49,7 @@ export default {
 
       api.modifySelectKit("composer-actions").appendContent((options) => {
         if (options.action === CREATE_TOPIC) {
-          if (options.composerModel.createAsQA) {
+          if (options.composerModel.createAsPostVoting) {
             return [
               {
                 name: I18n.t(
@@ -59,7 +59,7 @@ export default {
                   "composer.composer_actions.remove_as_post_voting.desc"
                 ),
                 icon: "plus",
-                id: "toggleQA",
+                id: "togglePostVoting",
               },
             ];
           } else {
@@ -72,7 +72,7 @@ export default {
                   "composer.composer_actions.create_as_post_voting.desc"
                 ),
                 icon: "plus",
-                id: "toggleQA",
+                id: "togglePostVoting",
               },
             ];
           }
@@ -85,11 +85,15 @@ export default {
         pluginId: "discourse-post-voting",
 
         @observes("categoryId")
-        categoryCreateAsQADefault() {
-          const createAsQA = this.category?.create_as_qa_default;
+        categoryCreateAsPostVotingDefault() {
+          const createAsPostVoting = this.category
+            ?.create_as_post_voting_default;
 
-          if (this.creatingTopic && createAsQA !== this.createAsQA) {
-            this.set("createAsQA", createAsQA);
+          if (
+            this.creatingTopic &&
+            createAsPostVoting !== this.createAsPostVoting
+          ) {
+            this.set("createAsPostVoting", createAsPostVoting);
             this.notifyPropertyChange("replyOptions");
             this.notifyPropertyChange("action");
           }

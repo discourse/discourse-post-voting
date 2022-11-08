@@ -26,7 +26,7 @@ export default createWidget("post-voting-post", {
       this.attach("post-voting-button", {
         direction: "up",
         loading: state.loading,
-        voted: attrs.post.qa_user_voted_direction === "up",
+        voted: attrs.post.post_voting_user_voted_direction === "up",
       }),
     ];
 
@@ -34,7 +34,7 @@ export default createWidget("post-voting-post", {
       contents.push(
         this.attach("button", {
           action: "toggleWhoVoted",
-          contents: `${attrs.post.qa_vote_count}`,
+          contents: `${attrs.post.post_voting_vote_count}`,
           className: "post-voting-post-toggle-voters btn btn-flat",
         })
       );
@@ -68,7 +68,8 @@ export default createWidget("post-voting-post", {
           contents.push(h(".post-voting-post-list", postVotersList));
         }
 
-        const countDiff = attrs.post.qa_vote_count - state.voters.length;
+        const countDiff =
+          attrs.post.post_voting_vote_count - state.voters.length;
 
         if (countDiff > 0) {
           contents.push(this.attach("span", "and ${countDiff} more users..."));
@@ -78,7 +79,7 @@ export default createWidget("post-voting-post", {
       contents.push(
         h(
           "span.post-voting-post-toggle-voters",
-          `${attrs.post.qa_vote_count || 0}`
+          `${attrs.post.post_voting_vote_count || 0}`
         )
       );
     }
@@ -87,7 +88,7 @@ export default createWidget("post-voting-post", {
       this.attach("post-voting-button", {
         direction: "down",
         loading: state.loading,
-        voted: attrs.post.qa_user_voted_direction === "down",
+        voted: attrs.post.post_voting_user_voted_direction === "down",
       })
     );
 
@@ -146,19 +147,19 @@ export default createWidget("post-voting-post", {
     const countChange = direction === "up" ? -1 : 1;
 
     post.setProperties({
-      qa_user_voted_direction: null,
-      qa_vote_count: post.qa_vote_count + countChange,
+      post_voting_user_voted_direction: null,
+      post_voting_vote_count: post.post_voting_vote_count + countChange,
     });
 
-    const voteCount = post.qa_vote_count;
+    const voteCount = post.post_voting_vote_count;
 
     this.state.loading = true;
 
     return removeVote({ post_id: post.id })
       .catch((error) => {
         post.setProperties({
-          qa_user_voted_direction: direction,
-          qa_vote_count: voteCount - countChange,
+          post_voting_user_voted_direction: direction,
+          post_voting_vote_count: voteCount - countChange,
         });
 
         this.scheduleRerender();
@@ -183,26 +184,26 @@ export default createWidget("post-voting-post", {
     const isUpVote = direction === "up";
     let countChange;
 
-    if (post.qa_user_voted_direction) {
+    if (post.post_voting_user_voted_direction) {
       countChange = isUpVote ? 2 : -2;
     } else {
       countChange = isUpVote ? 1 : -1;
     }
 
     this.attrs.post.setProperties({
-      qa_user_voted_direction: direction,
-      qa_vote_count: post.qa_vote_count + countChange,
+      post_voting_user_voted_direction: direction,
+      post_voting_vote_count: post.post_voting_vote_count + countChange,
     });
 
-    const voteCount = post.qa_vote_count;
+    const voteCount = post.post_voting_vote_count;
 
     this.state.loading = true;
 
     return castVote(vote)
       .catch((error) => {
         post.setProperties({
-          qa_user_voted_direction: null,
-          qa_vote_count: voteCount - countChange,
+          post_voting_user_voted_direction: null,
+          post_voting_vote_count: voteCount - countChange,
         });
 
         this.scheduleRerender();

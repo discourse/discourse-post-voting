@@ -3,7 +3,7 @@
 module PostVoting
   class CommentsController < ::ApplicationController
     before_action :find_post, only: [:load_more_comments, :create]
-    before_action :ensure_qa_enabled, only: [:load_more_comments, :create]
+    before_action :ensure_post_voting_enabled, only: [:load_more_comments, :create]
     before_action :ensure_logged_in, only: [:create, :destroy, :update]
 
     def load_more_comments
@@ -51,9 +51,9 @@ module PostVoting
       raise Discourse::InvalidAccess if !@guardian.can_edit_comment?(comment)
 
       if comment.update(raw: params[:raw])
-        Scheduler::Defer.later("Publish Q&A comment edited") do
+        Scheduler::Defer.later("Publish post voting comment edited") do
           comment.post.publish_change_to_clients!(
-            :qa_post_comment_edited,
+            :post_voting_post_comment_edited,
             comment_id: comment.id,
             comment_raw: comment.raw,
             comment_cooked: comment.cooked
@@ -104,8 +104,8 @@ module PostVoting
       raise Discourse::NotFound if @post.blank?
     end
 
-    def ensure_qa_enabled
-      raise Discourse::InvalidAccess if !@post.is_qa_topic?
+    def ensure_post_voting_enabled
+      raise Discourse::InvalidAccess if !@post.is_post_voting_topic?
     end
   end
 end

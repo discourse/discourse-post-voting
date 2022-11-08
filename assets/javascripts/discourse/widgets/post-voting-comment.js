@@ -72,10 +72,10 @@ export default createWidget("post-voting-comment", {
       }
 
       let vote_counter = null;
-      if (attrs.qa_vote_count) {
+      if (attrs.post_voting_vote_count) {
         vote_counter = h(
           "span.post-voting-comment-actions-vote-count",
-          `${attrs.qa_vote_count}`
+          `${attrs.post_voting_vote_count}`
         );
       }
       return [
@@ -95,7 +95,7 @@ export default createWidget("post-voting-comment", {
   removeVote() {
     this.state.isVoting = true;
 
-    this.attrs.qa_vote_count--;
+    this.attrs.post_voting_vote_count--;
     this.attrs.user_voted = false;
 
     return ajax("/post_voting/vote/comment", {
@@ -103,7 +103,7 @@ export default createWidget("post-voting-comment", {
       data: { comment_id: this.attrs.id },
     })
       .catch((e) => {
-        this.attrs.qa_vote_count++;
+        this.attrs.post_voting_vote_count++;
         this.attrs.user_voted = true;
         popupAjaxError(e);
       })
@@ -123,7 +123,7 @@ export default createWidget("post-voting-comment", {
 
     this.state.isVoting = true;
 
-    this.attrs.qa_vote_count++;
+    this.attrs.post_voting_vote_count++;
     this.attrs.user_voted = true;
 
     return ajax("/post_voting/vote/comment", {
@@ -131,7 +131,7 @@ export default createWidget("post-voting-comment", {
       data: { comment_id: this.attrs.id },
     })
       .catch((e) => {
-        this.attrs.qa_vote_count--;
+        this.attrs.post_voting_vote_count--;
         this.attrs.user_voted = false;
         popupAjaxError(e);
       })

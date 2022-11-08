@@ -11,7 +11,7 @@ createWidgetFrom(
     url(data) {
       const attrs = this.attrs;
       const url = postUrl(attrs.slug, attrs.topic_id, attrs.post_number);
-      return `${url}#${buildAnchorId(data.qa_comment_id)}`;
+      return `${url}#${buildAnchorId(data.post_voting_comment_id)}`;
     },
 
     icon() {

@@ -91,7 +91,7 @@ after_initialize do
   end
 
   TopicView.apply_custom_default_scope do |scope, topic_view|
-    if topic_view.topic.is_qa? &&
+    if topic_view.topic.is_post_voting? &&
       !topic_view.instance_variable_get(:@replies_to_post_number) &&
       !topic_view.instance_variable_get(:@post_ids)
 
@@ -113,7 +113,7 @@ after_initialize do
   end
 
   TopicView.on_preload do |topic_view|
-    next if !topic_view.topic.is_qa?
+    next if !topic_view.topic.is_post_voting?
 
     topic_view.comments = {}
 
@@ -128,11 +128,11 @@ after_initialize do
       SELECT 1
       FROM (
         SELECT
-          qa_comments.id
-        FROM question_answer_comments qa_comments
-        WHERE qa_comments.post_id = question_answer_comments.post_id
-        AND qa_comments.deleted_at IS NULL
-        ORDER BY qa_comments.id ASC
+          comments.id
+        FROM question_answer_comments comments
+        WHERE comments.post_id = question_answer_comments.post_id
+        AND comments.deleted_at IS NULL
+        ORDER BY comments.id ASC
         LIMIT #{TopicView::PRELOAD_COMMENTS_COUNT}
       ) X
       WHERE X.id = question_answer_comments.id
@@ -141,9 +141,9 @@ after_initialize do
     AND question_answer_comments.deleted_at IS NULL
     SQL
 
-    QuestionAnswerComment.includes(:user).where("id IN (#{comment_ids_sql})").order(id: :asc).each do |qa_comment|
-      topic_view.comments[qa_comment.post_id] ||= []
-      topic_view.comments[qa_comment.post_id] << qa_comment
+    QuestionAnswerComment.includes(:user).where("id IN (#{comment_ids_sql})").order(id: :asc).each do |comment|
+      topic_view.comments[comment.post_id] ||= []
+      topic_view.comments[comment.post_id] << comment
     end
 
     topic_view.comments_counts = QuestionAnswerComment.where(post_id: post_ids).group(:post_id).count
@@ -161,9 +161,9 @@ after_initialize do
       end
 
       QuestionAnswerVote
-        .joins("INNER JOIN question_answer_comments qa_comments ON qa_comments.id = question_answer_votes.votable_id")
+        .joins("INNER JOIN question_answer_comments comments ON comments.id = question_answer_votes.votable_id")
         .where(user: topic_view.guardian.user, votable_type: 'QuestionAnswerComment')
-        .where("qa_comments.post_id IN (?)", post_ids)
+        .where("comments.post_id IN (?)", post_ids)
         .pluck(:votable_id)
         .each do |votable_id|
 
@@ -175,29 +175,29 @@ after_initialize do
       QuestionAnswerVote.where(votable_type: 'Post', votable_id: post_ids).distinct.pluck(:votable_id)
   end
 
-  add_permitted_post_create_param(:create_as_qa)
+  add_permitted_post_create_param(:create_as_post_voting)
 
   # TODO: Core should be exposing the following as proper plugin interfaces.
   NewPostManager.add_plugin_payload_attribute(:subtype)
-  TopicSubtype.register(Topic::QA_SUBTYPE)
+  TopicSubtype.register(Topic::POST_VOTING_SUBTYPE)
 
   NewPostManager.add_handler do |manager|
     if !manager.args[:topic_id] &&
-      manager.args[:create_as_qa] == 'true' &&
+      manager.args[:create_as_post_voting] == 'true' &&
       (manager.args[:archetype].blank? || manager.args[:archetype] == Archetype.default)
 
-      manager.args[:subtype] = Topic::QA_SUBTYPE
+      manager.args[:subtype] = Topic::POST_VOTING_SUBTYPE
     end
 
     false
   end
 
-  register_category_custom_field_type(PostVoting::CREATE_AS_QA_DEFAULT, :boolean)
+  register_category_custom_field_type(PostVoting::CREATE_AS_POST_VOTING_DEFAULT, :boolean)
   if Site.respond_to? :preloaded_category_custom_fields
-    Site.preloaded_category_custom_fields << PostVoting::CREATE_AS_QA_DEFAULT
+    Site.preloaded_category_custom_fields << PostVoting::CREATE_AS_POST_VOTING_DEFAULT
   end
-  add_to_class(:category, :create_as_qa_default) do
-    ActiveModel::Type::Boolean.new.cast(self.custom_fields[PostVoting::CREATE_AS_QA_DEFAULT])
+  add_to_class(:category, :create_as_post_voting_default) do
+    ActiveModel::Type::Boolean.new.cast(self.custom_fields[PostVoting::CREATE_AS_POST_VOTING_DEFAULT])
   end
-  add_to_serializer(:basic_category, :create_as_qa_default) { object.create_as_qa_default }
+  add_to_serializer(:basic_category, :create_as_post_voting_default) { object.create_as_post_voting_default }
 end

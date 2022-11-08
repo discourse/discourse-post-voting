@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe QuestionAnswerVote do
-  fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:post) { Fabricate(:post, topic: topic) }
   fab!(:user) { Fabricate(:user) }
@@ -58,7 +58,7 @@ describe QuestionAnswerVote do
     end
 
     context 'when commenting' do
-      fab!(:comment) { Fabricate(:qa_comment, post: post) }
+      fab!(:comment) { Fabricate(:post_voting_comment, post: post) }
 
       it 'ensures vote cannot be created on a comment when qa is disabled' do
         SiteSetting.qa_enabled = false

@@ -1,4 +1,4 @@
-<% if @topic_view.topic.is_qa? %>
+<% if @topic_view.topic.is_post_voting? %>
   <div class="post-voting-comments">
     <% @topic_view.comments[post.id]&.each_with_index do |comment, i| %>
       <div class="post-voting-comment-row">
