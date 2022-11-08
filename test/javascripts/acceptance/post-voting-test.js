@@ -145,7 +145,7 @@ function setupPostVoting(needs) {
       return helper.response(postVotingEnabledTopicResponse());
     });
 
-    server.get("/qa/comments", () => {
+    server.get("/post_voting/comments", () => {
       return helper.response({
         comments: [
           {
@@ -155,14 +155,14 @@ function setupPostVoting(needs) {
             username: "someusername4",
             created_at: "2022-01-12T08:21:54.175Z",
             cooked: "<p>Test comment 7</p>",
-            qa_vote_count: 0,
+            post_voting_vote_count: 0,
             user_voted: false,
           },
         ],
       });
     });
 
-    server.post("/qa/comments", () => {
+    server.post("/post_voting/comments", () => {
       return helper.response({
         id: 9,
         user_id: 12345678,
@@ -170,16 +170,16 @@ function setupPostVoting(needs) {
         username: "someusername5",
         created_at: "2022-01-12T08:21:54.175Z",
         cooked: "<p>Test comment 9</p>",
-        qa_vote_count: 0,
+        post_voting_vote_count: 0,
         user_voted: false,
       });
     });
 
-    server.delete("/qa/comments", () => {
+    server.delete("/post_voting/comments", () => {
       return helper.response({});
     });
 
-    server.put("/qa/comments", () => {
+    server.put("/post_voting/comments", () => {
       return helper.response({
         id: 1,
         user_id: 12345,
@@ -187,16 +187,16 @@ function setupPostVoting(needs) {
         username: "someusername",
         created_at: "2022-01-12T08:21:54.175Z",
         cooked: "<p>editing this</p>",
-        qa_vote_count: 0,
+        post_voting_vote_count: 0,
         user_voted: false,
       });
     });
 
-    server.post("/qa/vote/comment", () => {
+    server.post("/post_voting/vote/comment", () => {
       return helper.response({});
     });
 
-    server.delete("/qa/vote/comment", () => {
+    server.delete("/post_voting/vote/comment", () => {
       return helper.response({});
     });
 
@@ -667,7 +667,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     await visit("/t/280");
 
     publishToMessageBus("/topic/280", {
-      type: "qa_post_voted",
+      type: "post_voting_post_voted",
       id: topicResponse.post_stream.posts[1].id,
       qa_vote_count: 0,
       qa_has_votes: false,
@@ -693,7 +693,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     await visit("/t/280");
 
     publishToMessageBus("/topic/280", {
-      type: "qa_post_voted",
+      type: "post_voting_post_voted",
       id: topicResponse.post_stream.posts[1].id,
       qa_vote_count: 0,
       qa_has_votes: false,
@@ -714,7 +714,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     await visit("/t/280");
 
     publishToMessageBus("/topic/280", {
-      type: "qa_post_voted",
+      type: "post_voting_post_voted",
       id: topicResponse.post_stream.posts[1].id,
       qa_vote_count: 5,
       qa_has_votes: true,
@@ -745,7 +745,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     await visit("/t/280");
 
     publishToMessageBus("/topic/280", {
-      type: "qa_post_voted",
+      type: "post_voting_post_voted",
       id: topicResponse.post_stream.posts[1].id,
       qa_vote_count: 5,
       qa_has_votes: true,
@@ -771,7 +771,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     await visit("/t/280");
 
     publishToMessageBus("/topic/280", {
-      type: "qa_post_commented",
+      type: "post_voting_post_commented",
       id: topicResponse.post_stream.posts[0].id,
       comments_count: 1,
       comment: topicResponse.post_stream.posts[0]["comments"][0],
@@ -791,7 +791,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     await visit("/t/280");
 
     publishToMessageBus("/topic/280", {
-      type: "qa_post_commented",
+      type: "post_voting_post_commented",
       id: topicResponse.post_stream.posts[0].id,
       comments_count: 2,
       comment: {
@@ -816,7 +816,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     await visit("/t/280");
 
     publishToMessageBus("/topic/280", {
-      type: "qa_post_commented",
+      type: "post_voting_post_commented",
       id: topicResponse.post_stream.posts[0].id,
       comments_count: 2,
       comment: {
@@ -843,7 +843,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     await visit("/t/280");
 
     publishToMessageBus("/topic/280", {
-      type: "qa_post_commented",
+      type: "post_voting_post_commented",
       id: topicResponse.post_stream.posts[1].id,
       comments_count: 7,
       comment: {
@@ -873,7 +873,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     await visit("/t/280");
 
     publishToMessageBus("/topic/280", {
-      type: "qa_post_comment_trashed",
+      type: "post_voting_post_comment_trashed",
       id: topicResponse.post_stream.posts[1].id,
       comments_count: 5,
       comment_id: 12345,
@@ -891,7 +891,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     await visit("/t/280");
 
     publishToMessageBus("/topic/280", {
-      type: "qa_post_comment_trashed",
+      type: "post_voting_post_comment_trashed",
       id: topicResponse.post_stream.posts[1].id,
       comments_count: 5,
       comment_id: topicResponse.post_stream.posts[1].comments[0].id,
@@ -909,7 +909,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     await visit("/t/280");
 
     publishToMessageBus("/topic/280", {
-      type: "qa_post_comment_edited",
+      type: "post_voting_post_comment_edited",
       id: topicResponse.post_stream.posts[0].id,
       comment_id: topicResponse.post_stream.posts[0].comments[0].id,
       comment_raw: "this is a new comment raw",

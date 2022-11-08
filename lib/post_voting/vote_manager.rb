@@ -62,7 +62,7 @@ module PostVoting
 
     def self.publish_changes(obj, user, vote_count, direction)
       if obj.is_a?(Post)
-        obj.publish_change_to_clients!(:qa_post_voted,
+        obj.publish_change_to_clients!(:post_voting_post_voted,
           qa_user_voted_id: user.id,
           qa_vote_count: vote_count,
           qa_user_voted_direction: direction,

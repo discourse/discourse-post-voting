@@ -16,69 +16,69 @@ describe QuestionAnswerVote do
 
   describe 'validations' do
     context 'with posts' do
-      it 'ensures votes cannot be created when QnA is disabled' do
+      it 'ensures votes cannot be created when qa is disabled' do
         SiteSetting.qa_enabled = false
 
-        qa_vote = QuestionAnswerVote.new(votable: post, user: user, direction: QuestionAnswerVote.directions[:up])
+        vote = QuestionAnswerVote.new(votable: post, user: user, direction: QuestionAnswerVote.directions[:up])
 
-        expect(qa_vote.valid?).to eq(false)
+        expect(vote.valid?).to eq(false)
 
-        expect(qa_vote.errors.full_messages).to contain_exactly(
-          I18n.t("post.post_voting.errors.qa_not_enabled")
+        expect(vote.errors.full_messages).to contain_exactly(
+          I18n.t("post.post_voting.errors.post_voting_not_enabled")
         )
       end
 
       it 'ensures that only posts in reply to other posts cannot be voted on' do
         post.update!(post_number: 2, reply_to_post_number: 1)
 
-        qa_vote = QuestionAnswerVote.new(votable: post, user: user, direction: QuestionAnswerVote.directions[:up])
+        vote = QuestionAnswerVote.new(votable: post, user: user, direction: QuestionAnswerVote.directions[:up])
 
-        expect(qa_vote.valid?).to eq(false)
+        expect(vote.valid?).to eq(false)
 
-        expect(qa_vote.errors.full_messages).to contain_exactly(
+        expect(vote.errors.full_messages).to contain_exactly(
           I18n.t("post.post_voting.errors.voting_not_permitted")
         )
       end
 
       it 'ensures that votes can only be created for valid polymorphic types' do
-        qa_vote = QuestionAnswerVote.new(votable: post.topic, user: user, direction: QuestionAnswerVote.directions[:up])
+        vote = QuestionAnswerVote.new(votable: post.topic, user: user, direction: QuestionAnswerVote.directions[:up])
 
-        expect(qa_vote.valid?).to eq(false)
-        expect(qa_vote.errors[:votable_type].present?).to eq(true)
+        expect(vote.valid?).to eq(false)
+        expect(vote.errors[:votable_type].present?).to eq(true)
       end
 
       it 'ensures that self voting is not allowed' do
-        qa_vote = QuestionAnswerVote.new(votable: post_1, user: user, direction: QuestionAnswerVote.directions[:up])
+        vote = QuestionAnswerVote.new(votable: post_1, user: user, direction: QuestionAnswerVote.directions[:up])
 
-        expect(qa_vote.valid?).to eq(false)
-        expect(qa_vote.errors.full_messages).to contain_exactly(
+        expect(vote.valid?).to eq(false)
+        expect(vote.errors.full_messages).to contain_exactly(
           I18n.t("post.post_voting.errors.self_voting_not_permitted")
         )
       end
     end
 
-    describe 'comments' do
-      fab!(:qa_comment) { Fabricate(:qa_comment, post: post) }
+    context 'when commenting' do
+      fab!(:comment) { Fabricate(:qa_comment, post: post) }
 
-      it 'ensures vote cannot be created on a comment when QnA is disabled' do
+      it 'ensures vote cannot be created on a comment when qa is disabled' do
         SiteSetting.qa_enabled = false
-        qa_comment.reload
+        comment.reload
 
-        qa_vote = QuestionAnswerVote.new(votable: qa_comment, user: user, direction: QuestionAnswerVote.directions[:up])
+        vote = QuestionAnswerVote.new(votable: comment, user: user, direction: QuestionAnswerVote.directions[:up])
 
-        expect(qa_vote.valid?).to eq(false)
+        expect(vote.valid?).to eq(false)
 
-        expect(qa_vote.errors.full_messages).to contain_exactly(
-          I18n.t("post.post_voting.errors.qa_not_enabled")
+        expect(vote.errors.full_messages).to contain_exactly(
+          I18n.t("post.post_voting.errors.post_voting_not_enabled")
         )
       end
 
       it 'ensures vote cannot be created on a comment when it is a downvote' do
-        qa_vote = QuestionAnswerVote.new(votable: qa_comment, user: user, direction: QuestionAnswerVote.directions[:down])
+        vote = QuestionAnswerVote.new(votable: comment, user: user, direction: QuestionAnswerVote.directions[:down])
 
-        expect(qa_vote.valid?).to eq(false)
+        expect(vote.valid?).to eq(false)
 
-        expect(qa_vote.errors.full_messages).to contain_exactly(
+        expect(vote.errors.full_messages).to contain_exactly(
           I18n.t("post.post_voting.errors.comment_cannot_be_downvoted")
         )
       end
@@ -87,19 +87,19 @@ describe QuestionAnswerVote do
 
   describe '#direction' do
     it 'ensures inclusion of values' do
-      qa_vote = QuestionAnswerVote.new(votable: post, user: user)
+      vote = QuestionAnswerVote.new(votable: post, user: user)
 
-      qa_vote.direction = 'up'
+      vote.direction = 'up'
 
-      expect(qa_vote.valid?).to eq(true)
+      expect(vote.valid?).to eq(true)
 
-      qa_vote.direction = 'down'
+      vote.direction = 'down'
 
-      expect(qa_vote.valid?).to eq(true)
+      expect(vote.valid?).to eq(true)
 
-      qa_vote.direction = 'somethingelse'
+      vote.direction = 'somethingelse'
 
-      expect(qa_vote.valid?).to eq(false)
+      expect(vote.valid?).to eq(false)
     end
   end
 end

@@ -4,7 +4,7 @@ describe TopicsController do
   fab!(:user) { Fabricate(:user) }
   fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
   fab!(:post) { create_post(topic: topic) }
-  fab!(:qa_comment) { Fabricate(:qa_comment, raw: "this is a comment!", post: post) }
+  fab!(:comment) { Fabricate(:qa_comment, raw: "this is a comment!", post: post) }
 
   fab!(:answer) { create_post(topic: topic) }
   fab!(:answer_2) { create_post(topic: topic) }
@@ -23,7 +23,7 @@ describe TopicsController do
   end
 
   describe '#show' do
-    it 'orders posts by number of votes for a Q&A topic' do
+    it 'orders posts by number of votes for a Post Voting topic' do
       get "/t/#{topic.id}.json"
 
       expect(response.status).to eq(200)
@@ -43,7 +43,7 @@ describe TopicsController do
       expect(payload["post_stream"]["posts"].map { |p| p["id"] }).to eq([post.id, answer.id, answer_2.id, answer_3.id])
     end
 
-    it "includes QA comments for crawler view" do
+    it "includes post_voting comments for crawler view" do
       skip "temporarily disable crawler view test while the perf issues are being worked on"
 
       get "/t/#{topic.slug}/#{topic.id}.html"
@@ -52,8 +52,8 @@ describe TopicsController do
 
       crawler_html = response.body
 
-      expect(crawler_html).to match(/<span class="qa-comment-cooked" itemprop="comment"><p>this is a comment!<\/p><\/span>/)
-      expect(crawler_html).to match(/<span class="qa-answer-count-span" itemprop="replyCount">3<\/span>/)
+      expect(crawler_html).to match(/<span class="post-voting-comment-cooked" itemprop="comment"><p>this is a comment!<\/p><\/span>/)
+      expect(crawler_html).to match(/<span class="post-voting-answer-count-span" itemprop="answerCount">3<\/span>/)
     end
   end
 end

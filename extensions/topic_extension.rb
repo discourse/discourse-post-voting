@@ -86,7 +86,7 @@ module PostVoting
 
     def ensure_no_qa_subtype
       if will_save_change_to_subtype? && self.subtype == Topic::QA_SUBTYPE
-        self.errors.add(:base, I18n.t("topic.post_voting.errors.cannot_change_to_qa_subtype"))
+        self.errors.add(:base, I18n.t("topic.post_voting.errors.cannot_change_to_post_voting_subtype"))
       end
     end
 
@@ -94,7 +94,7 @@ module PostVoting
       return if self.subtype != Topic::QA_SUBTYPE
 
       if !SiteSetting.qa_enabled
-        self.errors.add(:base, I18n.t("topic.post_voting.errors.qa_not_enabled"))
+        self.errors.add(:base, I18n.t("topic.post_voting.errors.post_voting_not_enabled"))
       elsif self.archetype != Archetype.default
         self.errors.add(:base, I18n.t("topic.post_voting.errors.subtype_not_allowed"))
       end

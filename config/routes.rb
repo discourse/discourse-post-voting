@@ -13,5 +13,5 @@ PostVoting::Engine.routes.draw do
 end
 
 Discourse::Application.routes.append do
-  mount ::PostVoting::Engine, at: 'qa'
+  mount ::PostVoting::Engine, at: 'post_voting'
 end

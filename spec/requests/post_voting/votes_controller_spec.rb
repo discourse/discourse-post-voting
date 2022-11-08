@@ -24,13 +24,13 @@ RSpec.describe PostVoting::VotesController do
       topic.update!(category: category)
       category.update!(read_restricted: true)
 
-      post '/qa/vote.json', params: { post_id: answer.id }
+      post '/post_voting/vote.json', params: { post_id: answer.id }
 
       expect(response.status).to eq(403)
     end
 
     it 'should be successful if post has never been voted' do
-      post '/qa/vote.json', params: { post_id: answer.id }
+      post '/post_voting/vote.json', params: { post_id: answer.id }
 
       expect(response.status).to eq(200)
 
@@ -42,17 +42,17 @@ RSpec.describe PostVoting::VotesController do
     end
 
     it 'should error if already voted' do
-      post '/qa/vote.json', params: { post_id: answer.id }
+      post '/post_voting/vote.json', params: { post_id: answer.id }
 
       expect(response.status).to eq(200)
 
-      post '/qa/vote.json', params: { post_id: answer.id }
+      post '/post_voting/vote.json', params: { post_id: answer.id }
 
       expect(response.status).to eq(403)
     end
 
     it 'should return 403 if user votes on a post by self' do
-      post '/qa/vote.json', params: { post_id: answer_3.id }
+      post '/post_voting/vote.json', params: { post_id: answer_3.id }
 
       expect(response.status).to eq(403)
     end
@@ -60,12 +60,12 @@ RSpec.describe PostVoting::VotesController do
     it 'should return 403 after qa_undo_vote_action_window' do
       SiteSetting.qa_undo_vote_action_window = 1
 
-      post "/qa/vote.json", params: { post_id: answer.id }
+      post "/post_voting/vote.json", params: { post_id: answer.id }
 
       expect(response.status).to eq(200)
 
       freeze_time 2.minutes.from_now do
-        post '/qa/vote.json', params: { post_id: answer.id, direction: QuestionAnswerVote.directions[:down] }
+        post '/post_voting/vote.json', params: { post_id: answer.id, direction: QuestionAnswerVote.directions[:down] }
 
         expect(response.status).to eq(403)
         expect(JSON.parse(response.body)['errors'][0]).to eq(I18n.t('vote.error.undo_vote_action_window', count: 1))
@@ -77,7 +77,7 @@ RSpec.describe PostVoting::VotesController do
     before { sign_in(user) }
 
     it 'should success if has voted' do
-      post '/qa/vote.json', params: { post_id: answer.id }
+      post '/post_voting/vote.json', params: { post_id: answer.id }
 
       expect(response.status).to eq(200)
 
@@ -86,14 +86,14 @@ RSpec.describe PostVoting::VotesController do
       expect(vote.votable).to eq(answer)
       expect(vote.user_id).to eq(user.id)
 
-      delete '/qa/vote.json', params: { post_id: answer.id }
+      delete '/post_voting/vote.json', params: { post_id: answer.id }
 
       expect(response.status).to eq(200)
       expect(QuestionAnswerVote.exists?(id: vote.id)).to eq(false)
     end
 
     it 'should return the right response if user has never voted on post' do
-      delete '/qa/vote.json', params: { post_id: answer.id }
+      delete '/post_voting/vote.json', params: { post_id: answer.id }
 
       expect(response.status).to eq(403)
     end
@@ -101,12 +101,12 @@ RSpec.describe PostVoting::VotesController do
     it 'should cant undo vote' do
       SiteSetting.qa_undo_vote_action_window = 1
 
-      post "/qa/vote.json", params: { post_id: answer.id }
+      post "/post_voting/vote.json", params: { post_id: answer.id }
 
       expect(response.status).to eq(200)
 
       freeze_time 2.minutes.from_now do
-        delete '/qa/vote.json', params: { post_id: answer.id }
+        delete '/post_voting/vote.json', params: { post_id: answer.id }
 
         expect(response.status).to eq(403)
         expect(JSON.parse(response.body)['errors'][0]).to eq(I18n.t('vote.error.undo_vote_action_window', count: 1))
@@ -118,7 +118,7 @@ RSpec.describe PostVoting::VotesController do
     fab!(:user) { Fabricate(:user) }
 
     it 'should return the right response for an anon user' do
-      get '/qa/voters.json', params: { post_id: answer.id }
+      get '/post_voting/voters.json', params: { post_id: answer.id }
 
       expect(response.status).to eq(403)
     end
@@ -126,7 +126,7 @@ RSpec.describe PostVoting::VotesController do
     it 'should return the right response if post does not exist' do
       sign_in(user)
 
-      get '/qa/voters.json', params: { post_id: -1 }
+      get '/post_voting/voters.json', params: { post_id: -1 }
 
       expect(response.status).to eq(404)
     end
@@ -140,7 +140,7 @@ RSpec.describe PostVoting::VotesController do
       Fabricate(:qa_vote, votable: answer_2, user: user)
 
       stub_const(PostVoting::VotesController, "VOTERS_LIMIT", 2) do
-        get '/qa/voters.json', params: { post_id: answer.id }
+        get '/post_voting/voters.json', params: { post_id: answer.id }
       end
 
       expect(response.status).to eq(200)
@@ -162,11 +162,11 @@ RSpec.describe PostVoting::VotesController do
   end
 
   describe '#create_comment_vote' do
-    let(:qa_comment) { Fabricate(:qa_comment, post: answer) }
-    let(:qa_comment_2) { Fabricate(:qa_comment, post: answer, user: user) }
+    let(:comment) { Fabricate(:qa_comment, post: answer) }
+    let(:comment_2) { Fabricate(:qa_comment, post: answer, user: user) }
 
     it 'should return 403 for an anon user' do
-      post '/qa/vote/comment.json', params: { comment_id: qa_comment.id }
+      post '/post_voting/vote/comment.json', params: { comment_id: comment.id }
 
       expect(response.status).to eq(403)
     end
@@ -174,7 +174,7 @@ RSpec.describe PostVoting::VotesController do
     it 'should return 404 if comment_id param is not valid' do
       sign_in(user)
 
-      post '/qa/vote/comment.json', params: { comment_id: -999 }
+      post '/post_voting/vote/comment.json', params: { comment_id: -999 }
 
       expect(response.status).to eq(404)
     end
@@ -185,7 +185,7 @@ RSpec.describe PostVoting::VotesController do
       topic.update!(category: category)
       category.update!(read_restricted: true)
 
-      post '/qa/vote/comment.json', params: { comment_id: qa_comment.id }
+      post '/post_voting/vote/comment.json', params: { comment_id: comment.id }
 
       expect(response.status).to eq(403)
     end
@@ -193,7 +193,7 @@ RSpec.describe PostVoting::VotesController do
     it 'should return 403 if user votes on a comment by self' do
       sign_in(user)
 
-      post '/qa/vote/comment.json', params: { comment_id: qa_comment_2.id }
+      post '/post_voting/vote/comment.json', params: { comment_id: comment_2.id }
 
       expect(response.status).to eq(403)
     end
@@ -202,20 +202,20 @@ RSpec.describe PostVoting::VotesController do
       sign_in(user)
 
       expect do
-        post '/qa/vote/comment.json', params: { comment_id: qa_comment.id }
+        post '/post_voting/vote/comment.json', params: { comment_id: comment.id }
 
         expect(response.status).to eq(200)
-      end.to change { qa_comment.reload.votes.length }.from(0).to(1)
+      end.to change { comment.reload.votes.length }.from(0).to(1)
 
-      expect(qa_comment.qa_vote_count).to eq(1)
+      expect(comment.qa_vote_count).to eq(1)
     end
   end
 
   describe '#destroy_comment_vote' do
-    let(:qa_comment) { Fabricate(:qa_comment, post: answer) }
+    let(:comment) { Fabricate(:qa_comment, post: answer) }
 
     it 'should return 403 for an anon user' do
-      delete '/qa/vote/comment.json', params: { comment_id: qa_comment.id }
+      delete '/post_voting/vote/comment.json', params: { comment_id: comment.id }
 
       expect(response.status).to eq(403)
     end
@@ -223,7 +223,7 @@ RSpec.describe PostVoting::VotesController do
     it 'should return 404 if comment_id param is not valid' do
       sign_in(user)
 
-      delete '/qa/vote/comment.json', params: { comment_id: -999 }
+      delete '/post_voting/vote/comment.json', params: { comment_id: -999 }
 
       expect(response.status).to eq(404)
     end
@@ -231,21 +231,21 @@ RSpec.describe PostVoting::VotesController do
     it 'should return 403 if user has not voted on comment' do
       sign_in(user)
 
-      delete '/qa/vote/comment.json', params: { comment_id: qa_comment.id }
+      delete '/post_voting/vote/comment.json', params: { comment_id: comment.id }
 
       expect(response.status).to eq(403)
     end
 
     it "should be able to remove a user's vote from a comment" do
-      PostVoting::VoteManager.vote(qa_comment, user, direction: QuestionAnswerVote.directions[:up])
+      PostVoting::VoteManager.vote(comment, user, direction: QuestionAnswerVote.directions[:up])
 
       sign_in(user)
 
       expect do
-        delete '/qa/vote/comment.json', params: { comment_id: qa_comment.id }
+        delete '/post_voting/vote/comment.json', params: { comment_id: comment.id }
 
         expect(response.status).to eq(200)
-      end.to change { qa_comment.reload.votes.length }.from(1).to(0)
+      end.to change { comment.reload.votes.length }.from(1).to(0)
     end
   end
 end
