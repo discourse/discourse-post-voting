@@ -23,12 +23,27 @@ zh_TW:
   site_settings:
     qa_tags: "啟用主題問答的標籤"
     qa_enabled: "啟用 Q&A 插件"
+    qa_enable_likes_on_answers: "在問答主題的答案上啟用「讚」按鈕"
+    qa_undo_vote_action_window: "允許使用者撤回投票的分鐘數 (0為無限制)"
+    qa_comment_limit_per_post: "每個問題或答案允許的評論數量"
   post_action_types:
     vote:
       title: '投票'
       description: '為這篇文章投票'
       short_description: '為這篇文章投票'
+      long_form: '為這篇文章投票'
   vote:
     error:
       user_has_not_voted: "使用者尚未投票。"
+      user_over_limit: "您不能投超過您的信任等級的投票數。"
       already_voted: "每個問題只能投票一次。"
+      undo_vote_action_window:
+        other: "您無法在投票 %{count} 分鐘過後撤回投票。"
+      one_vote_per_post: "您只能替每個貼文投票一次。"
+      one_vote_per_comment: "您只能為每條評論投票一次。"
+  qa:
+    comment:
+      errors:
+        qa_not_enabled: "不允許對非問答類話題中的貼文發表評論"
+        not_permitted: "不允許對相關貼文發表評論。"
+        limit_exceeded: "已達到每篇貼文 %{limit} 條評論的限制。"

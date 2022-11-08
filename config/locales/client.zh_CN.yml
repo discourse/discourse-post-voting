@@ -6,6 +6,25 @@
 
 zh_CN:
   js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+      titles:
+        question_answer_user_commented: "新评论"
+      popup:
+        question_answer_user_commented: '%{username} 在“%{topic}”中发布了评论 - %{site_title}'
+    category:
+      qa_settings_heading: 问答
+      create_as_qa_default: 此类别中的新话题默认为问答。
+    composer:
+      create_qa:
+        label: "创建问答话题"
+      composer_actions:
+        create_as_qa:
+          label: "切换问答"
+          desc: "话题将以问答格式创建"
+        remove_as_qa:
+          label: "移除问答"
+          desc: "话题将以常规格式创建"
     post:
       actions:
         undo:
@@ -16,4 +35,35 @@ zh_CN:
           vote: "你为这个答案投票了"
     vote:
       already_voted: "每个问题您只能投票一次。"
+      user_over_limit: "您不能超过您信任级别对应的投票数。"
+      one_vote_per_post: "您只能为每个帖子投一次票。"
     last_answer_lowercase: 最后答案
+    answer_lowercase:
+      other: 答案
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              other: "至少输入 %{count} 个字符"
+            length_ok:
+              other: "剩余 %{count} 个字符…"
+            too_long:
+              other: "评论不能超过 %{count} 个字符"
+          submit: "添加评论"
+          edit: "编辑"
+          cancel: "取消"
+          add: "添加评论"
+          show:
+            other: 再显示 %{count} 条评论
+          delete:
+            confirm: "确定要删除此评论吗？"
+      topic:
+        answer:
+          label: "答案"
+          help: "开始撰写答案"
+        sort_by: "排序依据"
+        votes: "投票"
+        activity: "活动"
+        answer_count:
+          other: "%{count} 个答案"

@@ -5,5 +5,47 @@
 # https://translate.discourse.org/
 
 it:
+  post:
+    qa:
+      errors:
+        replying_to_post_not_permited: "Non sei autorizzato a creare un messaggio in risposta a un altro messaggio."
+        voting_not_permitted: "Non sei autorizzato a votare su questo messaggio."
+        comment_cannot_be_downvoted: "Puoi solo votare a favore dei commenti."
+        self_voting_not_permitted: "Non sei autorizzato a votare il tuo stesso messaggio o commento."
+  topic:
+    qa:
+      errors:
+        qa_not_enabled: "Domande e risposte non abilitate."
+        subtype_not_allowed: "Gli argomenti in formato di domande e risposte possono essere creati solo su argomenti normali."
+        cannot_change_to_qa_subtype: "Non è consentito modificare il sottotipo di un argomento in Domande e risposte."
+      answer_count:
+        one: "%{count} risposta"
+        other: "%{count} risposte"
   site_settings:
-    qa_tags: "Etichette per attivare Q&A sugli argomenti"
+    qa_tags: "Tag per attivare Q&A sugli argomenti"
+    qa_enabled: "Abilita il plugin Q&A"
+    qa_enable_likes_on_answers: "Abilita il pulsante Mi piace sulle risposte negli argomenti di domande e risposte"
+    qa_undo_vote_action_window: "Numero di minuti consentiti agli utenti per annullare i voti negli argomenti di domande e risposte (inserisci 0 per non definire alcun limite)"
+    qa_comment_limit_per_post: "Numero di commenti consentiti su ciascuna domanda o risposta"
+  post_action_types:
+    vote:
+      title: 'Vota'
+      description: 'Vota per questo messaggio'
+      short_description: 'Vota per questo messaggio'
+      long_form: 'ha votato per questo messaggio'
+  vote:
+    error:
+      user_has_not_voted: "L'utente non ha votato."
+      user_over_limit: "Non puoi superare il numero di voti per il tuo livello di attendibilità."
+      already_voted: "Puoi votare una sola volta per domanda."
+      undo_vote_action_window:
+        one: "Non puoi annullare il voto %{count} minuto dopo la votazione."
+        other: "Non puoi annullare la votazione %{count} minuti dopo la votazione."
+      one_vote_per_post: "Puoi votare una sola volta per messaggio."
+      one_vote_per_comment: "Puoi votare una sola volta per ogni commento."
+  qa:
+    comment:
+      errors:
+        qa_not_enabled: "Non è consentito commentare un messaggio che non è in un argomento in formato Q&A"
+        not_permitted: "Non è consentito commentare messaggi associati."
+        limit_exceeded: "È stato raggiunto il limite di %{limit} commenti per messaggio."

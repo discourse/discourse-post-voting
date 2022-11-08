@@ -6,6 +6,25 @@
 
 es:
   js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+      titles:
+        question_answer_user_commented: "nuevo comentario"
+      popup:
+        question_answer_user_commented: '%{username} comentó en «%{topic}» - %{site_title}'
+    category:
+      qa_settings_heading: Pregunta y respuesta
+      create_as_qa_default: Los temas nuevos aparecen de forma predeterminada en Preguntas y respuestas en esta categoría.
+    composer:
+      create_qa:
+        label: "Crear tema de Preguntas y respuestas"
+      composer_actions:
+        create_as_qa:
+          label: "Alternar preguntas y respuestas"
+          desc: "El tema se creará en el formato de Preguntas y respuestas"
+        remove_as_qa:
+          label: "Eliminar las Preguntas y respuestas"
+          desc: "El tema se creará en el formato habitual"
     post:
       actions:
         undo:
@@ -16,7 +35,41 @@ es:
           vote: "Has votado este mensaje"
     vote:
       already_voted: "Solo puedes votar una vez por pregunta."
+      user_over_limit: "No puedes superar el número de votos para tu nivel de confianza."
+      one_vote_per_post: "Solo puedes votar una vez por cada publicación."
     last_answer_lowercase: última respuesta
     answer_lowercase:
       one: respuesta
       other: respuestas
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Introduce al menos %{count} caracteres"
+              other: "Ingresa al menos %{count} caracteres"
+            length_ok:
+              one: "Queda %{count} carácter..."
+              other: "Quedan %{count} caracteres..."
+            too_long:
+              one: "El comentario no puede tener más de %{count} carácter"
+              other: "El comentario no puede tener más de %{count} caracteres"
+          submit: "Añadir un comentario"
+          edit: "editar"
+          cancel: "cancelar"
+          add: "Añadir un comentario"
+          show:
+            one: Mostrar %{count} comentario más
+            other: Mostrar %{count} comentarios más
+          delete:
+            confirm: "¿Seguro que quieres eliminar este comentario?"
+      topic:
+        answer:
+          label: "Respuesta"
+          help: "empezar a redactar una respuesta"
+        sort_by: "Ordenar por"
+        votes: "Votos"
+        activity: "Actividad"
+        answer_count:
+          one: "%{count} respuesta"
+          other: "%{count} respuestas"
