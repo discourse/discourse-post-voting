@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Topic do
   fab!(:user) { Fabricate(:user) }
   fab!(:category) { Fabricate(:category) }
-  fab!(:topic) { Fabricate(:topic, category: category, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, category: category, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
 
   fab!(:answers) do
@@ -16,7 +16,7 @@ describe Topic do
     answer = answers.first
 
     5.times.map do
-      Fabricate(:qa_comment, post: answer)
+      Fabricate(:post_voting_comment, post: answer)
     end.sort_by(&:created_at)
   end
 
@@ -24,25 +24,25 @@ describe Topic do
 
   describe "validations" do
     describe '#subtype' do
-      it "should not allow Q&A formatted topics to be created when qa_enabled site setting is not enabled" do
+      it "should not allow Post Voting formatted topics to be created when qa_enabled site setting is not enabled" do
         SiteSetting.qa_enabled = false
 
-        topic = Fabricate.build(:topic, archetype: Archetype.default, subtype: Topic::QA_SUBTYPE)
+        topic = Fabricate.build(:topic, archetype: Archetype.default, subtype: Topic::POST_VOTING_SUBTYPE)
 
         expect(topic.valid?).to eq(false)
         expect(topic.errors.full_messages).to eq([I18n.t("topic.post_voting.errors.post_voting_not_enabled")])
       end
 
-      it "should not allow topic to change to Q&A subtype once it has been created" do
+      it "should not allow topic to change to Post Voting subtype once it has been created" do
         topic_2 = Fabricate(:topic)
-        topic_2.subtype = Topic::QA_SUBTYPE
+        topic_2.subtype = Topic::POST_VOTING_SUBTYPE
 
         expect(topic_2.valid?).to eq(false)
         expect(topic_2.errors.full_messages).to eq([I18n.t("topic.post_voting.errors.cannot_change_to_post_voting_subtype")])
       end
 
-      it "should only allow Q&A subtype to be set on regular topics" do
-        topic = Fabricate.build(:topic, archetype: Archetype.default, subtype: Topic::QA_SUBTYPE)
+      it "should only allow Post Voting subtype to be set on regular topics" do
+        topic = Fabricate.build(:topic, archetype: Archetype.default, subtype: Topic::POST_VOTING_SUBTYPE)
 
         expect(topic.valid?).to eq(true)
 
@@ -96,15 +96,15 @@ describe Topic do
     expect(topic.last_answerer.id).to eq(expected)
   end
 
-  describe '.qa_votes' do
+  describe '.post_voting_votes' do
     it 'should return nil if user is blank' do
-      expect(Topic.qa_votes(topic, nil)).to eq(nil)
+      expect(Topic.post_voting_votes(topic, nil)).to eq(nil)
     end
 
     it 'should return nil if disabled' do
       SiteSetting.qa_enabled = false
 
-      expect(Topic.qa_votes(topic, user)).to eq(nil)
+      expect(Topic.post_voting_votes(topic, user)).to eq(nil)
     end
 
     it 'should return voted post IDs' do
@@ -114,7 +114,7 @@ describe Topic do
         a.id
       end.sort
 
-      expect(Topic.qa_votes(topic, user).pluck(:votable_id))
+      expect(Topic.post_voting_votes(topic, user).pluck(:votable_id))
         .to contain_exactly(*expected)
     end
   end

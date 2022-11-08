@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe PostVoting::VotesController do
   fab!(:user) { Fabricate(:user) }
-  fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:answer) { Fabricate(:post, topic: topic) }
   fab!(:answer_2) { Fabricate(:post, topic: topic) }
@@ -135,9 +135,9 @@ RSpec.describe PostVoting::VotesController do
       sign_in(user)
 
       user_2 = Fabricate(:user)
-      Fabricate(:qa_vote, votable: answer, user: user_2, direction: QuestionAnswerVote.directions[:down])
-      Fabricate(:qa_vote, votable: answer, user: user)
-      Fabricate(:qa_vote, votable: answer_2, user: user)
+      Fabricate(:post_voting_vote, votable: answer, user: user_2, direction: QuestionAnswerVote.directions[:down])
+      Fabricate(:post_voting_vote, votable: answer, user: user)
+      Fabricate(:post_voting_vote, votable: answer_2, user: user)
 
       stub_const(PostVoting::VotesController, "VOTERS_LIMIT", 2) do
         get '/post_voting/voters.json', params: { post_id: answer.id }
@@ -162,8 +162,8 @@ RSpec.describe PostVoting::VotesController do
   end
 
   describe '#create_comment_vote' do
-    let(:comment) { Fabricate(:qa_comment, post: answer) }
-    let(:comment_2) { Fabricate(:qa_comment, post: answer, user: user) }
+    let(:comment) { Fabricate(:post_voting_comment, post: answer) }
+    let(:comment_2) { Fabricate(:post_voting_comment, post: answer, user: user) }
 
     it 'should return 403 for an anon user' do
       post '/post_voting/vote/comment.json', params: { comment_id: comment.id }
@@ -212,7 +212,7 @@ RSpec.describe PostVoting::VotesController do
   end
 
   describe '#destroy_comment_vote' do
-    let(:comment) { Fabricate(:qa_comment, post: answer) }
+    let(:comment) { Fabricate(:post_voting_comment, post: answer) }
 
     it 'should return 403 for an anon user' do
       delete '/post_voting/vote/comment.json', params: { comment_id: comment.id }

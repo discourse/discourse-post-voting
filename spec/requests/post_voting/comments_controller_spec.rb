@@ -7,12 +7,12 @@ RSpec.describe PostVoting::CommentsController do
   fab!(:admin) { Fabricate(:admin) }
   fab!(:group) { Fabricate(:group) }
   fab!(:category) { Fabricate(:category) }
-  fab!(:topic) { Fabricate(:topic, category: category, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, category: category, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:answer) { Fabricate(:post, topic: topic) }
-  let(:comment) { Fabricate(:qa_comment, post: answer) }
-  let(:comment_2) { Fabricate(:qa_comment, post: answer) }
-  let(:comment_3) { Fabricate(:qa_comment, post: answer) }
+  let(:comment) { Fabricate(:post_voting_comment, post: answer) }
+  let(:comment_2) { Fabricate(:post_voting_comment, post: answer) }
+  let(:comment_3) { Fabricate(:post_voting_comment, post: answer) }
 
   before do
     SiteSetting.qa_enabled = true
@@ -112,7 +112,7 @@ RSpec.describe PostVoting::CommentsController do
       expect(payload[:comment][:created_at]).to be_present
       expect(payload[:comment][:raw]).to eq("this is some content")
       expect(payload[:comment][:cooked]).to eq("<p>this is some content</p>")
-      expect(payload[:comment][:qa_vote_count]).to eq(0)
+      expect(payload[:comment][:post_voting_vote_count]).to eq(0)
       expect(payload[:comment][:user_voted]).to eq(false)
     end
 
@@ -139,7 +139,7 @@ RSpec.describe PostVoting::CommentsController do
       expect(notification.topic_id).to eq(answer.topic_id)
 
       expect(notification.data).to eq({
-        qa_comment_id: comment.id,
+        post_voting_comment_id: comment.id,
         display_username: user.username
       }.to_json)
 

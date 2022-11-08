@@ -5,7 +5,7 @@ module PostVoting
     before_action :ensure_logged_in
     before_action :find_vote_post, only: [:create, :destroy, :voters]
     before_action :ensure_can_see_post, only: [:create, :destroy, :voters]
-    before_action :ensure_qa_enabled, only: [:create, :destroy]
+    before_action :ensure_post_voting_enabled, only: [:create, :destroy]
 
     def create
       ensure_can_vote(@post)
@@ -30,7 +30,7 @@ module PostVoting
     end
 
     def destroy
-      if !Topic.qa_votes(@post.topic, current_user).exists?
+      if !Topic.post_voting_votes(@post.topic, current_user).exists?
         raise Discourse::InvalidAccess.new(
           nil,
           nil,
@@ -111,8 +111,8 @@ module PostVoting
       @guardian.ensure_can_see!(@post)
     end
 
-    def ensure_qa_enabled
-      raise Discourse::InvalidAccess.new unless @post.is_qa_topic?
+    def ensure_post_voting_enabled
+      raise Discourse::InvalidAccess.new unless @post.is_post_voting_topic?
     end
 
     def find_comment

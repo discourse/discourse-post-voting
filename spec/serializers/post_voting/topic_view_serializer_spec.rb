@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 describe PostVoting::TopicViewSerializerExtension do
-  fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:answer) { Fabricate(:post, topic: topic, reply_to_post_number: nil) }
-  fab!(:comment) { Fabricate(:qa_comment, post: answer) }
+  fab!(:comment) { Fabricate(:post_voting_comment, post: answer) }
   fab!(:user) { Fabricate(:user) }
   fab!(:guardian) { Guardian.new(user) }
   let(:topic_view) { TopicView.new(topic, user) }
@@ -32,16 +32,16 @@ describe PostVoting::TopicViewSerializerExtension do
     posts = payload[:post_stream][:posts]
 
     expect(posts.first[:id]).to eq(topic_post.id)
-    expect(posts.first[:qa_user_voted_direction]).to eq(QuestionAnswerVote.directions[:up])
-    expect(posts.first[:qa_has_votes]).to eq(true)
-    expect(posts.first[:qa_vote_count]).to eq(1)
+    expect(posts.first[:post_voting_user_voted_direction]).to eq(QuestionAnswerVote.directions[:up])
+    expect(posts.first[:post_voting_has_votes]).to eq(true)
+    expect(posts.first[:post_voting_vote_count]).to eq(1)
     expect(posts.first[:comments]).to eq([])
     expect(posts.first[:comments_count]).to eq(0)
 
     expect(posts.last[:id]).to eq(answer.id)
-    expect(posts.last[:qa_user_voted_direction]).to eq(QuestionAnswerVote.directions[:up])
-    expect(posts.last[:qa_has_votes]).to eq(true)
-    expect(posts.last[:qa_vote_count]).to eq(2)
+    expect(posts.last[:post_voting_user_voted_direction]).to eq(QuestionAnswerVote.directions[:up])
+    expect(posts.last[:post_voting_has_votes]).to eq(true)
+    expect(posts.last[:post_voting_vote_count]).to eq(2)
     expect(posts.last[:comments].map { |c| c[:id] }).to contain_exactly(comment.id)
     expect(posts.last[:comments].first[:user_voted]).to eq(true)
     expect(posts.last[:comments_count]).to eq(1)

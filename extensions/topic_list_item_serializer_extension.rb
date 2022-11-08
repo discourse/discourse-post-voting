@@ -3,15 +3,15 @@
 module PostVoting
   module TopicListItemSerializerExtension
     def self.included(base)
-      base.attributes :is_qa
+      base.attributes :is_post_voting
     end
 
-    def is_qa
-      object.is_qa?
+    def is_post_voting
+      object.is_post_voting?
     end
 
-    def include_is_qa?
-      object.is_qa?
+    def include_is_post_voting?
+      object.is_post_voting?
     end
   end
 end

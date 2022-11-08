@@ -4,20 +4,20 @@ module PostVoting
   module PostSerializerExtension
     def self.included(base)
       base.attributes(
-        :qa_vote_count,
-        :qa_user_voted_direction,
-        :qa_has_votes,
+        :post_voting_vote_count,
+        :post_voting_user_voted_direction,
+        :post_voting_has_votes,
         :comments,
         :comments_count,
       )
     end
 
-    def qa_vote_count
+    def post_voting_vote_count
       object.qa_vote_count
     end
 
-    def include_qa_vote_count?
-      object.is_qa_topic?
+    def include_post_voting_vote_count?
+      object.is_post_voting_topic?
     end
 
     def comments
@@ -29,7 +29,7 @@ module PostVoting
     end
 
     def include_comments?
-      @topic_view && object.is_qa_topic?
+      @topic_view && object.is_post_voting_topic?
     end
 
     def comments_count
@@ -37,23 +37,23 @@ module PostVoting
     end
 
     def include_comments_count?
-      @topic_view && object.is_qa_topic?
+      @topic_view && object.is_post_voting_topic?
     end
 
-    def qa_user_voted_direction
+    def post_voting_user_voted_direction
       @topic_view.posts_user_voted[object.id]
     end
 
-    def include_qa_user_voted_direction?
-      @topic_view && object.is_qa_topic? && @topic_view.posts_user_voted.present?
+    def include_post_voting_user_voted_direction?
+      @topic_view && object.is_post_voting_topic? && @topic_view.posts_user_voted.present?
     end
 
-    def qa_has_votes
+    def post_voting_has_votes
       @topic_view.posts_voted_on.include?(object.id)
     end
 
-    def include_qa_has_votes?
-      @topic_view && object.is_qa_topic?
+    def include_post_voting_has_votes?
+      @topic_view && object.is_post_voting_topic?
     end
 
     private

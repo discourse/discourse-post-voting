@@ -6,7 +6,7 @@ describe Post do
   fab!(:user1) { Fabricate(:user) }
   fab!(:user2) { Fabricate(:user) }
   fab!(:user3) { Fabricate(:user) }
-  fab!(:topic) { Fabricate(:topic, subtype: Topic::QA_SUBTYPE) }
+  fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:post) { Fabricate(:post, topic: topic) }
   let(:up) { QuestionAnswerVote.directions[:up] }
@@ -34,19 +34,19 @@ describe Post do
 
   it 'should return last voted correctly' do
     freeze_time do
-      expect(post.qa_last_voted(user1.id)).to eq(nil)
+      expect(post.post_voting_last_voted(user1.id)).to eq(nil)
 
       PostVoting::VoteManager.vote(post, user1)
 
-      expect(post.qa_last_voted(user1.id)).to eq_time(Time.zone.now)
+      expect(post.post_voting_last_voted(user1.id)).to eq_time(Time.zone.now)
     end
   end
 
-  it 'should return qa_can_vote correctly' do
-    expect(post.qa_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(true)
+  it 'should return post_voting_can_vote correctly' do
+    expect(post.post_voting_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(true)
 
     PostVoting::VoteManager.vote(post, user1)
 
-    expect(post.qa_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(false)
+    expect(post.post_voting_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(false)
   end
 end

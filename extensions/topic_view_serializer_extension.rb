@@ -4,7 +4,7 @@ module PostVoting
   module TopicViewSerializerExtension
     def self.included(base)
       base.attributes(
-        :is_qa,
+        :is_post_voting,
         :last_answered_at,
         :last_commented_on,
         :answer_count,
@@ -13,12 +13,12 @@ module PostVoting
       )
     end
 
-    def is_qa
+    def is_post_voting
       true
     end
 
-    def include_is_qa?
-      object.topic.is_qa?
+    def include_is_post_voting?
+      object.topic.is_post_voting?
     end
 
     def last_answered_at
@@ -26,7 +26,7 @@ module PostVoting
     end
 
     def include_last_answered_at?
-      object.topic.is_qa?
+      object.topic.is_post_voting?
     end
 
     def last_commented_on
@@ -34,7 +34,7 @@ module PostVoting
     end
 
     def include_last_commented_on?
-      object.topic.is_qa?
+      object.topic.is_post_voting?
     end
 
     def answer_count
@@ -42,7 +42,7 @@ module PostVoting
     end
 
     def include_answer_count?
-      object.topic.is_qa?
+      object.topic.is_post_voting?
     end
 
     def last_answer_post_number
@@ -50,7 +50,7 @@ module PostVoting
     end
 
     def include_last_answer_post_number?
-      object.topic.is_qa?
+      object.topic.is_post_voting?
     end
 
     def last_answerer
@@ -62,7 +62,7 @@ module PostVoting
     end
 
     def include_last_answerer?
-      object.topic.is_qa?
+      object.topic.is_post_voting?
     end
   end
 end
