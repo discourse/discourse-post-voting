@@ -21,6 +21,8 @@ module PostVoting
     end
 
     def comments
+      return [] if !@topic_view
+
       (@topic_view.comments[object.id] || []).map do |comment|
         serializer = QuestionAnswerCommentSerializer.new(comment, scope: scope, root: false)
         serializer.comments_user_voted = @topic_view.comments_user_voted
@@ -29,15 +31,15 @@ module PostVoting
     end
 
     def include_comments?
-      @topic_view && object.is_post_voting_topic?
+      object.is_post_voting_topic?
     end
 
     def comments_count
-      @topic_view.comments_counts&.dig(object.id) || 0
+      @topic_view&.comments_counts&.dig(object.id) || 0
     end
 
     def include_comments_count?
-      @topic_view && object.is_post_voting_topic?
+      object.is_post_voting_topic?
     end
 
     def post_voting_user_voted_direction
@@ -49,11 +51,11 @@ module PostVoting
     end
 
     def post_voting_has_votes
-      @topic_view.posts_voted_on.include?(object.id)
+      !!@topic_view&.posts_voted_on&.include?(object.id)
     end
 
     def include_post_voting_has_votes?
-      @topic_view && object.is_post_voting_topic?
+      object.is_post_voting_topic?
     end
 
     private
