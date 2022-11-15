@@ -6,6 +6,25 @@
 
 fi:
   js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+      titles:
+        question_answer_user_commented: "uusi kommentti"
+      popup:
+        question_answer_user_commented: '%{username} kommentoi ketjussa "%{topic}" – %{site_title}'
+    category:
+      qa_settings_heading: Kysymyksen vastaus
+      create_as_qa_default: Uudet ketjut ovat oletuksena kysymysketjuja tällä alueella.
+    composer:
+      create_qa:
+        label: "Luo kysymysketju"
+      composer_actions:
+        create_as_qa:
+          label: "Ota kysymysketju käyttöön"
+          desc: "Ketju luodaan kysymyksiä ja vastauksia -muodossa"
+        remove_as_qa:
+          label: "Poista kysymykset"
+          desc: "Ketju luodaan tavallisessa muodossa"
     post:
       actions:
         undo:
@@ -16,7 +35,41 @@ fi:
           vote: "Annoit äänen tälle vastaukselle"
     vote:
       already_voted: "Voit äänestää vain yhtä vastausta tähän kysymykseen"
+      user_over_limit: "Et voi ylittää luottamustasosi äänimäärää."
+      one_vote_per_post: "Voit äänestää kutakin viestiä vain kerran."
     last_answer_lowercase: viimeisin vastaus
     answer_lowercase:
       one: vastaus
-      other: vastaukset
+      other: vastausta
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Syötä vähintään %{count} merkki"
+              other: "Syötä vähintään %{count} merkkiä"
+            length_ok:
+              one: "%{count} merkki jäljellä..."
+              other: "%{count} merkkiä jäljellä..."
+            too_long:
+              one: "Kommentin pituus voi olla enintään %{count} merkki"
+              other: "Kommentin pituus voi olla enintään %{count} merkkiä"
+          submit: "Lisää kommentti"
+          edit: "muokkaa"
+          cancel: "peruuta"
+          add: "Lisää kommentti"
+          show:
+            one: Näytä %{count} kommentti lisää
+            other: Näytä %{count} kommenttia lisää
+          delete:
+            confirm: "Oletko varma, että haluat poistaa tämän kommentin?"
+      topic:
+        answer:
+          label: "Vastaus"
+          help: "ala kirjoittamaan vastausta"
+        sort_by: "Järjestys"
+        votes: "Äänet"
+        activity: "Toiminta"
+        answer_count:
+          one: "%{count} vastaus"
+          other: "%{count} vastausta"

@@ -5,3 +5,65 @@
 # https://translate.discourse.org/
 
 ja:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+      titles:
+        question_answer_user_commented: "新しいコメント"
+      popup:
+        question_answer_user_commented: '%{username} が「%{topic}」にコメントしました - %{site_title}'
+    category:
+      qa_settings_heading: 質問と回答
+      create_as_qa_default: 新しいトピックは、デフォルトでこのカテゴリの Q&A になります。
+    composer:
+      create_qa:
+        label: "Q&A トピックを作成する"
+      composer_actions:
+        create_as_qa:
+          label: "Q&A に切り替える"
+          desc: "トピックは質問と回答の形式で作成されます"
+        remove_as_qa:
+          label: "Q&A を削除する"
+          desc: "トピックは通常の形式で作成されます"
+    post:
+      actions:
+        undo:
+          vote: "賛成票を取り消します。"
+        people:
+          vote: "がこの投稿に賛成しました。"
+        by_you:
+          vote: "あなたはこの投稿に賛成しました。"
+    vote:
+      already_voted: "質問ごとに 1 回だけ投票できます。"
+      user_over_limit: "信頼レベルの投票数を超えることはできません。"
+      one_vote_per_post: "投稿ごとに 1 回だけ投票できます。"
+    last_answer_lowercase: 最後の回答
+    answer_lowercase:
+      other: 回答
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              other: "%{count} 文字以上を入力してください"
+            length_ok:
+              other: "残り %{count} 文字..."
+            too_long:
+              other: "コメントは %{count} 文字以下にしてください"
+          submit: "コメントを追加する"
+          edit: "編集"
+          cancel: "キャンセル"
+          add: "コメントを追加する"
+          show:
+            other: さらに %{count} 件のコメントを表示
+          delete:
+            confirm: "このコメントを削除してもよろしいですか？"
+      topic:
+        answer:
+          label: "回答"
+          help: "回答を書き始めます"
+        sort_by: "並べ替え"
+        votes: "投票"
+        activity: "アクティビティ"
+        answer_count:
+          other: "回答 %{count} 件"

@@ -28,18 +28,18 @@ zh_CN:
     post:
       actions:
         undo:
-          vote: "撤销投票"
+          vote: "撤消您的赞成票。"
         people:
-          vote: "投票"
+          vote: "投票赞成了此帖子。"
         by_you:
-          vote: "你为这个答案投票了"
+          vote: "您投票赞成了此帖子。"
     vote:
-      already_voted: "每个问题您只能投票一次。"
-      user_over_limit: "您不能超过您信任级别对应的投票数。"
+      already_voted: "您只能为每个问题投一次票。"
+      user_over_limit: "您不能超过您的信任级别对应的投票数。"
       one_vote_per_post: "您只能为每个帖子投一次票。"
-    last_answer_lowercase: 最后答案
+    last_answer_lowercase: 最后一个回答
     answer_lowercase:
-      other: 答案
+      other: 回答
     qa:
       post:
         qa_comment:
@@ -55,15 +55,15 @@ zh_CN:
           cancel: "取消"
           add: "添加评论"
           show:
-            other: 再显示 %{count} 条评论
+            other: 显示其他 %{count} 条评论
           delete:
             confirm: "确定要删除此评论吗？"
       topic:
         answer:
-          label: "答案"
-          help: "开始撰写答案"
+          label: "回答"
+          help: "开始撰写回答"
         sort_by: "排序依据"
         votes: "投票"
         activity: "活动"
         answer_count:
-          other: "%{count} 个答案"
+          other: "%{count} 个回答"

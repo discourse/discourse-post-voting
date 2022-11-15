@@ -6,19 +6,70 @@
 
 de:
   js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+      titles:
+        question_answer_user_commented: "neuer Kommentar"
+      popup:
+        question_answer_user_commented: '%{username} hat kommentiert in „%{topic}“ – %{site_title}'
+    category:
+      qa_settings_heading: Antwort auf Frage
+      create_as_qa_default: Neue Themen werden in dieser Kategorie standardmäßig auf Q&A gesetzt.
+    composer:
+      create_qa:
+        label: "Q&A-Thema erstellen"
+      composer_actions:
+        create_as_qa:
+          label: "Q&A umschalten"
+          desc: "Thema wird im Frage-und-Antwort-Format (Q&A) erstellt"
+        remove_as_qa:
+          label: "Q&A entfernen"
+          desc: "Thema wird im regulären Format erstellt"
     post:
       actions:
         undo:
           vote: "Deine Stimme entfernen."
         people:
-          vote: "Stimme(n) für diesen Beitrag"
+          vote: "Stimme(n) für diesen Beitrag."
         by_you:
           vote: "Du hast für diesen Beitrag gestimmt."
     vote:
       already_voted: "Du kannst nur einmal pro Frage abstimmen."
-      user_over_limit: "Du kannst nicht öfter abstimmten als es deine Vertrauensstufe erlaubt."
+      user_over_limit: "Du kannst nicht öfter abstimmen, als es deine Vertrauensstufe erlaubt."
       one_vote_per_post: "Du kannst nur einmal für jeden Beitrag abstimmen."
     last_answer_lowercase: letzte Antwort
     answer_lowercase:
       one: Antwort
       other: Antworten
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Gib mindestens %{count} Zeichen ein"
+              other: "Gib mindestens %{count} Zeichen ein"
+            length_ok:
+              one: "%{count} Zeichen verbleibend …"
+              other: "%{count} Zeichen verbleibend …"
+            too_long:
+              one: "Kommentar darf nicht länger als %{count} Zeichen sein"
+              other: "Kommentar darf nicht länger als %{count} Zeichen sein"
+          submit: "Kommentar hinzufügen"
+          edit: "bearbeiten"
+          cancel: "abbrechen"
+          add: "Kommentar hinzufügen"
+          show:
+            one: '%{count} weiteren Kommentar anzeigen'
+            other: '%{count} weitere Kommentare anzeigen'
+          delete:
+            confirm: "Möchtest du wirklich diesen Kommentar löschen?"
+      topic:
+        answer:
+          label: "Antwort"
+          help: "mit dem Verfassen einer Antwort beginnen"
+        sort_by: "Sortieren nach"
+        votes: "Stimmen"
+        activity: "Aktivität"
+        answer_count:
+          one: "%{count} Antwort"
+          other: "%{count} Antworten"

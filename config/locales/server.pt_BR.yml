@@ -5,3 +5,47 @@
 # https://translate.discourse.org/
 
 pt_BR:
+  post:
+    qa:
+      errors:
+        replying_to_post_not_permited: "Você não tem permissão para criar uma postagem em resposta a outra postagem."
+        voting_not_permitted: "Você não tem permissão para votar nesta postagem."
+        comment_cannot_be_downvoted: "Você só pode votar nos comentários."
+        self_voting_not_permitted: "Você não tem permissão para votar em sua própria postagem ou comentário."
+  topic:
+    qa:
+      errors:
+        qa_not_enabled: "O Q&A não está ativado."
+        subtype_not_allowed: "Tópicos formatados de Q&A só podem ser criados em tópicos regulares."
+        cannot_change_to_qa_subtype: "Não é permitido alterar o subtipo de um tópico de Q&A."
+      answer_count:
+        one: "%{count} resposta"
+        other: "%{count} respostas"
+  site_settings:
+    qa_tags: "Etiquetas para habilitar Q&A sobre o tópico"
+    qa_enabled: "Ativar plug-in de Q&A"
+    qa_enable_likes_on_answers: "Ative o botão curtir nas respostas nos tópicos de Q&A"
+    qa_undo_vote_action_window: "Número de minutos que os usuários podem cancelar votos em tópicos de Q&A (digite 0 para não ter limite)"
+    qa_comment_limit_per_post: "Número de comentários permitidos em cada pergunta ou resposta"
+  post_action_types:
+    vote:
+      title: 'Votar'
+      description: 'Vote nesta postagem'
+      short_description: 'Vote nesta postagem'
+      long_form: 'votou nesta postagem'
+  vote:
+    error:
+      user_has_not_voted: "O usuário não votou."
+      user_over_limit: "Você não pode exceder o número de votos para seu nível de confiança."
+      already_voted: "Você só pode votar uma vez por pergunta."
+      undo_vote_action_window:
+        one: "Você não pode cancelar a votação %{count} minuto após a votação."
+        other: "Você não pode cancelar a votação %{count} minutos após a votação."
+      one_vote_per_post: "Você só pode votar uma vez em cada postagem."
+      one_vote_per_comment: "Você só pode votar uma vez em cada comentário."
+  qa:
+    comment:
+      errors:
+        qa_not_enabled: "Não é permitido comentar em uma postagem que não esteja em um tópico no formato de Q&A"
+        not_permitted: "Não é permitido comentar na postagem associada."
+        limit_exceeded: "O limite de %{limit} comentários por postagem foi atingido."
