@@ -39,5 +39,19 @@ describe PostsController do
 
       expect(topic.is_post_voting?).to eq(false)
     end
+
+    it "returns all post-voting fields" do
+      topic = Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE)
+
+      post "/posts.json", params: {
+        raw: 'this is some raw',
+        topic_id: topic.id,
+      }
+
+      expect(response.parsed_body["post_voting_vote_count"]).to eq(0)
+      expect(response.parsed_body["post_voting_has_votes"]).to eq(false)
+      expect(response.parsed_body["comments"]).to eq([])
+      expect(response.parsed_body["comments_count"]).to eq(0)
+    end
   end
 end
