@@ -5,13 +5,47 @@
 # https://translate.discourse.org/
 
 fi:
+  post:
+    qa:
+      errors:
+        replying_to_post_not_permited: "Et voi luoda viestiä vastauksena toiseen viestiin."
+        voting_not_permitted: "Et voi äänestää tätä viestiä."
+        comment_cannot_be_downvoted: "Voit antaa vain positiivisia ääniä kommenteille."
+        self_voting_not_permitted: "Et saa äänestää omaa viestiäsi tai kommenttiasi."
+  topic:
+    qa:
+      errors:
+        qa_not_enabled: "Kysymykset ja vastaukset ei ole käytössä."
+        subtype_not_allowed: "Kysymysmuotoiltuja ketjuja voi luoda vain tavallisissa ketjuissa."
+        cannot_change_to_qa_subtype: "Ketjun alatyypin vaihtaminen kysymysketjuksi ei ole sallittua."
+      answer_count:
+        one: "%{count} vastaus"
+        other: "%{count} vastausta"
+  site_settings:
+    qa_tags: "Tunnisteet kysymysten käyttöönottamiseksi ketjussa"
+    qa_enabled: "Ota kysymykset ja vastaukset -lisäosa käyttöön"
+    qa_enable_likes_on_answers: "Ota tykkäyspainike käyttöön kysymysketjujen vastauksissa"
+    qa_undo_vote_action_window: "Minuuttien määrä, joiden aikana käyttäjät voivat perua ääniä kysymysketjuissa (poista raja käytöstä syöttämällä 0)"
+    qa_comment_limit_per_post: "Kussakin kysymyksessä tai vastauksessa sallittujen kommenttien määrä"
   post_action_types:
     vote:
       title: 'Äänestä'
       description: 'Äänestä tätä parhaaksi vastaukseksi'
       short_description: 'Äänestä tätä parhaaksi vastaukseksi'
-      long_form: 'äänesti tätä parhaaksi vastauseksi'
+      long_form: 'äänesti tätä parhaaksi vastaukseksi'
   vote:
     error:
       user_has_not_voted: "Käyttäjä ei ole äänestänyt."
-      already_voted: "Voi äänestää vain yhtä vastausta tähän kysymykseen."
+      user_over_limit: "Et voi ylittää luottamustasosi äänimäärää."
+      already_voted: "Voit äänestää vain yhtä vastausta tähän kysymykseen."
+      undo_vote_action_window:
+        one: "Et voi perua ääntä %{count} minuutti äänestämisen jälkeen."
+        other: "Et voi perua ääntä %{count} minuuttia äänestämisen jälkeen."
+      one_vote_per_post: "Voit äänestää kutakin viestiä vain kerran."
+      one_vote_per_comment: "Voit äänestää kutakin kommenttia vain kerran."
+  qa:
+    comment:
+      errors:
+        qa_not_enabled: "Sellaisen viestin kommentointi ei ole sallittua, joka ei ole kysymysmuotoillussa ketjussa"
+        not_permitted: "Liittyvän viestin kommentointi ei ole sallittua."
+        limit_exceeded: "%{limit} kommentin viestikohtainen raja on saavutettu."
