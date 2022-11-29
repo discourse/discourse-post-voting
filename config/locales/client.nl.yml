@@ -5,3 +5,71 @@
 # https://translate.discourse.org/
 
 nl:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+      titles:
+        question_answer_user_commented: "nieuwe reactie"
+      popup:
+        question_answer_user_commented: '%{username} heeft gereageerd in ''%{topic}'' - %{site_title}'
+    category:
+      qa_settings_heading: Vraag-antwoord
+      create_as_qa_default: Nieuwe topics zijn standaard vraag en antwoord in deze categorie.
+    composer:
+      create_qa:
+        label: "Vraag-en-antwoord-topic maken"
+      composer_actions:
+        create_as_qa:
+          label: "Vraag-en-antwoord schakelen"
+          desc: "Topic wordt gemaakt in de vorm van vraag en antwoord"
+        remove_as_qa:
+          label: "Vraag en antwoord verwijderen"
+          desc: "Topic wordt gemaakt in de normale vorm"
+    post:
+      actions:
+        undo:
+          vote: "Maak je omhoogstem ongedaan."
+        people:
+          vote: "heeft dit bericht omhoog gestemd."
+        by_you:
+          vote: "Je hebt dit bericht omhoog gestemd."
+    vote:
+      already_voted: "Je kunt maar één keer stemmen per vraag."
+      user_over_limit: "Je mag het aantal stemmen voor je vertrouwensniveau niet overschrijden."
+      one_vote_per_post: "Je kunt maar één keer stemmen per bericht."
+    last_answer_lowercase: laatste antwoord
+    answer_lowercase:
+      one: antwoord
+      other: antwoorden
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Voer minimaal %{count} teken in"
+              other: "Voer minimaal %{count} tekens in"
+            length_ok:
+              one: "%{count} teken resterend..."
+              other: "%{count} tekens resterend..."
+            too_long:
+              one: "Reactie mag niet langer zijn dan %{count} teken"
+              other: "Reactie mag niet langer zijn dan %{count} tekens"
+          submit: "Voeg een reactie toe"
+          edit: "bewerken"
+          cancel: "annuleren"
+          add: "Voeg een reactie toe"
+          show:
+            one: Nog %{count} reactie weergeven
+            other: Nog %{count} reacties weergeven
+          delete:
+            confirm: "Weet je zeker dat je deze reactie wilt verwijderen?"
+      topic:
+        answer:
+          label: "Antwoorden"
+          help: "begin met het opstellen van een antwoord"
+        sort_by: "Sorteren op"
+        votes: "Stemmen"
+        activity: "Activiteit"
+        answer_count:
+          one: "%{count} antwoord"
+          other: "%{count} antwoorden"
