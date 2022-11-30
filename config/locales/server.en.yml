@@ -11,7 +11,7 @@ en:
     post_voting:
       errors:
         post_voting_not_enabled: "Post voting is not enabled."
-        subtype_not_allowed: "Post-voting-formatted topics can only be created on regular topics."
+        subtype_not_allowed: "The Post Voting subtype can only be used with regular topics."
         cannot_change_to_post_voting_subtype: "Changing a topic's subtype to Post Voting is not permitted."
       answer_count:
         one: "%{count} Answer"
@@ -26,10 +26,10 @@ en:
 
   post_action_types:
     vote:
-      title: 'Vote'
-      description: 'Vote for this post'
-      short_description: 'Vote for this post'
-      long_form: 'voted for this post'
+      title: "Vote"
+      description: "Vote for this post"
+      short_description: "Vote for this post"
+      long_form: "voted for this post"
 
   vote:
     error:
@@ -45,6 +45,6 @@ en:
   post_voting:
     comment:
       errors:
-        post_voting_not_enabled: "Commenting on a post that is not in a Post-voting formatted topic is not permitted"
+        post_voting_not_enabled: "Commenting on a post that is not in a Post Voting topic is not permitted."
         not_permitted: "Commenting on associated post is not permitted."
         limit_exceeded: "Limit of %{limit} comments per post has been reached."
