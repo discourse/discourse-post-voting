@@ -33,3 +33,19 @@ nl:
       description: 'Stem op dit bericht'
       short_description: 'Stem op dit bericht'
       long_form: 'op dit bericht gestemd'
+  vote:
+    error:
+      user_has_not_voted: "Gebruiker heeft niet gestemd."
+      user_over_limit: "Je mag het aantal stemmen voor je vertrouwensniveau niet overschrijden."
+      already_voted: "Je kunt maar één keer stemmen per vraag."
+      undo_vote_action_window:
+        one: "Je kunt de stem %{count} minuut na het stemmen niet ongedaan maken."
+        other: "Je kunt de stem %{count} minuten na het stemmen niet ongedaan maken."
+      one_vote_per_post: "Je kunt maar één keer stemmen per bericht."
+      one_vote_per_comment: "Je kunt maar één keer stemmen per reactie."
+  qa:
+    comment:
+      errors:
+        qa_not_enabled: "Reageren op een bericht dat niet in een topic met vraag-en-antwoord-indeling staat, is niet toegestaan"
+        not_permitted: "Reageren op het gerelateerde bericht is niet toegestaan."
+        limit_exceeded: "Limiet van %{limit} reacties per bericht is bereikt."
