@@ -20,16 +20,12 @@ RSpec.describe Email::Receiver do
     fab!(:topic) { create_topic(category: category, user: user, subtype: Topic::POST_VOTING_SUBTYPE) }
     fab!(:post) { create_post(topic: topic) }
 
-    let!(:post_reply_key) do
+    before do
       Fabricate(:post_reply_key,
         reply_key: reply_key,
         user: user,
         post: post
       )
-    end
-
-    let :topic_user do
-      TopicUser.find_by(topic_id: topic.id, user_id: user.id)
     end
 
     it "creates a new reply post" do
