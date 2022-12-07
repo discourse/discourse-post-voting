@@ -200,4 +200,14 @@ after_initialize do
     ActiveModel::Type::Boolean.new.cast(self.custom_fields[PostVoting::CREATE_AS_POST_VOTING_DEFAULT])
   end
   add_to_serializer(:basic_category, :create_as_post_voting_default) { object.create_as_post_voting_default }
+
+  add_model_callback(:post, :before_create) do
+    if SiteSetting.qa_enabled &&
+       self.is_post_voting_topic? &&
+       self.via_email &&
+       self.reply_to_post_number == 1
+
+      self.reply_to_post_number = nil
+    end
+  end
 end
