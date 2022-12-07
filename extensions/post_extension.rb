@@ -36,6 +36,7 @@ module PostVoting
     private
 
     def ensure_only_replies
+      return unless SiteSetting.qa_enabled
       if will_save_change_to_reply_to_post_number? &&
           reply_to_post_number &&
           reply_to_post_number != 1 &&
