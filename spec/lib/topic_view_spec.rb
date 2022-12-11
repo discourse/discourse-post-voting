@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe TopicView do
   fab!(:user) { Fabricate(:user) }
@@ -16,10 +16,9 @@ describe TopicView do
 
   let(:vote_2) do
     Fabricate(:post_voting_vote,
-      votable: answer_2,
-      user: user,
-      direction: QuestionAnswerVote.directions[:down]
-    )
+              votable: answer_2,
+              user: user,
+              direction: QuestionAnswerVote.directions[:down])
   end
 
   before do
@@ -31,7 +30,7 @@ describe TopicView do
     comment_3
   end
 
-  it 'does not preload Post Voting related records for non-Post Voting topics' do
+  it "does not preload Post Voting related records for non-Post Voting topics" do
     topic_2 = Fabricate(:topic)
     topic_2_post = Fabricate(:post, topic: topic_2)
     Fabricate(:post, topic: topic_2, reply_to_post_number: topic_2_post.post_number)
@@ -57,11 +56,11 @@ describe TopicView do
 
     expect(topic_view.posts_user_voted).to eq({
       answer.id => QuestionAnswerVote.directions[:up],
-      answer_2.id => QuestionAnswerVote.directions[:down]
+      answer_2.id => QuestionAnswerVote.directions[:down],
     })
 
     expect(topic_view.comments_user_voted).to eq({
-      comment.id => true
+      comment.id => true,
     })
   end
 
@@ -86,7 +85,7 @@ describe TopicView do
     end
   end
 
-  describe '#filter_posts_near' do
+  describe "#filter_posts_near" do
     fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
     fab!(:post) { create_post(topic: topic) }
 

@@ -35,25 +35,25 @@ module PostVoting
       post_number = 1 if post_number == 0
 
       cte_query = <<~SQL
-      WITH rows AS (
-        WITH posts AS (
-          #{@filtered_posts.to_sql}
+        WITH rows AS (
+          WITH posts AS (
+            #{@filtered_posts.to_sql}
+          )
+          SELECT
+            id,
+            post_number,
+            ROW_NUMBER() OVER () AS row_number
+          FROM posts
         )
-        SELECT
-          id,
-          post_number,
-          ROW_NUMBER() OVER () AS row_number
-        FROM posts
-      )
       SQL
 
       row_number, max_row_number = DB.query_single(<<~SQL)
-      #{cte_query}
-      SELECT
-        row_number,
-        (SELECT row_number FROM rows ORDER BY row_number DESC LIMIT 1) AS max_row_number
-      FROM rows
-      WHERE rows.post_number = #{post_number.to_i}
+        #{cte_query}
+        SELECT
+          row_number,
+          (SELECT row_number FROM rows ORDER BY row_number DESC LIMIT 1) AS max_row_number
+        FROM rows
+        WHERE rows.post_number = #{post_number.to_i}
       SQL
 
       row_number = 1 if row_number.blank? # Post number does not exist so load from first post.
@@ -63,23 +63,23 @@ module PostVoting
       posts_after = @limit - posts_before - 1
 
       range =
-        # Lower boundary window
-        if (row_number - posts_before) <= 0
+ # Lower boundary window
+         if (row_number - posts_before) <= 0
           1..(@limit - (row_number - 1))
-        # Upper boundary window
+          # Upper boundary window
         elsif (max_row_number - row_number) < posts_after
           (max_row_number - @limit + 1)..max_row_number
-        # Any other window in between.
+          # Any other window in between.
         else
           (row_number - posts_before)..(row_number + posts_after)
         end
 
       post_ids = DB.query_single(<<~SQL)
-      #{cte_query}
-      SELECT
-        id
-      FROM rows
-      WHERE rows.row_number IN (#{range.to_a.join(",")})
+        #{cte_query}
+        SELECT
+          id
+        FROM rows
+        WHERE rows.row_number IN (#{range.to_a.join(",")})
       SQL
 
       filter_posts_by_ids(post_ids)

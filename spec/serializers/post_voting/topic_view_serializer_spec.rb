@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe PostVoting::TopicViewSerializerExtension do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
@@ -15,7 +15,7 @@ describe PostVoting::TopicViewSerializerExtension do
     SiteSetting.qa_enabled = true
   end
 
-  it 'should return correct values' do
+  it "should return correct values" do
     PostVoting::VoteManager.vote(topic_post, user)
     PostVoting::VoteManager.vote(answer, user)
     PostVoting::VoteManager.vote(answer, Fabricate(:user))
@@ -47,7 +47,7 @@ describe PostVoting::TopicViewSerializerExtension do
     expect(posts.last[:comments_count]).to eq(1)
   end
 
-  it 'should not include dependent_attrs when plugin is disabled' do
+  it "should not include dependent_attrs when plugin is disabled" do
     SiteSetting.qa_enabled = false
 
     payload = TopicViewSerializer.new(topic_view, scope: guardian, root: false).as_json

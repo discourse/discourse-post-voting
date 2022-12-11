@@ -23,7 +23,7 @@ module PostVoting
         comment.post.publish_change_to_clients!(
           :post_voting_post_commented,
           comment: QuestionAnswerCommentSerializer.new(comment, root: false).as_json,
-          comments_count: QuestionAnswerComment.where(post_id: comment.post_id).count
+          comments_count: QuestionAnswerComment.where(post_id: comment.post_id).count,
         )
       end
     end
@@ -38,7 +38,7 @@ module PostVoting
         topic_id: comment.post.topic_id,
         data: {
           post_voting_comment_id: comment.id,
-          display_username: comment.user.username
+          display_username: comment.user.username,
         }.to_json,
       )
 
@@ -46,7 +46,7 @@ module PostVoting
         user: comment.post.user,
         post: comment.post,
         notification_type: Notification.types[:question_answer_user_commented],
-        username: comment.user.username
+        username: comment.user.username,
       )
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe Post do
   fab!(:user1) { Fabricate(:user) }
@@ -28,11 +28,11 @@ describe Post do
     end
   end
 
-  it('should ignore vote_count') do
+  it("should ignore vote_count") do
     expect(Post.ignored_columns.include?("vote_count")).to eq(true)
   end
 
-  it 'should return last voted correctly' do
+  it "should return last voted correctly" do
     freeze_time do
       expect(post.post_voting_last_voted(user1.id)).to eq(nil)
 
@@ -42,7 +42,7 @@ describe Post do
     end
   end
 
-  it 'should return post_voting_can_vote correctly' do
+  it "should return post_voting_can_vote correctly" do
     expect(post.post_voting_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(true)
 
     PostVoting::VoteManager.vote(post, user1)

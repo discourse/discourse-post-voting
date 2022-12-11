@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe PostVoting::VoteManager do
-  fab!(:user)  { Fabricate(:user) }
-  fab!(:user_2)  { Fabricate(:user) }
-  fab!(:user_3)  { Fabricate(:user) }
+  fab!(:user) { Fabricate(:user) }
+  fab!(:user_2) { Fabricate(:user) }
+  fab!(:user_3) { Fabricate(:user) }
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
-  fab!(:post)  { Fabricate(:post, topic: topic) }
+  fab!(:post) { Fabricate(:post, topic: topic) }
   fab!(:up) { QuestionAnswerVote.directions[:up] }
   fab!(:down) { QuestionAnswerVote.directions[:down] }
 
@@ -16,14 +16,13 @@ describe PostVoting::VoteManager do
     SiteSetting.qa_enabled = true
   end
 
-  describe '.vote' do
-    it 'can create an upvote' do
+  describe ".vote" do
+    it "can create an upvote" do
       message = MessageBus.track_publish("/topic/#{post.topic_id}") do
         PostVoting::VoteManager.vote(post, user, direction: up)
       end.first
 
-      expect(QuestionAnswerVote.exists?(votable: post, user: user, direction: up))
-        .to eq(true)
+      expect(QuestionAnswerVote.exists?(votable: post, user: user, direction: up)).to eq(true)
 
       expect(post.qa_vote_count).to eq(1)
 
@@ -34,13 +33,12 @@ describe PostVoting::VoteManager do
       expect(message.data[:post_voting_has_votes]).to eq(true)
     end
 
-    it 'can create a downvote' do
+    it "can create a downvote" do
       message = MessageBus.track_publish("/topic/#{post.topic_id}") do
         PostVoting::VoteManager.vote(post, user, direction: down)
       end.first
 
-      expect(QuestionAnswerVote.exists?(votable: post, user: user, direction: down))
-        .to eq(true)
+      expect(QuestionAnswerVote.exists?(votable: post, user: user, direction: down)).to eq(true)
 
       expect(post.qa_vote_count).to eq(-1)
 
@@ -51,7 +49,7 @@ describe PostVoting::VoteManager do
       expect(message.data[:post_voting_has_votes]).to eq(true)
     end
 
-    it 'can change an upvote to a downvote' do
+    it "can change an upvote to a downvote" do
       PostVoting::VoteManager.vote(post, user, direction: up)
       PostVoting::VoteManager.vote(post, user_2, direction: up)
       PostVoting::VoteManager.vote(post, user, direction: down)
@@ -59,7 +57,7 @@ describe PostVoting::VoteManager do
       expect(post.qa_vote_count).to eq(0)
     end
 
-    it 'can change a downvote to upvote' do
+    it "can change a downvote to upvote" do
       PostVoting::VoteManager.vote(post, user, direction: down)
       PostVoting::VoteManager.vote(post, user_2, direction: down)
       PostVoting::VoteManager.vote(post, user_3, direction: down)
@@ -69,7 +67,7 @@ describe PostVoting::VoteManager do
     end
   end
 
-  describe '.remove_vote' do
+  describe ".remove_vote" do
     it "should remove a user's upvote" do
       vote = PostVoting::VoteManager.vote(post, user, direction: up)
 

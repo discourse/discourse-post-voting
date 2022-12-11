@@ -57,7 +57,7 @@ module PostVoting
       BasicUserSerializer.new(
         object.topic.last_answerer,
         scope: scope,
-        root: false
+        root: false,
       ).as_json
     end
 

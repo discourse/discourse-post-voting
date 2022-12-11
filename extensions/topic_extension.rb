@@ -6,7 +6,7 @@ module PostVoting
       base.extend(ClassMethods)
       base.validate :ensure_regular_topic, on: [:create]
       base.validate :ensure_no_post_voting_subtype, on: [:update]
-      base.const_set :POST_VOTING_SUBTYPE, 'question_answer'
+      base.const_set :POST_VOTING_SUBTYPE, "question_answer"
     end
 
     def reload(options = nil)
@@ -19,11 +19,11 @@ module PostVoting
 
     def answers
       @answers ||= begin
-        posts
-          .where(reply_to_post_number: nil)
-          .where.not(post_number: 1)
-          .order(post_number: :asc)
-      end
+          posts
+            .where(reply_to_post_number: nil)
+            .where.not(post_number: 1)
+            .order(post_number: :asc)
+        end
     end
 
     def answer_count
@@ -38,11 +38,11 @@ module PostVoting
 
     def comments
       @comments ||= begin
-        QuestionAnswerComment
-          .joins(:post)
-          .where("posts.topic_id = ?", self.id)
-          .order(created_at: :asc)
-      end
+          QuestionAnswerComment
+            .joins(:post)
+            .where("posts.topic_id = ?", self.id)
+            .order(created_at: :asc)
+        end
     end
 
     def last_commented_on
@@ -76,7 +76,7 @@ module PostVoting
         # number of voted posts in the topic increases.
         QuestionAnswerVote
           .joins("INNER JOIN posts ON posts.id = question_answer_votes.votable_id")
-          .where(user: user, votable_type: 'Post')
+          .where(user: user, votable_type: "Post")
           .where("posts.topic_id = ?", topic.id)
       end
     end

@@ -9,11 +9,10 @@ module PostVoting
         existing_vote = QuestionAnswerVote.find_by(
           user: user,
           votable: obj,
-          direction: QuestionAnswerVote.reverse_direction(direction)
+          direction: QuestionAnswerVote.reverse_direction(direction),
         )
 
-        count_change =
-          if existing_vote
+        count_change = if existing_vote
             QuestionAnswerVote.directions[:up] == direction ? 2 : -2
           else
             QuestionAnswerVote.directions[:up] == direction ? 1 : -1
@@ -24,7 +23,7 @@ module PostVoting
         vote = QuestionAnswerVote.create!(
           user: user,
           votable: obj,
-          direction: direction
+          direction: direction,
         )
 
         vote_count = (obj.qa_vote_count || 0) + count_change
@@ -63,11 +62,10 @@ module PostVoting
     def self.publish_changes(obj, user, vote_count, direction)
       if obj.is_a?(Post)
         obj.publish_change_to_clients!(:post_voting_post_voted,
-          post_voting_user_voted_id: user.id,
-          post_voting_vote_count: vote_count,
-          post_voting_user_voted_direction: direction,
-          post_voting_has_votes: QuestionAnswerVote.exists?(votable: obj)
-        )
+                                       post_voting_user_voted_id: user.id,
+                                       post_voting_vote_count: vote_count,
+                                       post_voting_user_voted_direction: direction,
+                                       post_voting_has_votes: QuestionAnswerVote.exists?(votable: obj))
       end
     end
   end

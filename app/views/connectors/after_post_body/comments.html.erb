@@ -14,12 +14,10 @@
     <% end %>
   </div>
 
-  <%
-    reply_count = @topic_view.filtered_posts.count - 1
-    if post.post_number == 1 && reply_count > 0
-  %>
+  <% reply_count = @topic_view.filtered_posts.count - 1
+     if post.post_number == 1 && reply_count > 0 %>
     <div class="post-voting-answer-count">
-      <h3><%= t('topic.post-voting.answer_count', count: reply_count) %></h3>
+      <h3><%= t("topic.post-voting.answer_count", count: reply_count) %></h3>
       <span class="post-voting-answer-count-span" itemprop="answerCount"><%= reply_count %></span>
     </div>
   <% end %>

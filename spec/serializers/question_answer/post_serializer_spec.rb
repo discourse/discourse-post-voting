@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe PostVoting::PostSerializerExtension do
   fab!(:user) { Fabricate(:user) }
@@ -18,12 +18,12 @@ describe PostVoting::PostSerializerExtension do
     serializer.as_json
   end
 
-  context 'with qa enabled' do
+  context "with qa enabled" do
     before do
       SiteSetting.qa_enabled = true
     end
 
-    it 'should return the right attributes' do
+    it "should return the right attributes" do
       PostVoting::VoteManager.vote(answer, user, direction: up)
 
       expect(serialized[:post_voting_vote_count]).to eq(1)
@@ -33,12 +33,12 @@ describe PostVoting::PostSerializerExtension do
     end
   end
 
-  context 'with qa disabled' do
+  context "with qa disabled" do
     before do
       SiteSetting.qa_enabled = false
     end
 
-    it 'should not include dependent_keys' do
+    it "should not include dependent_keys" do
       expect(serialized[:qa_vote_count]).to eq(nil)
       expect(serialized[:qa_user_voted_direction]).to eq(nil)
       expect(serialized[:comments_count]).to eq(nil)

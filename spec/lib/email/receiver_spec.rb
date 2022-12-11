@@ -22,10 +22,9 @@ RSpec.describe Email::Receiver do
 
     before do
       Fabricate(:post_reply_key,
-        reply_key: reply_key,
-        user: user,
-        post: post
-      )
+                reply_key: reply_key,
+                user: user,
+                post: post)
     end
 
     it "creates a new reply post" do

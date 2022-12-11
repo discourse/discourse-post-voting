@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PostVoting::CommentsController do
   fab!(:user) { Fabricate(:user) }
@@ -21,29 +21,29 @@ RSpec.describe PostVoting::CommentsController do
     comment_3
   end
 
-  describe '#load_comments' do
-    it 'returns the right response when user is not allowed to view post' do
+  describe "#load_comments" do
+    it "returns the right response when user is not allowed to view post" do
       category.update!(read_restricted: true)
 
       get "/post_voting/comments.json", params: {
-        post_id: answer.id, last_comment_id: comment.id
-      }
+                                      post_id: answer.id, last_comment_id: comment.id,
+                                    }
 
       expect(response.status).to eq(403)
     end
 
-    it 'returns the right response when post_id is invalid' do
+    it "returns the right response when post_id is invalid" do
       get "/post_voting/comments.json", params: {
-        post_id: -999999, last_comment_id: comment.id
-      }
+                                      post_id: -999999, last_comment_id: comment.id,
+                                    }
 
       expect(response.status).to eq(404)
     end
 
-    it 'returns the right response' do
+    it "returns the right response" do
       get "/post_voting/comments.json", params: {
-        post_id: answer.id, last_comment_id: comment.id
-      }
+                                      post_id: answer.id, last_comment_id: comment.id,
+                                    }
 
       expect(response.status).to eq(200)
       payload = response.parsed_body
@@ -64,39 +64,39 @@ RSpec.describe PostVoting::CommentsController do
     end
   end
 
-  describe '#create' do
+  describe "#create" do
     before do
       sign_in(user)
     end
 
-    it 'returns the right response when user is not allowed to create post' do
+    it "returns the right response when user is not allowed to create post" do
       category.set_permissions(group => :readonly)
       category.save!
 
       post "/post_voting/comments.json", params: {
-        post_id: answer.id,
-        raw: "this is some content",
-      }
+                                      post_id: answer.id,
+                                      raw: "this is some content",
+                                    }
 
       expect(response.status).to eq(403)
     end
 
-    it 'returns the right response when post_id is invalid' do
+    it "returns the right response when post_id is invalid" do
       post "/post_voting/comments.json", params: {
-        post_id: -999999,
-        raw: "this is some content",
-      }
+                                      post_id: -999999,
+                                      raw: "this is some content",
+                                    }
 
       expect(response.status).to eq(404)
     end
 
-    it 'publishes a comment created MessageBus message when a new comment is created' do
+    it "publishes a comment created MessageBus message when a new comment is created" do
       message = MessageBus.track_publish("/topic/#{answer.topic_id}") do
         expect do
           post "/post_voting/comments.json", params: {
-            post_id: answer.id,
-            raw: "this is some content",
-          }
+                                          post_id: answer.id,
+                                          raw: "this is some content",
+                                        }
 
           expect(response.status).to eq(200)
         end.to change { answer.reload.question_answer_comments.count }.by(1)
@@ -116,15 +116,15 @@ RSpec.describe PostVoting::CommentsController do
       expect(payload[:comment][:user_voted]).to eq(false)
     end
 
-    it 'publishes a notification when a new comment is created' do
+    it "publishes a notification when a new comment is created" do
       answer.user.update!(last_seen_at: Time.zone.now) # User has to be seen recently to trigger notification alert message
 
       message = MessageBus.track_publish("/notification-alert/#{answer.user_id}") do
         expect do
           post "/post_voting/comments.json", params: {
-            post_id: answer.id,
-            raw: "this is some content",
-          }
+                                          post_id: answer.id,
+                                          raw: "this is some content",
+                                        }
 
           expect(response.status).to eq(200)
         end.to change { answer.user.notifications.count }.by(1)
@@ -140,18 +140,18 @@ RSpec.describe PostVoting::CommentsController do
 
       expect(notification.data).to eq({
         post_voting_comment_id: comment.id,
-        display_username: user.username
+        display_username: user.username,
       }.to_json)
 
       expect(message.data[:notification_type]).to eq(Notification.types[:question_answer_user_commented])
     end
 
-    it 'returns the right response after creating a new comment' do
+    it "returns the right response after creating a new comment" do
       expect do
         post "/post_voting/comments.json", params: {
-          post_id: answer.id,
-          raw: "this is some content",
-        }
+                                        post_id: answer.id,
+                                        raw: "this is some content",
+                                      }
 
         expect(response.status).to eq(200)
       end.to change { answer.reload.question_answer_comments.count }.by(1)
@@ -166,59 +166,59 @@ RSpec.describe PostVoting::CommentsController do
     end
   end
 
-  describe '#update' do
-    it 'should return 403 for an anon user' do
+  describe "#update" do
+    it "should return 403 for an anon user" do
       put "/post_voting/comments.json", params: {
-        comment_id: comment.id,
-        raw: 'this is some new raw'
-      }
+                                      comment_id: comment.id,
+                                      raw: "this is some new raw",
+                                    }
 
       expect(response.status).to eq(403)
     end
 
-    it 'should return 404 when comment_id is not associated to a valid record' do
+    it "should return 404 when comment_id is not associated to a valid record" do
       sign_in(comment.user)
 
       put "/post_voting/comments.json", params: {
-        comment_id: -999999,
-        raw: 'this is some new raw'
-      }
+                                      comment_id: -999999,
+                                      raw: "this is some new raw",
+                                    }
 
       expect(response.status).to eq(404)
     end
 
-    it 'should return 403 when trying to update a comment on a post the user cannot see' do
+    it "should return 403 when trying to update a comment on a post the user cannot see" do
       sign_in(comment.user)
 
       category.set_permissions(group => :readonly)
       category.save!
 
       put "/post_voting/comments.json", params: {
-        comment_id: comment.id,
-        raw: 'this is some new raw'
-      }
+                                      comment_id: comment.id,
+                                      raw: "this is some new raw",
+                                    }
 
       expect(response.status).to eq(403)
     end
 
-    it 'should return 403 when a user is trying to update the comment of another user' do
+    it "should return 403 when a user is trying to update the comment of another user" do
       sign_in(Fabricate(:user))
 
       put "/post_voting/comments.json", params: {
-        comment_id: comment.id,
-        raw: 'this is some new raw'
-      }
+                                      comment_id: comment.id,
+                                      raw: "this is some new raw",
+                                    }
 
       expect(response.status).to eq(403)
     end
 
-    it 'should allow an admin to update the comment' do
+    it "should allow an admin to update the comment" do
       sign_in(admin)
 
       put "/post_voting/comments.json", params: {
-        comment_id: comment.id,
-        raw: 'this is some new raw'
-      }
+                                      comment_id: comment.id,
+                                      raw: "this is some new raw",
+                                    }
 
       expect(response.status).to eq(200)
 
@@ -228,14 +228,14 @@ RSpec.describe PostVoting::CommentsController do
       expect(body["cooked"]).to eq("<p>this is some new raw</p>")
     end
 
-    it 'should allow users to update their own comment and publishes a MessageBus message' do
+    it "should allow users to update their own comment and publishes a MessageBus message" do
       sign_in(comment.user)
 
       message = MessageBus.track_publish("/topic/#{comment.post.topic_id}") do
         put "/post_voting/comments.json", params: {
-          comment_id: comment.id,
-          raw: 'this is some new raw'
-        }
+                                        comment_id: comment.id,
+                                        raw: "this is some new raw",
+                                      }
 
         expect(response.status).to eq(200)
       end.first
@@ -252,14 +252,14 @@ RSpec.describe PostVoting::CommentsController do
     end
   end
 
-  describe '#destroy' do
-    it 'should return 403 for an anon user' do
+  describe "#destroy" do
+    it "should return 403 for an anon user" do
       delete "/post_voting/comments.json", params: { comment_id: comment.id }
 
       expect(response.status).to eq(403)
     end
 
-    it 'should return 404 when comment_id param given does not exist' do
+    it "should return 404 when comment_id param given does not exist" do
       sign_in(comment.user)
 
       delete "/post_voting/comments.json", params: { comment_id: -99999 }
@@ -267,7 +267,7 @@ RSpec.describe PostVoting::CommentsController do
       expect(response.status).to eq(404)
     end
 
-    it 'should return 403 when trying to delete a comment on a post the user cannot see' do
+    it "should return 403 when trying to delete a comment on a post the user cannot see" do
       sign_in(comment.user)
 
       category.set_permissions(group => :readonly)

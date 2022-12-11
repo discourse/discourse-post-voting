@@ -6,18 +6,18 @@ class QuestionAnswerVote < ActiveRecord::Base
 
   VOTABLE_TYPES = %w{Post QuestionAnswerComment}
 
-  validates :direction, inclusion: { in: ['up', 'down'] }
+  validates :direction, inclusion: { in: ["up", "down"] }
   validates :votable_type, presence: true, inclusion: { in: VOTABLE_TYPES }
   validates :votable_id, presence: true
   validates :user_id, presence: true
   validate :ensure_valid_vote
-  validate :ensure_valid_post, if: -> { votable_type == 'Post' }
-  validate :ensure_valid_comment, if: -> { votable_type == 'QuestionAnswerComment' }
+  validate :ensure_valid_post, if: -> { votable_type == "Post" }
+  validate :ensure_valid_comment, if: -> { votable_type == "QuestionAnswerComment" }
 
   def self.directions
     @directions ||= {
-      up: 'up',
-      down: 'down'
+      up: "up",
+      down: "down",
     }
   end
 

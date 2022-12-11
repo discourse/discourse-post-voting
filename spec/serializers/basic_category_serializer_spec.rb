@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe BasicCategorySerializer do
   fab!(:category) { Fabricate(:category) }
@@ -15,22 +15,22 @@ describe BasicCategorySerializer do
     category.save_custom_fields(true)
   end
 
-  context 'with qa enabled' do
+  context "with qa enabled" do
     before do
       SiteSetting.qa_enabled = true
     end
 
-    it 'should return post_voting category attributes' do
+    it "should return post_voting category attributes" do
       expect(serialized[:create_as_post_voting_default]).to eq(true)
     end
   end
 
-  context 'with qa disabled' do
+  context "with qa disabled" do
     before do
       SiteSetting.qa_enabled = false
     end
 
-    it 'should not return qa category attributes' do
+    it "should not return qa category attributes" do
       expect(serialized.key?(:create_as_post_voting_default)).to eq(false)
     end
   end

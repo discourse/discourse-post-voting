@@ -5,9 +5,9 @@ class AddDirectionToQuestionAnswerVotes < ActiveRecord::Migration[6.1]
     add_column :question_answer_votes, :direction, :string
 
     execute <<~SQL
-    UPDATE question_answer_votes
-    SET direction = 'up'
-    SQL
+              UPDATE question_answer_votes
+              SET direction = 'up'
+            SQL
 
     change_column_null :question_answer_votes, :direction, false
   end

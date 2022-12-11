@@ -31,7 +31,7 @@ module PostVoting
       comment = PostVoting::CommentCreator.create(
         user: current_user,
         post_id: @post.id,
-        raw: comments_params[:raw]
+        raw: comments_params[:raw],
       )
 
       if comment.errors.present?
@@ -56,7 +56,7 @@ module PostVoting
             :post_voting_post_comment_edited,
             comment_id: comment.id,
             comment_raw: comment.raw,
-            comment_cooked: comment.cooked
+            comment_cooked: comment.cooked,
           )
         end
 
@@ -79,7 +79,7 @@ module PostVoting
         comment.post.publish_change_to_clients!(
           :post_voting_post_comment_trashed,
           comment_id: comment.id,
-          comments_count: QuestionAnswerComment.where(post_id: comment.post_id).count
+          comments_count: QuestionAnswerComment.where(post_id: comment.post_id).count,
         )
       end
 

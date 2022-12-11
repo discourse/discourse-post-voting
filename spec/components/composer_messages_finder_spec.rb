@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-require 'composer_messages_finder'
+require "rails_helper"
+require "composer_messages_finder"
 
 describe ComposerMessagesFinder do
-
-  describe '.check_sequential_replies' do
+  describe ".check_sequential_replies" do
     fab!(:user) { Fabricate(:user) }
     fab!(:topic) { Fabricate(:topic) }
     fab!(:post_voting_topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
@@ -20,12 +19,12 @@ describe ComposerMessagesFinder do
     end
 
     it "notify user about sequential replies for regular topics" do
-      finder = ComposerMessagesFinder.new(user, composer_action: 'reply', topic_id: topic.id)
+      finder = ComposerMessagesFinder.new(user, composer_action: "reply", topic_id: topic.id)
       expect(finder.check_sequential_replies).to be_present
     end
 
     it "doesn't notify user about sequential replies for Post Voting topics" do
-      finder = ComposerMessagesFinder.new(user, composer_action: 'reply', topic_id: post_voting_topic.id)
+      finder = ComposerMessagesFinder.new(user, composer_action: "reply", topic_id: post_voting_topic.id)
       expect(finder.check_sequential_replies).to be_blank
     end
   end

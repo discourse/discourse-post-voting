@@ -41,12 +41,12 @@ after_initialize do
   end
 
   if respond_to?(:register_svg_icon)
-    register_svg_icon 'angle-up'
-    register_svg_icon 'info'
+    register_svg_icon "angle-up"
+    register_svg_icon "info"
   end
 
-  register_post_custom_field_type('vote_history', :json)
-  register_post_custom_field_type('vote_count', :integer)
+  register_post_custom_field_type("vote_history", :json)
+  register_post_custom_field_type("vote_count", :integer)
 
   reloadable_patch do
     Post.include(PostVoting::PostExtension)
@@ -75,29 +75,28 @@ after_initialize do
     @user_voted_posts ||= {}
 
     @user_voted_posts[user.id] ||= begin
-      QuestionAnswerVote.where(user: user, post: @posts).distinct.pluck(:post_id)
-    end
+        QuestionAnswerVote.where(user: user, post: @posts).distinct.pluck(:post_id)
+      end
   end
 
   add_to_class(:topic_view, :user_voted_posts_last_timestamp) do |user|
     @user_voted_posts_last_timestamp ||= {}
 
     @user_voted_posts_last_timestamp[user.id] ||= begin
-      QuestionAnswerVote
-        .where(user: user, post: @posts)
-        .group(:votable_id, :created_at)
-        .pluck(:votable_id, :created_at)
-    end
+        QuestionAnswerVote
+          .where(user: user, post: @posts)
+          .group(:votable_id, :created_at)
+          .pluck(:votable_id, :created_at)
+      end
   end
 
   TopicView.apply_custom_default_scope do |scope, topic_view|
     if topic_view.topic.is_post_voting? &&
-      !topic_view.instance_variable_get(:@replies_to_post_number) &&
-      !topic_view.instance_variable_get(:@post_ids)
-
+       !topic_view.instance_variable_get(:@replies_to_post_number) &&
+       !topic_view.instance_variable_get(:@post_ids)
       scope = scope.where(
         reply_to_post_number: nil,
-        post_type: Post.types[:regular]
+        post_type: Post.types[:regular],
       )
 
       if topic_view.instance_variable_get(:@filter) != TopicView::ACTIVITY_FILTER
@@ -121,23 +120,23 @@ after_initialize do
     post_ids_sql = post_ids.join(",")
 
     comment_ids_sql = <<~SQL
-    SELECT
-      question_answer_comments.id
-    FROM question_answer_comments
-    INNER JOIN LATERAL (
-      SELECT 1
-      FROM (
-        SELECT
-          comments.id
-        FROM question_answer_comments comments
-        WHERE comments.post_id = question_answer_comments.post_id
-        AND comments.deleted_at IS NULL
-        ORDER BY comments.id ASC
-        LIMIT #{TopicView::PRELOAD_COMMENTS_COUNT}
-      ) X
-      WHERE X.id = question_answer_comments.id
-    ) Y ON true
-    WHERE question_answer_comments.post_id IN (#{post_ids_sql})
+      SELECT
+        question_answer_comments.id
+      FROM question_answer_comments
+      INNER JOIN LATERAL (
+        SELECT 1
+        FROM (
+          SELECT
+            comments.id
+          FROM question_answer_comments comments
+          WHERE comments.post_id = question_answer_comments.post_id
+          AND comments.deleted_at IS NULL
+          ORDER BY comments.id ASC
+          LIMIT #{TopicView::PRELOAD_COMMENTS_COUNT}
+        ) X
+        WHERE X.id = question_answer_comments.id
+      ) Y ON true
+      WHERE question_answer_comments.post_id IN (#{post_ids_sql})
     AND question_answer_comments.deleted_at IS NULL
     SQL
 
@@ -153,26 +152,24 @@ after_initialize do
 
     if topic_view.guardian.user
       QuestionAnswerVote
-        .where(user: topic_view.guardian.user, votable_type: 'Post', votable_id: post_ids)
+        .where(user: topic_view.guardian.user, votable_type: "Post", votable_id: post_ids)
         .pluck(:votable_id, :direction)
         .each do |post_id, direction|
-
         topic_view.posts_user_voted[post_id] = direction
       end
 
       QuestionAnswerVote
         .joins("INNER JOIN question_answer_comments comments ON comments.id = question_answer_votes.votable_id")
-        .where(user: topic_view.guardian.user, votable_type: 'QuestionAnswerComment')
+        .where(user: topic_view.guardian.user, votable_type: "QuestionAnswerComment")
         .where("comments.post_id IN (?)", post_ids)
         .pluck(:votable_id)
         .each do |votable_id|
-
         topic_view.comments_user_voted[votable_id] = true
       end
     end
 
     topic_view.posts_voted_on =
-      QuestionAnswerVote.where(votable_type: 'Post', votable_id: post_ids).distinct.pluck(:votable_id)
+      QuestionAnswerVote.where(votable_type: "Post", votable_id: post_ids).distinct.pluck(:votable_id)
   end
 
   add_permitted_post_create_param(:create_as_post_voting)
@@ -183,9 +180,8 @@ after_initialize do
 
   NewPostManager.add_handler do |manager|
     if !manager.args[:topic_id] &&
-      manager.args[:create_as_post_voting] == 'true' &&
-      (manager.args[:archetype].blank? || manager.args[:archetype] == Archetype.default)
-
+       manager.args[:create_as_post_voting] == "true" &&
+       (manager.args[:archetype].blank? || manager.args[:archetype] == Archetype.default)
       manager.args[:subtype] = Topic::POST_VOTING_SUBTYPE
     end
 
@@ -206,7 +202,6 @@ after_initialize do
        self.is_post_voting_topic? &&
        self.via_email &&
        self.reply_to_post_number == 1
-
       self.reply_to_post_number = nil
     end
   end

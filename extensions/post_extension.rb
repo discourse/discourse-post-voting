@@ -30,7 +30,7 @@ module PostVoting
       topic
         .posts
         .where(reply_to_post_number: self.post_number)
-        .order('post_number ASC')
+        .order("post_number ASC")
     end
 
     private
@@ -38,10 +38,9 @@ module PostVoting
     def ensure_only_replies
       return unless SiteSetting.qa_enabled
       if will_save_change_to_reply_to_post_number? &&
-          reply_to_post_number &&
-          reply_to_post_number != 1 &&
-          is_post_voting_topic?
-
+         reply_to_post_number &&
+         reply_to_post_number != 1 &&
+         is_post_voting_topic?
         errors.add(:base, I18n.t("post.post_voting.errors.replying_to_post_not_permited"))
       end
     end

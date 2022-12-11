@@ -34,12 +34,12 @@ module PostVoting
         raise Discourse::InvalidAccess.new(
           nil,
           nil,
-          custom_message: 'vote.error.user_has_not_voted'
+          custom_message: "vote.error.user_has_not_voted",
         )
       end
 
       if !PostVoting::VoteManager.can_undo(@post, current_user)
-        msg = I18n.t('vote.error.undo_vote_action_window', count: SiteSetting.qa_undo_vote_action_window.to_i)
+        msg = I18n.t("vote.error.undo_vote_action_window", count: SiteSetting.qa_undo_vote_action_window.to_i)
 
         render_json_error(msg, status: 403)
 
@@ -61,7 +61,7 @@ module PostVoting
         raise Discourse::InvalidAccess.new(
           nil,
           nil,
-          custom_message: 'vote.error.user_has_not_voted'
+          custom_message: "vote.error.user_has_not_voted",
         )
       end
 
@@ -78,13 +78,13 @@ module PostVoting
       # TODO: Probably a site setting to hide/show voters
       voters = User
         .joins(:question_answer_votes)
-        .where(question_answer_votes: { votable_id: @post.id, votable_type: 'Post' })
+        .where(question_answer_votes: { votable_id: @post.id, votable_type: "Post" })
         .order("question_answer_votes.created_at DESC")
         .select("users.*", "question_answer_votes.direction")
         .limit(VOTERS_LIMIT)
 
       render_json_dump(
-        voters: serialize_data(voters, BasicVoterSerializer)
+        voters: serialize_data(voters, BasicVoterSerializer),
       )
     end
 
@@ -150,7 +150,7 @@ module PostVoting
           nil,
           nil,
           custom_message: error_message,
-          custom_message_params: error_message_params
+          custom_message_params: error_message_params,
         )
       end
     end

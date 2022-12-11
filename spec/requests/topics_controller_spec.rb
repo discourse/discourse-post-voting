@@ -22,8 +22,8 @@ describe TopicsController do
     SiteSetting.qa_enabled = true
   end
 
-  describe '#show' do
-    it 'orders posts by number of votes for a Post Voting topic' do
+  describe "#show" do
+    it "orders posts by number of votes for a Post Voting topic" do
       get "/t/#{topic.id}.json"
 
       expect(response.status).to eq(200)
