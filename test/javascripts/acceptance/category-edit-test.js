@@ -17,6 +17,6 @@ acceptance("Category Edit", function (needs) {
       pretender.handledRequests[pretender.handledRequests.length - 1]
         .requestBody
     );
-    assert.ok(payload.custom_fields.create_as_qa_default);
+    assert.ok(payload.custom_fields.create_as_post_voting_default);
   });
 });
