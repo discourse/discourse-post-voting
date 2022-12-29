@@ -8,12 +8,10 @@ module PostVoting
         :comments_counts,
         :posts_user_voted,
         :comments_user_voted,
-        :posts_voted_on
+        :posts_voted_on,
       )
 
-      unless base.const_defined?(:PRELOAD_COMMENTS_COUNT)
-        base.const_set :PRELOAD_COMMENTS_COUNT, 5
-      end
+      base.const_set :PRELOAD_COMMENTS_COUNT, 5 unless base.const_defined?(:PRELOAD_COMMENTS_COUNT)
 
       if !base.const_defined?(:ACTIVITY_FILTER)
         # Change ORDER_BY_ACTIVITY_FILTER on the client side when the value here is changed
@@ -66,10 +64,10 @@ module PostVoting
         # Lower boundary window
         if (row_number - posts_before) <= 0
           1..(@limit - (row_number - 1))
-        # Upper boundary window
+          # Upper boundary window
         elsif (max_row_number - row_number) < posts_after
           (max_row_number - @limit + 1)..max_row_number
-        # Any other window in between.
+          # Any other window in between.
         else
           (row_number - posts_before)..(row_number + posts_after)
         end

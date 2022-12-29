@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe TopicView do
   fab!(:user) { Fabricate(:user) }
@@ -15,10 +15,11 @@ describe TopicView do
   let(:vote) { Fabricate(:post_voting_vote, votable: answer, user: user) }
 
   let(:vote_2) do
-    Fabricate(:post_voting_vote,
+    Fabricate(
+      :post_voting_vote,
       votable: answer_2,
       user: user,
-      direction: QuestionAnswerVote.directions[:down]
+      direction: QuestionAnswerVote.directions[:down],
     )
   end
 
@@ -31,7 +32,7 @@ describe TopicView do
     comment_3
   end
 
-  it 'does not preload Post Voting related records for non-Post Voting topics' do
+  it "does not preload Post Voting related records for non-Post Voting topics" do
     topic_2 = Fabricate(:topic)
     topic_2_post = Fabricate(:post, topic: topic_2)
     Fabricate(:post, topic: topic_2, reply_to_post_number: topic_2_post.post_number)
@@ -55,14 +56,14 @@ describe TopicView do
     expect(topic_view.comments_counts[answer.id]).to eq(2)
     expect(topic_view.comments_counts[post.id]).to eq(1)
 
-    expect(topic_view.posts_user_voted).to eq({
-      answer.id => QuestionAnswerVote.directions[:up],
-      answer_2.id => QuestionAnswerVote.directions[:down]
-    })
+    expect(topic_view.posts_user_voted).to eq(
+      {
+        answer.id => QuestionAnswerVote.directions[:up],
+        answer_2.id => QuestionAnswerVote.directions[:down],
+      },
+    )
 
-    expect(topic_view.comments_user_voted).to eq({
-      comment.id => true
-    })
+    expect(topic_view.comments_user_voted).to eq({ comment.id => true })
   end
 
   it "should respect Topic::PRELOAD_COMMENTS_COUNT when loading initial comments" do
@@ -81,32 +82,55 @@ describe TopicView do
     stub_const(TopicView, "PRELOAD_COMMENTS_COUNT", 2) do
       topic_view = TopicView.new(topic, user)
 
-      expect(topic_view.comments[answer.id].map(&:id)).to contain_exactly(comment_2.id, comment_4.id)
+      expect(topic_view.comments[answer.id].map(&:id)).to contain_exactly(
+        comment_2.id,
+        comment_4.id,
+      )
       expect(topic_view.comments_counts[answer.id]).to eq(2)
     end
   end
 
-  describe '#filter_posts_near' do
+  describe "#filter_posts_near" do
     fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
     fab!(:post) { create_post(topic: topic) }
 
     fab!(:answer_plus_2_votes) do
       create_post(topic: topic).tap do |p|
-        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
-        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
+        PostVoting::VoteManager.vote(
+          p,
+          Fabricate(:user),
+          direction: QuestionAnswerVote.directions[:up],
+        )
+        PostVoting::VoteManager.vote(
+          p,
+          Fabricate(:user),
+          direction: QuestionAnswerVote.directions[:up],
+        )
       end
     end
 
     fab!(:answer_minus_2_votes) do
       create_post(topic: topic).tap do |p|
-        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
-        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
+        PostVoting::VoteManager.vote(
+          p,
+          Fabricate(:user),
+          direction: QuestionAnswerVote.directions[:down],
+        )
+        PostVoting::VoteManager.vote(
+          p,
+          Fabricate(:user),
+          direction: QuestionAnswerVote.directions[:down],
+        )
       end
     end
 
     fab!(:answer_minus_1_vote) do
       create_post(topic: topic).tap do |p|
-        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:down])
+        PostVoting::VoteManager.vote(
+          p,
+          Fabricate(:user),
+          direction: QuestionAnswerVote.directions[:down],
+        )
       end
     end
 
@@ -114,14 +138,22 @@ describe TopicView do
 
     fab!(:answer_plus_1_vote_deleted) do
       create_post(topic: topic).tap do |p|
-        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
+        PostVoting::VoteManager.vote(
+          p,
+          Fabricate(:user),
+          direction: QuestionAnswerVote.directions[:up],
+        )
         p.trash!
       end
     end
 
     fab!(:answer_plus_1_vote) do
       create_post(topic: topic).tap do |p|
-        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: QuestionAnswerVote.directions[:up])
+        PostVoting::VoteManager.vote(
+          p,
+          Fabricate(:user),
+          direction: QuestionAnswerVote.directions[:up],
+        )
       end
     end
 
@@ -137,41 +169,64 @@ describe TopicView do
     it "snaps to the lower boundary" do
       near_view = topic_view_near(post)
       expect(near_view.desired_post.id).to eq(post.id)
-      expect(near_view.posts.map(&:id)).to eq([post.id, answer_plus_2_votes.id, answer_plus_1_vote.id])
+      expect(near_view.posts.map(&:id)).to eq(
+        [post.id, answer_plus_2_votes.id, answer_plus_1_vote.id],
+      )
     end
 
     it "snaps to the upper boundary" do
       near_view = topic_view_near(answer_minus_2_votes)
 
       expect(near_view.desired_post.id).to eq(answer_minus_2_votes.id)
-      expect(near_view.posts.map(&:id)).to eq([answer_0_votes.id, answer_minus_1_vote.id, answer_minus_2_votes.id])
+      expect(near_view.posts.map(&:id)).to eq(
+        [answer_0_votes.id, answer_minus_1_vote.id, answer_minus_2_votes.id],
+      )
     end
 
     it "returns the posts in the middle" do
       near_view = topic_view_near(answer_0_votes)
       expect(near_view.desired_post.id).to eq(answer_0_votes.id)
-      expect(near_view.posts.map(&:id)).to eq([answer_plus_1_vote.id, answer_0_votes.id, answer_minus_1_vote.id])
+      expect(near_view.posts.map(&:id)).to eq(
+        [answer_plus_1_vote.id, answer_0_votes.id, answer_minus_1_vote.id],
+      )
     end
 
     it "snaps to the lower boundary when deleted post_number is provided" do
-      near_view = TopicView.new(topic.id, user, post_number: topic.posts.where("deleted_at IS NOT NULL").pluck_first(:post_number))
+      near_view =
+        TopicView.new(
+          topic.id,
+          user,
+          post_number: topic.posts.where("deleted_at IS NOT NULL").pluck_first(:post_number),
+        )
 
       expect(near_view.desired_post.id).to eq(post.id)
-      expect(near_view.posts.map(&:id)).to eq([post.id, answer_plus_2_votes.id, answer_plus_1_vote.id])
+      expect(near_view.posts.map(&:id)).to eq(
+        [post.id, answer_plus_2_votes.id, answer_plus_1_vote.id],
+      )
     end
 
     it "snaps to the lower boundary when post_number is too large" do
-      near_view = TopicView.new(topic.id, user, post_number: 99999999)
+      near_view = TopicView.new(topic.id, user, post_number: 99_999_999)
 
       expect(near_view.desired_post.id).to eq(post.id)
-      expect(near_view.posts.map(&:id)).to eq([post.id, answer_plus_2_votes.id, answer_plus_1_vote.id])
+      expect(near_view.posts.map(&:id)).to eq(
+        [post.id, answer_plus_2_votes.id, answer_plus_1_vote.id],
+      )
     end
 
     it "returns the posts in the middle when sorted by activity" do
-      near_view = TopicView.new(topic.id, user, post_number: answer_minus_1_vote.post_number, filter: TopicView::ACTIVITY_FILTER)
+      near_view =
+        TopicView.new(
+          topic.id,
+          user,
+          post_number: answer_minus_1_vote.post_number,
+          filter: TopicView::ACTIVITY_FILTER,
+        )
 
       expect(near_view.desired_post.id).to eq(answer_minus_1_vote.id)
-      expect(near_view.posts.map(&:id)).to eq([answer_minus_2_votes.id, answer_minus_1_vote.id, answer_0_votes.id])
+      expect(near_view.posts.map(&:id)).to eq(
+        [answer_minus_2_votes.id, answer_minus_1_vote.id, answer_0_votes.id],
+      )
     end
   end
 end

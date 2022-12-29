@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe Post do
   fab!(:user1) { Fabricate(:user) }
@@ -12,9 +12,7 @@ describe Post do
   let(:up) { QuestionAnswerVote.directions[:up] }
   let(:users) { [user1, user2, user3] }
 
-  before do
-    SiteSetting.qa_enabled = true
-  end
+  before { SiteSetting.qa_enabled = true }
 
   describe "validation" do
     it "ensures that post cannot be created with reply_to_post_number set" do
@@ -23,16 +21,14 @@ describe Post do
       expect(post.valid?).to eq(false)
 
       expect(post.errors.full_messages).to contain_exactly(
-        I18n.t("post.post_voting.errors.replying_to_post_not_permited")
+        I18n.t("post.post_voting.errors.replying_to_post_not_permited"),
       )
     end
   end
 
-  it('should ignore vote_count') do
-    expect(Post.ignored_columns.include?("vote_count")).to eq(true)
-  end
+  it("should ignore vote_count") { expect(Post.ignored_columns.include?("vote_count")).to eq(true) }
 
-  it 'should return last voted correctly' do
+  it "should return last voted correctly" do
     freeze_time do
       expect(post.post_voting_last_voted(user1.id)).to eq(nil)
 
@@ -42,7 +38,7 @@ describe Post do
     end
   end
 
-  it 'should return post_voting_can_vote correctly' do
+  it "should return post_voting_can_vote correctly" do
     expect(post.post_voting_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(true)
 
     PostVoting::VoteManager.vote(post, user1)

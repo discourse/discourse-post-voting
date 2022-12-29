@@ -3,9 +3,9 @@
 module PostVoting
   class VotesController < ::ApplicationController
     before_action :ensure_logged_in
-    before_action :find_vote_post, only: [:create, :destroy, :voters]
-    before_action :ensure_can_see_post, only: [:create, :destroy, :voters]
-    before_action :ensure_post_voting_enabled, only: [:create, :destroy]
+    before_action :find_vote_post, only: %i[create destroy voters]
+    before_action :ensure_can_see_post, only: %i[create destroy voters]
+    before_action :ensure_post_voting_enabled, only: %i[create destroy]
 
     def create
       ensure_can_vote(@post)
@@ -22,7 +22,11 @@ module PostVoting
       ensure_can_see_comment!(comment)
       ensure_can_vote(comment)
 
-      if PostVoting::VoteManager.vote(comment, current_user, direction: QuestionAnswerVote.directions[:up])
+      if PostVoting::VoteManager.vote(
+           comment,
+           current_user,
+           direction: QuestionAnswerVote.directions[:up],
+         )
         render json: success_json
       else
         render json: failed_json, status: 422
@@ -32,14 +36,18 @@ module PostVoting
     def destroy
       if !Topic.post_voting_votes(@post.topic, current_user).exists?
         raise Discourse::InvalidAccess.new(
-          nil,
-          nil,
-          custom_message: 'vote.error.user_has_not_voted'
-        )
+                nil,
+                nil,
+                custom_message: "vote.error.user_has_not_voted",
+              )
       end
 
       if !PostVoting::VoteManager.can_undo(@post, current_user)
-        msg = I18n.t('vote.error.undo_vote_action_window', count: SiteSetting.qa_undo_vote_action_window.to_i)
+        msg =
+          I18n.t(
+            "vote.error.undo_vote_action_window",
+            count: SiteSetting.qa_undo_vote_action_window.to_i,
+          )
 
         render_json_error(msg, status: 403)
 
@@ -59,10 +67,10 @@ module PostVoting
 
       if !QuestionAnswerVote.exists?(votable: comment, user: current_user)
         raise Discourse::InvalidAccess.new(
-          nil,
-          nil,
-          custom_message: 'vote.error.user_has_not_voted'
-        )
+                nil,
+                nil,
+                custom_message: "vote.error.user_has_not_voted",
+              )
       end
 
       if PostVoting::VoteManager.remove_vote(comment, current_user)
@@ -76,16 +84,15 @@ module PostVoting
 
     def voters
       # TODO: Probably a site setting to hide/show voters
-      voters = User
-        .joins(:question_answer_votes)
-        .where(question_answer_votes: { votable_id: @post.id, votable_type: 'Post' })
-        .order("question_answer_votes.created_at DESC")
-        .select("users.*", "question_answer_votes.direction")
-        .limit(VOTERS_LIMIT)
+      voters =
+        User
+          .joins(:question_answer_votes)
+          .where(question_answer_votes: { votable_id: @post.id, votable_type: "Post" })
+          .order("question_answer_votes.created_at DESC")
+          .select("users.*", "question_answer_votes.direction")
+          .limit(VOTERS_LIMIT)
 
-      render_json_dump(
-        voters: serialize_data(voters, BasicVoterSerializer)
-      )
+      render_json_dump(voters: serialize_data(voters, BasicVoterSerializer))
     end
 
     private
@@ -133,7 +140,11 @@ module PostVoting
         error_message = "post.post_voting.errors.self_voting_not_permitted"
       elsif votable.class.name == "Post"
         direction = vote_params[:direction] || QuestionAnswerVote.directions[:up]
-        if QuestionAnswerVote.exists?(votable: votable, user_id: current_user.id, direction: direction)
+        if QuestionAnswerVote.exists?(
+             votable: votable,
+             user_id: current_user.id,
+             direction: direction,
+           )
           error_message = "vote.error.one_vote_per_post"
         elsif !PostVoting::VoteManager.can_undo(votable, current_user)
           error_message = "vote.error.undo_vote_action_window"
@@ -147,11 +158,11 @@ module PostVoting
 
       if error_message.present?
         raise Discourse::InvalidAccess.new(
-          nil,
-          nil,
-          custom_message: error_message,
-          custom_message_params: error_message_params
-        )
+                nil,
+                nil,
+                custom_message: error_message,
+                custom_message_params: error_message_params,
+              )
       end
     end
   end

@@ -9,7 +9,7 @@ module PostVoting
         :last_commented_on,
         :answer_count,
         :last_answer_post_number,
-        :last_answerer
+        :last_answerer,
       )
     end
 
@@ -54,11 +54,7 @@ module PostVoting
     end
 
     def last_answerer
-      BasicUserSerializer.new(
-        object.topic.last_answerer,
-        scope: scope,
-        root: false
-      ).as_json
+      BasicUserSerializer.new(object.topic.last_answerer, scope: scope, root: false).as_json
     end
 
     def include_last_answerer?

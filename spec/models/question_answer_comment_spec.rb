@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe QuestionAnswerComment do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
@@ -8,12 +8,10 @@ describe QuestionAnswerComment do
   fab!(:user) { Fabricate(:user) }
   fab!(:tag) { Fabricate(:tag) }
 
-  before do
-    SiteSetting.qa_enabled = true
-  end
+  before { SiteSetting.qa_enabled = true }
 
-  describe 'validations' do
-    it 'does not allow comments to be created when post is in reply to another post' do
+  describe "validations" do
+    it "does not allow comments to be created when post is in reply to another post" do
       post_2 = Fabricate(:post, topic: topic)
 
       SiteSetting.qa_enabled = false
@@ -22,68 +20,76 @@ describe QuestionAnswerComment do
 
       SiteSetting.qa_enabled = true
 
-      comment = QuestionAnswerComment.new(raw: 'this is a **post**', post: post_3, user: user)
+      comment = QuestionAnswerComment.new(raw: "this is a **post**", post: post_3, user: user)
 
       expect(comment.valid?).to eq(false)
-      expect(comment.errors.full_messages).to contain_exactly(I18n.t("post_voting.comment.errors.not_permitted"))
+      expect(comment.errors.full_messages).to contain_exactly(
+        I18n.t("post_voting.comment.errors.not_permitted"),
+      )
     end
 
-    it 'does not allow comments to be created when SiteSetting.qa_comment_limit_per_post has been reached' do
+    it "does not allow comments to be created when SiteSetting.qa_comment_limit_per_post has been reached" do
       SiteSetting.qa_comment_limit_per_post = 1
 
-      QuestionAnswerComment.create!(raw: 'this is a **post**', post: post, user: user)
-      comment = QuestionAnswerComment.new(raw: 'this is a **post**', post: post, user: user)
+      QuestionAnswerComment.create!(raw: "this is a **post**", post: post, user: user)
+      comment = QuestionAnswerComment.new(raw: "this is a **post**", post: post, user: user)
 
       expect(comment.valid?).to eq(false)
 
       expect(comment.errors.full_messages).to contain_exactly(
-        I18n.t("post_voting.comment.errors.limit_exceeded", limit: SiteSetting.qa_comment_limit_per_post)
+        I18n.t(
+          "post_voting.comment.errors.limit_exceeded",
+          limit: SiteSetting.qa_comment_limit_per_post,
+        ),
       )
     end
 
-    it 'does not allow comment to be created when raw does not meet min_post_length site setting' do
+    it "does not allow comment to be created when raw does not meet min_post_length site setting" do
       SiteSetting.min_post_length = 5
 
-      comment = QuestionAnswerComment.new(raw: '1234', post: post, user: user)
+      comment = QuestionAnswerComment.new(raw: "1234", post: post, user: user)
 
       expect(comment.valid?).to eq(false)
-      expect(comment.errors[:raw]).to eq([I18n.t('errors.messages.too_short', count: 5)])
+      expect(comment.errors[:raw]).to eq([I18n.t("errors.messages.too_short", count: 5)])
     end
 
     it "does not allow comment to be created when raw length exceeds qa_comment_max_raw_length site setting" do
       max = SiteSetting.qa_comment_max_raw_length = 5
-      raw = 'this string is too long'
+      raw = "this string is too long"
 
-      post_voting_comment = QuestionAnswerComment.new(
-        raw: raw,
-        post: post,
-        user: user
-      )
+      post_voting_comment = QuestionAnswerComment.new(raw: raw, post: post, user: user)
 
       expect(post_voting_comment.valid?).to eq(false)
-      expect(post_voting_comment.errors[:raw]).to eq([I18n.t('errors.messages.too_long_validation', max: max, length: raw.length)])
+      expect(post_voting_comment.errors[:raw]).to eq(
+        [I18n.t("errors.messages.too_long_validation", max: max, length: raw.length)],
+      )
     end
 
     it "does not allow comment to be created when raw does not pass TextSentinel check" do
-      post_voting_comment = QuestionAnswerComment.new(raw: 'ALL CAPS STRING', post: post, user: user)
+      post_voting_comment =
+        QuestionAnswerComment.new(raw: "ALL CAPS STRING", post: post, user: user)
 
       expect(post_voting_comment.valid?).to eq(false)
       expect(post_voting_comment.errors[:raw]).to eq([I18n.t("is_invalid")])
     end
 
-    it 'does not allow comment to be created when raw contains a blocked watch word' do
+    it "does not allow comment to be created when raw contains a blocked watch word" do
       watched_word = Fabricate(:watched_word, action: WatchedWord.actions[:block])
 
-      post_voting_comment = QuestionAnswerComment.new(raw: "contains #{watched_word.word}", post: post, user: user)
+      post_voting_comment =
+        QuestionAnswerComment.new(raw: "contains #{watched_word.word}", post: post, user: user)
 
       expect(post_voting_comment.valid?).to eq(false)
-      expect(post_voting_comment.errors[:base]).to eq([I18n.t('contains_blocked_word', word: watched_word.word)])
+      expect(post_voting_comment.errors[:base]).to eq(
+        [I18n.t("contains_blocked_word", word: watched_word.word)],
+      )
     end
   end
 
-  describe 'callbacks' do
-    it 'cooks raw before saving' do
-      post_voting_comment = QuestionAnswerComment.new(raw: 'this is a **post**', post: post, user: user)
+  describe "callbacks" do
+    it "cooks raw before saving" do
+      post_voting_comment =
+        QuestionAnswerComment.new(raw: "this is a **post**", post: post, user: user)
 
       expect(post_voting_comment.valid?).to eq(true)
       expect(post_voting_comment.cooked).to eq("<p>this is a <strong>post</strong></p>")
@@ -91,38 +97,46 @@ describe QuestionAnswerComment do
     end
   end
 
-  describe '.cook' do
-    it 'supports emphasis markdown rule' do
+  describe ".cook" do
+    it "supports emphasis markdown rule" do
       post_voting_comment = Fabricate(:post_voting_comment, post: post, raw: "**bold**")
 
       expect(post_voting_comment.cooked).to eq("<p><strong>bold</strong></p>")
     end
 
-    it 'supports backticks markdown rule' do
-      post_voting_comment   = Fabricate(:post_voting_comment, post: post, raw: "`test`")
+    it "supports backticks markdown rule" do
+      post_voting_comment = Fabricate(:post_voting_comment, post: post, raw: "`test`")
 
       expect(post_voting_comment.cooked).to eq("<p><code>test</code></p>")
     end
 
-    it 'supports link markdown rule' do
-      post_voting_comment = Fabricate(:post_voting_comment, post: post, raw: "[test link](https://www.example.com)")
+    it "supports link markdown rule" do
+      post_voting_comment =
+        Fabricate(:post_voting_comment, post: post, raw: "[test link](https://www.example.com)")
 
-      expect(post_voting_comment.cooked).to eq("<p><a href=\"https://www.example.com\" rel=\"noopener nofollow ugc\">test link</a></p>")
+      expect(post_voting_comment.cooked).to eq(
+        "<p><a href=\"https://www.example.com\" rel=\"noopener nofollow ugc\">test link</a></p>",
+      )
     end
 
-    it 'supports linkify markdown rule' do
-      post_voting_comment = Fabricate(:post_voting_comment, post: post, raw: "https://www.example.com")
+    it "supports linkify markdown rule" do
+      post_voting_comment =
+        Fabricate(:post_voting_comment, post: post, raw: "https://www.example.com")
 
-      expect(post_voting_comment.cooked).to eq("<p><a href=\"https://www.example.com\" rel=\"noopener nofollow ugc\">https://www.example.com</a></p>")
+      expect(post_voting_comment.cooked).to eq(
+        "<p><a href=\"https://www.example.com\" rel=\"noopener nofollow ugc\">https://www.example.com</a></p>",
+      )
     end
 
-    it 'supports emoji markdown engine' do
-      post_voting_comment = Fabricate(:post_voting_comment, post: post, raw: ':grin: abcde')
+    it "supports emoji markdown engine" do
+      post_voting_comment = Fabricate(:post_voting_comment, post: post, raw: ":grin: abcde")
 
-      expect(post_voting_comment.cooked).to eq("<p><img src=\"/images/emoji/twitter/grin.png?v=#{Emoji::EMOJI_VERSION}\" title=\":grin:\" class=\"emoji\" alt=\":grin:\" loading=\"lazy\" width=\"20\" height=\"20\"> abcde</p>")
+      expect(post_voting_comment.cooked).to eq(
+        "<p><img src=\"/images/emoji/twitter/grin.png?v=#{Emoji::EMOJI_VERSION}\" title=\":grin:\" class=\"emoji\" alt=\":grin:\" loading=\"lazy\" width=\"20\" height=\"20\"> abcde</p>",
+      )
     end
 
-    it 'supports censored markdown engine' do
+    it "supports censored markdown engine" do
       watched_word = Fabricate(:watched_word, action: WatchedWord.actions[:censor], word: "testing")
 
       post_voting_comment = Fabricate(:post_voting_comment, post: post, raw: watched_word.word)
@@ -130,7 +144,7 @@ describe QuestionAnswerComment do
       expect(post_voting_comment.cooked).to eq("<p>■■■■■■■</p>")
     end
 
-    it 'removes newlines from raw as comments should only support a single paragraph' do
+    it "removes newlines from raw as comments should only support a single paragraph" do
       post_voting_comment = Fabricate(:post_voting_comment, post: post, raw: <<~RAW)
       line 1
 

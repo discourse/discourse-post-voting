@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe ListController do
   fab!(:user) { Fabricate(:user) }
   fab!(:category) { Fabricate(:category) }
-  fab!(:post_voting_topic) { Fabricate(:topic, category: category, subtype: Topic::POST_VOTING_SUBTYPE) }
+  fab!(:post_voting_topic) do
+    Fabricate(:topic, category: category, subtype: Topic::POST_VOTING_SUBTYPE)
+  end
   fab!(:post_voting_topic_post) { Fabricate(:post, topic: post_voting_topic) }
   fab!(:post_voting_topic_answer) { create_post(topic: post_voting_topic, reply_to_post: nil) }
   fab!(:topic) { Fabricate(:topic) }
@@ -15,7 +17,7 @@ describe ListController do
     sign_in(user)
   end
 
-  it 'should return the right attributes for Post Voting topics' do
+  it "should return the right attributes for Post Voting topics" do
     TopicUser.create!(user: user, topic: post_voting_topic, last_read_post_number: 2)
     TopicUser.create!(user: user, topic: topic, last_read_post_number: 2)
 
@@ -31,7 +33,7 @@ describe ListController do
     expect(non_post_voting["is_post_voting"]).to eq(nil)
   end
 
-  it 'should return the right attributes when Post Voting is disabled' do
+  it "should return the right attributes when Post Voting is disabled" do
     SiteSetting.qa_enabled = false
 
     TopicUser.create!(user: user, topic: post_voting_topic, last_read_post_number: 2)

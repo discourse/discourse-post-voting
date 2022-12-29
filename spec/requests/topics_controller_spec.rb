@@ -18,19 +18,19 @@ describe TopicsController do
     PostVoting::VoteManager.vote(answer, user, direction: QuestionAnswerVote.directions[:down])
   end
 
-  before do
-    SiteSetting.qa_enabled = true
-  end
+  before { SiteSetting.qa_enabled = true }
 
-  describe '#show' do
-    it 'orders posts by number of votes for a Post Voting topic' do
+  describe "#show" do
+    it "orders posts by number of votes for a Post Voting topic" do
       get "/t/#{topic.id}.json"
 
       expect(response.status).to eq(200)
 
       payload = response.parsed_body
 
-      expect(payload["post_stream"]["posts"].map { |p| p["id"] }).to eq([post.id, answer_2.id, answer_3.id, answer.id])
+      expect(payload["post_stream"]["posts"].map { |p| p["id"] }).to eq(
+        [post.id, answer_2.id, answer_3.id, answer.id],
+      )
     end
 
     it "orders posts by date of creation when 'activity' filter is provided" do
@@ -40,7 +40,9 @@ describe TopicsController do
 
       payload = response.parsed_body
 
-      expect(payload["post_stream"]["posts"].map { |p| p["id"] }).to eq([post.id, answer.id, answer_2.id, answer_3.id])
+      expect(payload["post_stream"]["posts"].map { |p| p["id"] }).to eq(
+        [post.id, answer.id, answer_2.id, answer_3.id],
+      )
     end
 
     it "includes post_voting comments for crawler view" do
@@ -52,8 +54,12 @@ describe TopicsController do
 
       crawler_html = response.body
 
-      expect(crawler_html).to match(/<span class="post-voting-comment-cooked" itemprop="comment"><p>this is a comment!<\/p><\/span>/)
-      expect(crawler_html).to match(/<span class="post-voting-answer-count-span" itemprop="answerCount">3<\/span>/)
+      expect(crawler_html).to match(
+        %r{<span class="post-voting-comment-cooked" itemprop="comment"><p>this is a comment!</p></span>},
+      )
+      expect(crawler_html).to match(
+        %r{<span class="post-voting-answer-count-span" itemprop="answerCount">3</span>},
+      )
     end
   end
 end

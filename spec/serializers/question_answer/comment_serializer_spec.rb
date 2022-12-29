@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe QuestionAnswerCommentSerializer do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
@@ -13,7 +13,7 @@ describe QuestionAnswerCommentSerializer do
     PostVoting::VoteManager.vote(comment, post.user)
   end
 
-  it 'returns the right attributes for an anonymous user' do
+  it "returns the right attributes for an anonymous user" do
     serializer = described_class.new(comment, scope: Guardian.new)
     serilized_comment = serializer.as_json[:question_answer_comment]
 

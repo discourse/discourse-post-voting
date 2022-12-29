@@ -7,15 +7,13 @@
 # url: https://github.com/discourse/discourse-post-voting
 # transpile_js: true
 
-%i[common mobile].each do |type|
-  register_asset "stylesheets/#{type}/post-voting.scss", type
-end
+%i[common mobile].each { |type| register_asset "stylesheets/#{type}/post-voting.scss", type }
 register_asset "stylesheets/common/post-voting-crawler.scss"
 
 enabled_site_setting :qa_enabled
 
 after_initialize do
-  %w(
+  %w[
     ../lib/post_voting/engine.rb
     ../lib/post_voting/vote_manager.rb
     ../lib/post_voting/guardian.rb
@@ -36,17 +34,15 @@ after_initialize do
     ../app/serializers/basic_voter_serializer.rb
     ../app/serializers/question_answer_comment_serializer.rb
     ../config/routes.rb
-  ).each do |path|
-    load File.expand_path(path, __FILE__)
-  end
+  ].each { |path| load File.expand_path(path, __FILE__) }
 
   if respond_to?(:register_svg_icon)
-    register_svg_icon 'angle-up'
-    register_svg_icon 'info'
+    register_svg_icon "angle-up"
+    register_svg_icon "info"
   end
 
-  register_post_custom_field_type('vote_history', :json)
-  register_post_custom_field_type('vote_count', :integer)
+  register_post_custom_field_type("vote_history", :json)
+  register_post_custom_field_type("vote_count", :integer)
 
   reloadable_patch do
     Post.include(PostVoting::PostExtension)
@@ -63,13 +59,9 @@ after_initialize do
   # TODO: Performance of the query degrades as the number of posts a user has voted
   # on increases. We should probably keep a counter cache in the user's
   # custom fields.
-  add_to_class(:user, :vote_count) do
-    Post.where(user_id: self.id).sum(:qa_vote_count)
-  end
+  add_to_class(:user, :vote_count) { Post.where(user_id: self.id).sum(:qa_vote_count) }
 
-  add_to_serializer(:user_card, :vote_count) do
-    object.vote_count
-  end
+  add_to_serializer(:user_card, :vote_count) { object.vote_count }
 
   add_to_class(:topic_view, :user_voted_posts) do |user|
     @user_voted_posts ||= {}
@@ -92,18 +84,15 @@ after_initialize do
 
   TopicView.apply_custom_default_scope do |scope, topic_view|
     if topic_view.topic.is_post_voting? &&
-      !topic_view.instance_variable_get(:@replies_to_post_number) &&
-      !topic_view.instance_variable_get(:@post_ids)
-
-      scope = scope.where(
-        reply_to_post_number: nil,
-        post_type: Post.types[:regular]
-      )
+         !topic_view.instance_variable_get(:@replies_to_post_number) &&
+         !topic_view.instance_variable_get(:@post_ids)
+      scope = scope.where(reply_to_post_number: nil, post_type: Post.types[:regular])
 
       if topic_view.instance_variable_get(:@filter) != TopicView::ACTIVITY_FILTER
-        scope = scope
-          .unscope(:order)
-          .order("CASE post_number WHEN 1 THEN 0 ELSE 1 END, qa_vote_count DESC, post_number ASC")
+        scope =
+          scope.unscope(:order).order(
+            "CASE post_number WHEN 1 THEN 0 ELSE 1 END, qa_vote_count DESC, post_number ASC",
+          )
       end
 
       scope
@@ -141,38 +130,42 @@ after_initialize do
     AND question_answer_comments.deleted_at IS NULL
     SQL
 
-    QuestionAnswerComment.includes(:user).where("id IN (#{comment_ids_sql})").order(id: :asc).each do |comment|
-      topic_view.comments[comment.post_id] ||= []
-      topic_view.comments[comment.post_id] << comment
-    end
+    QuestionAnswerComment
+      .includes(:user)
+      .where("id IN (#{comment_ids_sql})")
+      .order(id: :asc)
+      .each do |comment|
+        topic_view.comments[comment.post_id] ||= []
+        topic_view.comments[comment.post_id] << comment
+      end
 
-    topic_view.comments_counts = QuestionAnswerComment.where(post_id: post_ids).group(:post_id).count
+    topic_view.comments_counts =
+      QuestionAnswerComment.where(post_id: post_ids).group(:post_id).count
 
     topic_view.posts_user_voted = {}
     topic_view.comments_user_voted = {}
 
     if topic_view.guardian.user
       QuestionAnswerVote
-        .where(user: topic_view.guardian.user, votable_type: 'Post', votable_id: post_ids)
+        .where(user: topic_view.guardian.user, votable_type: "Post", votable_id: post_ids)
         .pluck(:votable_id, :direction)
-        .each do |post_id, direction|
-
-        topic_view.posts_user_voted[post_id] = direction
-      end
+        .each { |post_id, direction| topic_view.posts_user_voted[post_id] = direction }
 
       QuestionAnswerVote
-        .joins("INNER JOIN question_answer_comments comments ON comments.id = question_answer_votes.votable_id")
-        .where(user: topic_view.guardian.user, votable_type: 'QuestionAnswerComment')
+        .joins(
+          "INNER JOIN question_answer_comments comments ON comments.id = question_answer_votes.votable_id",
+        )
+        .where(user: topic_view.guardian.user, votable_type: "QuestionAnswerComment")
         .where("comments.post_id IN (?)", post_ids)
         .pluck(:votable_id)
-        .each do |votable_id|
-
-        topic_view.comments_user_voted[votable_id] = true
-      end
+        .each { |votable_id| topic_view.comments_user_voted[votable_id] = true }
     end
 
     topic_view.posts_voted_on =
-      QuestionAnswerVote.where(votable_type: 'Post', votable_id: post_ids).distinct.pluck(:votable_id)
+      QuestionAnswerVote
+        .where(votable_type: "Post", votable_id: post_ids)
+        .distinct
+        .pluck(:votable_id)
   end
 
   add_permitted_post_create_param(:create_as_post_voting)
@@ -182,10 +175,8 @@ after_initialize do
   TopicSubtype.register(Topic::POST_VOTING_SUBTYPE)
 
   NewPostManager.add_handler do |manager|
-    if !manager.args[:topic_id] &&
-      manager.args[:create_as_post_voting] == 'true' &&
-      (manager.args[:archetype].blank? || manager.args[:archetype] == Archetype.default)
-
+    if !manager.args[:topic_id] && manager.args[:create_as_post_voting] == "true" &&
+         (manager.args[:archetype].blank? || manager.args[:archetype] == Archetype.default)
       manager.args[:subtype] = Topic::POST_VOTING_SUBTYPE
     end
 
@@ -197,16 +188,17 @@ after_initialize do
     Site.preloaded_category_custom_fields << PostVoting::CREATE_AS_POST_VOTING_DEFAULT
   end
   add_to_class(:category, :create_as_post_voting_default) do
-    ActiveModel::Type::Boolean.new.cast(self.custom_fields[PostVoting::CREATE_AS_POST_VOTING_DEFAULT])
+    ActiveModel::Type::Boolean.new.cast(
+      self.custom_fields[PostVoting::CREATE_AS_POST_VOTING_DEFAULT],
+    )
   end
-  add_to_serializer(:basic_category, :create_as_post_voting_default) { object.create_as_post_voting_default }
+  add_to_serializer(:basic_category, :create_as_post_voting_default) do
+    object.create_as_post_voting_default
+  end
 
   add_model_callback(:post, :before_create) do
-    if SiteSetting.qa_enabled &&
-       self.is_post_voting_topic? &&
-       self.via_email &&
-       self.reply_to_post_number == 1
-
+    if SiteSetting.qa_enabled && self.is_post_voting_topic? && self.via_email &&
+         self.reply_to_post_number == 1
       self.reply_to_post_number = nil
     end
   end

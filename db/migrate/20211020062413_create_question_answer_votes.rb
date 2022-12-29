@@ -8,13 +8,13 @@ class CreateQuestionAnswerVotes < ActiveRecord::Migration[6.1]
       t.datetime :created_at, null: false
     end
 
-    add_index :question_answer_votes, [:post_id, :user_id], unique: true
+    add_index :question_answer_votes, %i[post_id user_id], unique: true
 
     add_column :posts, :qa_vote_count, :integer, default: 0, null: true
   end
 
   def down
     drop_table :question_answer_votes
-    remove_index :question_answer_votes, [:post_id, :user_id]
+    remove_index :question_answer_votes, %i[post_id user_id]
   end
 end
