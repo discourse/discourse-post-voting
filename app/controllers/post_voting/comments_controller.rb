@@ -2,9 +2,9 @@
 
 module PostVoting
   class CommentsController < ::ApplicationController
-    before_action :find_post, only: [:load_more_comments, :create]
-    before_action :ensure_post_voting_enabled, only: [:load_more_comments, :create]
-    before_action :ensure_logged_in, only: [:create, :destroy, :update]
+    before_action :find_post, only: %i[load_more_comments create]
+    before_action :ensure_post_voting_enabled, only: %i[load_more_comments create]
+    before_action :ensure_logged_in, only: %i[create destroy update]
 
     def load_more_comments
       @guardian.ensure_can_see!(@post)
@@ -24,15 +24,14 @@ module PostVoting
     end
 
     def create
-      if !@guardian.can_create_post_on_topic?(@post.topic)
-        raise Discourse::InvalidAccess
-      end
+      raise Discourse::InvalidAccess if !@guardian.can_create_post_on_topic?(@post.topic)
 
-      comment = PostVoting::CommentCreator.create(
-        user: current_user,
-        post_id: @post.id,
-        raw: comments_params[:raw]
-      )
+      comment =
+        PostVoting::CommentCreator.create(
+          user: current_user,
+          post_id: @post.id,
+          raw: comments_params[:raw],
+        )
 
       if comment.errors.present?
         render_json_error(comment.errors.full_messages, status: 403)
@@ -56,7 +55,7 @@ module PostVoting
             :post_voting_post_comment_edited,
             comment_id: comment.id,
             comment_raw: comment.raw,
-            comment_cooked: comment.cooked
+            comment_cooked: comment.cooked,
           )
         end
 
@@ -79,7 +78,7 @@ module PostVoting
         comment.post.publish_change_to_clients!(
           :post_voting_post_comment_trashed,
           comment_id: comment.id,
-          comments_count: QuestionAnswerComment.where(post_id: comment.post_id).count
+          comments_count: QuestionAnswerComment.where(post_id: comment.post_id).count,
         )
       end
 

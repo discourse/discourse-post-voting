@@ -21,7 +21,10 @@ class AddPolymorphicColumnsToQuestionAnswerVotes < ActiveRecord::Migration[6.1]
       Migration::SafeMigrate.enable!
     end
 
-    add_index :question_answer_votes, [:votable_type, :votable_id, :user_id], unique: true, name: 'idx_votable_user_id'
+    add_index :question_answer_votes,
+              %i[votable_type votable_id user_id],
+              unique: true,
+              name: "idx_votable_user_id"
   end
 
   def down

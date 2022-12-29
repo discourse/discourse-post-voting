@@ -23,17 +23,9 @@ class QuestionAnswerComment < ActiveRecord::Base
 
   has_many :votes, class_name: "QuestionAnswerVote", as: :votable, dependent: :delete_all
 
-  MARKDOWN_FEATURES = %w{
-    censored
-    emoji
-  }
+  MARKDOWN_FEATURES = %w[censored emoji]
 
-  MARKDOWN_IT_RULES = %w{
-    emphasis
-    backticks
-    linkify
-    link
-  }
+  MARKDOWN_IT_RULES = %w[emphasis backticks linkify link]
 
   def self.cook(raw)
     raw.gsub!(/(\n)+/, " ")
@@ -53,7 +45,13 @@ class QuestionAnswerComment < ActiveRecord::Base
     elsif post.reply_to_post_number.present?
       errors.add(:base, I18n.t("post_voting.comment.errors.not_permitted"))
     elsif self.class.where(post_id: self.post_id).count >= SiteSetting.qa_comment_limit_per_post
-      errors.add(:base, I18n.t("post_voting.comment.errors.limit_exceeded", limit: SiteSetting.qa_comment_limit_per_post))
+      errors.add(
+        :base,
+        I18n.t(
+          "post_voting.comment.errors.limit_exceeded",
+          limit: SiteSetting.qa_comment_limit_per_post,
+        ),
+      )
     end
   end
 end

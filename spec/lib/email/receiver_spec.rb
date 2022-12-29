@@ -17,16 +17,12 @@ RSpec.describe Email::Receiver do
     let(:reply_key) { "4f97315cc828096c9cb34c6f1a0d6fe8" }
     fab!(:category) { Fabricate(:category) }
     fab!(:user) { Fabricate(:user, email: "discourse@bar.com") }
-    fab!(:topic) { create_topic(category: category, user: user, subtype: Topic::POST_VOTING_SUBTYPE) }
+    fab!(:topic) do
+      create_topic(category: category, user: user, subtype: Topic::POST_VOTING_SUBTYPE)
+    end
     fab!(:post) { create_post(topic: topic) }
 
-    before do
-      Fabricate(:post_reply_key,
-        reply_key: reply_key,
-        user: user,
-        post: post
-      )
-    end
+    before { Fabricate(:post_reply_key, reply_key: reply_key, user: user, post: post) }
 
     it "creates a new reply post" do
       handler_calls = 0
