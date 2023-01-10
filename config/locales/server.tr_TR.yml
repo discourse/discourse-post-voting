@@ -5,3 +5,47 @@
 # https://translate.discourse.org/
 
 tr_TR:
+  post:
+    qa:
+      errors:
+        replying_to_post_not_permited: "Başka bir gönderiye yanıt olarak gönderi oluşturmanıza izin verilmiyor."
+        voting_not_permitted: "Bu gönderiye oy vermenize izin verilmiyor."
+        comment_cannot_be_downvoted: "Sadece yorumlara olumlu oy verebilirsiniz."
+        self_voting_not_permitted: "Kendi gönderinize veya yorumunuza oy vermenize izin verilmiyor."
+  topic:
+    qa:
+      errors:
+        qa_not_enabled: "Soru-Yanıt etkin değil."
+        subtype_not_allowed: "Soru-Yanıt biçimindeki konular yalnızca normal konularda oluşturulabilir."
+        cannot_change_to_qa_subtype: "Bir konunun alt türünün Soru-Yanıt olarak değiştirilmesine izin verilmez."
+      answer_count:
+        one: "%{count} Yanıt"
+        other: "%{count} Yanıt"
+  site_settings:
+    qa_tags: "Konuyla ilgili Soru-Yanıt'ı etkinleştirmek için etiketler"
+    qa_enabled: "Soru-Yanıt Eklentisini etkinleştir"
+    qa_enable_likes_on_answers: "Soru-Yanıt konularındaki yanıtlarda beğen düğmesini etkinleştirin"
+    qa_undo_vote_action_window: "Kullanıcıların Soru-Yanıt konularındaki oyları geri almalarına izin verilen dakika sayısı (limit olmaması için 0 girin)"
+    qa_comment_limit_per_post: "Her soru veya yanıt için izin verilen yorum sayısı"
+  post_action_types:
+    vote:
+      title: 'Oy verin'
+      description: 'Bu gönderiye oy verin'
+      short_description: 'Bu gönderiye oy verin'
+      long_form: 'bu gönderiye oy verdi'
+  vote:
+    error:
+      user_has_not_voted: "Kullanıcı oy vermedi."
+      user_over_limit: "Güven seviyenize uygun oy sayısını aşamazsınız."
+      already_voted: "Her soru için yalnızca bir kez oy kullanabilirsiniz."
+      undo_vote_action_window:
+        one: "Oy kullandıktan %{count} dakika sonra oylamayı geri alamazsınız."
+        other: "Oy kullandıktan %{count} dakika sonra oylamayı geri alamazsınız."
+      one_vote_per_post: "Her gönderi için yalnızca bir kez oy kullanabilirsiniz."
+      one_vote_per_comment: "Her yorum için yalnızca bir kez oy kullanabilirsiniz."
+  qa:
+    comment:
+      errors:
+        qa_not_enabled: "Soru-Yanıt formatında olmayan bir gönderiye yorum yapılmasına izin verilmez"
+        not_permitted: "İlişkili gönderiye yorum yapılmasına izin verilmez."
+        limit_exceeded: "Gönderi başına %{limit} yorum limitine ulaşıldı."
