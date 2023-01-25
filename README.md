@@ -1,6 +1,6 @@
 # Discourse Post Voting
 
-![discourse post voting](https://d11a6trkgmumsb.cloudfront.net/optimized/4X/f/e/5/fe50a4c07cc24ec0b10e64ec5d32154c7a140d9e_2_876x750.jpeg)
+![image](https://user-images.githubusercontent.com/5862206/214548831-4de072d2-0bc0-470b-98b9-2850cbd46138.png)
 
 Please refer to https://meta.discourse.org/t/227808 for more info!
 
