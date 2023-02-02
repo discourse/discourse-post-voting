@@ -22,15 +22,6 @@ en:
           label: "Remove Post Voting"
           desc: "Topic will be created in the regular format"
 
-    post:
-      actions:
-        undo:
-          vote: "Undo your upvote."
-        people:
-          vote: "upvoted this post."
-        by_you:
-          vote: "You upvoted this post."
-
     vote:
       already_voted: "You can only vote once per question."
       user_over_limit: "You cannot exceed the number of votes for your trust level."
