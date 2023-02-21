@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 bg:
+  js:
+    qa:
+      post:
+        qa_comment:
+          edit: "промени"
+          cancel: "прекрати"
+      topic:
+        sort_by: "Сортирай по"
+        activity: "Активност"

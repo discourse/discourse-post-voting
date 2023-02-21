@@ -5,3 +5,18 @@
 # https://translate.discourse.org/
 
 gl:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Escriba como mínimo %{count} carácter"
+              other: "Escriba como mínimo %{count} caracteres"
+          edit: "editar"
+          cancel: "cancelar"
+      topic:
+        sort_by: "Ordenar por"
+        activity: "Actividade"

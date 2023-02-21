@@ -5,3 +5,14 @@
 # https://translate.discourse.org/
 
 hu:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span>%{description}"
+    qa:
+      post:
+        qa_comment:
+          edit: "szerkesztés"
+          cancel: "mégse"
+      topic:
+        sort_by: "Rendezés"
+        activity: "Tevékenység"

@@ -5,3 +5,19 @@
 # https://translate.discourse.org/
 
 bs_BA:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Unesite bar %{count} znak"
+              few: "Unesite najmanje %{count} znakova"
+              other: "Unesite najmanje %{count} znakova"
+          edit: "uredi"
+          cancel: "otkaži"
+      topic:
+        sort_by: "Sortiraj po"
+        activity: "Activity"

@@ -5,3 +5,16 @@
 # https://translate.discourse.org/
 
 sq:
+  js:
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Futni së paku %{count} gërmë"
+              other: "Futni së paku %{count} gërma"
+          edit: "redakto"
+          cancel: "anulo"
+      topic:
+        sort_by: "Rendit sipas"
+        activity: "Aktiviteti"

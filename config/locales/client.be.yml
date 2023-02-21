@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 be:
+  js:
+    qa:
+      post:
+        qa_comment:
+          edit: "правіць"
+          cancel: "адмена"
+      topic:
+        sort_by: "сартаваць па"
+        activity: "актыўнасць"

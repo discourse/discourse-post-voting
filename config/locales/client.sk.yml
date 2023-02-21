@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 sk:
+  js:
+    qa:
+      post:
+        qa_comment:
+          edit: "uprav"
+          cancel: "zrušiť"
+      topic:
+        sort_by: "Zoradiť podľa"
+        activity: "Aktivity"

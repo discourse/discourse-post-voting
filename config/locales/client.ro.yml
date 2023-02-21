@@ -5,3 +5,19 @@
 # https://translate.discourse.org/
 
 ro:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Introdu cel puțin un caracter"
+              few: "Introdu cel puțin %{count} caractere"
+              other: "Introdu cel puțin %{count} de caractere"
+          edit: "Editează"
+          cancel: "Anulează"
+      topic:
+        sort_by: "Sortează după"
+        activity: "Activitate"

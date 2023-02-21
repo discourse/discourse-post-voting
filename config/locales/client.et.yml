@@ -5,3 +5,18 @@
 # https://translate.discourse.org/
 
 et:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Sisesta vähemalt %{count} sümbol"
+              other: "Sisesta vähemalt %{count} sümbolit"
+          edit: "muuda"
+          cancel: "tühista"
+      topic:
+        sort_by: "Järjesta"
+        activity: "Aktiivsus"

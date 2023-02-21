@@ -5,3 +5,18 @@
 # https://translate.discourse.org/
 
 ur:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "کم از کم %{count} حرف درج کریں"
+              other: "کم از کم %{count} حروف درج کریں"
+          edit: "ترمیم کریں"
+          cancel: "منسوخ"
+      topic:
+        sort_by: "ترتیب بہ"
+        activity: "سرگرمی"

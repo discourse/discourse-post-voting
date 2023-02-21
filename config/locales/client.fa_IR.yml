@@ -27,6 +27,10 @@ fa_IR:
     qa:
       post:
         qa_comment:
+          composer:
+            too_short:
+              one: "حداقل %{count} نویسه وارد کنید"
+              other: "حداقل %{count} نویسه وارد کنید"
           edit: "ویرایش"
           cancel: "لغو"
       topic:
