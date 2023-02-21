@@ -5,3 +5,17 @@
 # https://translate.discourse.org/
 
 lv:
+  js:
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              zero: "Ievadiet vismaz %{count} simbolus"
+              one: "Ievadiet vismaz %{count} simbolu"
+              other: "Ievadiet vismaz %{count} simbolus"
+          edit: "rediģēt"
+          cancel: "atcelt"
+      topic:
+        sort_by: "Kārtot pēc"
+        activity: "Aktivitāte"

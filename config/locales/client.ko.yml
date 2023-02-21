@@ -5,3 +5,17 @@
 # https://translate.discourse.org/
 
 ko:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              other: "최소 %{count}자 이상 입력하세요"
+          edit: "편집"
+          cancel: "취소"
+      topic:
+        sort_by: "정렬 기준"
+        activity: "활동"

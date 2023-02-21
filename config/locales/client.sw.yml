@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 sw:
+  js:
+    qa:
+      post:
+        qa_comment:
+          edit: "hariri"
+          cancel: "ghairi"
+      topic:
+        sort_by: "Panga kwa"
+        activity: "Kitendo"

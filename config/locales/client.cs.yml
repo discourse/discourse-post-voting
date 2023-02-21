@@ -5,3 +5,20 @@
 # https://translate.discourse.org/
 
 cs:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Zadejte alespoň %{count} znak"
+              few: "Zadejte alespoň %{count} znaky"
+              many: "Zadejte alespoň %{count} znaků"
+              other: "Zadejte alespoň %{count} znaků"
+          edit: "upravit"
+          cancel: "zrušit"
+      topic:
+        sort_by: "Seřadil"
+        activity: "Aktivita"

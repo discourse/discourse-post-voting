@@ -5,3 +5,18 @@
 # https://translate.discourse.org/
 
 sv:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Skriv åtminstone %{count} tecken"
+              other: "Skriv åtminstone %{count} tecken"
+          edit: "ändra"
+          cancel: "avbryt"
+      topic:
+        sort_by: "Sortera efter"
+        activity: "Aktivitet"

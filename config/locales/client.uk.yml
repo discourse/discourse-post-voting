@@ -5,3 +5,20 @@
 # https://translate.discourse.org/
 
 uk:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Введіть хоча б %{count} символ"
+              few: "Введіть хоча б %{count} символи"
+              many: "Введіть хоча б %{count} символи"
+              other: "Введіть хоча б %{count} символи"
+          edit: "редагувати"
+          cancel: "скасувати"
+      topic:
+        sort_by: "Сортувати за"
+        activity: "Активність"

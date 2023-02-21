@@ -5,3 +5,20 @@
 # https://translate.discourse.org/
 
 lt:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Įveskite bent jau %{count} simbolį"
+              few: "Įveskite bent jau %{count} simbolius"
+              many: "Įveskite bent jau %{count}simbolių"
+              other: "Įveskite bent jau %{count}simbolius"
+          edit: "redaguoti"
+          cancel: "atšaukti"
+      topic:
+        sort_by: "Rūšiuoti pagal"
+        activity: "Aktyvumas"

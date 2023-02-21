@@ -5,3 +5,20 @@
 # https://translate.discourse.org/
 
 pl_PL:
+  js:
+    notifications:
+      question_answer_user_commented: "<span>%{username}</span> %{description}"
+    qa:
+      post:
+        qa_comment:
+          composer:
+            too_short:
+              one: "Wprowadź co najmniej %{count} znak"
+              few: "Wprowadź co najmniej %{count} znaki"
+              many: "Wprowadź co najmniej %{count} znaków"
+              other: "Wprowadź co najmniej %{count} znaki"
+          edit: "edytuj"
+          cancel: "anuluj"
+      topic:
+        sort_by: "Sortuj po"
+        activity: "Aktywność"

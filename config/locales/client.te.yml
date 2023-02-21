@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 te:
+  js:
+    qa:
+      post:
+        qa_comment:
+          edit: "సవరణ"
+          cancel: "రద్దు"
+      topic:
+        activity: "కలాపం"
