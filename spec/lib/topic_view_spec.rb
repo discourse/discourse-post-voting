@@ -196,7 +196,7 @@ describe TopicView do
         TopicView.new(
           topic.id,
           user,
-          post_number: topic.posts.where("deleted_at IS NOT NULL").pluck_first(:post_number),
+          post_number: topic.posts.where("deleted_at IS NOT NULL").pick(:post_number),
         )
 
       expect(near_view.desired_post.id).to eq(post.id)

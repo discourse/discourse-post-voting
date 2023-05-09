@@ -18,7 +18,7 @@ module PostVoting
       QuestionAnswerVote
         .where(votable: self, user_id: user_id)
         .order(created_at: :desc)
-        .pluck_first(:created_at)
+        .pick(:created_at)
     end
 
     def post_voting_can_vote(user_id, direction = nil)
