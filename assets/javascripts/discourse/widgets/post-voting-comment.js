@@ -41,7 +41,9 @@ export default createWidget("post-voting-comment", {
     if (state.isEditing) {
       return [this.attach("post-voting-comment-editor", attrs)];
     } else {
-      const isRTLMode = document.querySelector("html").classList.contains("rtl");
+      const isRTLMode = document
+        .querySelector("html")
+        .classList.contains("rtl");
       const textDirection = isRTLMode ? "rtl" : "ltr";
       const result = [
         h(
