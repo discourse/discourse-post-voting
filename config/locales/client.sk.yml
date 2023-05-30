@@ -6,9 +6,9 @@
 
 sk:
   js:
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           edit: "uprav"
           cancel: "zrušiť"
       topic:

@@ -8,14 +8,14 @@ da:
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "Indtast mindst %{count} tegn"
               other: "Indtast mindst %{count} tegn"
-          edit: "rediger"
+          edit: "redigér"
           cancel: "annuller"
       topic:
         sort_by: "Sorter efter"

@@ -12,27 +12,10 @@ zh_TW:
         question_answer_user_commented: "新評論"
       popup:
         question_answer_user_commented: '%{username} 在「%{topic}」- %{site_title} 中評論'
-    category:
-      qa_settings_heading: 問題答案
-      create_as_qa_default: 此類別中的新主題預設為「問答」。
     composer:
-      create_qa:
-        label: "建立問答類主題"
       composer_actions:
-        create_as_qa:
-          label: "切換問答"
-          desc: "主題將以「問題與答案」格式建立"
-        remove_as_qa:
-          label: "移除問答"
+        remove_as_post_voting:
           desc: "主題將以常規格式建立"
-    post:
-      actions:
-        undo:
-          vote: "撤回您的讚。"
-        people:
-          vote: "讚這篇文章。"
-        by_you:
-          vote: "您按讚了這篇文章。"
     vote:
       already_voted: "每個問題只能投票一次。"
       user_over_limit: "您不能投超過您的信任等級的投票數。"
@@ -40,9 +23,9 @@ zh_TW:
     last_answer_lowercase: 最後一個答案
     answer_lowercase:
       other: 回答
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               other: "輸入至少 %{count} 個字元"

@@ -6,32 +6,22 @@
 
 zh_CN:
   post:
-    qa:
+    post_voting:
       errors:
         replying_to_post_not_permited: "您无权创建一个帖子来回复另一个帖子。"
         voting_not_permitted: "您无权在此帖子中投票。"
         comment_cannot_be_downvoted: "您只能为评论投赞成票。"
         self_voting_not_permitted: "您无权对自己的帖子或评论进行投票。"
   topic:
-    qa:
-      errors:
-        qa_not_enabled: "问答未启用。"
-        subtype_not_allowed: "只能在常规话题上创建问答格式的话题。"
-        cannot_change_to_qa_subtype: "不允许将话题的子类型更改为问答。"
+    post_voting:
       answer_count:
         other: "%{count} 个回答"
-  site_settings:
-    qa_tags: "用于启用话题问答的标签"
-    qa_enabled: "启用问答插件"
-    qa_enable_likes_on_answers: "在问答话题的回答中启用点赞按钮"
-    qa_undo_vote_action_window: "允许用户撤消投票的分钟数（0 为不限制）"
-    qa_comment_limit_per_post: "每个问题或回答允许的评论数"
   post_action_types:
     vote:
-      title: '投票'
-      description: '为此帖子投票'
-      short_description: '为此帖子投票'
-      long_form: '为此帖子投了票'
+      title: "投票"
+      description: "为此帖子投票"
+      short_description: "为此帖子投票"
+      long_form: "为此帖子投了票"
   vote:
     error:
       user_has_not_voted: "用户尚未投票。"
@@ -41,9 +31,8 @@ zh_CN:
         other: "您无法在投票后的 %{count} 分钟后撤消投票。"
       one_vote_per_post: "您只能为每个帖子投一次票。"
       one_vote_per_comment: "您只能为每条评论投一次票。"
-  qa:
+  post_voting:
     comment:
       errors:
-        qa_not_enabled: "不允许对一个不在问答格式话题中的帖子发表评论"
         not_permitted: "不允许对关联帖子发表评论。"
         limit_exceeded: "已达到每个帖子 %{limit} 条评论的限制。"

@@ -12,27 +12,10 @@ es:
         question_answer_user_commented: "nuevo comentario"
       popup:
         question_answer_user_commented: '%{username} comentó en «%{topic}» - %{site_title}'
-    category:
-      qa_settings_heading: Pregunta y respuesta
-      create_as_qa_default: Los temas nuevos aparecen de forma predeterminada en Preguntas y respuestas en esta categoría.
     composer:
-      create_qa:
-        label: "Crear tema de Preguntas y respuestas"
       composer_actions:
-        create_as_qa:
-          label: "Alternar preguntas y respuestas"
-          desc: "El tema se creará en el formato de Preguntas y respuestas"
-        remove_as_qa:
-          label: "Eliminar las Preguntas y respuestas"
+        remove_as_post_voting:
           desc: "El tema se creará en el formato habitual"
-    post:
-      actions:
-        undo:
-          vote: "Deshacer voto"
-        people:
-          vote: "han votado esto"
-        by_you:
-          vote: "Has votado este mensaje"
     vote:
       already_voted: "Solo puedes votar una vez por pregunta."
       user_over_limit: "No puedes superar el número de votos para tu nivel de confianza."
@@ -41,9 +24,9 @@ es:
     answer_lowercase:
       one: respuesta
       other: respuestas
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "Introduce al menos %{count} caracteres"

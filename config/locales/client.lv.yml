@@ -6,9 +6,9 @@
 
 lv:
   js:
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               zero: "Ievadiet vismaz %{count} simbolus"

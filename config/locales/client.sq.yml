@@ -6,9 +6,9 @@
 
 sq:
   js:
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "Futni së paku %{count} gërmë"

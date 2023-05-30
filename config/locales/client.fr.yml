@@ -12,27 +12,10 @@ fr:
         question_answer_user_commented: "nouveau commentaire"
       popup:
         question_answer_user_commented: '%{username} a commenté dans « %{topic} » - %{site_title}'
-    category:
-      qa_settings_heading: Question-réponse
-      create_as_qa_default: Les nouveaux sujets sont définis par défaut sur Q&R dans cette catégorie.
     composer:
-      create_qa:
-        label: "Créer un sujet de Q&R"
       composer_actions:
-        create_as_qa:
-          label: "Activer/désactiver Q&R"
-          desc: "Le sujet sera créé dans le format Questions-réponses"
-        remove_as_qa:
-          label: "Supprimer les Q&R"
+        remove_as_post_voting:
           desc: "Le sujet sera créé dans le format normal"
-    post:
-      actions:
-        undo:
-          vote: "Annulez votre vote positif."
-        people:
-          vote: "a voté pour ce message."
-        by_you:
-          vote: "Vous avez voté pour ce message."
     vote:
       already_voted: "Vous ne pouvez voter qu'une seule fois par question."
       user_over_limit: "Vous ne pouvez pas dépasser le nombre de votes correspondant à votre niveau de confiance."
@@ -41,9 +24,9 @@ fr:
     answer_lowercase:
       one: réponse
       other: réponses
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "Saisissez au moins %{count} caractère"

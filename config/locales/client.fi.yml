@@ -12,27 +12,10 @@ fi:
         question_answer_user_commented: "uusi kommentti"
       popup:
         question_answer_user_commented: '%{username} kommentoi ketjussa "%{topic}" – %{site_title}'
-    category:
-      qa_settings_heading: Kysymyksen vastaus
-      create_as_qa_default: Uudet ketjut ovat oletuksena kysymysketjuja tällä alueella.
     composer:
-      create_qa:
-        label: "Luo kysymysketju"
       composer_actions:
-        create_as_qa:
-          label: "Ota kysymysketju käyttöön"
-          desc: "Ketju luodaan kysymyksiä ja vastauksia -muodossa"
-        remove_as_qa:
-          label: "Poista kysymykset"
+        remove_as_post_voting:
           desc: "Ketju luodaan tavallisessa muodossa"
-    post:
-      actions:
-        undo:
-          vote: "Peru ääni"
-        people:
-          vote: "Äänestivät tätä parhaaksi vastaukseksi"
-        by_you:
-          vote: "Annoit äänen tälle vastaukselle"
     vote:
       already_voted: "Voit äänestää vain yhtä vastausta tähän kysymykseen"
       user_over_limit: "Et voi ylittää luottamustasosi äänimäärää."
@@ -41,9 +24,9 @@ fi:
     answer_lowercase:
       one: vastaus
       other: vastausta
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "Syötä vähintään %{count} merkki"

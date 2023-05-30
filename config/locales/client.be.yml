@@ -6,9 +6,9 @@
 
 be:
   js:
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           edit: "правіць"
           cancel: "адмена"
       topic:

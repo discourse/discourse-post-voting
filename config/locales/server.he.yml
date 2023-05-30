@@ -6,35 +6,36 @@
 
 he:
   post:
-    qa:
+    post_voting:
       errors:
+        post_voting_not_enabled: "מצב שו\"ת אינו מופעל."
         replying_to_post_not_permited: "אסור לך ליצור פוסט בתגובה לפוסט אחר."
         voting_not_permitted: "אסור לך להצביע לפוסט זה."
         comment_cannot_be_downvoted: "אפשר להצביע לתגובות בלבד."
         self_voting_not_permitted: "אסור לך להצביע על פוסט או תגובה שלך."
   topic:
-    qa:
+    post_voting:
       errors:
-        qa_not_enabled: "שו״ת לא מופעל."
-        subtype_not_allowed: "אפשר ליצור נושאים בתבנית שו״ת רק על גבי נושאים רגילים."
-        cannot_change_to_qa_subtype: "החלפת תת־הסוג לשו״ת אסורה."
+        post_voting_not_enabled: "מצב שו\"ת אינו מופעל."
+        subtype_not_allowed: "ניתן ליצור נושאים בתבנית שו\"ת רק על גבי נושאים רגילים."
+        cannot_change_to_post_voting_subtype: "לא ניתן להחליף נושאים בתבנית שו\"ת."
       answer_count:
         one: "תשובה %{count}"
         two: "%{count} תשובות"
         many: "%{count} תשובות"
         other: "%{count} תשובות"
   site_settings:
-    qa_tags: "תגיות להפעלת שו״ת על נושא"
-    qa_enabled: "הפעלת תוסף שו״ת"
-    qa_enable_likes_on_answers: "הפעלת כפתור לייק על שאלות בנושאי שו״ת"
-    qa_undo_vote_action_window: "מספר הדקות שמשתמשים רשאים לבטל הצבעות בנושאי QnA (הזן 0 ללא הגבלה)"
+    qa_tags: "תגיות להפעלת שו\"ת על נושא"
+    qa_enabled: "הפעלת תוסף שו\"ת"
+    qa_enable_likes_on_answers: "הפעלת כפתור לייק על שאלות בנושאי שו\"ת"
+    qa_undo_vote_action_window: "מספר הדקות שמשתמשים רשאים לבטל הצבעות בנושאי שו\"ת (הזן 0 ללא הגבלה)"
     qa_comment_limit_per_post: "מספר התגובות המותר על כל שאלה או תשובה"
   post_action_types:
     vote:
-      title: 'הצבעה'
-      description: 'הצבעה לפוסט'
-      short_description: 'הצבעה עבור פוסט'
-      long_form: 'הצבעת עבור הפוסט'
+      title: "הצבעה"
+      description: "הצבעה לפוסט"
+      short_description: "הצבעה עבור פוסט"
+      long_form: "הצבעת עבור הפוסט"
   vote:
     error:
       user_has_not_voted: "משתמש לא הצביע."
@@ -47,9 +48,9 @@ he:
         other: "אי אפשר לבטל הצבעה %{count} דקות לאחר ההצבעה."
       one_vote_per_post: "אפשר להצביע רק פעם אחת לכל פוסט."
       one_vote_per_comment: "אפשר להצביע רק פעם אחת לכל תגובה."
-  qa:
+  post_voting:
     comment:
       errors:
-        qa_not_enabled: "הוספת תגובה לפוסט שאינו נושא בתבנית שו״ת אסור"
+        post_voting_not_enabled: "לא ניתן להגיב על פוסט שאינו בתבנית שו\"ת."
         not_permitted: "הוספת תגובה על פוסט משויך אסורה."
         limit_exceeded: "הגעת למגבלה של %{limit} תגובות לפוסט."
