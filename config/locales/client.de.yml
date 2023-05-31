@@ -12,27 +12,10 @@ de:
         question_answer_user_commented: "neuer Kommentar"
       popup:
         question_answer_user_commented: '%{username} hat kommentiert in „%{topic}“ – %{site_title}'
-    category:
-      qa_settings_heading: Antwort auf Frage
-      create_as_qa_default: Neue Themen werden in dieser Kategorie standardmäßig auf Q&A gesetzt.
     composer:
-      create_qa:
-        label: "Q&A-Thema erstellen"
       composer_actions:
-        create_as_qa:
-          label: "Q&A umschalten"
-          desc: "Thema wird im Frage-und-Antwort-Format (Q&A) erstellt"
-        remove_as_qa:
-          label: "Q&A entfernen"
+        remove_as_post_voting:
           desc: "Thema wird im regulären Format erstellt"
-    post:
-      actions:
-        undo:
-          vote: "Deine Stimme entfernen."
-        people:
-          vote: "Stimme(n) für diesen Beitrag."
-        by_you:
-          vote: "Du hast für diesen Beitrag gestimmt."
     vote:
       already_voted: "Du kannst nur einmal pro Frage abstimmen."
       user_over_limit: "Du kannst nicht öfter abstimmen, als es deine Vertrauensstufe erlaubt."
@@ -41,9 +24,9 @@ de:
     answer_lowercase:
       one: Antwort
       other: Antworten
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "Gib mindestens %{count} Zeichen ein"

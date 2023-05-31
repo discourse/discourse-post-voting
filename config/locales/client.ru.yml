@@ -12,27 +12,10 @@ ru:
         question_answer_user_commented: "новый комментарий"
       popup:
         question_answer_user_commented: '%{username} оставил(а) комментарий в теме «%{topic}» — %{site_title}'
-    category:
-      qa_settings_heading: Вопрос — ответ
-      create_as_qa_default: Новые темы в этой категории по умолчанию отображаются в формате «Вопрос —ответ».
     composer:
-      create_qa:
-        label: "Создать тему в формате «Вопрос — ответ»"
       composer_actions:
-        create_as_qa:
-          label: "Вопрос — ответ"
-          desc: "Тема будет создана в формате «Вопрос — ответ»"
-        remove_as_qa:
-          label: "Обычный формат"
+        remove_as_post_voting:
           desc: "Тема будет создана в обычном формате"
-    post:
-      actions:
-        undo:
-          vote: "Отменить голос."
-        people:
-          vote: "проголосовал(а) за эту запись."
-        by_you:
-          vote: "Вы проголосовали за эту запись."
     vote:
       already_voted: "Проголосовать можно только один раз за вопрос."
       user_over_limit: "Нельзя превышать количество голосов, установленное для вашего уровня доверия."
@@ -43,14 +26,14 @@ ru:
       few: ответа
       many: ответов
       other: ответа
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "Введите не менее %{count} символа"
               few: "Введите не менее %{count} символов"
-              many: "Введите не менее %{count} символов"
+              many: "Введите не менее %{count} символа"
               other: "Введите не менее %{count} символа"
             length_ok:
               one: "Остался %{count} символ..."
@@ -70,7 +53,7 @@ ru:
             one: Показать ещё %{count} комментарий
             few: Показать ещё %{count} комментария
             many: Показать ещё %{count} комментариев
-            other: Показать ещё %{count} комментария
+            other: Показать ещё %{count} комментариев
           delete:
             confirm: "Действительно удалить этот комментарий?"
       topic:
@@ -84,4 +67,4 @@ ru:
           one: "%{count} ответ"
           few: "%{count} ответа"
           many: "%{count} ответов"
-          other: "%{count} ответа"
+          other: "%{count} ответов"

@@ -6,37 +6,27 @@
 
 ar:
   post:
-    qa:
+    post_voting:
       errors:
         replying_to_post_not_permited: "غير مسموح لك بإنشاء منشور ردًا على منشور آخر."
         voting_not_permitted: "غير مسموح لك بالتصويت على هذا المنشور."
         comment_cannot_be_downvoted: "يمكنك التصويت إيجابيًا على التعليقات فقط."
         self_voting_not_permitted: "غير مسموح لك بالتصويت على منشورك أو تعليقك."
   topic:
-    qa:
-      errors:
-        qa_not_enabled: "السؤال والجواب غير مفعَّل."
-        subtype_not_allowed: "لا يمكن إنشاء موضوعات بتنسيق السؤال والجواب إلا في موضوعات عادية."
-        cannot_change_to_qa_subtype: "غير مصرَّح بتغيير النوع الفرعي للموضوع إلى سؤال وجواب."
+    post_voting:
       answer_count:
-        zero: "%{count} إجابة"
+        zero: "%{count} إجابات"
         one: "إجابة واحدة (%{count})"
         two: "إجابتان (%{count})"
         few: "%{count} إجابات"
-        many: "%{count} إجابة"
-        other: "%{count} إجابة"
-  site_settings:
-    qa_tags: "وسوم لتفعيل السؤال والجواب في الموضوع"
-    qa_enabled: "تفعيل المكوِّن الإضافي \"السؤال والجواب\""
-    qa_enable_likes_on_answers: "تفعيل زر الإعجاب على الإجابات في موضوعات السؤال والجواب"
-    qa_undo_vote_action_window: "عدد الدقائق المسموح للمستخدمين خلالها بالتراجع عن التصويت في موضوعات السؤال والجواب (أدخل 0 لعدم وضع حد)"
-    qa_comment_limit_per_post: "عدد التعليقات المسموح بها على كل سؤال أو إجابة"
+        many: "%{count} إجابات"
+        other: "%{count} إجابات"
   post_action_types:
     vote:
-      title: 'التصويت'
-      description: 'التصويت لهذا المنشور'
-      short_description: 'التصويت لهذا المنشور'
-      long_form: 'تم التصويب لهذا المنشور'
+      title: "التصويت"
+      description: "التصويت لهذا المنشور"
+      short_description: "التصويت لهذا المنشور"
+      long_form: "تم التصويب لهذا المنشور"
   vote:
     error:
       user_has_not_voted: "لم يصوَّت المستخدم."
@@ -51,9 +41,8 @@ ar:
         other: "لا يمكنك التراجع عن التصويت بعد %{count} دقيقة من التصويت."
       one_vote_per_post: "يمكنك التصويت مرة واحدة فقط لكل منشور."
       one_vote_per_comment: "يمكنك التصويت مرة واحدة فقط لكل تعليق."
-  qa:
+  post_voting:
     comment:
       errors:
-        qa_not_enabled: "غير مصرَّح بالتعليق على منشور ليس في موضوع بتنسيق السؤال والجواب."
         not_permitted: "غير مصَّرح بالتعليق على منشور مرتبط."
         limit_exceeded: "تم الوصول إلى حد %{limit} من التعليقات لكل منشور."

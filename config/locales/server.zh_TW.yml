@@ -6,32 +6,22 @@
 
 zh_TW:
   post:
-    qa:
+    post_voting:
       errors:
         replying_to_post_not_permited: "您無法建立回覆其他貼文的貼文。"
         voting_not_permitted: "你不被允許對這篇文章投票。"
         comment_cannot_be_downvoted: "您只能在評論投票。"
         self_voting_not_permitted: "您不得對自己的貼文或評論進行投票。"
   topic:
-    qa:
-      errors:
-        qa_not_enabled: "問答未啟用。"
-        subtype_not_allowed: "Q&A 格式化的主題只能在一般主題上建立。"
-        cannot_change_to_qa_subtype: "不允許將主題的子類型變更為「問答集」。"
+    post_voting:
       answer_count:
         other: "%{count} 個回答"
-  site_settings:
-    qa_tags: "啟用主題問答的標籤"
-    qa_enabled: "啟用 Q&A 插件"
-    qa_enable_likes_on_answers: "在問答主題的答案上啟用「讚」按鈕"
-    qa_undo_vote_action_window: "允許使用者撤回投票的分鐘數 (0為無限制)"
-    qa_comment_limit_per_post: "每個問題或答案允許的評論數量"
   post_action_types:
     vote:
-      title: '投票'
-      description: '為這篇文章投票'
-      short_description: '為這篇文章投票'
-      long_form: '為這篇文章投票'
+      title: "投票"
+      description: "為這篇文章投票"
+      short_description: "為這篇文章投票"
+      long_form: "為這篇文章投票"
   vote:
     error:
       user_has_not_voted: "使用者尚未投票。"
@@ -41,9 +31,8 @@ zh_TW:
         other: "您無法在投票 %{count} 分鐘過後撤回投票。"
       one_vote_per_post: "您只能替每個貼文投票一次。"
       one_vote_per_comment: "您只能為每條評論投票一次。"
-  qa:
+  post_voting:
     comment:
       errors:
-        qa_not_enabled: "不允許對非問答類話題中的貼文發表評論"
         not_permitted: "不允許對相關貼文發表評論。"
         limit_exceeded: "已達到每篇貼文 %{limit} 條評論的限制。"

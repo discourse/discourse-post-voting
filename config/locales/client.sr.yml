@@ -6,9 +6,9 @@
 
 sr:
   js:
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           edit: "izmeni"
           cancel: "otkaži"
       topic:

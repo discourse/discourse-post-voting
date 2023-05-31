@@ -12,27 +12,10 @@ zh_CN:
         question_answer_user_commented: "新评论"
       popup:
         question_answer_user_commented: '%{username} 在“%{topic}”中发布了评论 - %{site_title}'
-    category:
-      qa_settings_heading: 问答
-      create_as_qa_default: 此类别中的新话题默认为问答。
     composer:
-      create_qa:
-        label: "创建问答话题"
       composer_actions:
-        create_as_qa:
-          label: "切换问答"
-          desc: "话题将以问答格式创建"
-        remove_as_qa:
-          label: "移除问答"
+        remove_as_post_voting:
           desc: "话题将以常规格式创建"
-    post:
-      actions:
-        undo:
-          vote: "撤消您的赞成票。"
-        people:
-          vote: "投票赞成了此帖子。"
-        by_you:
-          vote: "您投票赞成了此帖子。"
     vote:
       already_voted: "您只能为每个问题投一次票。"
       user_over_limit: "您不能超过您的信任级别对应的投票数。"
@@ -40,9 +23,9 @@ zh_CN:
     last_answer_lowercase: 最后一个回答
     answer_lowercase:
       other: 回答
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               other: "至少输入 %{count} 个字符"

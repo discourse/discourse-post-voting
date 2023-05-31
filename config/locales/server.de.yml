@@ -6,33 +6,23 @@
 
 de:
   post:
-    qa:
+    post_voting:
       errors:
         replying_to_post_not_permited: "Es ist dir nicht erlaubt, einen Beitrag als Antwort auf einen anderen Beitrag zu erstellen."
         voting_not_permitted: "Du darfst über diesen Beitrag nicht abstimmen."
         comment_cannot_be_downvoted: "Du kannst nur für Kommentare abstimmen."
         self_voting_not_permitted: "Du darfst nicht über deinen eigenen Beitrag oder deinen eigenen Kommentar abstimmen."
   topic:
-    qa:
-      errors:
-        qa_not_enabled: "Q&A ist nicht aktiviert."
-        subtype_not_allowed: "Themen im Q&A-Format können nur zu regulären Themen erstellt werden."
-        cannot_change_to_qa_subtype: "Ändern des Untertyps eines Themas in Q&A ist nicht zulässig."
+    post_voting:
       answer_count:
         one: "%{count} Antwort"
         other: "%{count} Antworten"
-  site_settings:
-    qa_tags: "Schlagwörter, die Q&A für ein Thema aktivieren"
-    qa_enabled: "Q&A-Plug-in aktivieren"
-    qa_enable_likes_on_answers: "„Gefällt mir“-Schaltfläche für Antworten in Q&A-Themen aktivieren"
-    qa_undo_vote_action_window: "Anzahl an Minuten, in denen Benutzer Stimmen in Q&A-Themen zurücknehmen können (0 bedeutet kein Limit)"
-    qa_comment_limit_per_post: "Anzahl der zulässigen Kommentare zu jeder Frage oder Antwort"
   post_action_types:
     vote:
-      title: 'Abstimmen'
-      description: 'Stimme für diesen Beitrag'
-      short_description: 'Stimme für diesen Beitrag'
-      long_form: 'hat für diesen Beitrag gestimmt'
+      title: "Abstimmen"
+      description: "Stimme für diesen Beitrag"
+      short_description: "Stimme für diesen Beitrag"
+      long_form: "hat für diesen Beitrag gestimmt"
   vote:
     error:
       user_has_not_voted: "Benutzer hat nicht abgestimmt."
@@ -43,9 +33,8 @@ de:
         other: "Du kannst die Stimme %{count} Minuten nach der Abstimmung nicht rückgängig machen."
       one_vote_per_post: "Du kannst nur einmal pro Beitrag abstimmen."
       one_vote_per_comment: "Du kannst nur einmal pro Kommentar abstimmen."
-  qa:
+  post_voting:
     comment:
       errors:
-        qa_not_enabled: "Das Kommentieren eines Beitrags, der sich nicht in einem Thema im Q&A-Format befindet, ist nicht gestattet"
         not_permitted: "Das Kommentieren von zugehörigen Beiträgen ist nicht gestattet."
         limit_exceeded: "Das Limit von %{limit} Kommentaren pro Beitrag wurde erreicht."

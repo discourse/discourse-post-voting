@@ -6,33 +6,23 @@
 
 fr:
   post:
-    qa:
+    post_voting:
       errors:
         replying_to_post_not_permited: "Vous n'êtes pas autorisé(e) à créer un message en réponse à un autre message."
         voting_not_permitted: "Vous n'êtes pas autorisé(e) à voter sur ce message."
         comment_cannot_be_downvoted: "Vous pouvez uniquement voter pour les commentaires."
         self_voting_not_permitted: "Vous n'êtes pas autorisé(e) à voter pour votre propre message ou commentaire."
   topic:
-    qa:
-      errors:
-        qa_not_enabled: "Les Q&R ne sont pas activées."
-        subtype_not_allowed: "Les sujets au format Q&R ne peuvent être créés que sur des sujets ordinaires."
-        cannot_change_to_qa_subtype: "Il n'est pas permis de remplacer le sous-type d'un sujet par Q&R."
+    post_voting:
       answer_count:
         one: "%{count} réponse"
         other: "%{count} réponses"
-  site_settings:
-    qa_tags: "Étiquettes pour activer les Q&R sur le sujet"
-    qa_enabled: "Activer l'extension des Q&R"
-    qa_enable_likes_on_answers: "Activer le bouton « J'aime » sur les réponses dans les rubriques « Q&R »"
-    qa_undo_vote_action_window: "Nombre de minutes pendant lesquelles les utilisateurs sont autorisés à annuler les votes dans les sujets de questions-réponses (saisissez 0 pour ne fixer aucune limite)"
-    qa_comment_limit_per_post: "Nombre de commentaires autorisés pour chaque question ou réponse"
   post_action_types:
     vote:
-      title: 'Vote'
-      description: 'Voter pour ce message'
-      short_description: 'Voter pour ce message'
-      long_form: 'a voté pour ce message'
+      title: "Vote"
+      description: "Voter pour ce message"
+      short_description: "Voter pour ce message"
+      long_form: "a voté pour ce message"
   vote:
     error:
       user_has_not_voted: "L'utilisateur n'a pas voté."
@@ -43,9 +33,8 @@ fr:
         other: "Vous ne pouvez pas annuler le vote %{count} minutes après avoir voté."
       one_vote_per_post: "Vous ne pouvez voter qu'une seule fois pour chaque message."
       one_vote_per_comment: "Vous ne pouvez voter qu'une seule fois pour chaque commentaire."
-  qa:
+  post_voting:
     comment:
       errors:
-        qa_not_enabled: "Il n'est pas permis de commenter un message qui n'est pas dans un sujet au format Q&R"
         not_permitted: "Il n'est pas permis de commenter un message associé."
         limit_exceeded: "La limite de %{limit} commentaires par message a été atteinte."

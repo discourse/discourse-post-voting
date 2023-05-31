@@ -6,33 +6,23 @@
 
 nl:
   post:
-    qa:
+    post_voting:
       errors:
         replying_to_post_not_permited: "Je mag geen bericht maken als antwoord op een ander bericht."
         voting_not_permitted: "Je mag niet stemmen op dit bericht."
         comment_cannot_be_downvoted: "Je kunt alleen reacties omhoog stemmen."
         self_voting_not_permitted: "Je mag niet stemmen op je eigen bericht of reactie."
   topic:
-    qa:
-      errors:
-        qa_not_enabled: "Vraag en antwoord is niet ingeschakeld."
-        subtype_not_allowed: "Topics in de vorm van vraag en antwoord kunnen alleen worden gemaakt voor gewone topics."
-        cannot_change_to_qa_subtype: "Het wijzigen van het subtype van een topic naar vraag en antwoord is niet toegestaan."
+    post_voting:
       answer_count:
         one: "%{count} antwoord"
         other: "%{count} antwoorden"
-  site_settings:
-    qa_tags: "Tags om vraag en antwoord in te schakelen voor topic"
-    qa_enabled: "Plug-in Vraag en antwoord inschakelen"
-    qa_enable_likes_on_answers: "Like-knop inschakelen voor antwoorden in vraag-en-antwoord-topics"
-    qa_undo_vote_action_window: "Aantal minuten dat gebruikers stemmen in vraag-en-antwoord-topics ongedaan kunnen maken (vul 0 in voor geen limiet)"
-    qa_comment_limit_per_post: "Aantal toegestane reacties bij elke vraag of elk antwoord"
   post_action_types:
     vote:
-      title: 'Stemmen'
-      description: 'Stem op dit bericht'
-      short_description: 'Stem op dit bericht'
-      long_form: 'op dit bericht gestemd'
+      title: "Stemmen"
+      description: "Stem op dit bericht"
+      short_description: "Stem op dit bericht"
+      long_form: "op dit bericht gestemd"
   vote:
     error:
       user_has_not_voted: "Gebruiker heeft niet gestemd."
@@ -43,9 +33,8 @@ nl:
         other: "Je kunt de stem %{count} minuten na het stemmen niet ongedaan maken."
       one_vote_per_post: "Je kunt maar één keer stemmen per bericht."
       one_vote_per_comment: "Je kunt maar één keer stemmen per reactie."
-  qa:
+  post_voting:
     comment:
       errors:
-        qa_not_enabled: "Reageren op een bericht dat niet in een topic met vraag-en-antwoord-indeling staat, is niet toegestaan"
         not_permitted: "Reageren op het gerelateerde bericht is niet toegestaan."
         limit_exceeded: "Limiet van %{limit} reacties per bericht is bereikt."

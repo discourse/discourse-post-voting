@@ -12,27 +12,10 @@ pt_BR:
         question_answer_user_commented: "novo comentário"
       popup:
         question_answer_user_commented: '%{username} comentou em "%{topic}" - %{site_title}'
-    category:
-      qa_settings_heading: Resposta da pergunta
-      create_as_qa_default: Novos tópicos padrão para Q&A nesta categoria.
     composer:
-      create_qa:
-        label: "Criar tópico Q&A"
       composer_actions:
-        create_as_qa:
-          label: "Ativar/Desativar Q&A"
-          desc: "O tópico será criado no formato Q&A"
-        remove_as_qa:
-          label: "Remover Q&A"
+        remove_as_post_voting:
           desc: "O tópico será criado no formato regular"
-    post:
-      actions:
-        undo:
-          vote: "Desfazer seu voto favorável."
-        people:
-          vote: "votou favoravelmente neste postagem."
-        by_you:
-          vote: "Você votou favoravelmente neste postagem."
     vote:
       already_voted: "Você só pode votar uma vez por pergunta."
       user_over_limit: "Você não pode exceder o número de votos para seu nível de confiança."
@@ -41,9 +24,9 @@ pt_BR:
     answer_lowercase:
       one: resposta
       other: respostas
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "Insira pelo menos %{count} caractere"

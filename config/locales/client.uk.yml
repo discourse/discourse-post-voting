@@ -8,9 +8,9 @@ uk:
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "Введіть хоча б %{count} символ"

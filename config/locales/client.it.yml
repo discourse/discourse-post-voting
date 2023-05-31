@@ -12,27 +12,10 @@ it:
         question_answer_user_commented: "nuovo commento"
       popup:
         question_answer_user_commented: '%{username} ha commentato in "%{topic}" - %{site_title}'
-    category:
-      qa_settings_heading: Domande e risposte
-      create_as_qa_default: I nuovi argomenti diventano automaticamente Domande e risposte in questa categoria.
     composer:
-      create_qa:
-        label: "Crea argomento Domande e risposte"
       composer_actions:
-        create_as_qa:
-          label: "Attiva domande e risposte"
-          desc: "L'argomento verrà creato nel formato Domande e risposte"
-        remove_as_qa:
-          label: "Rimuovi domande e risposte"
+        remove_as_post_voting:
           desc: "L'argomento verrà creato nel formato normale"
-    post:
-      actions:
-        undo:
-          vote: "Annulla il tuo voto a favore."
-        people:
-          vote: "ha votato a favore di questo messaggio."
-        by_you:
-          vote: "Hai votato a favore di questo messaggio."
     vote:
       already_voted: "Puoi votare una sola volta per domanda."
       user_over_limit: "Non puoi superare il numero di voti per il tuo livello di attendibilità."
@@ -41,9 +24,9 @@ it:
     answer_lowercase:
       one: risposta
       other: risposte
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "Inserisci almeno %{count} carattere"

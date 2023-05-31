@@ -6,9 +6,9 @@
 
 id:
   js:
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           edit: "ubah"
           cancel: "batal"
       topic:

@@ -12,27 +12,10 @@ tr_TR:
         question_answer_user_commented: "yeni yorum"
       popup:
         question_answer_user_commented: '%{username} "%{topic}" - %{site_title} içinde yorum yaptı'
-    category:
-      qa_settings_heading: Soru-Yanıt
-      create_as_qa_default: Yeni konular varsayılan olarak bu kategorideki Soru-Yanıt'a yönlendirilir.
     composer:
-      create_qa:
-        label: "Soru-Yanıt konusu oluşturun"
       composer_actions:
-        create_as_qa:
-          label: "Soru-Yanıt'ı değiştir"
-          desc: "Konu, Soru-Yanıt formatında oluşturulacak."
-        remove_as_qa:
-          label: "Soru-Yanıt'ı kaldır"
+        remove_as_post_voting:
           desc: "Konu normal formatta oluşturulacak"
-    post:
-      actions:
-        undo:
-          vote: "Olumlu oyunuzu geri alın."
-        people:
-          vote: "bu gönderiye olumlu oy verdi."
-        by_you:
-          vote: "Bu gönderiye olumlu oy verdiniz."
     vote:
       already_voted: "Her soru için yalnızca bir kez oy kullanabilirsiniz."
       user_over_limit: "Güven seviyenize uygun oy sayısını aşamazsınız."
@@ -41,9 +24,9 @@ tr_TR:
     answer_lowercase:
       one: yanıt
       other: yanıt
-    qa:
+    post_voting:
       post:
-        qa_comment:
+        post_voting_comment:
           composer:
             too_short:
               one: "En az %{count} karakter girin"
