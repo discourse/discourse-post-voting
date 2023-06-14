@@ -247,7 +247,7 @@
     z-index: 2;
     background-color: var(--secondary);
     border: 1px solid var(--primary-low);
-    box-shadow: shadow("card");
+    box-shadow: var(--shadow-card);
     display: flex;
     flex-direction: column;
     top: 4em;
