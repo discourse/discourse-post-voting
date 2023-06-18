@@ -41,6 +41,10 @@ export default createWidget("post-voting-comment", {
     if (state.isEditing) {
       return [this.attach("post-voting-comment-editor", attrs)];
     } else {
+      const isRTLMode = document
+        .querySelector("html")
+        .classList.contains("rtl");
+      const textDirection = isRTLMode ? "rtl" : "ltr";
       const result = [
         h(
           "span.post-voting-comment-cooked",
@@ -60,6 +64,11 @@ export default createWidget("post-voting-comment", {
         ),
         h(
           "span.post-voting-comment-info-created",
+          {
+            attributes: {
+              dir: textDirection,
+            },
+          },
           dateNode(new Date(attrs.created_at))
         ),
       ];

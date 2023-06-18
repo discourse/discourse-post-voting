@@ -137,7 +137,7 @@
     }
 
     .post-voting-comment-info-username {
-      display: inline;
+      display: inline-flex;
       margin-right: 0.3em;
     }
 
@@ -181,6 +181,20 @@
   &:hover {
     .post-voting-comment-actions {
       display: inline-block;
+    }
+  }
+}
+
+.rtl .post-voting-comment {
+  .post-voting-comment-post {
+    .post-voting-comment-info-username {
+      margin-right: 0;
+      margin-left: 0.3em;
+    }
+
+    .post-voting-comment-actions {
+      margin-left: 0;
+      margin-right: 0.3em;
     }
   }
 }
