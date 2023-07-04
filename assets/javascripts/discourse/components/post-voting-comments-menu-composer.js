@@ -14,7 +14,7 @@ export default class PostVotingCommentsMenuComposer extends Component {
   @action
   onKeyDown(e) {
     if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
-      this.submitComment();
+      this.saveComment();
     }
   }
 

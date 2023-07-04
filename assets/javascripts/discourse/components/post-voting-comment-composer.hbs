@@ -3,6 +3,7 @@
     class="post-voting-comment-composer-textarea"
     value={{this.value}}
     {{on "input" this.onInput}}
+    {{on "keydown" @onKeyDown}}
   ></textarea>
 
   {{#if this.value.length}}

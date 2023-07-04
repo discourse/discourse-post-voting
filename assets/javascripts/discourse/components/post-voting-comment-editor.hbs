@@ -1,8 +1,9 @@
-<div
-  class="post-voting-comment-editor post-voting-comment-editor-{{@id}}"
-  {{on "keydown" this.onKeyDown}}
->
-  <PostVotingCommentComposer @onInput={{this.updateValue}} @raw={{@raw}} />
+<div class="post-voting-comment-editor post-voting-comment-editor-{{@id}}">
+  <PostVotingCommentComposer
+    @onInput={{this.updateValue}}
+    @raw={{@raw}}
+    @onKeyDown={{this.onKeyDown}}
+  />
 
   <DButton
     @action={{this.saveComment}}

@@ -1,5 +1,8 @@
-<div class="post-voting-comments-menu-composer" {{on "keydown" this.onKeyDown}}>
-  <PostVotingCommentComposer @onInput={{this.updateValue}} />
+<div class="post-voting-comments-menu-composer">
+  <PostVotingCommentComposer
+    @onInput={{this.updateValue}}
+    @onKeyDown={{this.onKeyDown}}
+  />
 
   <DButton
     @action={{this.saveComment}}

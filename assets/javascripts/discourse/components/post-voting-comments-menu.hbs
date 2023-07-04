@@ -19,9 +19,9 @@
   {{/if}}
 
   {{#if (gt @moreCommentCount 0)}}
-    {{#if (not this.expanded)}}
+    {{#unless this.expanded}}
       <span class="post-voting-comments-menu-separator"></span>
-    {{/if}}
+    {{/unless}}
 
     <div class="post-voting-comments-menu-show-more">
       <DButton
