@@ -181,7 +181,7 @@ function initPlugin(api) {
       result.push(
         helper.attach("post-voting-comments", {
           post,
-          canCreatePost: attrs.canCreatePost
+          canCreatePost: attrs.canCreatePost,
         })
       );
     }
