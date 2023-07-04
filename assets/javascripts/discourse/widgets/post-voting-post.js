@@ -27,6 +27,8 @@ export default createWidget("post-voting-post", {
         direction: "up",
         loading: state.loading,
         voted: attrs.post.post_voting_user_voted_direction === "up",
+        removeVote: this.removeVote.bind(this),
+        vote: this.vote.bind(this),
       }),
     ];
 
@@ -89,6 +91,8 @@ export default createWidget("post-voting-post", {
         direction: "down",
         loading: state.loading,
         voted: attrs.post.post_voting_user_voted_direction === "down",
+        removeVote: this.removeVote.bind(this),
+        vote: this.vote.bind(this),
       })
     );
 

@@ -1,0 +1,58 @@
+<div
+  id={{this.anchorId}}
+  class="post-voting-comment
+    {{if @comment.deleted 'post-voting-comment-deleted'}}"
+>
+  {{#if this.isEditing}}
+    <PostVotingCommentEditor
+      @id={{@comment.id}}
+      @raw={{@comment.raw}}
+      @onSave={{this.onSave}}
+      @onCancel={{this.onCancel}}
+    />
+  {{else}}
+    <div class="post-voting-comment-actions-vote">
+      {{#if @comment.post_voting_vote_count}}
+        <span
+          class="post-voting-comment-actions-vote-count"
+        >{{@comment.post_voting_vote_count}}</span>
+      {{/if}}
+
+      <PostVotingButton
+        @direction="up"
+        @loading={{@isVoting}}
+        @voted={{@comment.user_voted}}
+        @removeVote={{this.removeVote}}
+        @vote={{if this.currentUser this.vote (route-action "showLogin")}}
+      />
+    </div>
+
+    <div class="post-voting-comment-post">
+      <span class="post-voting-comment-cooked">{{html-safe
+          @comment.cooked
+        }}</span>
+
+      <span class="post-voting-comment-info-separator">–</span>
+
+      <a
+        class="post-voting-comment-info-username"
+        data-user-card={{@comment.username}}
+      >
+        {{format-username @comment.username}}
+      </a>
+
+      <span class="post-voting-comment-info-created">
+        {{format-date @comment.created_at}}
+      </span>
+
+      {{#if this.canEdit}}
+        <PostVotingCommentActions
+          @id={{@comment.id}}
+          @updateComment={{this.expandEditor}}
+          @removeComment={{@removeComment}}
+        />
+      {{/if}}
+
+    </div>
+  {{/if}}
+</div>

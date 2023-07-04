@@ -1,0 +1,21 @@
+<div class="post-voting-comments">
+  {{#each this.comments as |comment|}}
+    <PostVotingComment
+      @comment={{comment}}
+      @removeComment={{this.removeComment}}
+      @updateComment={{this.updateComment}}
+      @vote={{this.vote}}
+      @removeVote={{this.removeVote}}
+    />
+  {{/each}}
+
+  {{#if @canCreatePost}}
+    <PostVotingCommentsMenu
+      @id={{@post.id}}
+      @postNumber={{@post.post_number}}
+      @moreCommentCount={{this.moreCommentCount}}
+      @lastCommentId={{this.lastCommentId}}
+      @appendComments={{this.appendComments}}
+    />
+  {{/if}}
+</div>
