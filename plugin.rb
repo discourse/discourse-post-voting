@@ -104,9 +104,9 @@ after_initialize do
   TopicView.on_preload do |topic_view|
     next if !topic_view.topic.is_post_voting?
 
-    topic_view.comments = {}
-
     post_ids = topic_view.posts.pluck(:id)
+    next if post_ids.blank?
+
     post_ids_sql = post_ids.join(",")
 
     comment_ids_sql = <<~SQL
@@ -130,6 +130,7 @@ after_initialize do
     AND question_answer_comments.deleted_at IS NULL
     SQL
 
+    topic_view.comments = {}
     QuestionAnswerComment
       .includes(:user)
       .where("id IN (#{comment_ids_sql})")

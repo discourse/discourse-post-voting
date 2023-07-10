@@ -33,6 +33,12 @@ describe TopicsController do
       )
     end
 
+    it "does not error for topic views without any posts" do
+      get "/t/#{topic.id}.json?page=2"
+
+      expect(response.status).to eq(404)
+    end
+
     it "orders posts by date of creation when 'activity' filter is provided" do
       get "/t/#{topic.id}.json?filter=#{TopicView::ACTIVITY_FILTER}"
 
