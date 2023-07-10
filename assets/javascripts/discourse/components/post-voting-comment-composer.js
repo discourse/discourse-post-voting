@@ -2,6 +2,7 @@ import { action } from "@ember/object";
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
+import I18n from "I18n";
 
 export default class PostVotingCommentComposer extends Component {
   @service siteSettings;
@@ -14,15 +15,18 @@ export default class PostVotingCommentComposer extends Component {
     this.args.onInput?.(event.target.value);
   }
 
-  get isValueTooShort() {
-    return (
-      this.value.length > 0 &&
-      this.value.length < this.siteSettings.min_post_length
-    );
-  }
+  get errorMessage() {
+    if (this.value.length < this.siteSettings.min_post_length) {
+      return I18n.t("post_voting.post.post_voting_comment.composer.too_short", {
+        count: this.siteSettings.min_post_length,
+      });
+    }
 
-  get isValueTooLong() {
-    return this.value.length > this.siteSettings.qa_comment_max_raw_length;
+    if (this.value.length > this.siteSettings.qa_comment_max_raw_length) {
+      return I18n.t("post_voting.post.post_voting_comment.composer.too_long", {
+        count: this.siteSettings.qa_comment_max_raw_length,
+      });
+    }
   }
 
   get remainingCharacters() {

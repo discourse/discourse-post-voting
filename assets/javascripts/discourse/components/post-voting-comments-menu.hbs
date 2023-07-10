@@ -8,7 +8,7 @@
   {{else}}
     <DButton
       @display="link"
-      class="post-voting-comment-add-link"
+      @class="post-voting-comment-add-link"
       @action={{if
         this.currentUser
         this.expandComposer
@@ -18,7 +18,7 @@
     />
   {{/if}}
 
-  {{#if (gt @moreCommentCount 0)}}
+  {{#if this.hasMoreComments}}
     {{#unless this.expanded}}
       <span class="post-voting-comments-menu-separator"></span>
     {{/unless}}
@@ -26,7 +26,7 @@
     <div class="post-voting-comments-menu-show-more">
       <DButton
         @display="link"
-        class="post-voting-comments-menu-show-more-link"
+        @class="post-voting-comments-menu-show-more-link"
         @action={{this.fetchComments}}
         @translatedLabel={{i18n
           "post_voting.post.post_voting_comment.show"

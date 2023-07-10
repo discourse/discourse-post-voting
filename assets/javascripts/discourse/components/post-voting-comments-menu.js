@@ -12,6 +12,10 @@ export default class PostVotingCommentsMenu extends Component {
 
   @tracked expanded = false;
 
+  get hasMoreComments() {
+    return this.args.moreCommentCount > 0;
+  }
+
   @action
   handleSave(comment) {
     this.closeComposer();

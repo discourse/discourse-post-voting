@@ -7,19 +7,9 @@
   ></textarea>
 
   {{#if this.value.length}}
-    {{#if this.isValueTooShort}}
+    {{#if this.errorMessage}}
       <div class="post-voting-comment-composer-flash error">
-        {{i18n
-          "post_voting.post.post_voting_comment.composer.too_short"
-          count=this.siteSettings.min_post_length
-        }}
-      </div>
-    {{else if this.isValueTooLong}}
-      <div class="post-voting-comment-composer-flash error">
-        {{i18n
-          "post_voting.post.post_voting_comment.composer.too_long"
-          count=this.siteSettings.qa_comment_max_raw_length
-        }}
+        {{errorMessage}}
       </div>
     {{else}}
       <div class="post-voting-comment-composer-flash">
