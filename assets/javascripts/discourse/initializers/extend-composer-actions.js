@@ -86,8 +86,8 @@ export default {
 
         @observes("categoryId")
         categoryCreateAsPostVotingDefault() {
-          const createAsPostVoting = this.category
-            ?.create_as_post_voting_default;
+          const createAsPostVoting =
+            this.category?.create_as_post_voting_default;
 
           if (
             this.creatingTopic &&

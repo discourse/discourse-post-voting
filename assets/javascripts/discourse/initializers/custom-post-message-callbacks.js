@@ -17,20 +17,20 @@ export default {
           const post = postStream.findLoadedPost(message.id);
 
           if (post) {
-            let refresh = false;
-
-            post.comments.forEach((comment) => {
-              if (
+            const indexToUpdate = post.comments.findIndex(
+              (comment) =>
                 comment.id === message.comment_id &&
                 comment.raw !== message.comment_raw
-              ) {
-                comment.raw = message.comment_raw;
-                comment.cooked = message.comment_cooked;
-                refresh = true;
-              }
-            });
+            );
 
-            if (refresh) {
+            if (indexToUpdate !== -1) {
+              const updatedComment = {
+                ...post.comments[indexToUpdate],
+                raw: message.comment_raw,
+                cooked: message.comment_cooked,
+              };
+              post.comments.replace(indexToUpdate, 1, [updatedComment]);
+
               topicController.appEvents.trigger("post-stream:refresh", {
                 id: post.id,
               });
@@ -46,12 +46,16 @@ export default {
           const post = postStream.findLoadedPost(message.id);
 
           if (post) {
-            const commentToDelete = post.comments.find(
+            const indexToDelete = post.comments.findIndex(
               (comment) => comment.id === message.comment_id && !comment.deleted
             );
 
-            if (commentToDelete) {
-              commentToDelete.deleted = true;
+            if (indexToDelete !== -1) {
+              const comment = {
+                ...post.comments[indexToDelete],
+                deleted: true,
+              };
+              post.comments.replace(indexToDelete, 1, [comment]);
             }
 
             post.set("comments_count", message.comments_count);

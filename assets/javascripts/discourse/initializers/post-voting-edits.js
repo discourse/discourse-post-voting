@@ -176,7 +176,14 @@ function initPlugin(api) {
       !attrs.reply_to_post_number &&
       !helper.widget.state.filteredRepliesShown
     ) {
-      result.push(helper.attach("post-voting-comments", attrs));
+      const post = helper.getModel();
+
+      result.push(
+        helper.attach("post-voting-comments", {
+          post,
+          canCreatePost: attrs.canCreatePost,
+        })
+      );
     }
 
     return result;

@@ -2,7 +2,7 @@ import { DefaultNotificationItem } from "discourse/widgets/default-notification-
 import { createWidgetFrom } from "discourse/widgets/widget";
 import { iconNode } from "discourse-common/lib/icon-library";
 import { postUrl } from "discourse/lib/utilities";
-import { buildAnchorId } from "./post-voting-comment";
+import { buildAnchorId } from "../components/post-voting-comment";
 
 createWidgetFrom(
   DefaultNotificationItem,

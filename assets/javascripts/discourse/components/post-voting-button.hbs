@@ -1,0 +1,6 @@
+<DButton
+  @class="btn-flat post-voting-button {{this.buttonClasses}}"
+  @disabled={{@loading}}
+  @icon={{this.iconName}}
+  {{on "click" this.onClick}}
+/>

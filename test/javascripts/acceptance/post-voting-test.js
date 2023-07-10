@@ -387,7 +387,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     );
 
     assert.ok(
-      exists(".post-voting-comments-menu-composer-submit[disabled=true]"),
+      query(".post-voting-comments-menu-composer-submit").disabled,
       "submit comment button is disabled"
     );
 
@@ -402,7 +402,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     );
 
     assert.notOk(
-      exists(".post-voting-comments-menu-composer-submit[disabled=true]"),
+      query(".post-voting-comments-menu-composer-submit").disabled,
       "submit comment button is enabled"
     );
 
@@ -417,7 +417,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     );
 
     assert.ok(
-      exists(".post-voting-comments-menu-composer-submit[disabled=true]"),
+      query(".post-voting-comments-menu-composer-submit").disabled,
       "submit comment button is disabled"
     );
   });
@@ -507,7 +507,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     );
 
     assert.ok(
-      exists(".post-voting-comment-editor-submit[disabled=true]"),
+      query(".post-voting-comment-editor-submit").disabled,
       "submit comment button is disabled"
     );
 
@@ -525,7 +525,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     );
 
     assert.notOk(
-      exists(".post-voting-comment-editor-submit[disabled=true]"),
+      query(".post-voting-comment-editor-submit").disabled,
       "submit comment button is enabled"
     );
 
@@ -933,7 +933,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
     assert.strictEqual(
       query(
         "#post_1 #post-voting-comment-1 .post-voting-comment-composer textarea"
-      ).textContent.trim(),
+      ).value.trim(),
       "this is a new comment raw",
       "it updates the content of the comment editor"
     );

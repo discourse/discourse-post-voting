@@ -1,0 +1,38 @@
+<div class="post-voting-comments-menu">
+  {{#if this.expanded}}
+    <PostVotingCommentsMenuComposer
+      @id={{@id}}
+      @onSave={{this.handleSave}}
+      @onCancel={{this.closeComposer}}
+    />
+  {{else}}
+    <DButton
+      @display="link"
+      @class="post-voting-comment-add-link"
+      @action={{if
+        this.currentUser
+        this.expandComposer
+        (route-action "showLogin")
+      }}
+      @label="post_voting.post.post_voting_comment.add"
+    />
+  {{/if}}
+
+  {{#if this.hasMoreComments}}
+    {{#unless this.expanded}}
+      <span class="post-voting-comments-menu-separator"></span>
+    {{/unless}}
+
+    <div class="post-voting-comments-menu-show-more">
+      <DButton
+        @display="link"
+        @class="post-voting-comments-menu-show-more-link"
+        @action={{this.fetchComments}}
+        @translatedLabel={{i18n
+          "post_voting.post.post_voting_comment.show"
+          count=@moreCommentCount
+        }}
+      />
+    </div>
+  {{/if}}
+</div>
