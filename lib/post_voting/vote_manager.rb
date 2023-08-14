@@ -64,5 +64,42 @@ module PostVoting
         )
       end
     end
+
+    def self.bulk_remove_votes_by(user)
+      ActiveRecord::Base.transaction do
+        QuestionAnswerVote::VOTABLE_TYPES.map do |votable_type|
+          table_name = votable_type.tableize
+
+          DB.exec(
+            <<~SQL,
+            UPDATE #{table_name}
+            SET qa_vote_count = qa_vote_count - (
+              SELECT CASE
+                  WHEN direction = :up THEN 1
+                  WHEN direction = :down THEN -1
+                  ELSE 0
+              END
+              FROM question_answer_votes
+              WHERE question_answer_votes.votable_id = #{table_name}.id
+              AND question_answer_votes.votable_type = '#{votable_type}'
+              AND question_answer_votes.user_id = :user_id
+            )
+            WHERE EXISTS (
+                SELECT 1
+                FROM question_answer_votes
+                WHERE question_answer_votes.votable_id = #{table_name}.id
+                AND question_answer_votes.votable_type = '#{votable_type}'
+                AND question_answer_votes.user_id = :user_id
+            );
+          SQL
+            user_id: user.id,
+            up: QuestionAnswerVote.directions[:up],
+            down: QuestionAnswerVote.directions[:down],
+          )
+        end
+
+        QuestionAnswerVote.where(user_id: user.id).delete_all
+      end
+    end
   end
 end
