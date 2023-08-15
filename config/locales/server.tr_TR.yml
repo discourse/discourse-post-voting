@@ -8,15 +8,26 @@ tr_TR:
   post:
     post_voting:
       errors:
+        post_voting_not_enabled: "Gönderi oylama etkin değil."
         replying_to_post_not_permited: "Başka bir gönderiye yanıt olarak gönderi oluşturmanıza izin verilmiyor."
         voting_not_permitted: "Bu gönderiye oy vermenize izin verilmiyor."
         comment_cannot_be_downvoted: "Sadece yorumlara olumlu oy verebilirsiniz."
         self_voting_not_permitted: "Kendi gönderinize veya yorumunuza oy vermenize izin verilmiyor."
   topic:
     post_voting:
+      errors:
+        post_voting_not_enabled: "Gönderi oylama etkin değil."
+        subtype_not_allowed: "Gönderi Oylama alt türü yalnızca normal konularda kullanılabilir."
+        cannot_change_to_post_voting_subtype: "Bir konunun alt türünün Gönderi Oylama olarak değiştirilmesine izin verilmez."
       answer_count:
         one: "%{count} Yanıt"
         other: "%{count} Yanıt"
+  site_settings:
+    qa_tags: "Konuyla ilgili gönderi oylamasını etkinleştirmek için etiketler"
+    qa_enabled: "Gönderi Oylaması Eklentisini etkinleştir"
+    qa_enable_likes_on_answers: "Gönderi Oylaması konularındaki yanıtlarda beğen düğmesini etkinleştir"
+    qa_undo_vote_action_window: "Kullanıcıların Gönderi Oylama konularındaki oyları geri almalarına izin verilen dakika sayısı (limit olmaması için 0 girin)"
+    qa_comment_limit_per_post: "Her gönderide izin verilen yorum sayısı"
   post_action_types:
     vote:
       title: "Oy verin"
@@ -36,5 +47,6 @@ tr_TR:
   post_voting:
     comment:
       errors:
+        post_voting_not_enabled: "Gönderi Oylama konusunda olmayan bir gönderiye yorum yapılmasına izin verilmez."
         not_permitted: "İlişkili gönderiye yorum yapılmasına izin verilmez."
         limit_exceeded: "Gönderi başına %{limit} yorum limitine ulaşıldı."

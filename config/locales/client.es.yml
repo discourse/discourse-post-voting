@@ -12,10 +12,19 @@ es:
         question_answer_user_commented: "nuevo comentario"
       popup:
         question_answer_user_commented: '%{username} comentó en «%{topic}» - %{site_title}'
+    category:
+      post_voting_settings_heading: Votación de publicación
+      create_as_post_voting_default: De forma predeterminada, los temas nuevos son temas de Votar publicación en esta categoría.
     composer:
+      create_post_voting:
+        label: "Crear tema de Votar publicación"
       composer_actions:
+        create_as_post_voting:
+          label: "Alternar Votar publicación"
+          desc: "El tema se creará con publicaciones votables"
         remove_as_post_voting:
-          desc: "El tema se creará en el formato habitual"
+          label: "Eliminar Votar publicación"
+          desc: "El tema se creará en el formato normal"
     vote:
       already_voted: "Solo puedes votar una vez por pregunta."
       user_over_limit: "No puedes superar el número de votos para tu nivel de confianza."
@@ -29,8 +38,8 @@ es:
         post_voting_comment:
           composer:
             too_short:
-              one: "Introduce al menos %{count} caracteres"
-              other: "Ingresa al menos %{count} caracteres"
+              one: "Introduce al menos %{count} carácter"
+              other: "Introduce al menos %{count} caracteres"
             length_ok:
               one: "Queda %{count} carácter..."
               other: "Quedan %{count} caracteres..."

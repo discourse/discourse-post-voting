@@ -12,9 +12,18 @@ nl:
         question_answer_user_commented: "nieuwe reactie"
       popup:
         question_answer_user_commented: '%{username} heeft gereageerd in ''%{topic}'' - %{site_title}'
+    category:
+      post_voting_settings_heading: Stemmen op berichten
+      create_as_post_voting_default: Nieuwe topics in deze categorie zijn standaard ingesteld op Stemmen op berichten.
     composer:
+      create_post_voting:
+        label: "Topic met stemmen op berichten maken"
       composer_actions:
+        create_as_post_voting:
+          label: "Stemmen op berichten schakelen"
+          desc: "Topic wordt gemaakt met berichten waarop kan worden gestemd"
         remove_as_post_voting:
+          label: "Stemmen op berichten verwijderen"
           desc: "Topic wordt gemaakt in de normale vorm"
     vote:
       already_voted: "Je kunt maar één keer stemmen per vraag."

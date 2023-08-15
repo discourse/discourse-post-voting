@@ -12,9 +12,18 @@ de:
         question_answer_user_commented: "neuer Kommentar"
       popup:
         question_answer_user_commented: '%{username} hat kommentiert in „%{topic}“ – %{site_title}'
+    category:
+      post_voting_settings_heading: Beitragsabstimmung
+      create_as_post_voting_default: Neue Themen werden in dieser Kategorie standardmäßig als Beitragsabstimmungsthemen eingestellt.
     composer:
+      create_post_voting:
+        label: "Beitragsabstimmungsthema erstellen"
       composer_actions:
+        create_as_post_voting:
+          label: "Beitragsabstimmung umschalten"
+          desc: "Thema wird mit Beiträgen erstellt, bei denen abgestimmt werden kann"
         remove_as_post_voting:
+          label: "Beitragsabstimmung entfernen"
           desc: "Thema wird im regulären Format erstellt"
     vote:
       already_voted: "Du kannst nur einmal pro Frage abstimmen."

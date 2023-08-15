@@ -12,9 +12,18 @@ it:
         question_answer_user_commented: "nuovo commento"
       popup:
         question_answer_user_commented: '%{username} ha commentato in "%{topic}" - %{site_title}'
+    category:
+      post_voting_settings_heading: Votazioni dei messaggi
+      create_as_post_voting_default: I nuovi argomenti hanno come impostazione predefinita la votazione dei messaggi in questa categoria.
     composer:
+      create_post_voting:
+        label: "Crea un argomento di votazione dei messaggi"
       composer_actions:
+        create_as_post_voting:
+          label: "Attiva/disattiva votazione dei messaggi"
+          desc: "L'argomento verrà creato con messaggi votabili"
         remove_as_post_voting:
+          label: "Rimuovi votazione dei messaggi"
           desc: "L'argomento verrà creato nel formato normale"
     vote:
       already_voted: "Puoi votare una sola volta per domanda."

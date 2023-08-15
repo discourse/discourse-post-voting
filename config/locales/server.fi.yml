@@ -8,15 +8,26 @@ fi:
   post:
     post_voting:
       errors:
+        post_voting_not_enabled: "Viestiäänestys ei ole käytössä."
         replying_to_post_not_permited: "Et voi luoda viestiä vastauksena toiseen viestiin."
         voting_not_permitted: "Et voi äänestää tätä viestiä."
         comment_cannot_be_downvoted: "Voit antaa vain positiivisia ääniä kommenteille."
         self_voting_not_permitted: "Et saa äänestää omaa viestiäsi tai kommenttiasi."
   topic:
     post_voting:
+      errors:
+        post_voting_not_enabled: "Viestiäänestys ei ole käytössä."
+        subtype_not_allowed: "Viestiäänestyksen alatyyppiä voi käyttää vain tavallisissa ketjuissa."
+        cannot_change_to_post_voting_subtype: "Ketjun alatyypin vaihtaminen viestiäänestykseksi ei ole sallittua."
       answer_count:
         one: "%{count} vastaus"
         other: "%{count} vastausta"
+  site_settings:
+    qa_tags: "Tunnisteet, joilla viestiäänestys otetaan käyttöön ketjussa"
+    qa_enabled: "Ota viestiäänestyslisäosa käyttöön"
+    qa_enable_likes_on_answers: "Ota käyttöön tykkäyspainike viestiäänestysketjujen vastauksissa"
+    qa_undo_vote_action_window: "Minuuttien määrä, joiden aikana käyttäjät voivat perua ääniä viestiäänestysketjuissa (poista raja käytöstä syöttämällä 0)"
+    qa_comment_limit_per_post: "Kussakin viestissä sallittavien kommenttien määrä"
   post_action_types:
     vote:
       title: "Äänestä"
@@ -36,5 +47,6 @@ fi:
   post_voting:
     comment:
       errors:
+        post_voting_not_enabled: "Sellaisen viestin kommentointi ei ole sallittua, joka ei ole viestiäänestysketjussa."
         not_permitted: "Liittyvän viestin kommentointi ei ole sallittua."
         limit_exceeded: "%{limit} kommentin viestikohtainen raja on saavutettu."

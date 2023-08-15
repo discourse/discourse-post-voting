@@ -8,12 +8,17 @@ ar:
   post:
     post_voting:
       errors:
+        post_voting_not_enabled: "لم يتم تفعيل التصويت على المنشورات."
         replying_to_post_not_permited: "غير مسموح لك بإنشاء منشور ردًا على منشور آخر."
         voting_not_permitted: "غير مسموح لك بالتصويت على هذا المنشور."
         comment_cannot_be_downvoted: "يمكنك التصويت إيجابيًا على التعليقات فقط."
         self_voting_not_permitted: "غير مسموح لك بالتصويت على منشورك أو تعليقك."
   topic:
     post_voting:
+      errors:
+        post_voting_not_enabled: "لم يتم تفعيل التصويت على المنشورات."
+        subtype_not_allowed: "لا يمكن استخدام النوع الفرعي \"التصويت على المنشورات\" إلا مع الموضوعات العادية."
+        cannot_change_to_post_voting_subtype: "غير مصرَّح بتغيير النوع الفرعي إلى \"التصويت على المنشورات\"."
       answer_count:
         zero: "%{count} إجابات"
         one: "إجابة واحدة (%{count})"
@@ -21,12 +26,18 @@ ar:
         few: "%{count} إجابات"
         many: "%{count} إجابات"
         other: "%{count} إجابات"
+  site_settings:
+    qa_tags: "وسوم تفعيل التصويت على المنشورات في موضوع"
+    qa_enabled: "تفعيل المكوِّن الإضافي للتصويت على المنشورات"
+    qa_enable_likes_on_answers: "تفعيل زر الإعجاب على الردود في موضوعات \"التصويت على المنشورات\""
+    qa_undo_vote_action_window: "عدد الدقائق المسموح للمستخدمين خلالها بالتراجع عن التصويت في موضوعات \"التصويت على المنشورات\" (أدخل 0 لعدم تعيين حد)"
+    qa_comment_limit_per_post: "عدد التعليقات المسموح بها على كل منشور"
   post_action_types:
     vote:
       title: "التصويت"
       description: "التصويت لهذا المنشور"
       short_description: "التصويت لهذا المنشور"
-      long_form: "تم التصويب لهذا المنشور"
+      long_form: "تم التصويت لهذا المنشور"
   vote:
     error:
       user_has_not_voted: "لم يصوَّت المستخدم."
@@ -44,5 +55,6 @@ ar:
   post_voting:
     comment:
       errors:
+        post_voting_not_enabled: "غير مصرَّح بالتعليق على منشور ليس في موضوع للتصويت على المنشورات."
         not_permitted: "غير مصَّرح بالتعليق على منشور مرتبط."
         limit_exceeded: "تم الوصول إلى حد %{limit} من التعليقات لكل منشور."

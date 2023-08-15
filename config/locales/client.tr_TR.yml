@@ -12,9 +12,18 @@ tr_TR:
         question_answer_user_commented: "yeni yorum"
       popup:
         question_answer_user_commented: '%{username} "%{topic}" - %{site_title} içinde yorum yaptı'
+    category:
+      post_voting_settings_heading: Gönderi Oylaması
+      create_as_post_voting_default: Yeni konular varsayılan olarak bu kategorideki Gönderi Oylaması konularıdır.
     composer:
+      create_post_voting:
+        label: "Gönderi oylaması konusu oluşturun"
       composer_actions:
+        create_as_post_voting:
+          label: "Gönderi Oylamasını değiştir"
+          desc: "Konu oylanabilir gönderilerle oluşturulacak"
         remove_as_post_voting:
+          label: "Gönderi Oylamasını kaldır"
           desc: "Konu normal formatta oluşturulacak"
     vote:
       already_voted: "Her soru için yalnızca bir kez oy kullanabilirsiniz."
