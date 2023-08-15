@@ -12,14 +12,23 @@ zh_CN:
         question_answer_user_commented: "新评论"
       popup:
         question_answer_user_commented: '%{username} 在“%{topic}”中发布了评论 - %{site_title}'
+    category:
+      post_voting_settings_heading: 帖子投票
+      create_as_post_voting_default: 此类别中的新话题默认为“帖子投票”话题。
     composer:
+      create_post_voting:
+        label: "创建帖子投票话题"
       composer_actions:
+        create_as_post_voting:
+          label: "切换帖子投票"
+          desc: "话题将使用可投票的帖子创建"
         remove_as_post_voting:
+          label: "移除帖子投票"
           desc: "话题将以常规格式创建"
     vote:
       already_voted: "您只能为每个问题投一次票。"
       user_over_limit: "您不能超过您的信任级别对应的投票数。"
-      one_vote_per_post: "您只能为每个帖子投一次票。"
+      one_vote_per_post: "您只能为每篇帖子投一次票。"
     last_answer_lowercase: 最后一个回答
     answer_lowercase:
       other: 回答

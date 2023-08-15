@@ -8,15 +8,26 @@ de:
   post:
     post_voting:
       errors:
+        post_voting_not_enabled: "Beitragsabstimmung ist nicht aktiviert."
         replying_to_post_not_permited: "Es ist dir nicht erlaubt, einen Beitrag als Antwort auf einen anderen Beitrag zu erstellen."
         voting_not_permitted: "Du darfst über diesen Beitrag nicht abstimmen."
         comment_cannot_be_downvoted: "Du kannst nur für Kommentare abstimmen."
         self_voting_not_permitted: "Du darfst nicht über deinen eigenen Beitrag oder deinen eigenen Kommentar abstimmen."
   topic:
     post_voting:
+      errors:
+        post_voting_not_enabled: "Beitragsabstimmung ist nicht aktiviert."
+        subtype_not_allowed: "Der Untertyp „Beitragsabstimmung“ kann nur mit regulären Themen verwendet werden."
+        cannot_change_to_post_voting_subtype: "Ändern des Untertyps eines Themas in Beitragsabstimmung ist nicht zulässig."
       answer_count:
         one: "%{count} Antwort"
         other: "%{count} Antworten"
+  site_settings:
+    qa_tags: "Schlagwörter zum Aktivieren der Beitragsabstimmung zum Thema"
+    qa_enabled: "Beitragsabstimmungs-Plug-in aktivieren"
+    qa_enable_likes_on_answers: "„Gefällt mir“-Schaltfläche für Antworten in Beitragsabstimmungsthemen aktivieren"
+    qa_undo_vote_action_window: "Anzahl an Minuten, in denen Benutzer Stimmen in Beitragsabstimmungsthemen zurücknehmen können (0 bedeutet kein Limit)"
+    qa_comment_limit_per_post: "Anzahl der zulässigen Kommentare zu jedem Beitrag"
   post_action_types:
     vote:
       title: "Abstimmen"
@@ -36,5 +47,6 @@ de:
   post_voting:
     comment:
       errors:
+        post_voting_not_enabled: "Das Kommentieren eines Beitrags, der sich nicht in einem Beitragsabstimmungsthema befindet, ist nicht gestattet."
         not_permitted: "Das Kommentieren von zugehörigen Beiträgen ist nicht gestattet."
         limit_exceeded: "Das Limit von %{limit} Kommentaren pro Beitrag wurde erreicht."

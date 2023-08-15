@@ -8,14 +8,25 @@ zh_CN:
   post:
     post_voting:
       errors:
-        replying_to_post_not_permited: "您无权创建一个帖子来回复另一个帖子。"
+        post_voting_not_enabled: "帖子投票未启用。"
+        replying_to_post_not_permited: "您无权创建一篇帖子来回复另一篇帖子。"
         voting_not_permitted: "您无权在此帖子中投票。"
         comment_cannot_be_downvoted: "您只能为评论投赞成票。"
         self_voting_not_permitted: "您无权对自己的帖子或评论进行投票。"
   topic:
     post_voting:
+      errors:
+        post_voting_not_enabled: "帖子投票未启用。"
+        subtype_not_allowed: "“帖子投票”子类型只能与常规话题一起使用。"
+        cannot_change_to_post_voting_subtype: "不允许将话题的子类型更改为“帖子投票”。"
       answer_count:
         other: "%{count} 个回答"
+  site_settings:
+    qa_tags: "用于对话题启用帖子投票的标签"
+    qa_enabled: "启用帖子投票插件"
+    qa_enable_likes_on_answers: "在“帖子投票”话题中回复时启用“点赞”按钮"
+    qa_undo_vote_action_window: "允许用户在“帖子投票”话题中撤消投票的分钟数（0 为不限制）"
+    qa_comment_limit_per_post: "每篇帖子允许的评论数"
   post_action_types:
     vote:
       title: "投票"
@@ -29,10 +40,11 @@ zh_CN:
       already_voted: "您只能为每个问题投一次票。"
       undo_vote_action_window:
         other: "您无法在投票后的 %{count} 分钟后撤消投票。"
-      one_vote_per_post: "您只能为每个帖子投一次票。"
+      one_vote_per_post: "您只能为每篇帖子投一次票。"
       one_vote_per_comment: "您只能为每条评论投一次票。"
   post_voting:
     comment:
       errors:
+        post_voting_not_enabled: "不允许对不在“帖子投票”话题中的帖子发表评论。"
         not_permitted: "不允许对关联帖子发表评论。"
-        limit_exceeded: "已达到每个帖子 %{limit} 条评论的限制。"
+        limit_exceeded: "已达到每篇帖子 %{limit} 条评论的限制。"

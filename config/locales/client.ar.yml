@@ -12,9 +12,18 @@ ar:
         question_answer_user_commented: "تعليق جديد"
       popup:
         question_answer_user_commented: 'علَّق %{username} في "%{topic}" - ‏%{site_title}'
+    category:
+      post_voting_settings_heading: التصويت على المنشورات
+      create_as_post_voting_default: يتم تعيين الموضوعات الجديدة افتراضيًا إلى موضوعات "التصويت على المنشورات" في هذه الفئة.
     composer:
+      create_post_voting:
+        label: "إنشاء موضوع للتصويت على المنشورات"
       composer_actions:
+        create_as_post_voting:
+          label: "تبديل التصويت على المنشورات"
+          desc: "سيتم إنشاء الموضوع مع منشورات قابلة للتصويت"
         remove_as_post_voting:
+          label: "إزالة التصويت على المنشورات"
           desc: "سيتم إنشاء الموضوع بتنسيق عادي"
     vote:
       already_voted: "يمكنك التصويت مرة واحدة فقط لكل سؤال."

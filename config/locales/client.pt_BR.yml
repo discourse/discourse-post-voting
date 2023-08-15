@@ -12,9 +12,18 @@ pt_BR:
         question_answer_user_commented: "novo comentário"
       popup:
         question_answer_user_commented: '%{username} comentou em "%{topic}" - %{site_title}'
+    category:
+      post_voting_settings_heading: Votação de publicação
+      create_as_post_voting_default: Novos tópicos padrão para tópicos de "Votação de publicação" nesta categoria.
     composer:
+      create_post_voting:
+        label: "Criar tópico de votação de publicação"
       composer_actions:
+        create_as_post_voting:
+          label: "Alterar votação de publicação"
+          desc: "O tópico será criado com publicações para votar"
         remove_as_post_voting:
+          label: "Remover votação de publicação"
           desc: "O tópico será criado no formato regular"
     vote:
       already_voted: "Você só pode votar uma vez por pergunta."

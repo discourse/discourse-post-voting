@@ -8,15 +8,26 @@ es:
   post:
     post_voting:
       errors:
-        replying_to_post_not_permited: "No puedes crear un mensaje en respuesta a otro mensaje."
+        post_voting_not_enabled: "Votar publicación no está habilitada."
+        replying_to_post_not_permited: "No puedes crear una publicación en respuesta a otra publicación."
         voting_not_permitted: "No tienes permitido votar en esta publicación."
         comment_cannot_be_downvoted: "Solo puedes votar comentarios."
         self_voting_not_permitted: "No puedes votar en tu propia publicación o comentario."
   topic:
     post_voting:
+      errors:
+        post_voting_not_enabled: "Votar publicación no está habilitada."
+        subtype_not_allowed: "El subtipo Votar publicación solo se puede usar con temas normales."
+        cannot_change_to_post_voting_subtype: "No se permite cambiar el subtipo de un tema a Votar publicación."
       answer_count:
         one: "%{count} respuesta"
         other: "%{count} respuestas"
+  site_settings:
+    qa_tags: "Etiquetas para habilitar Votar publicación sobre un tema"
+    qa_enabled: "Habilitar el plugin Votar publicación"
+    qa_enable_likes_on_answers: "Habilitar el botón «Me gusta» en las respuestas a los temas Votar publicación"
+    qa_undo_vote_action_window: "Número de minutos en los cuales los usuarios tienen permitido deshacer sus votos en temas Votar publicación (introducir 0 para no poner límite)"
+    qa_comment_limit_per_post: "Número de comentarios permitidos en cada publicación"
   post_action_types:
     vote:
       title: "Votar"
@@ -36,5 +47,6 @@ es:
   post_voting:
     comment:
       errors:
+        post_voting_not_enabled: "No está permitido comentar una publicación que no esté en un tema Votar publicación."
         not_permitted: "No se permite comentar los mensajes asociados."
         limit_exceeded: "Se ha alcanzado el límite de %{limit} comentarios por publicación."

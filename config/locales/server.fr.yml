@@ -8,15 +8,26 @@ fr:
   post:
     post_voting:
       errors:
+        post_voting_not_enabled: "Le vote de message n'est pas activé."
         replying_to_post_not_permited: "Vous n'êtes pas autorisé(e) à créer un message en réponse à un autre message."
         voting_not_permitted: "Vous n'êtes pas autorisé(e) à voter sur ce message."
         comment_cannot_be_downvoted: "Vous pouvez uniquement voter pour les commentaires."
         self_voting_not_permitted: "Vous n'êtes pas autorisé(e) à voter pour votre propre message ou commentaire."
   topic:
     post_voting:
+      errors:
+        post_voting_not_enabled: "Le vote de message n'est pas activé."
+        subtype_not_allowed: "Le sous-type Vote de message ne peut être utilisé qu'avec des sujets ordinaires."
+        cannot_change_to_post_voting_subtype: "Il n'est pas permis de remplacer le sous-type d'un sujet par Vote de message."
       answer_count:
         one: "%{count} réponse"
         other: "%{count} réponses"
+  site_settings:
+    qa_tags: "Étiquettes permettant d'activer le vote de message sur le sujet"
+    qa_enabled: "Activer l'extension de vote de message"
+    qa_enable_likes_on_answers: "Activer le bouton J'aime sur les réponses dans les sujets de Vote de message"
+    qa_undo_vote_action_window: "Nombre de minutes pendant lesquelles les utilisateurs sont autorisés à annuler les votes dans les sujets de Vote de message (saisissez 0 pour ne fixer aucune limite)"
+    qa_comment_limit_per_post: "Nombre de commentaires autorisés sur chaque message"
   post_action_types:
     vote:
       title: "Vote"
@@ -36,5 +47,6 @@ fr:
   post_voting:
     comment:
       errors:
+        post_voting_not_enabled: "Il n'est pas permis de commenter un message qui n'est pas dans un sujet de Vote de message."
         not_permitted: "Il n'est pas permis de commenter un message associé."
         limit_exceeded: "La limite de %{limit} commentaires par message a été atteinte."

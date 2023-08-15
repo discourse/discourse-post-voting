@@ -8,15 +8,26 @@ it:
   post:
     post_voting:
       errors:
+        post_voting_not_enabled: "La votazione dei messaggi non è abilitata."
         replying_to_post_not_permited: "Non sei autorizzato a creare un messaggio in risposta a un altro messaggio."
         voting_not_permitted: "Non sei autorizzato a votare su questo messaggio."
         comment_cannot_be_downvoted: "Puoi solo votare a favore dei commenti."
         self_voting_not_permitted: "Non sei autorizzato a votare il tuo stesso messaggio o commento."
   topic:
     post_voting:
+      errors:
+        post_voting_not_enabled: "La votazione dei messaggi non è abilitata."
+        subtype_not_allowed: "Il sottotipo Votazione dei messaggi può essere utilizzato solo con argomenti normali."
+        cannot_change_to_post_voting_subtype: "Non è consentito modificare il sottotipo di un argomento con votazione dei messaggi."
       answer_count:
         one: "%{count} risposta"
         other: "%{count} risposte"
+  site_settings:
+    qa_tags: "Etichette per abilitare la votazione dei messaggi sull'argomento"
+    qa_enabled: "Abilita il plugin per la votazione dei messaggi"
+    qa_enable_likes_on_answers: "Abilita il pulsante Mi piace nelle risposte agli argomenti con votazione dei messaggi"
+    qa_undo_vote_action_window: "Numero di minuti consentiti agli utenti per annullare i voti negli argomenti con votazione dei messaggi (inserisci 0 per non definire alcun limite)"
+    qa_comment_limit_per_post: "Numero di commenti consentiti su ogni messaggio"
   post_action_types:
     vote:
       title: "Vota"
@@ -36,5 +47,6 @@ it:
   post_voting:
     comment:
       errors:
+        post_voting_not_enabled: "Non è consentito commentare un messaggio che non è in un argomento con votazione dei messaggi."
         not_permitted: "Non è consentito commentare messaggi associati."
         limit_exceeded: "È stato raggiunto il limite di %{limit} commenti per messaggio."

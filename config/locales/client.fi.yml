@@ -12,9 +12,18 @@ fi:
         question_answer_user_commented: "uusi kommentti"
       popup:
         question_answer_user_commented: '%{username} kommentoi ketjussa "%{topic}" – %{site_title}'
+    category:
+      post_voting_settings_heading: Viestiäänestys
+      create_as_post_voting_default: Uusissa ketjuissa käytetään oletuksena tämän alueen viestiäänestysketjuja.
     composer:
+      create_post_voting:
+        label: "Luo viestiäänestysketju"
       composer_actions:
+        create_as_post_voting:
+          label: "Viestiäänestys käyttöön/pois käytöstä"
+          desc: "Äänestettäviä viestejä sisältävä ketju luodaan"
         remove_as_post_voting:
+          label: "Poista viestiäänestys"
           desc: "Ketju luodaan tavallisessa muodossa"
     vote:
       already_voted: "Voit äänestää vain yhtä vastausta tähän kysymykseen"

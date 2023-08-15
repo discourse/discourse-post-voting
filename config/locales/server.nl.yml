@@ -8,15 +8,26 @@ nl:
   post:
     post_voting:
       errors:
+        post_voting_not_enabled: "Stemmen op berichten is niet ingeschakeld."
         replying_to_post_not_permited: "Je mag geen bericht maken als antwoord op een ander bericht."
         voting_not_permitted: "Je mag niet stemmen op dit bericht."
         comment_cannot_be_downvoted: "Je kunt alleen reacties omhoog stemmen."
         self_voting_not_permitted: "Je mag niet stemmen op je eigen bericht of reactie."
   topic:
     post_voting:
+      errors:
+        post_voting_not_enabled: "Stemmen op berichten is niet ingeschakeld."
+        subtype_not_allowed: "Het subtype Stemmen op berichten kan alleen worden gebruikt bij reguliere topics."
+        cannot_change_to_post_voting_subtype: "Het wijzigen van het subtype van een topic naar Stemmen op berichten is niet toegestaan."
       answer_count:
         one: "%{count} antwoord"
         other: "%{count} antwoorden"
+  site_settings:
+    qa_tags: "Tags om stemmen op berichten in te schakelen voor een topic"
+    qa_enabled: "Plug-in Stemmen op berichten inschakelen"
+    qa_enable_likes_on_answers: "Likeknop inschakelen voor antwoorden in topics met Stemmen op berichten"
+    qa_undo_vote_action_window: "Aantal minuten waarbinnen gebruikers stemmen in topics met Stemmen op berichten ongedaan kunnen maken (vul 0 in voor geen limiet)"
+    qa_comment_limit_per_post: "Aantal toegestane reacties op elk bericht"
   post_action_types:
     vote:
       title: "Stemmen"
@@ -36,5 +47,6 @@ nl:
   post_voting:
     comment:
       errors:
+        post_voting_not_enabled: "Reageren op een bericht dat niet in een topic met Stemmen op berichten staat, is niet toegestaan."
         not_permitted: "Reageren op het gerelateerde bericht is niet toegestaan."
         limit_exceeded: "Limiet van %{limit} reacties per bericht is bereikt."
