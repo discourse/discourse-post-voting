@@ -14,11 +14,11 @@ class QuestionAnswerCommentSerializer < ApplicationSerializer
   attr_accessor :comments_user_voted
 
   def name
-    object.user.name
+    object.user&.name
   end
 
   def username
-    object.user.username
+    object.user&.username
   end
 
   def user_voted

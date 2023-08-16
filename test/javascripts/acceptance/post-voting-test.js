@@ -87,8 +87,8 @@ function postVotingEnabledTopicResponse() {
     {
       id: 6,
       user_id: 12345678,
-      name: "Some Name 4 ",
-      username: "someusername4",
+      name: null,
+      username: null,
       created_at: "2022-01-12T08:21:54.175Z",
       cooked: "<p>Test comment 6</p>",
       post_voting_vote_count: 0,
@@ -231,6 +231,12 @@ acceptance("Discourse Post Voting - anon user", function (needs) {
       6,
       "displays the right number of comments after loading more"
     );
+
+    assert
+      .dom(
+        "#post_2 .post-voting-comments #post-voting-comment-6 .post-voting-comment-info-username"
+      )
+      .hasText(I18n.t("post_voting.post.post_voting_comment.user.deleted"));
   });
 
   test("adding a comment", async function (assert) {

@@ -203,4 +203,11 @@ after_initialize do
       self.reply_to_post_number = nil
     end
   end
+
+  register_user_destroyer_on_content_deletion_callback(
+    Proc.new do |user|
+      QuestionAnswerComment.where(user_id: user.id).delete_all
+      PostVoting::VoteManager.bulk_remove_votes_by(user)
+    end,
+  )
 end
