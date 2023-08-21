@@ -53,8 +53,8 @@ describe QuestionAnswerComment do
       expect(comment.errors[:raw]).to eq([I18n.t("errors.messages.too_short", count: 5)])
     end
 
-    it "does not allow comment to be created when raw length exceeds qa_comment_max_raw_length site setting" do
-      max = SiteSetting.qa_comment_max_raw_length = 5
+    it "does not allow comment to be created when raw length exceeds post_voting_comment_max_raw_length site setting" do
+      max = SiteSetting.post_voting_comment_max_raw_length = 5
       raw = "this string is too long"
 
       post_voting_comment = QuestionAnswerComment.new(raw: raw, post: post, user: user)

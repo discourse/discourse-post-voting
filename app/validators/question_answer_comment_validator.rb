@@ -12,7 +12,7 @@ class QuestionAnswerCommentValidator < ActiveModel::Validator
       record,
       :raw,
       record.raw,
-      SiteSetting.min_post_length..SiteSetting.qa_comment_max_raw_length,
+      SiteSetting.min_post_length..SiteSetting.post_voting_comment_max_raw_length,
     )
 
     sentinel = TextSentinel.body_sentinel(record.raw)
