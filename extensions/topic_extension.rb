@@ -63,7 +63,8 @@ module PostVoting
     end
 
     def is_post_voting?
-      @is_post_voting ||= SiteSetting.post_voting_enabled && self.subtype == Topic::POST_VOTING_SUBTYPE
+      @is_post_voting ||=
+        SiteSetting.post_voting_enabled && self.subtype == Topic::POST_VOTING_SUBTYPE
     end
 
     # class methods
