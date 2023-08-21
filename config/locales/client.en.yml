@@ -1,4 +1,9 @@
 en:
+  admin_js:
+    site_settings:
+      categories:
+        post_voting: Post Voting
+
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"

@@ -1,4 +1,4 @@
-post_voting:
+plugins:
   post_voting_enabled:
     client: true
     default: true
