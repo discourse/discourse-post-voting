@@ -1,17 +1,17 @@
-plugins:
-  qa_enabled:
+post_voting:
+  post_voting_enabled:
     client: true
     default: true
-  qa_undo_vote_action_window:
+  post_voting_undo_vote_action_window:
     default: 10
-  qa_comment_limit_per_post:
+  post_voting_comment_limit_per_post:
     default: 10
     min: 1
     client: true
-  qa_comment_max_raw_length:
+  post_voting_comment_max_raw_length:
     client: true
     hidden: true
     default: 600
-  qa_enable_likes_on_answers:
+  post_voting_enable_likes_on_answers:
     client: true
     default: false
