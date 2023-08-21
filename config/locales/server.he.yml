@@ -28,7 +28,7 @@ he:
     qa_tags: "תגיות להפעלת שו\"ת על נושא"
     post_voting_enabled: "הפעלת תוסף שו\"ת"
     qa_enable_likes_on_answers: "הפעלת כפתור לייק על שאלות בנושאי שו\"ת"
-    qa_undo_vote_action_window: "מספר הדקות שמשתמשים רשאים לבטל הצבעות בנושאי שו\"ת (הזן 0 ללא הגבלה)"
+    post_voting_undo_vote_action_window: "מספר הדקות שמשתמשים רשאים לבטל הצבעות בנושאי שו\"ת (הזן 0 ללא הגבלה)"
     qa_comment_limit_per_post: "מספר התגובות המותר על כל שאלה או תשובה"
   post_action_types:
     vote:

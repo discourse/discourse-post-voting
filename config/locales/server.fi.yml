@@ -26,7 +26,7 @@ fi:
     qa_tags: "Tunnisteet, joilla viestiäänestys otetaan käyttöön ketjussa"
     post_voting_enabled: "Ota viestiäänestyslisäosa käyttöön"
     qa_enable_likes_on_answers: "Ota käyttöön tykkäyspainike viestiäänestysketjujen vastauksissa"
-    qa_undo_vote_action_window: "Minuuttien määrä, joiden aikana käyttäjät voivat perua ääniä viestiäänestysketjuissa (poista raja käytöstä syöttämällä 0)"
+    post_voting_undo_vote_action_window: "Minuuttien määrä, joiden aikana käyttäjät voivat perua ääniä viestiäänestysketjuissa (poista raja käytöstä syöttämällä 0)"
     qa_comment_limit_per_post: "Kussakin viestissä sallittavien kommenttien määrä"
   post_action_types:
     vote:

@@ -26,7 +26,7 @@ pt_BR:
     qa_tags: "Etiquetas para ativar votação de publicação no tópico"
     post_voting_enabled: "Ativar plugin de votação de publicação"
     qa_enable_likes_on_answers: "Ative o botão de curtir nas respostas, nos tópicos de votação de publicação"
-    qa_undo_vote_action_window: "Número de minutos em que os(as) usuários(as) podem cancelar votos em tópicos de \"Votação de publicação) (digite 0 para não ter limite)"
+    post_voting_undo_vote_action_window: "Número de minutos em que os(as) usuários(as) podem cancelar votos em tópicos de \"Votação de publicação) (digite 0 para não ter limite)"
     qa_comment_limit_per_post: "Quantidade de comentários permitidos em cada publicação"
   post_action_types:
     vote:
