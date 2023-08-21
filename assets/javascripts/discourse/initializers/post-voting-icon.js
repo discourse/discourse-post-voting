@@ -5,7 +5,7 @@ export default {
 
   initialize(container) {
     const siteSettings = container.lookup("site-settings:main");
-    if (!siteSettings.qa_enabled) {
+    if (!siteSettings.post_voting_enabled) {
       return;
     }
 

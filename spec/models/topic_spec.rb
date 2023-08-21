@@ -20,8 +20,8 @@ describe Topic do
 
   describe "validations" do
     describe "#subtype" do
-      it "should not allow Post Voting formatted topics to be created when qa_enabled site setting is not enabled" do
-        SiteSetting.qa_enabled = false
+      it "should not allow Post Voting formatted topics to be created when post_voting_enabled site setting is not enabled" do
+        SiteSetting.post_voting_enabled = false
 
         topic =
           Fabricate.build(:topic, archetype: Archetype.default, subtype: Topic::POST_VOTING_SUBTYPE)
@@ -106,7 +106,7 @@ describe Topic do
     end
 
     it "should return nil if disabled" do
-      SiteSetting.qa_enabled = false
+      SiteSetting.post_voting_enabled = false
 
       expect(Topic.post_voting_votes(topic, user)).to eq(nil)
     end

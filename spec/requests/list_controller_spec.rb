@@ -13,7 +13,7 @@ describe ListController do
   fab!(:topic) { Fabricate(:topic) }
 
   before do
-    SiteSetting.qa_enabled = true
+    SiteSetting.post_voting_enabled = true
     sign_in(user)
   end
 
@@ -34,7 +34,7 @@ describe ListController do
   end
 
   it "should return the right attributes when Post Voting is disabled" do
-    SiteSetting.qa_enabled = false
+    SiteSetting.post_voting_enabled = false
 
     TopicUser.create!(user: user, topic: post_voting_topic, last_read_post_number: 2)
     TopicUser.create!(user: user, topic: topic, last_read_post_number: 2)

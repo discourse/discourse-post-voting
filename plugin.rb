@@ -10,7 +10,7 @@
 %i[common mobile].each { |type| register_asset "stylesheets/#{type}/post-voting.scss", type }
 register_asset "stylesheets/common/post-voting-crawler.scss"
 
-enabled_site_setting :qa_enabled
+enabled_site_setting :post_voting_enabled
 
 after_initialize do
   %w[
@@ -198,7 +198,7 @@ after_initialize do
   end
 
   add_model_callback(:post, :before_create) do
-    if SiteSetting.qa_enabled && self.is_post_voting_topic? && self.via_email &&
+    if SiteSetting.post_voting_enabled && self.is_post_voting_topic? && self.via_email &&
          self.reply_to_post_number == 1
       self.reply_to_post_number = nil
     end

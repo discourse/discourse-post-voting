@@ -63,13 +63,13 @@ module PostVoting
     end
 
     def is_post_voting?
-      @is_post_voting ||= SiteSetting.qa_enabled && self.subtype == Topic::POST_VOTING_SUBTYPE
+      @is_post_voting ||= SiteSetting.post_voting_enabled && self.subtype == Topic::POST_VOTING_SUBTYPE
     end
 
     # class methods
     module ClassMethods
       def post_voting_votes(topic, user)
-        return nil if !user || !SiteSetting.qa_enabled
+        return nil if !user || !SiteSetting.post_voting_enabled
 
         # This is a very inefficient way since the performance degrades as the
         # number of voted posts in the topic increases.
@@ -94,7 +94,7 @@ module PostVoting
     def ensure_regular_topic
       return if self.subtype != Topic::POST_VOTING_SUBTYPE
 
-      if !SiteSetting.qa_enabled
+      if !SiteSetting.post_voting_enabled
         self.errors.add(:base, I18n.t("topic.post_voting.errors.post_voting_not_enabled"))
       elsif self.archetype != Archetype.default
         self.errors.add(:base, I18n.t("topic.post_voting.errors.subtype_not_allowed"))

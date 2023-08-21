@@ -6,7 +6,7 @@ describe PostsController do
   describe "#create" do
     before do
       sign_in(user)
-      SiteSetting.qa_enabled = true
+      SiteSetting.post_voting_enabled = true
     end
 
     it "creates a topic with the right subtype when create_as_post_voting param is provided" do

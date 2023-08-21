@@ -24,7 +24,7 @@ fr:
         other: "%{count} réponses"
   site_settings:
     qa_tags: "Étiquettes permettant d'activer le vote de message sur le sujet"
-    qa_enabled: "Activer l'extension de vote de message"
+    post_voting_enabled: "Activer l'extension de vote de message"
     qa_enable_likes_on_answers: "Activer le bouton J'aime sur les réponses dans les sujets de Vote de message"
     qa_undo_vote_action_window: "Nombre de minutes pendant lesquelles les utilisateurs sont autorisés à annuler les votes dans les sujets de Vote de message (saisissez 0 pour ne fixer aucune limite)"
     qa_comment_limit_per_post: "Nombre de commentaires autorisés sur chaque message"

@@ -15,7 +15,7 @@ RSpec.describe PostVoting::CommentsController do
   let(:comment_3) { Fabricate(:post_voting_comment, post: answer) }
 
   before do
-    SiteSetting.qa_enabled = true
+    SiteSetting.post_voting_enabled = true
     comment
     comment_2
     comment_3

@@ -23,7 +23,7 @@ zh_CN:
         other: "%{count} 个回答"
   site_settings:
     qa_tags: "用于对话题启用帖子投票的标签"
-    qa_enabled: "启用帖子投票插件"
+    post_voting_enabled: "启用帖子投票插件"
     qa_enable_likes_on_answers: "在“帖子投票”话题中回复时启用“点赞”按钮"
     qa_undo_vote_action_window: "允许用户在“帖子投票”话题中撤消投票的分钟数（0 为不限制）"
     qa_comment_limit_per_post: "每篇帖子允许的评论数"

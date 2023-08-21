@@ -5,7 +5,7 @@ import pretender from "discourse/tests/helpers/create-pretender";
 
 acceptance("Category Edit", function (needs) {
   needs.user();
-  needs.settings({ qa_enabled: true });
+  needs.settings({ post_voting_enabled: true });
 
   test("Editing the category", async function (assert) {
     await visit("/c/bug/edit/settings");
