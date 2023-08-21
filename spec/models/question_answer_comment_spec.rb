@@ -28,8 +28,8 @@ describe QuestionAnswerComment do
       )
     end
 
-    it "does not allow comments to be created when SiteSetting.qa_comment_limit_per_post has been reached" do
-      SiteSetting.qa_comment_limit_per_post = 1
+    it "does not allow comments to be created when SiteSetting.post_voting_comment_limit_per_post has been reached" do
+      SiteSetting.post_voting_comment_limit_per_post = 1
 
       QuestionAnswerComment.create!(raw: "this is a **post**", post: post, user: user)
       comment = QuestionAnswerComment.new(raw: "this is a **post**", post: post, user: user)
@@ -39,7 +39,7 @@ describe QuestionAnswerComment do
       expect(comment.errors.full_messages).to contain_exactly(
         I18n.t(
           "post_voting.comment.errors.limit_exceeded",
-          limit: SiteSetting.qa_comment_limit_per_post,
+          limit: SiteSetting.post_voting_comment_limit_per_post,
         ),
       )
     end

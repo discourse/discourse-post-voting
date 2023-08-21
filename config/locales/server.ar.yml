@@ -31,7 +31,7 @@ ar:
     post_voting_enabled: "تفعيل المكوِّن الإضافي للتصويت على المنشورات"
     qa_enable_likes_on_answers: "تفعيل زر الإعجاب على الردود في موضوعات \"التصويت على المنشورات\""
     post_voting_undo_vote_action_window: "عدد الدقائق المسموح للمستخدمين خلالها بالتراجع عن التصويت في موضوعات \"التصويت على المنشورات\" (أدخل 0 لعدم تعيين حد)"
-    qa_comment_limit_per_post: "عدد التعليقات المسموح بها على كل منشور"
+    post_voting_comment_limit_per_post: "عدد التعليقات المسموح بها على كل منشور"
   post_action_types:
     vote:
       title: "التصويت"
