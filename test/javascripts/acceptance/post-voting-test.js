@@ -124,10 +124,10 @@ let filteredByActivity = false;
 
 function setupPostVoting(needs) {
   needs.settings({
-    qa_enabled: true,
+    post_voting_enabled: true,
     min_post_length: 5,
-    qa_comment_max_raw_length: 50,
-    qa_enable_likes_on_answers: false,
+    post_voting_comment_max_raw_length: 50,
+    post_voting_enable_likes_on_answers: false,
   });
 
   needs.hooks.afterEach(() => {

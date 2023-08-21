@@ -24,10 +24,10 @@ es:
         other: "%{count} respuestas"
   site_settings:
     qa_tags: "Etiquetas para habilitar Votar publicación sobre un tema"
-    qa_enabled: "Habilitar el plugin Votar publicación"
-    qa_enable_likes_on_answers: "Habilitar el botón «Me gusta» en las respuestas a los temas Votar publicación"
-    qa_undo_vote_action_window: "Número de minutos en los cuales los usuarios tienen permitido deshacer sus votos en temas Votar publicación (introducir 0 para no poner límite)"
-    qa_comment_limit_per_post: "Número de comentarios permitidos en cada publicación"
+    post_voting_enabled: "Habilitar el plugin Votar publicación"
+    post_voting_enable_likes_on_answers: "Habilitar el botón «Me gusta» en las respuestas a los temas Votar publicación"
+    post_voting_undo_vote_action_window: "Número de minutos en los cuales los usuarios tienen permitido deshacer sus votos en temas Votar publicación (introducir 0 para no poner límite)"
+    post_voting_comment_limit_per_post: "Número de comentarios permitidos en cada publicación"
   post_action_types:
     vote:
       title: "Votar"

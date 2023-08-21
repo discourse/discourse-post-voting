@@ -18,7 +18,7 @@ describe TopicsController do
     PostVoting::VoteManager.vote(answer, user, direction: QuestionAnswerVote.directions[:down])
   end
 
-  before { SiteSetting.qa_enabled = true }
+  before { SiteSetting.post_voting_enabled = true }
 
   describe "#show" do
     it "orders posts by number of votes for a Post Voting topic" do

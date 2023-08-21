@@ -8,17 +8,17 @@ describe QuestionAnswerComment do
   fab!(:user) { Fabricate(:user) }
   fab!(:tag) { Fabricate(:tag) }
 
-  before { SiteSetting.qa_enabled = true }
+  before { SiteSetting.post_voting_enabled = true }
 
   describe "validations" do
     it "does not allow comments to be created when post is in reply to another post" do
       post_2 = Fabricate(:post, topic: topic)
 
-      SiteSetting.qa_enabled = false
+      SiteSetting.post_voting_enabled = false
 
       post_3 = Fabricate(:post, topic: topic, reply_to_post_number: post_2.post_number)
 
-      SiteSetting.qa_enabled = true
+      SiteSetting.post_voting_enabled = true
 
       comment = QuestionAnswerComment.new(raw: "this is a **post**", post: post_3, user: user)
 
@@ -28,8 +28,8 @@ describe QuestionAnswerComment do
       )
     end
 
-    it "does not allow comments to be created when SiteSetting.qa_comment_limit_per_post has been reached" do
-      SiteSetting.qa_comment_limit_per_post = 1
+    it "does not allow comments to be created when SiteSetting.post_voting_comment_limit_per_post has been reached" do
+      SiteSetting.post_voting_comment_limit_per_post = 1
 
       QuestionAnswerComment.create!(raw: "this is a **post**", post: post, user: user)
       comment = QuestionAnswerComment.new(raw: "this is a **post**", post: post, user: user)
@@ -39,7 +39,7 @@ describe QuestionAnswerComment do
       expect(comment.errors.full_messages).to contain_exactly(
         I18n.t(
           "post_voting.comment.errors.limit_exceeded",
-          limit: SiteSetting.qa_comment_limit_per_post,
+          limit: SiteSetting.post_voting_comment_limit_per_post,
         ),
       )
     end
@@ -53,8 +53,8 @@ describe QuestionAnswerComment do
       expect(comment.errors[:raw]).to eq([I18n.t("errors.messages.too_short", count: 5)])
     end
 
-    it "does not allow comment to be created when raw length exceeds qa_comment_max_raw_length site setting" do
-      max = SiteSetting.qa_comment_max_raw_length = 5
+    it "does not allow comment to be created when raw length exceeds post_voting_comment_max_raw_length site setting" do
+      max = SiteSetting.post_voting_comment_max_raw_length = 5
       raw = "this string is too long"
 
       post_voting_comment = QuestionAnswerComment.new(raw: raw, post: post, user: user)

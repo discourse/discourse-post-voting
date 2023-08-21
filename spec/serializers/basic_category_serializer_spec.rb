@@ -16,7 +16,7 @@ describe BasicCategorySerializer do
   end
 
   context "with qa enabled" do
-    before { SiteSetting.qa_enabled = true }
+    before { SiteSetting.post_voting_enabled = true }
 
     it "should return post_voting category attributes" do
       expect(serialized[:create_as_post_voting_default]).to eq(true)
@@ -24,7 +24,7 @@ describe BasicCategorySerializer do
   end
 
   context "with qa disabled" do
-    before { SiteSetting.qa_enabled = false }
+    before { SiteSetting.post_voting_enabled = false }
 
     it "should not return qa category attributes" do
       expect(serialized.key?(:create_as_post_voting_default)).to eq(false)

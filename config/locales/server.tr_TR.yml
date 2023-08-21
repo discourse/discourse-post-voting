@@ -24,10 +24,10 @@ tr_TR:
         other: "%{count} Yanıt"
   site_settings:
     qa_tags: "Konuyla ilgili gönderi oylamasını etkinleştirmek için etiketler"
-    qa_enabled: "Gönderi Oylaması Eklentisini etkinleştir"
-    qa_enable_likes_on_answers: "Gönderi Oylaması konularındaki yanıtlarda beğen düğmesini etkinleştir"
-    qa_undo_vote_action_window: "Kullanıcıların Gönderi Oylama konularındaki oyları geri almalarına izin verilen dakika sayısı (limit olmaması için 0 girin)"
-    qa_comment_limit_per_post: "Her gönderide izin verilen yorum sayısı"
+    post_voting_enabled: "Gönderi Oylaması Eklentisini etkinleştir"
+    post_voting_enable_likes_on_answers: "Gönderi Oylaması konularındaki yanıtlarda beğen düğmesini etkinleştir"
+    post_voting_undo_vote_action_window: "Kullanıcıların Gönderi Oylama konularındaki oyları geri almalarına izin verilen dakika sayısı (limit olmaması için 0 girin)"
+    post_voting_comment_limit_per_post: "Her gönderide izin verilen yorum sayısı"
   post_action_types:
     vote:
       title: "Oy verin"

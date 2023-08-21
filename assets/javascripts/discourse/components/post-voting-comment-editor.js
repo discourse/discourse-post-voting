@@ -16,7 +16,7 @@ export default class PostVotingCommentEditor extends Component {
     this.value = value;
     this.submitDisabled =
       value.length < this.siteSettings.min_post_length ||
-      value.length > this.siteSettings.qa_comment_max_raw_length;
+      value.length > this.siteSettings.post_voting_comment_max_raw_length;
   }
 
   @action

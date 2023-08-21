@@ -46,7 +46,7 @@ module PostVoting
         msg =
           I18n.t(
             "vote.error.undo_vote_action_window",
-            count: SiteSetting.qa_undo_vote_action_window.to_i,
+            count: SiteSetting.post_voting_undo_vote_action_window.to_i,
           )
 
         render_json_error(msg, status: 403)
@@ -148,7 +148,7 @@ module PostVoting
           error_message = "vote.error.one_vote_per_post"
         elsif !PostVoting::VoteManager.can_undo(votable, current_user)
           error_message = "vote.error.undo_vote_action_window"
-          error_message_params = { count: SiteSetting.qa_undo_vote_action_window.to_i }
+          error_message_params = { count: SiteSetting.post_voting_undo_vote_action_window.to_i }
         end
       elsif votable.class.name == "QuestionAnswerComment"
         if QuestionAnswerVote.exists?(votable: votable, user: current_user)

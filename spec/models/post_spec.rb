@@ -12,7 +12,7 @@ describe Post do
   let(:up) { QuestionAnswerVote.directions[:up] }
   let(:users) { [user1, user2, user3] }
 
-  before { SiteSetting.qa_enabled = true }
+  before { SiteSetting.post_voting_enabled = true }
 
   describe "validation" do
     it "ensures that post cannot be created with reply_to_post_number set" do

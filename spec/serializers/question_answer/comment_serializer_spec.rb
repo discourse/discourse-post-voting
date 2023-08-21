@@ -9,7 +9,7 @@ describe QuestionAnswerCommentSerializer do
   fab!(:comment) { Fabricate(:post_voting_comment, post: post) }
 
   before do
-    SiteSetting.qa_enabled = true
+    SiteSetting.post_voting_enabled = true
     PostVoting::VoteManager.vote(comment, post.user)
   end
 

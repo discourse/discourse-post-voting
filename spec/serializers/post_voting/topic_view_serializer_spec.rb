@@ -11,7 +11,7 @@ describe PostVoting::TopicViewSerializerExtension do
   fab!(:guardian) { Guardian.new(user) }
   let(:topic_view) { TopicView.new(topic, user) }
 
-  before { SiteSetting.qa_enabled = true }
+  before { SiteSetting.post_voting_enabled = true }
 
   it "should return correct values" do
     PostVoting::VoteManager.vote(topic_post, user)
@@ -46,11 +46,11 @@ describe PostVoting::TopicViewSerializerExtension do
   end
 
   it "should not include dependent_attrs when plugin is disabled" do
-    SiteSetting.qa_enabled = false
+    SiteSetting.post_voting_enabled = false
 
     payload = TopicViewSerializer.new(topic_view, scope: guardian, root: false).as_json
 
-    expect(payload[:qa_enabled]).to eq(nil)
+    expect(payload[:post_voting_enabled]).to eq(nil)
     expect(payload[:last_answered_at]).to eq(nil)
     expect(payload[:last_commented_on]).to eq(nil)
     expect(payload[:answer_count]).to eq(nil)

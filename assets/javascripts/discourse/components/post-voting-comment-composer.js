@@ -22,14 +22,18 @@ export default class PostVotingCommentComposer extends Component {
       });
     }
 
-    if (this.value.length > this.siteSettings.qa_comment_max_raw_length) {
+    if (
+      this.value.length > this.siteSettings.post_voting_comment_max_raw_length
+    ) {
       return I18n.t("post_voting.post.post_voting_comment.composer.too_long", {
-        count: this.siteSettings.qa_comment_max_raw_length,
+        count: this.siteSettings.post_voting_comment_max_raw_length,
       });
     }
   }
 
   get remainingCharacters() {
-    return this.siteSettings.qa_comment_max_raw_length - this.value.length;
+    return (
+      this.siteSettings.post_voting_comment_max_raw_length - this.value.length
+    );
   }
 }

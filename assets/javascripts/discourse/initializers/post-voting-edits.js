@@ -13,7 +13,7 @@ function initPlugin(api) {
     return (
       _attrs.post_voting_has_votes !== undefined &&
       _attrs.post_number !== 1 &&
-      !siteSetting.qa_enable_likes_on_answers
+      !siteSetting.post_voting_enable_likes_on_answers
     );
   });
 
@@ -218,7 +218,7 @@ export default {
   initialize(container) {
     const siteSettings = container.lookup("site-settings:main");
 
-    if (!siteSettings.qa_enabled) {
+    if (!siteSettings.post_voting_enabled) {
       return;
     }
 

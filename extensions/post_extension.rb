@@ -33,7 +33,7 @@ module PostVoting
     private
 
     def ensure_only_replies
-      return unless SiteSetting.qa_enabled
+      return unless SiteSetting.post_voting_enabled
       if will_save_change_to_reply_to_post_number? && reply_to_post_number &&
            reply_to_post_number != 1 && is_post_voting_topic?
         errors.add(:base, I18n.t("post.post_voting.errors.replying_to_post_not_permited"))

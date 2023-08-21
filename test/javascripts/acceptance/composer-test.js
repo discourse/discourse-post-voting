@@ -10,7 +10,7 @@ let createAsPostVotingSetInRequest = false;
 
 acceptance("Discourse Post Voting - composer", function (needs) {
   needs.user();
-  needs.settings({ qa_enabled: true });
+  needs.settings({ post_voting_enabled: true });
 
   needs.hooks.afterEach(() => {
     createAsPostVotingSetInRequest = false;

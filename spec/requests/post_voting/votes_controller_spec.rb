@@ -13,7 +13,7 @@ RSpec.describe PostVoting::VotesController do
   fab!(:admin) { Fabricate(:admin) }
   fab!(:category) { Fabricate(:category) }
 
-  before { SiteSetting.qa_enabled = true }
+  before { SiteSetting.post_voting_enabled = true }
 
   describe "#create" do
     before { sign_in(user) }
@@ -55,8 +55,8 @@ RSpec.describe PostVoting::VotesController do
       expect(response.status).to eq(403)
     end
 
-    it "should return 403 after qa_undo_vote_action_window" do
-      SiteSetting.qa_undo_vote_action_window = 1
+    it "should return 403 after post_voting_undo_vote_action_window" do
+      SiteSetting.post_voting_undo_vote_action_window = 1
 
       post "/post_voting/vote.json", params: { post_id: answer.id }
 
@@ -103,7 +103,7 @@ RSpec.describe PostVoting::VotesController do
     end
 
     it "should cant undo vote" do
-      SiteSetting.qa_undo_vote_action_window = 1
+      SiteSetting.post_voting_undo_vote_action_window = 1
 
       post "/post_voting/vote.json", params: { post_id: answer.id }
 

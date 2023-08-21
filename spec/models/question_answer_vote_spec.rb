@@ -10,12 +10,12 @@ describe QuestionAnswerVote do
   fab!(:post_1) { Fabricate(:post, topic: topic, user: user) }
   fab!(:tag) { Fabricate(:tag) }
 
-  before { SiteSetting.qa_enabled = true }
+  before { SiteSetting.post_voting_enabled = true }
 
   describe "validations" do
     context "with posts" do
       it "ensures votes cannot be created when qa is disabled" do
-        SiteSetting.qa_enabled = false
+        SiteSetting.post_voting_enabled = false
 
         vote =
           QuestionAnswerVote.new(
@@ -79,7 +79,7 @@ describe QuestionAnswerVote do
       fab!(:comment) { Fabricate(:post_voting_comment, post: post) }
 
       it "ensures vote cannot be created on a comment when qa is disabled" do
-        SiteSetting.qa_enabled = false
+        SiteSetting.post_voting_enabled = false
         comment.reload
 
         vote =

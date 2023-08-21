@@ -12,7 +12,7 @@ describe PostVoting::VoteManager do
   fab!(:up) { QuestionAnswerVote.directions[:up] }
   fab!(:down) { QuestionAnswerVote.directions[:down] }
 
-  before { SiteSetting.qa_enabled = true }
+  before { SiteSetting.post_voting_enabled = true }
 
   describe ".vote" do
     it "can create an upvote" do

@@ -22,7 +22,7 @@ export default class PostVotingCommentsMenuComposer extends Component {
   updateValue(value) {
     this.submitDisabled =
       value.length < this.siteSettings.min_post_length ||
-      value.length > this.siteSettings.qa_comment_max_raw_length;
+      value.length > this.siteSettings.post_voting_comment_max_raw_length;
     this.value = value;
   }
 

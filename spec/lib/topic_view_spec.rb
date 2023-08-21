@@ -24,7 +24,7 @@ describe TopicView do
   end
 
   before do
-    SiteSetting.qa_enabled = true
+    SiteSetting.post_voting_enabled = true
     vote
     vote_2
     comment
