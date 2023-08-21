@@ -127,7 +127,7 @@ function setupPostVoting(needs) {
     post_voting_enabled: true,
     min_post_length: 5,
     post_voting_comment_max_raw_length: 50,
-    qa_enable_likes_on_answers: false,
+    post_voting_enable_likes_on_answers: false,
   });
 
   needs.hooks.afterEach(() => {

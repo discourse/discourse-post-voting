@@ -24,7 +24,7 @@ ja:
   site_settings:
     qa_tags: "トピックへの投稿の投票を有効にするタグ"
     post_voting_enabled: "投稿の投票プラグインを有効化"
-    qa_enable_likes_on_answers: "投稿の投票トピックでの返信に「いいね！」ボタンを有効にする"
+    post_voting_enable_likes_on_answers: "投稿の投票トピックでの返信に「いいね！」ボタンを有効にする"
     post_voting_undo_vote_action_window: "投稿の投票トピックでユーザーが投票を取り消すことのできる分数 (無制限の場合は 0 を入力します)"
     post_voting_comment_limit_per_post: "各投稿に許可されるコメント数"
   post_action_types:

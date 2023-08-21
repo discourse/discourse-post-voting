@@ -25,7 +25,7 @@ nl:
   site_settings:
     qa_tags: "Tags om stemmen op berichten in te schakelen voor een topic"
     post_voting_enabled: "Plug-in Stemmen op berichten inschakelen"
-    qa_enable_likes_on_answers: "Likeknop inschakelen voor antwoorden in topics met Stemmen op berichten"
+    post_voting_enable_likes_on_answers: "Likeknop inschakelen voor antwoorden in topics met Stemmen op berichten"
     post_voting_undo_vote_action_window: "Aantal minuten waarbinnen gebruikers stemmen in topics met Stemmen op berichten ongedaan kunnen maken (vul 0 in voor geen limiet)"
     post_voting_comment_limit_per_post: "Aantal toegestane reacties op elk bericht"
   post_action_types:

@@ -25,7 +25,7 @@ it:
   site_settings:
     qa_tags: "Etichette per abilitare la votazione dei messaggi sull'argomento"
     post_voting_enabled: "Abilita il plugin per la votazione dei messaggi"
-    qa_enable_likes_on_answers: "Abilita il pulsante Mi piace nelle risposte agli argomenti con votazione dei messaggi"
+    post_voting_enable_likes_on_answers: "Abilita il pulsante Mi piace nelle risposte agli argomenti con votazione dei messaggi"
     post_voting_undo_vote_action_window: "Numero di minuti consentiti agli utenti per annullare i voti negli argomenti con votazione dei messaggi (inserisci 0 per non definire alcun limite)"
     post_voting_comment_limit_per_post: "Numero di commenti consentiti su ogni messaggio"
   post_action_types:
