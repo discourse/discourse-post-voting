@@ -17,6 +17,8 @@ gl:
               other: "Escriba como mínimo %{count} caracteres"
           edit: "editar"
           cancel: "cancelar"
+          user:
+            deleted: "(usuario eliminado)"
       topic:
         sort_by: "Ordenar por"
         activity: "Actividade"

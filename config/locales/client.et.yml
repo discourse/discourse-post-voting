@@ -17,6 +17,8 @@ et:
               other: "Sisesta vähemalt %{count} sümbolit"
           edit: "muuda"
           cancel: "tühista"
+          user:
+            deleted: "(kasutaja kustutatud)"
       topic:
         sort_by: "Järjesta"
         activity: "Aktiivsus"

@@ -17,6 +17,8 @@ nb_NO:
               other: "Skriv inn minst %{count} tegn"
           edit: "endre"
           cancel: "avbryt"
+          user:
+            deleted: "(bruker slettet)"
       topic:
         sort_by: "Sorter etter"
         activity: "Aktivitet"

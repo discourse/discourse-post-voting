@@ -19,6 +19,8 @@ lt:
               other: "Įveskite bent jau %{count}simbolius"
           edit: "redaguoti"
           cancel: "atšaukti"
+          user:
+            deleted: "(naudotojas ištrintas)"
       topic:
         sort_by: "Rūšiuoti pagal"
         activity: "Aktyvumas"

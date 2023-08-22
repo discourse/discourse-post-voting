@@ -19,6 +19,8 @@ cs:
               other: "Zadejte alespoň %{count} znaků"
           edit: "upravit"
           cancel: "zrušit"
+          user:
+            deleted: "(uživatel smazán)"
       topic:
         sort_by: "Seřadil"
         activity: "Aktivita"

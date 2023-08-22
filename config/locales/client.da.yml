@@ -17,6 +17,8 @@ da:
               other: "Indtast mindst %{count} tegn"
           edit: "redigér"
           cancel: "annuller"
+          user:
+            deleted: "(bruger slettet)"
       topic:
         sort_by: "Sorter efter"
         activity: "Aktivitet"

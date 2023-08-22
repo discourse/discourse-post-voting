@@ -17,6 +17,8 @@ ca:
               other: "Introduïu almenys %{count} caràcters"
           edit: "edita"
           cancel: "cancel·la"
+          user:
+            deleted: "(usuari suprimit)"
       topic:
         sort_by: "Ordena per"
         activity: "Activitat"

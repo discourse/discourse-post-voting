@@ -16,6 +16,8 @@ vi:
               other: "Nhập ít nhất %{count} kí tự"
           edit: "sửa"
           cancel: "hủy"
+          user:
+            deleted: "(người dùng đã bị xóa)"
       topic:
         sort_by: "Sắp xếp theo"
         activity: "Hoạt động"

@@ -16,6 +16,8 @@ ko:
               other: "최소 %{count}자 이상 입력하세요"
           edit: "수정"
           cancel: "취소"
+          user:
+            deleted: "(사용자 삭제됨)"
       topic:
         sort_by: "정렬 기준"
         activity: "활동"

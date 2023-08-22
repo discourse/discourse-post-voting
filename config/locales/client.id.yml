@@ -11,5 +11,7 @@ id:
         post_voting_comment:
           edit: "ubah"
           cancel: "batal"
+          user:
+            deleted: "(pengguna dihapus)"
       topic:
         activity: "Activity"

@@ -11,6 +11,8 @@ bg:
         post_voting_comment:
           edit: "промени"
           cancel: "прекрати"
+          user:
+            deleted: "(потребителят е изтрит)"
       topic:
         sort_by: "Сортирай по"
         activity: "Активност"

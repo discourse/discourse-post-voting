@@ -41,6 +41,8 @@ zh_TW:
             other: 顯示 %{count} 更多評論
           delete:
             confirm: "您確定要刪除此評論嗎？"
+          user:
+            deleted: "（使用者已被刪除）"
       topic:
         answer:
           label: "回答"

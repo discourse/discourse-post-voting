@@ -25,6 +25,8 @@ fa_IR:
               other: "حداقل %{count} نویسه وارد کنید"
           edit: "ویرایش"
           cancel: "لغو"
+          user:
+            deleted: "(کاربر حذف شده)"
       topic:
         answer:
           label: "پاسخ"

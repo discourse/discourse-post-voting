@@ -5,6 +5,10 @@
 # https://translate.discourse.org/
 
 zh_CN:
+  admin_js:
+    site_settings:
+      categories:
+        post_voting: 帖子投票
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -50,6 +54,8 @@ zh_CN:
             other: 显示其他 %{count} 条评论
           delete:
             confirm: "确定要删除此评论吗？"
+          user:
+            deleted: "（用户已删除）"
       topic:
         answer:
           label: "回答"
