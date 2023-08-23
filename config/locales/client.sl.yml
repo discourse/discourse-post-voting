@@ -19,6 +19,8 @@ sl:
               other: "Vnesite vsaj %{count} znakov"
           edit: "uredi"
           cancel: "prekliči"
+          user:
+            deleted: "(uporabnik izbrisan)"
       topic:
         sort_by: "Uredi po"
         activity: "Aktivnost"

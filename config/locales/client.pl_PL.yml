@@ -19,6 +19,8 @@ pl_PL:
               other: "Wprowadź co najmniej %{count} znaki"
           edit: "edytuj"
           cancel: "anuluj"
+          user:
+            deleted: "(użytkownik usunięty)"
       topic:
         sort_by: "Sortuj po"
         activity: "Aktywność"

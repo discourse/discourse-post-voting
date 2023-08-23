@@ -17,6 +17,8 @@ ur:
               other: "کم از کم %{count} حروف درج کریں"
           edit: "ترمیم کریں"
           cancel: "منسوخ"
+          user:
+            deleted: "(صارف مٹادیا گیا)"
       topic:
         sort_by: "ترتیب بہ"
         activity: "سرگرمی"

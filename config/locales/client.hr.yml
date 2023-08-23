@@ -18,6 +18,8 @@ hr:
               other: "Unesite barem %{count} znakova"
           edit: "uredi"
           cancel: "otkaži"
+          user:
+            deleted: "(korisnik izbrisan)"
       topic:
         sort_by: "Sortiraj po"
         activity: "Aktivnosti"

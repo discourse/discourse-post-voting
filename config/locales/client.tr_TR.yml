@@ -5,6 +5,10 @@
 # https://translate.discourse.org/
 
 tr_TR:
+  admin_js:
+    site_settings:
+      categories:
+        post_voting: Gönderi Oylaması
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -55,6 +59,8 @@ tr_TR:
             other: '%{count} yorum daha göster'
           delete:
             confirm: "Bu yorumu silmek istediğinizden emin misiniz?"
+          user:
+            deleted: "(kullanıcı silindi)"
       topic:
         answer:
           label: "Yanıt"

@@ -5,6 +5,10 @@
 # https://translate.discourse.org/
 
 nl:
+  admin_js:
+    site_settings:
+      categories:
+        post_voting: Stemmen op berichten
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -55,6 +59,8 @@ nl:
             other: Nog %{count} reacties weergeven
           delete:
             confirm: "Weet je zeker dat je deze reactie wilt verwijderen?"
+          user:
+            deleted: "(gebruiker verwijderd)"
       topic:
         answer:
           label: "Antwoorden"

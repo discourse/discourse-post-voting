@@ -16,6 +16,8 @@ lv:
               other: "Ievadiet vismaz %{count} simbolus"
           edit: "rediģēt"
           cancel: "atcelt"
+          user:
+            deleted: "(lietotājs dzēsts)"
       topic:
         sort_by: "Kārtot pēc"
         activity: "Aktivitāte"

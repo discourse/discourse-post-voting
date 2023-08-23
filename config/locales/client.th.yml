@@ -16,6 +16,8 @@ th:
               other: "กรอกอย่างน้อย %{count} ตัวอักษร"
           edit: "แก้ไข"
           cancel: "ยกเลิก"
+          user:
+            deleted: "(ผู้ใช้ถูกลบ)"
       topic:
         sort_by: "เรียงโดย"
         activity: "กิจกรรม"

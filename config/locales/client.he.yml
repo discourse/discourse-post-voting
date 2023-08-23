@@ -5,6 +5,10 @@
 # https://translate.discourse.org/
 
 he:
+  admin_js:
+    site_settings:
+      categories:
+        post_voting: הצבעה על פוסטים
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -65,6 +69,8 @@ he:
             other: הצגת %{count} תגובות נוספות
           delete:
             confirm: "למחוק את ההערה הזאת?"
+          user:
+            deleted: "(משתמש נמחק)"
       topic:
         answer:
           label: "מענה"

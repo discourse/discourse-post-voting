@@ -5,6 +5,10 @@
 # https://translate.discourse.org/
 
 ru:
+  admin_js:
+    site_settings:
+      categories:
+        post_voting: Голосование по сообщениям
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -12,9 +16,18 @@ ru:
         question_answer_user_commented: "новый комментарий"
       popup:
         question_answer_user_commented: '%{username} оставил(а) комментарий в теме «%{topic}» — %{site_title}'
+    category:
+      post_voting_settings_heading: Голосование по сообщениям
+      create_as_post_voting_default: Новые темы в этой категории по умолчанию отображаются в формате «Голосование по сообщениям».
     composer:
+      create_post_voting:
+        label: "Cоздать тему с голосованием по сообщению"
       composer_actions:
+        create_as_post_voting:
+          label: "Включить голосование по сообщениям"
+          desc: "Тема будет создана в формате голосования по сообщениям"
         remove_as_post_voting:
+          label: "Отключить голосование по сообщениям"
           desc: "Тема будет создана в обычном формате"
     vote:
       already_voted: "Проголосовать можно только один раз за вопрос."
@@ -33,7 +46,7 @@ ru:
             too_short:
               one: "Введите не менее %{count} символа"
               few: "Введите не менее %{count} символов"
-              many: "Введите не менее %{count} символа"
+              many: "Введите не менее %{count} символов"
               other: "Введите не менее %{count} символа"
             length_ok:
               one: "Остался %{count} символ..."
@@ -53,13 +66,15 @@ ru:
             one: Показать ещё %{count} комментарий
             few: Показать ещё %{count} комментария
             many: Показать ещё %{count} комментариев
-            other: Показать ещё %{count} комментариев
+            other: Показать ещё %{count} комментария
           delete:
             confirm: "Действительно удалить этот комментарий?"
+          user:
+            deleted: "(пользователь удалён)"
       topic:
         answer:
           label: "Ответ"
-          help: "начать писать ответ"
+          help: "начните писать ответ"
         sort_by: "Сортировать по"
         votes: "Голосам"
         activity: "Активности"
@@ -67,4 +82,4 @@ ru:
           one: "%{count} ответ"
           few: "%{count} ответа"
           many: "%{count} ответов"
-          other: "%{count} ответов"
+          other: "%{count} ответа"

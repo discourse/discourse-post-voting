@@ -5,6 +5,10 @@
 # https://translate.discourse.org/
 
 ja:
+  admin_js:
+    site_settings:
+      categories:
+        post_voting: 投稿の投票
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -50,6 +54,8 @@ ja:
             other: さらに %{count} 件のコメントを表示
           delete:
             confirm: "このコメントを削除してもよろしいですか？"
+          user:
+            deleted: "(削除されたユーザー)"
       topic:
         answer:
           label: "回答"

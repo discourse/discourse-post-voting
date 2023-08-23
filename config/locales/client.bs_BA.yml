@@ -18,6 +18,8 @@ bs_BA:
               other: "Unesite najmanje %{count} znakova"
           edit: "uredi"
           cancel: "otkaži"
+          user:
+            deleted: "(korisnik izbrisan)"
       topic:
         sort_by: "Sortiraj po"
         activity: "Activity"

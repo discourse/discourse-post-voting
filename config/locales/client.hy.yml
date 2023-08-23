@@ -17,6 +17,8 @@ hy:
               other: "Մուտքագրեք առնվազն %{count} սիմվոլ"
           edit: "խմբագրել"
           cancel: "չեղարկել"
+          user:
+            deleted: "(օգտատերը ջնջված է)"
       topic:
         sort_by: "Դասավորել ըստ"
         activity: "Ակտիվության"

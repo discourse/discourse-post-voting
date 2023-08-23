@@ -5,6 +5,10 @@
 # https://translate.discourse.org/
 
 ar:
+  admin_js:
+    site_settings:
+      categories:
+        post_voting: التصويت على المنشورات
   js:
     notifications:
       question_answer_user_commented: "‏<span>⁨%{username}⁩</span> ‏%{description}"
@@ -75,6 +79,8 @@ ar:
             other: عرض %{count} تعليقًا إضافيًا
           delete:
             confirm: "هل تريد بالتأكيد حذف هذا التعليق؟"
+          user:
+            deleted: "(تم حذف المستخدم)"
       topic:
         answer:
           label: "إجابة"

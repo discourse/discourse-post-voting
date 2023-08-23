@@ -18,6 +18,8 @@ ro:
               other: "Introdu cel puțin %{count} de caractere"
           edit: "Editează"
           cancel: "Anulează"
+          user:
+            deleted: "(utilizator șters)"
       topic:
         sort_by: "Sortează după"
         activity: "Activitate"

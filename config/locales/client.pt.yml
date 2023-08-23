@@ -17,6 +17,8 @@ pt:
               other: "Insira pelo menos %{count} carateres"
           edit: "editar"
           cancel: "cancelar"
+          user:
+            deleted: "(usuário eliminado)"
       topic:
         sort_by: "Ordenar por"
         activity: "Actividade"

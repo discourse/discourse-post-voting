@@ -17,6 +17,8 @@ sv:
               other: "Skriv åtminstone %{count} tecken"
           edit: "ändra"
           cancel: "avbryt"
+          user:
+            deleted: "(användare raderad)"
       topic:
         sort_by: "Sortera efter"
         activity: "Aktivitet"

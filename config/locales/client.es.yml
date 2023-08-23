@@ -5,6 +5,10 @@
 # https://translate.discourse.org/
 
 es:
+  admin_js:
+    site_settings:
+      categories:
+        post_voting: Votación de publicación
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -55,6 +59,8 @@ es:
             other: Mostrar %{count} comentarios más
           delete:
             confirm: "¿Seguro que quieres eliminar este comentario?"
+          user:
+            deleted: "(usuario eliminado)"
       topic:
         answer:
           label: "Respuesta"

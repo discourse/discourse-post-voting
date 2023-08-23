@@ -8,17 +8,28 @@ ru:
   post:
     post_voting:
       errors:
-        replying_to_post_not_permited: "Вы не можете создать запись в ответ на другую запись."
-        voting_not_permitted: "Вы не можете голосовать за эту запись."
+        post_voting_not_enabled: "Голосование по сообщениям не включено."
+        replying_to_post_not_permited: "Вы не можете создать сообщение в ответ на другое сообщение."
+        voting_not_permitted: "Вы не можете голосовать за это сообщение."
         comment_cannot_be_downvoted: "Вы можете голосовать только за комментарии."
-        self_voting_not_permitted: "Вы не можете голосовать за собственную запись или комментарий."
+        self_voting_not_permitted: "Вы не можете голосовать за собственное сообщение или комментарий."
   topic:
     post_voting:
+      errors:
+        post_voting_not_enabled: "Голосование по сообщениям не включено."
+        subtype_not_allowed: "Подтип «Голосование по сообщениям» можно использовать только с обычными темами."
+        cannot_change_to_post_voting_subtype: "Переключение на формат «Голосование по сообщениям» не допускается."
       answer_count:
         one: "%{count} ответ"
         few: "%{count} ответа"
         many: "%{count} ответов"
-        other: "%{count} ответов"
+        other: "%{count} ответа"
+  site_settings:
+    qa_tags: "Теги для переключения темы в формат «Голосование по сообщениям»"
+    post_voting_enabled: "Включить плагин «Голосование по сообщениям»"
+    post_voting_enable_likes_on_answers: "Включить лайки в ответах тем формата «Голосование по сообщениям»"
+    post_voting_undo_vote_action_window: "Количество минут, в течение которых пользователям разрешено отменять голоса в темах формата «Голосование по сообщениям» (0 — не ограничивать время)"
+    post_voting_comment_limit_per_post: "Максимальное количество комментариев к каждому сообщению"
   post_action_types:
     vote:
       title: "Голосовать"
@@ -40,5 +51,6 @@ ru:
   post_voting:
     comment:
       errors:
-        not_permitted: "Комментирование связанной записи не допускается."
-        limit_exceeded: "Достигнут лимит комментариев на одну запись: %{limit}."
+        post_voting_not_enabled: "Комментирование сообщения, не относящегося к теме в формате «Голосование по сообщениям», не допускается."
+        not_permitted: "Комментирование связанного сообщения не допускается."
+        limit_exceeded: "Достигнут лимит комментариев на одно сообщение: %{limit}."

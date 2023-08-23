@@ -13,6 +13,8 @@ hu:
         post_voting_comment:
           edit: "szerkesztés"
           cancel: "mégse"
+          user:
+            deleted: "(felhasználó törölve)"
       topic:
         sort_by: "Rendezés"
         activity: "Tevékenység"
