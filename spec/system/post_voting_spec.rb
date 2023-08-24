@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe "Post voting", type: :system do
+  fab!(:admin) { Fabricate(:admin) }
   fab!(:user1) { Fabricate(:user) }
   fab!(:user2) { Fabricate(:user) }
 
@@ -23,7 +24,11 @@ RSpec.describe "Post voting", type: :system do
       .fill_content("I think it is tomtom. But I'm also open to other opinions")
       .create
 
-    expect(topic_page.post_vote_count(1)).to have_content("0")
+    # so it seems like topic creation is taking way longer than the
+    # default max wait time.
+    # it doesn't look to be a performance issue, though
+
+    try_until_success(frequency: 0.1) { expect(topic_page.post_vote_count(1)).to have_content("0") }
 
     topic_page.click_add_comment(1).fill_comment(1, "who am I kidding lol").click_submit_comment(1)
 
@@ -34,9 +39,7 @@ RSpec.describe "Post voting", type: :system do
     topic_list.visit_topic_with_title("The best kitty… in the world")
 
     topic_page.click_footer_reply
-    composer.fill_content(
-      "I think it is steak. He's the chonkiest boi therefore the best",
-    ).create
+    composer.fill_content("I think it is steak. He's the chonkiest boi therefore the best").create
 
     topic_page.upvote(2)
   end
