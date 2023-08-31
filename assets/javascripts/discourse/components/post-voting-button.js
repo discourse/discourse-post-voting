@@ -12,6 +12,10 @@ export default class PostVotingButton extends Component {
       classes += " post-voting-button-voted";
     }
 
+    if (this.args.disabled) {
+      classes += " disabled";
+    }
+
     return classes;
   }
 

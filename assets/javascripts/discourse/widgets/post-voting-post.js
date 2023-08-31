@@ -29,6 +29,7 @@ export default createWidget("post-voting-post", {
         voted: attrs.post.post_voting_user_voted_direction === "up",
         removeVote: this.removeVote.bind(this),
         vote: this.vote.bind(this),
+        disabled: attrs.post.topic.archived || attrs.post.topic.closed,
       }),
     ];
 
@@ -93,6 +94,7 @@ export default createWidget("post-voting-post", {
         voted: attrs.post.post_voting_user_voted_direction === "down",
         removeVote: this.removeVote.bind(this),
         vote: this.vote.bind(this),
+        disabled: attrs.post.topic.archived || attrs.post.topic.closed,
       })
     );
 

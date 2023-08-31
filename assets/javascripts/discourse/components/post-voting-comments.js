@@ -13,6 +13,10 @@ export default class PostVotingComments extends Component {
     return this.comments?.[this.comments.length - 1]?.id ?? 0;
   }
 
+  get disabled() {
+    return this.args.post.topic.closed || this.args.post.topic.archived;
+  }
+
   @action
   appendComments(comments) {
     this.comments.pushObjects(comments);

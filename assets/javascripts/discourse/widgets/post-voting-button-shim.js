@@ -10,5 +10,6 @@ registerWidgetShim(
     @voted={{@data.voted}}
     @removeVote={{@data.removeVote}}
     @vote={{@data.vote}}
+    @disabled={{@data.disabled}}
   />`
 );
