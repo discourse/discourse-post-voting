@@ -24,5 +24,9 @@ RSpec.describe "Post voting", type: :system do
       count: 4,
     )
     expect(page).to have_css("#{PageObjects::Pages::PostVotingTopic::COMMENT_VOTE_BUTTON}:disabled")
+    expect(page).to have_no_css(
+      PageObjects::Pages::PostVotingTopic::COMMENT_ACTIONS,
+      visible: false,
+    )
   end
 end

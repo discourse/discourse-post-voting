@@ -5,6 +5,7 @@ module PageObjects
     class PostVotingTopic < PageObjects::Pages::Topic
       COMMENT_VOTE_BUTTON = ".post-voting-comment-actions-vote button"
       POST_VOTE_BUTTON = ".post-voting-post .post-voting-button-shim button"
+      COMMENT_ACTIONS = ".post-voting-comment-actions"
     end
   end
 end
