@@ -133,15 +133,15 @@ module PostVoting
     end
 
     def ensure_can_vote(votable)
-      raise_error("post.post_voting.errors.vote_archived_topic") if votable.topic.archived?
-
-      raise_error("post.post_voting.errors.vote_closed_topic") if votable.topic.closed?
-
       if votable.user_id == current_user.id
         raise_error("post.post_voting.errors.self_voting_not_permitted")
       end
 
       if votable.class.name == "Post"
+        raise_error("post.post_voting.errors.vote_archived_topic") if votable.topic.archived?
+
+        raise_error("post.post_voting.errors.vote_closed_topic") if votable.topic.closed?
+
         direction = vote_params[:direction] || QuestionAnswerVote.directions[:up]
         if QuestionAnswerVote.exists?(
              votable: votable,
