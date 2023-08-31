@@ -20,9 +20,9 @@ RSpec.describe "Post voting", type: :system do
 
     expect(page).to have_css(PageObjects::Pages::PostVotingTopic::POST_VOTE_BUTTON, count: 4)
     expect(page).to have_css(
-      "#{PageObjects::Pages::PostVotingTopic::POST_VOTE_BUTTON}.disabled",
+      "#{PageObjects::Pages::PostVotingTopic::POST_VOTE_BUTTON}:disabled",
       count: 4,
     )
-    expect(page).to have_css("#{PageObjects::Pages::PostVotingTopic::COMMENT_VOTE_BUTTON}.disabled")
+    expect(page).to have_css("#{PageObjects::Pages::PostVotingTopic::COMMENT_VOTE_BUTTON}:disabled")
   end
 end
