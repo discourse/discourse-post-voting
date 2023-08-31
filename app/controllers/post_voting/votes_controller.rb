@@ -133,12 +133,12 @@ module PostVoting
     end
 
     def ensure_can_vote(votable)
-      raiseError("post.post_voting.errors.vote_archived_topic") if votable.topic.archived?
+      raise_error("post.post_voting.errors.vote_archived_topic") if votable.topic.archived?
 
-      raiseError("post.post_voting.errors.vote_closed_topic") if votable.topic.closed?
+      raise_error("post.post_voting.errors.vote_closed_topic") if votable.topic.closed?
 
       if votable.user_id == current_user.id
-        raiseError("post.post_voting.errors.self_voting_not_permitted")
+        raise_error("post.post_voting.errors.self_voting_not_permitted")
       end
 
       if votable.class.name == "Post"
@@ -148,9 +148,9 @@ module PostVoting
              user_id: current_user.id,
              direction: direction,
            )
-          raiseError("vote.error.one_vote_per_post")
+          raise_error("vote.error.one_vote_per_post")
         elsif !PostVoting::VoteManager.can_undo(votable, current_user)
-          raiseError(
+          raise_error(
             "vote.error.undo_vote_action_window",
             { count: SiteSetting.post_voting_undo_vote_action_window.to_i },
           )
@@ -158,14 +158,14 @@ module PostVoting
 
         if votable.class.name == "QuestionAnswerComment" &&
              QuestionAnswerVote.exists?(votable: votable, user: current_user)
-          raiseError("vote.error.one_vote_per_comment")
+          raise_error("vote.error.one_vote_per_comment")
         end
       end
     end
 
     private
 
-    def raiseError(error_message, error_message_params = nil)
+    def raise_error(error_message, error_message_params = nil)
       raise Discourse::InvalidAccess.new(
               nil,
               nil,
