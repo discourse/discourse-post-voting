@@ -24,6 +24,7 @@
         @voted={{@comment.user_voted}}
         @removeVote={{this.removeVote}}
         @vote={{if this.currentUser this.vote (route-action "showLogin")}}
+        @disabled={{@disabled}}
       />
     </div>
 

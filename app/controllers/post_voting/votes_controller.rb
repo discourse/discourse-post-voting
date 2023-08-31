@@ -133,37 +133,45 @@ module PostVoting
     end
 
     def ensure_can_vote(votable)
-      error_message = nil
-      error_message_params = {}
-
       if votable.user_id == current_user.id
-        error_message = "post.post_voting.errors.self_voting_not_permitted"
-      elsif votable.class.name == "Post"
+        raise_error("post.post_voting.errors.self_voting_not_permitted")
+      end
+
+      if votable.class.name == "Post"
+        raise_error("post.post_voting.errors.vote_archived_topic") if votable.topic.archived?
+
+        raise_error("post.post_voting.errors.vote_closed_topic") if votable.topic.closed?
+
         direction = vote_params[:direction] || QuestionAnswerVote.directions[:up]
         if QuestionAnswerVote.exists?(
              votable: votable,
              user_id: current_user.id,
              direction: direction,
            )
-          error_message = "vote.error.one_vote_per_post"
+          raise_error("vote.error.one_vote_per_post")
         elsif !PostVoting::VoteManager.can_undo(votable, current_user)
-          error_message = "vote.error.undo_vote_action_window"
-          error_message_params = { count: SiteSetting.post_voting_undo_vote_action_window.to_i }
+          raise_error(
+            "vote.error.undo_vote_action_window",
+            { count: SiteSetting.post_voting_undo_vote_action_window.to_i },
+          )
         end
-      elsif votable.class.name == "QuestionAnswerComment"
-        if QuestionAnswerVote.exists?(votable: votable, user: current_user)
-          error_message = "vote.error.one_vote_per_comment"
-        end
-      end
 
-      if error_message.present?
-        raise Discourse::InvalidAccess.new(
-                nil,
-                nil,
-                custom_message: error_message,
-                custom_message_params: error_message_params,
-              )
+        if votable.class.name == "QuestionAnswerComment" &&
+             QuestionAnswerVote.exists?(votable: votable, user: current_user)
+          raise_error("vote.error.one_vote_per_comment")
+        end
       end
+    end
+
+    private
+
+    def raise_error(error_message, error_message_params = nil)
+      raise Discourse::InvalidAccess.new(
+              nil,
+              nil,
+              custom_message: error_message,
+              custom_message_params: error_message_params,
+            )
     end
   end
 end

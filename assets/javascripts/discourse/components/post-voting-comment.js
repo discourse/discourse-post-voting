@@ -19,7 +19,8 @@ export default class PostVotingComment extends Component {
     return (
       this.currentUser &&
       (this.args.comment.user_id === this.currentUser.id ||
-        this.currentUser.admin)
+        this.currentUser.admin) &&
+      !this.args.disabled
     );
   }
 

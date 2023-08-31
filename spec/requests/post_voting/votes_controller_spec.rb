@@ -49,6 +49,30 @@ RSpec.describe PostVoting::VotesController do
       expect(response.status).to eq(403)
     end
 
+    context "when topic archived or closed" do
+      it "returns an error when the topic is archived" do
+        topic.update(archived: true)
+
+        post "/post_voting/vote.json", params: { post_id: answer.id }
+
+        expect(response.status).to eq(403)
+        expect(JSON.parse(response.body)["errors"][0]).to eq(
+          I18n.t("post.post_voting.errors.vote_archived_topic", count: 1),
+        )
+      end
+
+      it "returns an error when the topic is closed" do
+        topic.update(closed: true)
+
+        post "/post_voting/vote.json", params: { post_id: answer.id }
+
+        expect(response.status).to eq(403)
+        expect(JSON.parse(response.body)["errors"][0]).to eq(
+          I18n.t("post.post_voting.errors.vote_closed_topic", count: 1),
+        )
+      end
+    end
+
     it "should return 403 if user votes on a post by self" do
       post "/post_voting/vote.json", params: { post_id: answer_3.id }
 

@@ -15,6 +15,10 @@ export default class PostVotingButton extends Component {
     return classes;
   }
 
+  get disabled() {
+    return this.args.disabled || this.args.loading;
+  }
+
   get iconName() {
     return this.args.direction === "up" ? "caret-up" : "caret-down";
   }
