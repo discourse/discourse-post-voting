@@ -229,4 +229,26 @@ describe TopicView do
       )
     end
   end
+
+  describe "custom default scope filters" do
+    fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
+    fab!(:post_1) { create_post(topic: topic, raw: "kitties1", post_number: 1) }
+    fab!(:post_2) { create_post(topic: topic, raw: "kitties2", post_number: 2) }
+    fab!(:post_3) do
+      create_post(topic: topic, raw: "poopy", post_number: 3, post_type: Post.types[:small_action])
+    end
+    fab!(:post_4) { create_post(topic: topic, raw: "kitties4", post_number: 4) }
+
+    it "returns all posts in chronological order when filtered by ACTIVITY" do
+      topic_view = TopicView.new(topic.id, user, filter: TopicView::ACTIVITY_FILTER)
+
+      expect(topic_view.posts.map(&:raw)).to eq(%w[kitties1 kitties2 poopy kitties4])
+    end
+
+    it "returns only regular posts in chronological order when no filter" do
+      topic_view = TopicView.new(topic.id, user)
+
+      expect(topic_view.posts.map(&:raw)).to eq(%w[kitties1 kitties2 kitties4])
+    end
+  end
 end
