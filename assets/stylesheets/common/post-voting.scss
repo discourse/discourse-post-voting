@@ -15,6 +15,10 @@
       border-top: 1px solid var(--primary-low);
     }
   }
+
+  .posts-filtered-notice:empty {
+    display: none;
+  }
 }
 
 .post-voting-answers-header {
