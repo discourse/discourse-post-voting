@@ -112,23 +112,23 @@ after_initialize do
 
     comment_ids_sql = <<~SQL
     SELECT
-      question_answer_comments.id
-    FROM question_answer_comments
+      post_voting_comments.id
+    FROM post_voting_comments
     INNER JOIN LATERAL (
       SELECT 1
       FROM (
         SELECT
           comments.id
-        FROM question_answer_comments comments
-        WHERE comments.post_id = question_answer_comments.post_id
+        FROM post_voting_comments comments
+        WHERE comments.post_id = post_voting_comments.post_id
         AND comments.deleted_at IS NULL
         ORDER BY comments.id ASC
         LIMIT #{TopicView::PRELOAD_COMMENTS_COUNT}
       ) X
-      WHERE X.id = question_answer_comments.id
+      WHERE X.id = post_voting_comments.id
     ) Y ON true
-    WHERE question_answer_comments.post_id IN (#{post_ids_sql})
-    AND question_answer_comments.deleted_at IS NULL
+    WHERE post_voting_comments.post_id IN (#{post_ids_sql})
+    AND post_voting_comments.deleted_at IS NULL
     SQL
 
     topic_view.comments = {}
@@ -154,7 +154,7 @@ after_initialize do
 
       PostVotingVote
         .joins(
-          "INNER JOIN question_answer_comments comments ON comments.id = question_answer_votes.votable_id",
+          "INNER JOIN post_voting_comments comments ON comments.id = question_answer_votes.votable_id",
         )
         .where(user: topic_view.guardian.user, votable_type: "PostVotingComment")
         .where("comments.post_id IN (?)", post_ids)
