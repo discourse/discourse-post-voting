@@ -74,7 +74,7 @@ module PostVoting
 
         # This is a very inefficient way since the performance degrades as the
         # number of voted posts in the topic increases.
-        QuestionAnswerVote
+        PostVotingVote
           .joins("INNER JOIN posts ON posts.id = question_answer_votes.votable_id")
           .where(user: user, votable_type: "Post")
           .where("posts.topic_id = ?", topic.id)

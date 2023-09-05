@@ -11,11 +11,11 @@ describe TopicsController do
   fab!(:answer_3) { create_post(topic: topic) }
 
   fab!(:vote) do
-    PostVoting::VoteManager.vote(answer_2, user, direction: QuestionAnswerVote.directions[:up])
+    PostVoting::VoteManager.vote(answer_2, user, direction: PostVotingVote.directions[:up])
   end
 
   fab!(:vote_2) do
-    PostVoting::VoteManager.vote(answer, user, direction: QuestionAnswerVote.directions[:down])
+    PostVoting::VoteManager.vote(answer, user, direction: PostVotingVote.directions[:down])
   end
 
   before { SiteSetting.post_voting_enabled = true }

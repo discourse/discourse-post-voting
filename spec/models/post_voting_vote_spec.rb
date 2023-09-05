@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe QuestionAnswerVote do
+describe PostVotingVote do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:post) { Fabricate(:post, topic: topic) }
@@ -18,11 +18,7 @@ describe QuestionAnswerVote do
         SiteSetting.post_voting_enabled = false
 
         vote =
-          QuestionAnswerVote.new(
-            votable: post,
-            user: user,
-            direction: QuestionAnswerVote.directions[:up],
-          )
+          PostVotingVote.new(votable: post, user: user, direction: PostVotingVote.directions[:up])
 
         expect(vote.valid?).to eq(false)
 
@@ -35,11 +31,7 @@ describe QuestionAnswerVote do
         post.update!(post_number: 2, reply_to_post_number: 1)
 
         vote =
-          QuestionAnswerVote.new(
-            votable: post,
-            user: user,
-            direction: QuestionAnswerVote.directions[:up],
-          )
+          PostVotingVote.new(votable: post, user: user, direction: PostVotingVote.directions[:up])
 
         expect(vote.valid?).to eq(false)
 
@@ -50,10 +42,10 @@ describe QuestionAnswerVote do
 
       it "ensures that votes can only be created for valid polymorphic types" do
         vote =
-          QuestionAnswerVote.new(
+          PostVotingVote.new(
             votable: post.topic,
             user: user,
-            direction: QuestionAnswerVote.directions[:up],
+            direction: PostVotingVote.directions[:up],
           )
 
         expect(vote.valid?).to eq(false)
@@ -62,11 +54,7 @@ describe QuestionAnswerVote do
 
       it "ensures that self voting is not allowed" do
         vote =
-          QuestionAnswerVote.new(
-            votable: post_1,
-            user: user,
-            direction: QuestionAnswerVote.directions[:up],
-          )
+          PostVotingVote.new(votable: post_1, user: user, direction: PostVotingVote.directions[:up])
 
         expect(vote.valid?).to eq(false)
         expect(vote.errors.full_messages).to contain_exactly(
@@ -83,10 +71,10 @@ describe QuestionAnswerVote do
         comment.reload
 
         vote =
-          QuestionAnswerVote.new(
+          PostVotingVote.new(
             votable: comment,
             user: user,
-            direction: QuestionAnswerVote.directions[:up],
+            direction: PostVotingVote.directions[:up],
           )
 
         expect(vote.valid?).to eq(false)
@@ -98,10 +86,10 @@ describe QuestionAnswerVote do
 
       it "ensures vote cannot be created on a comment when it is a downvote" do
         vote =
-          QuestionAnswerVote.new(
+          PostVotingVote.new(
             votable: comment,
             user: user,
-            direction: QuestionAnswerVote.directions[:down],
+            direction: PostVotingVote.directions[:down],
           )
 
         expect(vote.valid?).to eq(false)
@@ -115,7 +103,7 @@ describe QuestionAnswerVote do
 
   describe "#direction" do
     it "ensures inclusion of values" do
-      vote = QuestionAnswerVote.new(votable: post, user: user)
+      vote = PostVotingVote.new(votable: post, user: user)
 
       vote.direction = "up"
 

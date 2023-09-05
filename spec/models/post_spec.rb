@@ -9,7 +9,7 @@ describe Post do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:post) { Fabricate(:post, topic: topic) }
-  let(:up) { QuestionAnswerVote.directions[:up] }
+  let(:up) { PostVotingVote.directions[:up] }
   let(:users) { [user1, user2, user3] }
 
   before { SiteSetting.post_voting_enabled = true }
@@ -39,10 +39,10 @@ describe Post do
   end
 
   it "should return post_voting_can_vote correctly" do
-    expect(post.post_voting_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(true)
+    expect(post.post_voting_can_vote(user1.id, PostVotingVote.directions[:up])).to eq(true)
 
     PostVoting::VoteManager.vote(post, user1)
 
-    expect(post.post_voting_can_vote(user1.id, QuestionAnswerVote.directions[:up])).to eq(false)
+    expect(post.post_voting_can_vote(user1.id, PostVotingVote.directions[:up])).to eq(false)
   end
 end
