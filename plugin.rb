@@ -86,13 +86,14 @@ after_initialize do
     if topic_view.topic.is_post_voting? &&
          !topic_view.instance_variable_get(:@replies_to_post_number) &&
          !topic_view.instance_variable_get(:@post_ids)
-      scope = scope.where(reply_to_post_number: nil, post_type: Post.types[:regular])
+      scope = scope.where(reply_to_post_number: nil)
 
       if topic_view.instance_variable_get(:@filter) != TopicView::ACTIVITY_FILTER
         scope =
-          scope.unscope(:order).order(
-            "CASE post_number WHEN 1 THEN 0 ELSE 1 END, qa_vote_count DESC, post_number ASC",
-          )
+          scope
+            .where(post_type: Post.types[:regular])
+            .unscope(:order)
+            .order("CASE post_number WHEN 1 THEN 0 ELSE 1 END, qa_vote_count DESC, post_number ASC")
       end
 
       scope
