@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class QuestionAnswerCommentSerializer < ApplicationSerializer
+class PostVotingCommentSerializer < ApplicationSerializer
   attributes :id,
              :user_id,
              :name,

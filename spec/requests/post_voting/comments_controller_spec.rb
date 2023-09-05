@@ -88,11 +88,11 @@ RSpec.describe PostVoting::CommentsController do
                    }
 
               expect(response.status).to eq(200)
-            end.to change { answer.reload.question_answer_comments.count }.by(1)
+            end.to change { answer.reload.post_voting_comments.count }.by(1)
           end
           .first
 
-      comment = answer.question_answer_comments.last
+      comment = answer.post_voting_comments.last
       payload = message[:data]
 
       expect(payload[:comment][:id]).to eq(comment.id)
@@ -125,7 +125,7 @@ RSpec.describe PostVoting::CommentsController do
           .first
 
       notification = answer.user.notifications.last
-      comment = QuestionAnswerComment.last
+      comment = PostVotingComment.last
 
       expect(notification.notification_type).to eq(
         Notification.types[:question_answer_user_commented],
@@ -152,10 +152,10 @@ RSpec.describe PostVoting::CommentsController do
              }
 
         expect(response.status).to eq(200)
-      end.to change { answer.reload.question_answer_comments.count }.by(1)
+      end.to change { answer.reload.post_voting_comments.count }.by(1)
 
       payload = response.parsed_body
-      comment = answer.question_answer_comments.last
+      comment = answer.post_voting_comments.last
 
       expect(payload["id"]).to eq(comment.id)
       expect(payload["name"]).to eq(user.name)
@@ -300,7 +300,7 @@ RSpec.describe PostVoting::CommentsController do
 
       expect(response.status).to eq(200)
       expect(
-        QuestionAnswerComment
+        PostVotingComment
           .with_deleted
           .where("deleted_at IS NOT NULL AND id = ?", comment.id)
           .exists?,
@@ -324,7 +324,7 @@ RSpec.describe PostVoting::CommentsController do
       expect(message.data[:comments_count]).to eq(2)
 
       expect(
-        QuestionAnswerComment
+        PostVotingComment
           .with_deleted
           .where("deleted_at IS NOT NULL AND id = ?", comment.id)
           .exists?,

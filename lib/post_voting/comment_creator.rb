@@ -3,7 +3,7 @@
 module PostVoting
   class CommentCreator
     def self.create(attributes)
-      comment = QuestionAnswerComment.new(attributes)
+      comment = PostVotingComment.new(attributes)
 
       ActiveRecord::Base.transaction do
         if comment.save
@@ -20,8 +20,8 @@ module PostVoting
       Scheduler::Defer.later "Publish new post voting comment" do
         comment.post.publish_change_to_clients!(
           :post_voting_post_commented,
-          comment: QuestionAnswerCommentSerializer.new(comment, root: false).as_json,
-          comments_count: QuestionAnswerComment.where(post_id: comment.post_id).count,
+          comment: PostVotingCommentSerializer.new(comment, root: false).as_json,
+          comments_count: PostVotingComment.where(post_id: comment.post_id).count,
         )
       end
     end

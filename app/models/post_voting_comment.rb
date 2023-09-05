@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class QuestionAnswerComment < ActiveRecord::Base
+class PostVotingComment < ActiveRecord::Base
+  self.table_name = "question_answer_comments"
   include Trashable
 
   # Bump this when changing MARKDOWN_FEATURES or MARKDOWN_IT_RULES
@@ -17,7 +18,7 @@ class QuestionAnswerComment < ActiveRecord::Base
 
   validate :ensure_can_comment, on: [:create]
 
-  validates_with QuestionAnswerCommentValidator
+  validates_with PostVotingCommentValidator
 
   before_validation :cook_raw, if: :will_save_change_to_raw?
 

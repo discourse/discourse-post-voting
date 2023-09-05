@@ -15,12 +15,12 @@ module PostVoting
       end
 
       comments =
-        QuestionAnswerComment
+        PostVotingComment
           .includes(:user)
           .where("id > ? AND post_id = ?", comments_params[:last_comment_id], @post.id)
           .order(id: :asc)
 
-      render_serialized(comments, QuestionAnswerCommentSerializer, root: "comments")
+      render_serialized(comments, PostVotingCommentSerializer, root: "comments")
     end
 
     def create
@@ -36,7 +36,7 @@ module PostVoting
       if comment.errors.present?
         render_json_error(comment.errors.full_messages, status: 403)
       else
-        render_serialized(comment, QuestionAnswerCommentSerializer, root: false)
+        render_serialized(comment, PostVotingCommentSerializer, root: false)
       end
     end
 
@@ -59,7 +59,7 @@ module PostVoting
           )
         end
 
-        render_serialized(comment, QuestionAnswerCommentSerializer, root: false)
+        render_serialized(comment, PostVotingCommentSerializer, root: false)
       else
         render_json_error(comment.errors.full_messages, status: 403)
       end
@@ -78,7 +78,7 @@ module PostVoting
         comment.post.publish_change_to_clients!(
           :post_voting_post_comment_trashed,
           comment_id: comment.id,
-          comments_count: QuestionAnswerComment.where(post_id: comment.post_id).count,
+          comments_count: PostVotingComment.where(post_id: comment.post_id).count,
         )
       end
 
@@ -93,7 +93,7 @@ module PostVoting
     end
 
     def find_comment(comment_id)
-      comment = QuestionAnswerComment.find_by(id: comment_id)
+      comment = PostVotingComment.find_by(id: comment_id)
       raise Discourse::NotFound if comment.blank?
       comment
     end

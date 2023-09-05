@@ -26,13 +26,13 @@ after_initialize do
     ../extensions/topic_view_extension.rb
     ../extensions/user_extension.rb
     ../extensions/composer_messages_finder_extension.rb
-    ../app/validators/question_answer_comment_validator.rb
+    ../app/validators/post_voting_comment_validator.rb
     ../app/controllers/post_voting/votes_controller.rb
     ../app/controllers/post_voting/comments_controller.rb
     ../app/models/post_voting_vote.rb
-    ../app/models/question_answer_comment.rb
+    ../app/models/post_voting_comment.rb
     ../app/serializers/basic_voter_serializer.rb
-    ../app/serializers/question_answer_comment_serializer.rb
+    ../app/serializers/post_voting_comment_serializer.rb
     ../config/routes.rb
   ].each { |path| load File.expand_path(path, __FILE__) }
 
@@ -132,7 +132,7 @@ after_initialize do
     SQL
 
     topic_view.comments = {}
-    QuestionAnswerComment
+    PostVotingComment
       .includes(:user)
       .where("id IN (#{comment_ids_sql})")
       .order(id: :asc)
@@ -141,8 +141,7 @@ after_initialize do
         topic_view.comments[comment.post_id] << comment
       end
 
-    topic_view.comments_counts =
-      QuestionAnswerComment.where(post_id: post_ids).group(:post_id).count
+    topic_view.comments_counts = PostVotingComment.where(post_id: post_ids).group(:post_id).count
 
     topic_view.posts_user_voted = {}
     topic_view.comments_user_voted = {}
@@ -157,7 +156,7 @@ after_initialize do
         .joins(
           "INNER JOIN question_answer_comments comments ON comments.id = question_answer_votes.votable_id",
         )
-        .where(user: topic_view.guardian.user, votable_type: "QuestionAnswerComment")
+        .where(user: topic_view.guardian.user, votable_type: "PostVotingComment")
         .where("comments.post_id IN (?)", post_ids)
         .pluck(:votable_id)
         .each { |votable_id| topic_view.comments_user_voted[votable_id] = true }
@@ -204,7 +203,7 @@ after_initialize do
 
   register_user_destroyer_on_content_deletion_callback(
     Proc.new do |user|
-      QuestionAnswerComment.where(user_id: user.id).delete_all
+      PostVotingComment.where(user_id: user.id).delete_all
       PostVoting::VoteManager.bulk_remove_votes_by(user)
     end,
   )

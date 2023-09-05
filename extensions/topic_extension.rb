@@ -37,7 +37,7 @@ module PostVoting
     def comments
       @comments ||=
         begin
-          QuestionAnswerComment
+          PostVotingComment
             .joins(:post)
             .where("posts.topic_id = ?", self.id)
             .order(created_at: :asc)
