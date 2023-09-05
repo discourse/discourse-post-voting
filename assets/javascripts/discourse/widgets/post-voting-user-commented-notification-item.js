@@ -6,7 +6,7 @@ import { buildAnchorId } from "../components/post-voting-comment";
 
 createWidgetFrom(
   DefaultNotificationItem,
-  "post-voting-user-commented-notification-item",
+  "question-answer-user-commented-notification-item",
   {
     url(data) {
       const attrs = this.attrs;
