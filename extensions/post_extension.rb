@@ -5,7 +5,7 @@ module PostVoting
     def self.included(base)
       base.ignored_columns = %w[vote_count]
 
-      base.has_many :question_answer_votes, as: :votable, dependent: :delete_all
+      base.has_many :post_voting_votes, as: :votable, dependent: :delete_all
       base.has_many :question_answer_comments, dependent: :destroy
       base.validate :ensure_only_replies
     end

@@ -32,7 +32,7 @@ RSpec.describe PostVoting::VotesController do
 
       expect(response.status).to eq(200)
 
-      vote = answer.question_answer_votes.first
+      vote = answer.post_voting_votes.first
 
       expect(vote.votable_type).to eq("Post")
       expect(vote.votable_id).to eq(answer.id)
@@ -109,7 +109,7 @@ RSpec.describe PostVoting::VotesController do
 
       expect(response.status).to eq(200)
 
-      vote = answer.question_answer_votes.first
+      vote = answer.post_voting_votes.first
 
       expect(vote.votable).to eq(answer)
       expect(vote.user_id).to eq(user.id)

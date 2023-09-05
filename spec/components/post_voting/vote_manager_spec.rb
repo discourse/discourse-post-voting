@@ -130,7 +130,7 @@ describe PostVoting::VoteManager do
       vote_8 = PostVoting::VoteManager.vote(comment_3, other_user_2, direction: up)
 
       expect(PostVotingVote.exists?(id: [vote_1.id, vote_2.id, vote_3.id, vote_4.id])).to eq(true)
-      expect(user.question_answer_votes.count).to eq(4)
+      expect(user.post_voting_votes.count).to eq(4)
       expect(PostVotingVote.count).to eq(8)
 
       expect(post.qa_vote_count).to eq(-2)

@@ -21,7 +21,7 @@ class QuestionAnswerComment < ActiveRecord::Base
 
   before_validation :cook_raw, if: :will_save_change_to_raw?
 
-  has_many :votes, class_name: "QuestionAnswerVote", as: :votable, dependent: :delete_all
+  has_many :votes, class_name: "PostVotingVote", as: :votable, dependent: :delete_all
 
   MARKDOWN_FEATURES = %w[censored emoji]
 
