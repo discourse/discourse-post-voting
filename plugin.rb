@@ -29,7 +29,7 @@ after_initialize do
     ../app/validators/question_answer_comment_validator.rb
     ../app/controllers/post_voting/votes_controller.rb
     ../app/controllers/post_voting/comments_controller.rb
-    ../app/models/question_answer_vote.rb
+    ../app/models/post_voting_vote.rb
     ../app/models/question_answer_comment.rb
     ../app/serializers/basic_voter_serializer.rb
     ../app/serializers/question_answer_comment_serializer.rb
