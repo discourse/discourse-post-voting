@@ -9,7 +9,7 @@ describe PostVoting::PostSerializerExtension do
   fab!(:answer) { Fabricate(:post, topic: topic) }
   fab!(:comment) { Fabricate(:post_voting_comment, post: answer) }
   let(:topic_view) { TopicView.new(topic, user) }
-  let(:up) { QuestionAnswerVote.directions[:up] }
+  let(:up) { PostVotingVote.directions[:up] }
   let(:guardian) { Guardian.new(user) }
 
   let(:serialized) do

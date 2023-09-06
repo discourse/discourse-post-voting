@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class QuestionAnswerVote < ActiveRecord::Base
+class PostVotingVote < ActiveRecord::Base
+  self.table_name = "question_answer_votes"
   belongs_to :votable, polymorphic: true
   belongs_to :user
 
@@ -33,7 +34,7 @@ class QuestionAnswerVote < ActiveRecord::Base
   def ensure_valid_comment
     comment = votable
 
-    if direction != QuestionAnswerVote.directions[:up]
+    if direction != PostVotingVote.directions[:up]
       errors.add(:base, I18n.t("post.post_voting.errors.comment_cannot_be_downvoted"))
     end
 

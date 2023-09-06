@@ -29,7 +29,7 @@ after_initialize do
     ../app/validators/question_answer_comment_validator.rb
     ../app/controllers/post_voting/votes_controller.rb
     ../app/controllers/post_voting/comments_controller.rb
-    ../app/models/question_answer_vote.rb
+    ../app/models/post_voting_vote.rb
     ../app/models/question_answer_comment.rb
     ../app/serializers/basic_voter_serializer.rb
     ../app/serializers/question_answer_comment_serializer.rb
@@ -67,7 +67,7 @@ after_initialize do
     @user_voted_posts ||= {}
 
     @user_voted_posts[user.id] ||= begin
-      QuestionAnswerVote.where(user: user, post: @posts).distinct.pluck(:post_id)
+      PostVotingVote.where(user: user, post: @posts).distinct.pluck(:post_id)
     end
   end
 
@@ -75,7 +75,7 @@ after_initialize do
     @user_voted_posts_last_timestamp ||= {}
 
     @user_voted_posts_last_timestamp[user.id] ||= begin
-      QuestionAnswerVote
+      PostVotingVote
         .where(user: user, post: @posts)
         .group(:votable_id, :created_at)
         .pluck(:votable_id, :created_at)
@@ -148,12 +148,12 @@ after_initialize do
     topic_view.comments_user_voted = {}
 
     if topic_view.guardian.user
-      QuestionAnswerVote
+      PostVotingVote
         .where(user: topic_view.guardian.user, votable_type: "Post", votable_id: post_ids)
         .pluck(:votable_id, :direction)
         .each { |post_id, direction| topic_view.posts_user_voted[post_id] = direction }
 
-      QuestionAnswerVote
+      PostVotingVote
         .joins(
           "INNER JOIN question_answer_comments comments ON comments.id = question_answer_votes.votable_id",
         )
@@ -164,10 +164,7 @@ after_initialize do
     end
 
     topic_view.posts_voted_on =
-      QuestionAnswerVote
-        .where(votable_type: "Post", votable_id: post_ids)
-        .distinct
-        .pluck(:votable_id)
+      PostVotingVote.where(votable_type: "Post", votable_id: post_ids).distinct.pluck(:votable_id)
   end
 
   add_permitted_post_create_param(:create_as_post_voting)

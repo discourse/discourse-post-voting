@@ -30,14 +30,14 @@ describe PostVoting::TopicViewSerializerExtension do
     posts = payload[:post_stream][:posts]
 
     expect(posts.first[:id]).to eq(topic_post.id)
-    expect(posts.first[:post_voting_user_voted_direction]).to eq(QuestionAnswerVote.directions[:up])
+    expect(posts.first[:post_voting_user_voted_direction]).to eq(PostVotingVote.directions[:up])
     expect(posts.first[:post_voting_has_votes]).to eq(true)
     expect(posts.first[:post_voting_vote_count]).to eq(1)
     expect(posts.first[:comments]).to eq([])
     expect(posts.first[:comments_count]).to eq(0)
 
     expect(posts.last[:id]).to eq(answer.id)
-    expect(posts.last[:post_voting_user_voted_direction]).to eq(QuestionAnswerVote.directions[:up])
+    expect(posts.last[:post_voting_user_voted_direction]).to eq(PostVotingVote.directions[:up])
     expect(posts.last[:post_voting_has_votes]).to eq(true)
     expect(posts.last[:post_voting_vote_count]).to eq(2)
     expect(posts.last[:comments].map { |c| c[:id] }).to contain_exactly(comment.id)

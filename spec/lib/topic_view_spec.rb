@@ -19,7 +19,7 @@ describe TopicView do
       :post_voting_vote,
       votable: answer_2,
       user: user,
-      direction: QuestionAnswerVote.directions[:down],
+      direction: PostVotingVote.directions[:down],
     )
   end
 
@@ -58,8 +58,8 @@ describe TopicView do
 
     expect(topic_view.posts_user_voted).to eq(
       {
-        answer.id => QuestionAnswerVote.directions[:up],
-        answer_2.id => QuestionAnswerVote.directions[:down],
+        answer.id => PostVotingVote.directions[:up],
+        answer_2.id => PostVotingVote.directions[:down],
       },
     )
 
@@ -96,16 +96,8 @@ describe TopicView do
 
     fab!(:answer_plus_2_votes) do
       create_post(topic: topic).tap do |p|
-        PostVoting::VoteManager.vote(
-          p,
-          Fabricate(:user),
-          direction: QuestionAnswerVote.directions[:up],
-        )
-        PostVoting::VoteManager.vote(
-          p,
-          Fabricate(:user),
-          direction: QuestionAnswerVote.directions[:up],
-        )
+        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: PostVotingVote.directions[:up])
+        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: PostVotingVote.directions[:up])
       end
     end
 
@@ -114,12 +106,12 @@ describe TopicView do
         PostVoting::VoteManager.vote(
           p,
           Fabricate(:user),
-          direction: QuestionAnswerVote.directions[:down],
+          direction: PostVotingVote.directions[:down],
         )
         PostVoting::VoteManager.vote(
           p,
           Fabricate(:user),
-          direction: QuestionAnswerVote.directions[:down],
+          direction: PostVotingVote.directions[:down],
         )
       end
     end
@@ -129,7 +121,7 @@ describe TopicView do
         PostVoting::VoteManager.vote(
           p,
           Fabricate(:user),
-          direction: QuestionAnswerVote.directions[:down],
+          direction: PostVotingVote.directions[:down],
         )
       end
     end
@@ -138,22 +130,14 @@ describe TopicView do
 
     fab!(:answer_plus_1_vote_deleted) do
       create_post(topic: topic).tap do |p|
-        PostVoting::VoteManager.vote(
-          p,
-          Fabricate(:user),
-          direction: QuestionAnswerVote.directions[:up],
-        )
+        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: PostVotingVote.directions[:up])
         p.trash!
       end
     end
 
     fab!(:answer_plus_1_vote) do
       create_post(topic: topic).tap do |p|
-        PostVoting::VoteManager.vote(
-          p,
-          Fabricate(:user),
-          direction: QuestionAnswerVote.directions[:up],
-        )
+        PostVoting::VoteManager.vote(p, Fabricate(:user), direction: PostVotingVote.directions[:up])
       end
     end
 

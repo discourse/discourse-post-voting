@@ -3,7 +3,7 @@
 module PostVoting
   module UserExtension
     def self.included(base)
-      base.has_many :question_answer_votes
+      base.has_many :post_voting_votes, class_name: "PostVotingVote"
     end
   end
 end

@@ -25,7 +25,7 @@ module PostVoting
       if PostVoting::VoteManager.vote(
            comment,
            current_user,
-           direction: QuestionAnswerVote.directions[:up],
+           direction: PostVotingVote.directions[:up],
          )
         render json: success_json
       else
@@ -65,7 +65,7 @@ module PostVoting
       comment = find_comment
       ensure_can_see_comment!(comment)
 
-      if !QuestionAnswerVote.exists?(votable: comment, user: current_user)
+      if !PostVotingVote.exists?(votable: comment, user: current_user)
         raise Discourse::InvalidAccess.new(
                 nil,
                 nil,
@@ -86,10 +86,10 @@ module PostVoting
       # TODO: Probably a site setting to hide/show voters
       voters =
         User
-          .joins(:question_answer_votes)
-          .where(question_answer_votes: { votable_id: @post.id, votable_type: "Post" })
-          .order("question_answer_votes.created_at DESC")
-          .select("users.*", "question_answer_votes.direction")
+          .joins(:post_voting_votes)
+          .where(post_voting_votes: { votable_id: @post.id, votable_type: "Post" })
+          .order("post_voting_votes.created_at DESC")
+          .select("users.*", "post_voting_votes.direction")
           .limit(VOTERS_LIMIT)
 
       render_json_dump(voters: serialize_data(voters, BasicVoterSerializer))
@@ -142,12 +142,8 @@ module PostVoting
 
         raise_error("post.post_voting.errors.vote_closed_topic") if votable.topic.closed?
 
-        direction = vote_params[:direction] || QuestionAnswerVote.directions[:up]
-        if QuestionAnswerVote.exists?(
-             votable: votable,
-             user_id: current_user.id,
-             direction: direction,
-           )
+        direction = vote_params[:direction] || PostVotingVote.directions[:up]
+        if PostVotingVote.exists?(votable: votable, user_id: current_user.id, direction: direction)
           raise_error("vote.error.one_vote_per_post")
         elsif !PostVoting::VoteManager.can_undo(votable, current_user)
           raise_error(
@@ -157,7 +153,7 @@ module PostVoting
         end
 
         if votable.class.name == "QuestionAnswerComment" &&
-             QuestionAnswerVote.exists?(votable: votable, user: current_user)
+             PostVotingVote.exists?(votable: votable, user: current_user)
           raise_error("vote.error.one_vote_per_comment")
         end
       end

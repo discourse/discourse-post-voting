@@ -32,7 +32,7 @@ RSpec.describe PostVoting::VotesController do
 
       expect(response.status).to eq(200)
 
-      vote = answer.question_answer_votes.first
+      vote = answer.post_voting_votes.first
 
       expect(vote.votable_type).to eq("Post")
       expect(vote.votable_id).to eq(answer.id)
@@ -90,7 +90,7 @@ RSpec.describe PostVoting::VotesController do
         post "/post_voting/vote.json",
              params: {
                post_id: answer.id,
-               direction: QuestionAnswerVote.directions[:down],
+               direction: PostVotingVote.directions[:down],
              }
 
         expect(response.status).to eq(403)
@@ -109,7 +109,7 @@ RSpec.describe PostVoting::VotesController do
 
       expect(response.status).to eq(200)
 
-      vote = answer.question_answer_votes.first
+      vote = answer.post_voting_votes.first
 
       expect(vote.votable).to eq(answer)
       expect(vote.user_id).to eq(user.id)
@@ -117,7 +117,7 @@ RSpec.describe PostVoting::VotesController do
       delete "/post_voting/vote.json", params: { post_id: answer.id }
 
       expect(response.status).to eq(200)
-      expect(QuestionAnswerVote.exists?(id: vote.id)).to eq(false)
+      expect(PostVotingVote.exists?(id: vote.id)).to eq(false)
     end
 
     it "should return the right response if user has never voted on post" do
@@ -169,7 +169,7 @@ RSpec.describe PostVoting::VotesController do
         :post_voting_vote,
         votable: answer,
         user: user_2,
-        direction: QuestionAnswerVote.directions[:down],
+        direction: PostVotingVote.directions[:down],
       )
       Fabricate(:post_voting_vote, votable: answer, user: user)
       Fabricate(:post_voting_vote, votable: answer_2, user: user)
@@ -189,10 +189,10 @@ RSpec.describe PostVoting::VotesController do
       expect(voters[0]["username"]).to eq(user.username)
       expect(voters[0]["name"]).to eq(user.name)
       expect(voters[0]["avatar_template"]).to eq(user.avatar_template)
-      expect(voters[0]["direction"]).to eq(QuestionAnswerVote.directions[:up])
+      expect(voters[0]["direction"]).to eq(PostVotingVote.directions[:up])
 
       expect(voters[1]["id"]).to eq(user_2.id)
-      expect(voters[1]["direction"]).to eq(QuestionAnswerVote.directions[:down])
+      expect(voters[1]["direction"]).to eq(PostVotingVote.directions[:down])
     end
   end
 
@@ -272,7 +272,7 @@ RSpec.describe PostVoting::VotesController do
     end
 
     it "should be able to remove a user's vote from a comment" do
-      PostVoting::VoteManager.vote(comment, user, direction: QuestionAnswerVote.directions[:up])
+      PostVoting::VoteManager.vote(comment, user, direction: PostVotingVote.directions[:up])
 
       sign_in(user)
 

@@ -3,26 +3,26 @@
 module PostVoting
   class VoteManager
     def self.vote(obj, user, direction: nil)
-      direction ||= QuestionAnswerVote.directions[:up]
+      direction ||= PostVotingVote.directions[:up]
 
       ActiveRecord::Base.transaction do
         existing_vote =
-          QuestionAnswerVote.find_by(
+          PostVotingVote.find_by(
             user: user,
             votable: obj,
-            direction: QuestionAnswerVote.reverse_direction(direction),
+            direction: PostVotingVote.reverse_direction(direction),
           )
 
         count_change =
           if existing_vote
-            QuestionAnswerVote.directions[:up] == direction ? 2 : -2
+            PostVotingVote.directions[:up] == direction ? 2 : -2
           else
-            QuestionAnswerVote.directions[:up] == direction ? 1 : -1
+            PostVotingVote.directions[:up] == direction ? 1 : -1
           end
 
         existing_vote.destroy! if existing_vote
 
-        vote = QuestionAnswerVote.create!(user: user, votable: obj, direction: direction)
+        vote = PostVotingVote.create!(user: user, votable: obj, direction: direction)
 
         vote_count = (obj.qa_vote_count || 0) + count_change
 
@@ -36,10 +36,10 @@ module PostVoting
 
     def self.remove_vote(obj, user)
       ActiveRecord::Base.transaction do
-        vote = QuestionAnswerVote.find_by(votable: obj, user: user)
+        vote = PostVotingVote.find_by(votable: obj, user: user)
         direction = vote.direction
         vote.destroy!
-        count_change = QuestionAnswerVote.directions[:up] == direction ? -1 : 1
+        count_change = PostVotingVote.directions[:up] == direction ? -1 : 1
         vote_count = obj.qa_vote_count + count_change
         obj.update!(qa_vote_count: vote_count)
 
@@ -60,14 +60,14 @@ module PostVoting
           post_voting_user_voted_id: user.id,
           post_voting_vote_count: vote_count,
           post_voting_user_voted_direction: direction,
-          post_voting_has_votes: QuestionAnswerVote.exists?(votable: obj),
+          post_voting_has_votes: PostVotingVote.exists?(votable: obj),
         )
       end
     end
 
     def self.bulk_remove_votes_by(user)
       ActiveRecord::Base.transaction do
-        QuestionAnswerVote::VOTABLE_TYPES.map do |votable_type|
+        PostVotingVote::VOTABLE_TYPES.map do |votable_type|
           table_name = votable_type.tableize
 
           DB.exec(
@@ -93,12 +93,12 @@ module PostVoting
             );
           SQL
             user_id: user.id,
-            up: QuestionAnswerVote.directions[:up],
-            down: QuestionAnswerVote.directions[:down],
+            up: PostVotingVote.directions[:up],
+            down: PostVotingVote.directions[:down],
           )
         end
 
-        QuestionAnswerVote.where(user_id: user.id).delete_all
+        PostVotingVote.where(user_id: user.id).delete_all
       end
     end
   end
