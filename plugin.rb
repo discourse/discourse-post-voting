@@ -154,7 +154,7 @@ after_initialize do
 
       PostVotingVote
         .joins(
-          "INNER JOIN post_voting_comments comments ON comments.id = question_answer_votes.votable_id",
+          "INNER JOIN post_voting_comments comments ON comments.id = post_voting_votes.votable_id",
         )
         .where(user: topic_view.guardian.user, votable_type: "PostVotingComment")
         .where("comments.post_id IN (?)", post_ids)

@@ -61,7 +61,7 @@ end
 
 # == Schema Information
 #
-# Table name: question_answer_votes
+# Table name: post_voting_votes
 #
 #  id           :bigint           not null, primary key
 #  user_id      :integer          not null

@@ -79,17 +79,17 @@ module PostVoting
                   WHEN direction = :down THEN -1
                   ELSE 0
               END
-              FROM question_answer_votes
-              WHERE question_answer_votes.votable_id = #{table_name}.id
-              AND question_answer_votes.votable_type = '#{votable_type}'
-              AND question_answer_votes.user_id = :user_id
+              FROM post_voting_votes
+              WHERE post_voting_votes.votable_id = #{table_name}.id
+              AND post_voting_votes.votable_type = '#{votable_type}'
+              AND post_voting_votes.user_id = :user_id
             )
             WHERE EXISTS (
                 SELECT 1
-                FROM question_answer_votes
-                WHERE question_answer_votes.votable_id = #{table_name}.id
-                AND question_answer_votes.votable_type = '#{votable_type}'
-                AND question_answer_votes.user_id = :user_id
+                FROM post_voting_votes
+                WHERE post_voting_votes.votable_id = #{table_name}.id
+                AND post_voting_votes.votable_type = '#{votable_type}'
+                AND post_voting_votes.user_id = :user_id
             );
           SQL
             user_id: user.id,
