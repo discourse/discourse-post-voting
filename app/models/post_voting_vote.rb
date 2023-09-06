@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PostVotingVote < ActiveRecord::Base
-  self.table_name = "question_answer_votes"
   belongs_to :votable, polymorphic: true
   belongs_to :user
 
