@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class QuestionAnswerCommentValidator < ActiveModel::Validator
+class PostVotingCommentValidator < ActiveModel::Validator
   def validate(record)
     raw_validator(record)
   end

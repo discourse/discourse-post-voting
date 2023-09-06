@@ -123,7 +123,7 @@ module PostVoting
     end
 
     def find_comment
-      comment = QuestionAnswerComment.find_by(id: vote_params[:comment_id])
+      comment = PostVotingComment.find_by(id: vote_params[:comment_id])
       raise Discourse::NotFound if comment.blank?
       comment
     end
@@ -152,7 +152,7 @@ module PostVoting
           )
         end
 
-        if votable.class.name == "QuestionAnswerComment" &&
+        if votable.class.name == "PostVotingComment" &&
              PostVotingVote.exists?(votable: votable, user: current_user)
           raise_error("vote.error.one_vote_per_comment")
         end

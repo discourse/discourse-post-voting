@@ -4,7 +4,7 @@ class PostVotingVote < ActiveRecord::Base
   belongs_to :votable, polymorphic: true
   belongs_to :user
 
-  VOTABLE_TYPES = %w[Post QuestionAnswerComment]
+  VOTABLE_TYPES = %w[Post PostVotingComment]
 
   validates :direction, inclusion: { in: %w[up down] }
   validates :votable_type, presence: true, inclusion: { in: VOTABLE_TYPES }
@@ -12,7 +12,7 @@ class PostVotingVote < ActiveRecord::Base
   validates :user_id, presence: true
   validate :ensure_valid_vote
   validate :ensure_valid_post, if: -> { votable_type == "Post" }
-  validate :ensure_valid_comment, if: -> { votable_type == "QuestionAnswerComment" }
+  validate :ensure_valid_comment, if: -> { votable_type == "PostVotingComment" }
 
   def self.directions
     @directions ||= { up: "up", down: "down" }

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe QuestionAnswerComment do
+describe PostVotingComment do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:post) { Fabricate(:post, topic: topic) }
   fab!(:user) { Fabricate(:user) }
@@ -20,7 +20,7 @@ describe QuestionAnswerComment do
 
       SiteSetting.post_voting_enabled = true
 
-      comment = QuestionAnswerComment.new(raw: "this is a **post**", post: post_3, user: user)
+      comment = PostVotingComment.new(raw: "this is a **post**", post: post_3, user: user)
 
       expect(comment.valid?).to eq(false)
       expect(comment.errors.full_messages).to contain_exactly(
@@ -31,8 +31,8 @@ describe QuestionAnswerComment do
     it "does not allow comments to be created when SiteSetting.post_voting_comment_limit_per_post has been reached" do
       SiteSetting.post_voting_comment_limit_per_post = 1
 
-      QuestionAnswerComment.create!(raw: "this is a **post**", post: post, user: user)
-      comment = QuestionAnswerComment.new(raw: "this is a **post**", post: post, user: user)
+      PostVotingComment.create!(raw: "this is a **post**", post: post, user: user)
+      comment = PostVotingComment.new(raw: "this is a **post**", post: post, user: user)
 
       expect(comment.valid?).to eq(false)
 
@@ -47,7 +47,7 @@ describe QuestionAnswerComment do
     it "does not allow comment to be created when raw does not meet min_post_length site setting" do
       SiteSetting.min_post_length = 5
 
-      comment = QuestionAnswerComment.new(raw: "1234", post: post, user: user)
+      comment = PostVotingComment.new(raw: "1234", post: post, user: user)
 
       expect(comment.valid?).to eq(false)
       expect(comment.errors[:raw]).to eq([I18n.t("errors.messages.too_short", count: 5)])
@@ -57,7 +57,7 @@ describe QuestionAnswerComment do
       max = SiteSetting.post_voting_comment_max_raw_length = 5
       raw = "this string is too long"
 
-      post_voting_comment = QuestionAnswerComment.new(raw: raw, post: post, user: user)
+      post_voting_comment = PostVotingComment.new(raw: raw, post: post, user: user)
 
       expect(post_voting_comment.valid?).to eq(false)
       expect(post_voting_comment.errors[:raw]).to eq(
@@ -66,8 +66,7 @@ describe QuestionAnswerComment do
     end
 
     it "does not allow comment to be created when raw does not pass TextSentinel check" do
-      post_voting_comment =
-        QuestionAnswerComment.new(raw: "ALL CAPS STRING", post: post, user: user)
+      post_voting_comment = PostVotingComment.new(raw: "ALL CAPS STRING", post: post, user: user)
 
       expect(post_voting_comment.valid?).to eq(false)
       expect(post_voting_comment.errors[:raw]).to eq([I18n.t("is_invalid")])
@@ -77,7 +76,7 @@ describe QuestionAnswerComment do
       watched_word = Fabricate(:watched_word, action: WatchedWord.actions[:block])
 
       post_voting_comment =
-        QuestionAnswerComment.new(raw: "contains #{watched_word.word}", post: post, user: user)
+        PostVotingComment.new(raw: "contains #{watched_word.word}", post: post, user: user)
 
       expect(post_voting_comment.valid?).to eq(false)
       expect(post_voting_comment.errors[:base]).to eq(
@@ -88,8 +87,7 @@ describe QuestionAnswerComment do
 
   describe "callbacks" do
     it "cooks raw before saving" do
-      post_voting_comment =
-        QuestionAnswerComment.new(raw: "this is a **post**", post: post, user: user)
+      post_voting_comment = PostVotingComment.new(raw: "this is a **post**", post: post, user: user)
 
       expect(post_voting_comment.valid?).to eq(true)
       expect(post_voting_comment.cooked).to eq("<p>this is a <strong>post</strong></p>")

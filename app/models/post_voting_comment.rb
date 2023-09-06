@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class QuestionAnswerComment < ActiveRecord::Base
+class PostVotingComment < ActiveRecord::Base
   include Trashable
 
   # Bump this when changing MARKDOWN_FEATURES or MARKDOWN_IT_RULES
@@ -17,7 +17,7 @@ class QuestionAnswerComment < ActiveRecord::Base
 
   validate :ensure_can_comment, on: [:create]
 
-  validates_with QuestionAnswerCommentValidator
+  validates_with PostVotingCommentValidator
 
   before_validation :cook_raw, if: :will_save_change_to_raw?
 
@@ -59,7 +59,7 @@ end
 
 # == Schema Information
 #
-# Table name: question_answer_comments
+# Table name: post_voting_comments
 #
 #  id             :bigint           not null, primary key
 #  post_id        :integer          not null
@@ -75,7 +75,7 @@ end
 #
 # Indexes
 #
-#  index_question_answer_comments_on_deleted_by_id  (deleted_by_id) WHERE (deleted_by_id IS NOT NULL)
-#  index_question_answer_comments_on_post_id        (post_id)
-#  index_question_answer_comments_on_user_id        (user_id)
+#  index_post_voting_comments_on_deleted_by_id  (deleted_by_id) WHERE (deleted_by_id IS NOT NULL)
+#  index_post_voting_comments_on_post_id        (post_id)
+#  index_post_voting_comments_on_user_id        (user_id)
 #
