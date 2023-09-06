@@ -22,11 +22,13 @@
 }
 
 .post-voting-answers-header {
+  width: calc(
+    var(--topic-body-width) + var(--topic-body-width-padding) * 2 + 45px
+  );
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   padding: 0.5em;
-  padding-right: 0;
 
   .post-voting-answers-headers-count {
     font-size: var(--font-up-1);
