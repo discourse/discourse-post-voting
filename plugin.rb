@@ -26,13 +26,13 @@ after_initialize do
     ../extensions/topic_view_extension.rb
     ../extensions/user_extension.rb
     ../extensions/composer_messages_finder_extension.rb
-    ../app/validators/question_answer_comment_validator.rb
+    ../app/validators/post_voting_comment_validator.rb
     ../app/controllers/post_voting/votes_controller.rb
     ../app/controllers/post_voting/comments_controller.rb
-    ../app/models/question_answer_vote.rb
-    ../app/models/question_answer_comment.rb
+    ../app/models/post_voting_vote.rb
+    ../app/models/post_voting_comment.rb
     ../app/serializers/basic_voter_serializer.rb
-    ../app/serializers/question_answer_comment_serializer.rb
+    ../app/serializers/post_voting_comment_serializer.rb
     ../config/routes.rb
   ].each { |path| load File.expand_path(path, __FILE__) }
 
@@ -67,7 +67,7 @@ after_initialize do
     @user_voted_posts ||= {}
 
     @user_voted_posts[user.id] ||= begin
-      QuestionAnswerVote.where(user: user, post: @posts).distinct.pluck(:post_id)
+      PostVotingVote.where(user: user, post: @posts).distinct.pluck(:post_id)
     end
   end
 
@@ -75,7 +75,7 @@ after_initialize do
     @user_voted_posts_last_timestamp ||= {}
 
     @user_voted_posts_last_timestamp[user.id] ||= begin
-      QuestionAnswerVote
+      PostVotingVote
         .where(user: user, post: @posts)
         .group(:votable_id, :created_at)
         .pluck(:votable_id, :created_at)
@@ -112,27 +112,27 @@ after_initialize do
 
     comment_ids_sql = <<~SQL
     SELECT
-      question_answer_comments.id
-    FROM question_answer_comments
+      post_voting_comments.id
+    FROM post_voting_comments
     INNER JOIN LATERAL (
       SELECT 1
       FROM (
         SELECT
           comments.id
-        FROM question_answer_comments comments
-        WHERE comments.post_id = question_answer_comments.post_id
+        FROM post_voting_comments comments
+        WHERE comments.post_id = post_voting_comments.post_id
         AND comments.deleted_at IS NULL
         ORDER BY comments.id ASC
         LIMIT #{TopicView::PRELOAD_COMMENTS_COUNT}
       ) X
-      WHERE X.id = question_answer_comments.id
+      WHERE X.id = post_voting_comments.id
     ) Y ON true
-    WHERE question_answer_comments.post_id IN (#{post_ids_sql})
-    AND question_answer_comments.deleted_at IS NULL
+    WHERE post_voting_comments.post_id IN (#{post_ids_sql})
+    AND post_voting_comments.deleted_at IS NULL
     SQL
 
     topic_view.comments = {}
-    QuestionAnswerComment
+    PostVotingComment
       .includes(:user)
       .where("id IN (#{comment_ids_sql})")
       .order(id: :asc)
@@ -141,33 +141,29 @@ after_initialize do
         topic_view.comments[comment.post_id] << comment
       end
 
-    topic_view.comments_counts =
-      QuestionAnswerComment.where(post_id: post_ids).group(:post_id).count
+    topic_view.comments_counts = PostVotingComment.where(post_id: post_ids).group(:post_id).count
 
     topic_view.posts_user_voted = {}
     topic_view.comments_user_voted = {}
 
     if topic_view.guardian.user
-      QuestionAnswerVote
+      PostVotingVote
         .where(user: topic_view.guardian.user, votable_type: "Post", votable_id: post_ids)
         .pluck(:votable_id, :direction)
         .each { |post_id, direction| topic_view.posts_user_voted[post_id] = direction }
 
-      QuestionAnswerVote
+      PostVotingVote
         .joins(
-          "INNER JOIN question_answer_comments comments ON comments.id = question_answer_votes.votable_id",
+          "INNER JOIN post_voting_comments comments ON comments.id = post_voting_votes.votable_id",
         )
-        .where(user: topic_view.guardian.user, votable_type: "QuestionAnswerComment")
+        .where(user: topic_view.guardian.user, votable_type: "PostVotingComment")
         .where("comments.post_id IN (?)", post_ids)
         .pluck(:votable_id)
         .each { |votable_id| topic_view.comments_user_voted[votable_id] = true }
     end
 
     topic_view.posts_voted_on =
-      QuestionAnswerVote
-        .where(votable_type: "Post", votable_id: post_ids)
-        .distinct
-        .pluck(:votable_id)
+      PostVotingVote.where(votable_type: "Post", votable_id: post_ids).distinct.pluck(:votable_id)
   end
 
   add_permitted_post_create_param(:create_as_post_voting)
@@ -207,7 +203,7 @@ after_initialize do
 
   register_user_destroyer_on_content_deletion_callback(
     Proc.new do |user|
-      QuestionAnswerComment.where(user_id: user.id).delete_all
+      PostVotingComment.where(user_id: user.id).delete_all
       PostVoting::VoteManager.bulk_remove_votes_by(user)
     end,
   )

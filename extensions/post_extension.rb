@@ -5,8 +5,8 @@ module PostVoting
     def self.included(base)
       base.ignored_columns = %w[vote_count]
 
-      base.has_many :question_answer_votes, as: :votable, dependent: :delete_all
-      base.has_many :question_answer_comments, dependent: :destroy
+      base.has_many :post_voting_votes, as: :votable, dependent: :delete_all
+      base.has_many :post_voting_comments, dependent: :destroy
       base.validate :ensure_only_replies
     end
 
@@ -15,15 +15,15 @@ module PostVoting
     end
 
     def post_voting_last_voted(user_id)
-      QuestionAnswerVote
+      PostVotingVote
         .where(votable: self, user_id: user_id)
         .order(created_at: :desc)
         .pick(:created_at)
     end
 
     def post_voting_can_vote(user_id, direction = nil)
-      direction ||= QuestionAnswerVote.directions[:up]
-      !QuestionAnswerVote.exists?(votable: self, user_id: user_id, direction: direction)
+      direction ||= PostVotingVote.directions[:up]
+      !PostVotingVote.exists?(votable: self, user_id: user_id, direction: direction)
     end
 
     def comments

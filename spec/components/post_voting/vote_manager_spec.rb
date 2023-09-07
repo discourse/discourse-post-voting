@@ -9,8 +9,8 @@ describe PostVoting::VoteManager do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:post) { Fabricate(:post, topic: topic) }
-  fab!(:up) { QuestionAnswerVote.directions[:up] }
-  fab!(:down) { QuestionAnswerVote.directions[:down] }
+  fab!(:up) { PostVotingVote.directions[:up] }
+  fab!(:down) { PostVotingVote.directions[:down] }
 
   before { SiteSetting.post_voting_enabled = true }
 
@@ -23,7 +23,7 @@ describe PostVoting::VoteManager do
           end
           .first
 
-      expect(QuestionAnswerVote.exists?(votable: post, user: user, direction: up)).to eq(true)
+      expect(PostVotingVote.exists?(votable: post, user: user, direction: up)).to eq(true)
 
       expect(post.qa_vote_count).to eq(1)
 
@@ -42,7 +42,7 @@ describe PostVoting::VoteManager do
           end
           .first
 
-      expect(QuestionAnswerVote.exists?(votable: post, user: user, direction: down)).to eq(true)
+      expect(PostVotingVote.exists?(votable: post, user: user, direction: down)).to eq(true)
 
       expect(post.qa_vote_count).to eq(-1)
 
@@ -82,7 +82,7 @@ describe PostVoting::VoteManager do
           end
           .first
 
-      expect(QuestionAnswerVote.exists?(id: vote.id)).to eq(false)
+      expect(PostVotingVote.exists?(id: vote.id)).to eq(false)
       expect(vote.votable.qa_vote_count).to eq(0)
 
       expect(message.data[:id]).to eq(post.id)
@@ -106,7 +106,7 @@ describe PostVoting::VoteManager do
           end
           .first
 
-      expect(QuestionAnswerVote.exists?(id: vote_3.id)).to eq(false)
+      expect(PostVotingVote.exists?(id: vote_3.id)).to eq(false)
     end
   end
 
@@ -129,11 +129,9 @@ describe PostVoting::VoteManager do
       vote_7 = PostVoting::VoteManager.vote(comment_1, other_user_1, direction: up)
       vote_8 = PostVoting::VoteManager.vote(comment_3, other_user_2, direction: up)
 
-      expect(QuestionAnswerVote.exists?(id: [vote_1.id, vote_2.id, vote_3.id, vote_4.id])).to eq(
-        true,
-      )
-      expect(user.question_answer_votes.count).to eq(4)
-      expect(QuestionAnswerVote.count).to eq(8)
+      expect(PostVotingVote.exists?(id: [vote_1.id, vote_2.id, vote_3.id, vote_4.id])).to eq(true)
+      expect(user.post_voting_votes.count).to eq(4)
+      expect(PostVotingVote.count).to eq(8)
 
       expect(post.qa_vote_count).to eq(-2)
       expect(topic_post.qa_vote_count).to eq(2)
@@ -143,13 +141,9 @@ describe PostVoting::VoteManager do
 
       PostVoting::VoteManager.bulk_remove_votes_by(user)
 
-      expect(QuestionAnswerVote.exists?(id: [vote_1.id, vote_2.id, vote_3.id, vote_4.id])).to eq(
-        false,
-      )
-      expect(QuestionAnswerVote.exists?(id: [vote_5.id, vote_6.id, vote_7.id, vote_8.id])).to eq(
-        true,
-      )
-      expect(QuestionAnswerVote.count).to eq(4)
+      expect(PostVotingVote.exists?(id: [vote_1.id, vote_2.id, vote_3.id, vote_4.id])).to eq(false)
+      expect(PostVotingVote.exists?(id: [vote_5.id, vote_6.id, vote_7.id, vote_8.id])).to eq(true)
+      expect(PostVotingVote.count).to eq(4)
 
       expect(post.reload.qa_vote_count).to eq(-1)
       expect(topic_post.reload.qa_vote_count).to eq(1)

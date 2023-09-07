@@ -37,7 +37,7 @@ module PostVoting
     def comments
       @comments ||=
         begin
-          QuestionAnswerComment
+          PostVotingComment
             .joins(:post)
             .where("posts.topic_id = ?", self.id)
             .order(created_at: :asc)
@@ -74,8 +74,8 @@ module PostVoting
 
         # This is a very inefficient way since the performance degrades as the
         # number of voted posts in the topic increases.
-        QuestionAnswerVote
-          .joins("INNER JOIN posts ON posts.id = question_answer_votes.votable_id")
+        PostVotingVote
+          .joins("INNER JOIN posts ON posts.id = post_voting_votes.votable_id")
           .where(user: user, votable_type: "Post")
           .where("posts.topic_id = ?", topic.id)
       end

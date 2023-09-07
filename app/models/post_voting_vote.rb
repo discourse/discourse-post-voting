@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class QuestionAnswerVote < ActiveRecord::Base
+class PostVotingVote < ActiveRecord::Base
   belongs_to :votable, polymorphic: true
   belongs_to :user
 
-  VOTABLE_TYPES = %w[Post QuestionAnswerComment]
+  VOTABLE_TYPES = %w[Post PostVotingComment]
 
   validates :direction, inclusion: { in: %w[up down] }
   validates :votable_type, presence: true, inclusion: { in: VOTABLE_TYPES }
@@ -12,7 +12,7 @@ class QuestionAnswerVote < ActiveRecord::Base
   validates :user_id, presence: true
   validate :ensure_valid_vote
   validate :ensure_valid_post, if: -> { votable_type == "Post" }
-  validate :ensure_valid_comment, if: -> { votable_type == "QuestionAnswerComment" }
+  validate :ensure_valid_comment, if: -> { votable_type == "PostVotingComment" }
 
   def self.directions
     @directions ||= { up: "up", down: "down" }
@@ -33,7 +33,7 @@ class QuestionAnswerVote < ActiveRecord::Base
   def ensure_valid_comment
     comment = votable
 
-    if direction != QuestionAnswerVote.directions[:up]
+    if direction != PostVotingVote.directions[:up]
       errors.add(:base, I18n.t("post.post_voting.errors.comment_cannot_be_downvoted"))
     end
 
@@ -61,7 +61,7 @@ end
 
 # == Schema Information
 #
-# Table name: question_answer_votes
+# Table name: post_voting_votes
 #
 #  id           :bigint           not null, primary key
 #  user_id      :integer          not null

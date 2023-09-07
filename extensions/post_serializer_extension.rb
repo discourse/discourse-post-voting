@@ -24,7 +24,7 @@ module PostVoting
       return [] if !@topic_view
 
       (@topic_view.comments[object.id] || []).map do |comment|
-        serializer = QuestionAnswerCommentSerializer.new(comment, scope: scope, root: false)
+        serializer = PostVotingCommentSerializer.new(comment, scope: scope, root: false)
         serializer.comments_user_voted = @topic_view.comments_user_voted
         serializer.as_json
       end

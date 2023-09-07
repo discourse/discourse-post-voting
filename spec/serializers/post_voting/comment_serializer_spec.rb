@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe QuestionAnswerCommentSerializer do
+describe PostVotingCommentSerializer do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:post) { Fabricate(:post, topic: topic) }
   fab!(:user) { Fabricate(:user) }
@@ -16,7 +16,7 @@ describe QuestionAnswerCommentSerializer do
   context "with a comment user" do
     it "returns the right attributes for an anonymous user" do
       serializer = described_class.new(comment, scope: Guardian.new)
-      serilized_comment = serializer.as_json[:question_answer_comment]
+      serilized_comment = serializer.as_json[:post_voting_comment]
 
       expect(serilized_comment[:id]).to eq(comment.id)
       expect(serilized_comment[:created_at]).to eq_time(comment.created_at)
@@ -28,7 +28,7 @@ describe QuestionAnswerCommentSerializer do
 
     it "returns the right attributes for logged in user" do
       serializer = described_class.new(comment, scope: Guardian.new(post.user))
-      serilized_comment = serializer.as_json[:question_answer_comment]
+      serilized_comment = serializer.as_json[:post_voting_comment]
 
       expect(serilized_comment[:id]).to eq(comment.id)
       expect(serilized_comment[:created_at]).to eq_time(comment.created_at)
@@ -48,7 +48,7 @@ describe QuestionAnswerCommentSerializer do
 
     it "does not fail to serialize" do
       serializer = described_class.new(comment, scope: Guardian.new(post.user))
-      serilized_comment = serializer.as_json[:question_answer_comment]
+      serilized_comment = serializer.as_json[:post_voting_comment]
 
       expect(serilized_comment[:id]).to eq(comment.id)
       expect(serilized_comment[:name]).to be_nil

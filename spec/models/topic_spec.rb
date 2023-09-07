@@ -16,7 +16,7 @@ describe Topic do
     5.times.map { Fabricate(:post_voting_comment, post: answer) }.sort_by(&:created_at)
   end
 
-  let(:up) { QuestionAnswerVote.directions[:up] }
+  let(:up) { PostVotingVote.directions[:up] }
 
   describe "validations" do
     describe "#subtype" do
