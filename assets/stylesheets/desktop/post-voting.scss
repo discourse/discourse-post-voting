@@ -1,0 +1,5 @@
+.post-voting-answers-header {
+  width: calc(
+    var(--topic-body-width) + var(--topic-body-width-padding) * 2 + 45px
+  );
+}
