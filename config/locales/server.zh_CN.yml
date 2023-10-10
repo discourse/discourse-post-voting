@@ -13,6 +13,8 @@ zh_CN:
         voting_not_permitted: "您无权在此帖子中投票。"
         comment_cannot_be_downvoted: "您只能为评论投赞成票。"
         self_voting_not_permitted: "您无权对自己的帖子或评论进行投票。"
+        vote_archived_topic: "您不能对已归档的主题进行投票。"
+        vote_closed_topic: "您不能对已关闭的话题进行投票。"
   topic:
     post_voting:
       errors:
