@@ -93,7 +93,7 @@ after_initialize do
       if topic_view.instance_variable_get(:@filter) != TopicView::ACTIVITY_FILTER
         scope =
           scope
-            .where(post_type: Post.types[:regular])
+            .where.not(post_type: [Post.types[:whisper], Post.types[:small_action]])
             .unscope(:order)
             .order("CASE post_number WHEN 1 THEN 0 ELSE 1 END, qa_vote_count DESC, post_number ASC")
       end
