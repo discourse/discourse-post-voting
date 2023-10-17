@@ -13,6 +13,8 @@ he:
         voting_not_permitted: "אסור לך להצביע לפוסט זה."
         comment_cannot_be_downvoted: "אפשר להצביע לתגובות בלבד."
         self_voting_not_permitted: "אסור לך להצביע על פוסט או תגובה שלך."
+        vote_archived_topic: "אי אפשר להצביע לנושאים בארכיון."
+        vote_closed_topic: "אי אפשר להצביע לנושאים סגורים."
   topic:
     post_voting:
       errors:
