@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 # name: discourse-post-voting
-# about: Allows a topic's post to be voted on
+# about: Allows the creation of topics with votable posts.
+# meta_topic_id: 227808
 # version: 0.0.1
 # authors: Alan Tan
 # url: https://github.com/discourse/discourse-post-voting
