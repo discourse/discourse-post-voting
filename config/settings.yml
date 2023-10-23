@@ -1,7 +1,7 @@
 plugins:
   post_voting_enabled:
     client: true
-    default: true
+    default: false
   post_voting_undo_vote_action_window:
     default: 10
   post_voting_comment_limit_per_post:

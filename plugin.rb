@@ -15,6 +15,10 @@ register_asset "stylesheets/common/post-voting-crawler.scss"
 enabled_site_setting :post_voting_enabled
 
 after_initialize do
+  # a bit hacky, but we need this default enabled for tests so
+  # fab! calls work, without this we need to amend the boot process
+  SiteSetting.post_voting_enabled = true if Rails.env.test?
+
   %w[
     ../lib/post_voting/engine.rb
     ../lib/post_voting/vote_manager.rb
