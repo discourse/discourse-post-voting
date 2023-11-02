@@ -187,6 +187,11 @@ after_initialize do
   if Site.respond_to? :preloaded_category_custom_fields
     Site.preloaded_category_custom_fields << PostVoting::CREATE_AS_POST_VOTING_DEFAULT
   end
+  if self.respond_to?(:register_category_list_preloaded_category_custom_fields)
+    register_category_list_preloaded_category_custom_fields(
+      PostVoting::CREATE_AS_POST_VOTING_DEFAULT,
+    )
+  end
   add_to_class(:category, :create_as_post_voting_default) do
     ActiveModel::Type::Boolean.new.cast(
       self.custom_fields[PostVoting::CREATE_AS_POST_VOTING_DEFAULT],
