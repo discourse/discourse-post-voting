@@ -185,13 +185,11 @@ after_initialize do
   end
 
   register_category_custom_field_type(PostVoting::CREATE_AS_POST_VOTING_DEFAULT, :boolean)
-  if Site.respond_to? :preloaded_category_custom_fields
+  if respond_to?(:register_preloaded_category_custom_fields)
+    register_preloaded_category_custom_fields(PostVoting::CREATE_AS_POST_VOTING_DEFAULT)
+  else
+    # TODO: Drop the if-statement and this if-branch in Discourse v3.2
     Site.preloaded_category_custom_fields << PostVoting::CREATE_AS_POST_VOTING_DEFAULT
-  end
-  if self.respond_to?(:register_category_list_preloaded_category_custom_fields)
-    register_category_list_preloaded_category_custom_fields(
-      PostVoting::CREATE_AS_POST_VOTING_DEFAULT,
-    )
   end
   add_to_class(:category, :create_as_post_voting_default) do
     ActiveModel::Type::Boolean.new.cast(
