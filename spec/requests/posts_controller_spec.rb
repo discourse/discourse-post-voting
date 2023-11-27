@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe PostsController do
-  fab!(:user) { Fabricate(:user) }
+  fab!(:user) { Fabricate(:user, refresh_auto_groups: true) }
 
   describe "#create" do
     before do
