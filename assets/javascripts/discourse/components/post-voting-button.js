@@ -1,5 +1,5 @@
-import { action } from "@ember/object";
 import Component from "@glimmer/component";
+import { action } from "@ember/object";
 
 export default class PostVotingButton extends Component {
   get buttonClasses() {

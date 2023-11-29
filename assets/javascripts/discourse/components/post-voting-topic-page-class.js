@@ -1,6 +1,6 @@
 import Component from "@ember/component";
-import { ORDER_BY_ACTIVITY_FILTER } from "../initializers/post-voting-edits";
 import { scheduleOnce } from "@ember/runloop";
+import { ORDER_BY_ACTIVITY_FILTER } from "../initializers/post-voting-edits";
 
 export default Component.extend({
   tagName: "",

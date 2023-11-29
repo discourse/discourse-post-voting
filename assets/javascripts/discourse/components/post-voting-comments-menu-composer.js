@@ -1,9 +1,9 @@
-import { action } from "@ember/object";
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
-import { popupAjaxError } from "discourse/lib/ajax-error";
-import { ajax } from "discourse/lib/ajax";
+import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
+import { ajax } from "discourse/lib/ajax";
+import { popupAjaxError } from "discourse/lib/ajax-error";
 
 export default class PostVotingCommentsMenuComposer extends Component {
   @service siteSettings;

@@ -1,11 +1,11 @@
-import { Promise } from "rsvp";
-import { action } from "@ember/object";
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
-import { popupAjaxError } from "discourse/lib/ajax-error";
-import { ajax } from "discourse/lib/ajax";
+import { action } from "@ember/object";
 import { schedule } from "@ember/runloop";
 import { inject as service } from "@ember/service";
+import { Promise } from "rsvp";
+import { ajax } from "discourse/lib/ajax";
+import { popupAjaxError } from "discourse/lib/ajax-error";
 
 export default class PostVotingCommentsMenu extends Component {
   @service currentUser;

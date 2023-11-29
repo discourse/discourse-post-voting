@@ -6,7 +6,6 @@
 # version: 0.0.1
 # authors: Alan Tan
 # url: https://github.com/discourse/discourse-post-voting
-# transpile_js: true
 
 %i[common mobile desktop].each do |type|
   register_asset "stylesheets/#{type}/post-voting.scss", type

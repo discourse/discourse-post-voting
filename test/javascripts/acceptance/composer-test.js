@@ -1,10 +1,10 @@
 import { click, fillIn, visit } from "@ember/test-helpers";
+import { test } from "qunit";
+import Category from "discourse/models/category";
+import { parsePostData } from "discourse/tests/helpers/create-pretender";
 import { acceptance, query } from "discourse/tests/helpers/qunit-helpers";
 import selectKit from "discourse/tests/helpers/select-kit-helper";
-import { test } from "qunit";
 import I18n from "I18n";
-import { parsePostData } from "discourse/tests/helpers/create-pretender";
-import Category from "discourse/models/category";
 
 let createAsPostVotingSetInRequest = false;
 
