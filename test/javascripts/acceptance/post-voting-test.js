@@ -5,6 +5,9 @@ import {
   triggerEvent,
   visit,
 } from "@ember/test-helpers";
+import { test } from "qunit";
+import discoveryFixtures from "discourse/tests/fixtures/discovery-fixtures";
+import topicFixtures from "discourse/tests/fixtures/topic";
 import {
   acceptance,
   exists,
@@ -13,9 +16,6 @@ import {
   queryAll,
   updateCurrentUser,
 } from "discourse/tests/helpers/qunit-helpers";
-import { test } from "qunit";
-import topicFixtures from "discourse/tests/fixtures/topic";
-import discoveryFixtures from "discourse/tests/fixtures/discovery-fixtures";
 import { cloneJSON } from "discourse-common/lib/object";
 import I18n from "I18n";
 

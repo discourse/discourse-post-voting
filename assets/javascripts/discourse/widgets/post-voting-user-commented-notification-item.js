@@ -1,7 +1,7 @@
+import { postUrl } from "discourse/lib/utilities";
 import { DefaultNotificationItem } from "discourse/widgets/default-notification-item";
 import { createWidgetFrom } from "discourse/widgets/widget";
 import { iconNode } from "discourse-common/lib/icon-library";
-import { postUrl } from "discourse/lib/utilities";
 import { buildAnchorId } from "../components/post-voting-comment";
 
 createWidgetFrom(

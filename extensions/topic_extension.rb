@@ -51,13 +51,13 @@ module PostVoting
     end
 
     def last_answer_post_number
-      return unless answers.any?
+      return if answers.none?
 
       answers.last.post_number
     end
 
     def last_answerer
-      return unless answers.any?
+      return if answers.none?
 
       @last_answerer ||= User.find(answers.last[:user_id])
     end

@@ -1,9 +1,9 @@
-import { createWidget } from "discourse/widgets/widget";
-import { castVote, removeVote, whoVoted } from "../lib/post-voting-utilities";
 import { h } from "virtual-dom";
-import { smallUserAtts } from "discourse/widgets/actions-summary";
-import { iconNode } from "discourse-common/lib/icon-library";
 import { popupAjaxError } from "discourse/lib/ajax-error";
+import { smallUserAtts } from "discourse/widgets/actions-summary";
+import { createWidget } from "discourse/widgets/widget";
+import { iconNode } from "discourse-common/lib/icon-library";
+import { castVote, removeVote, whoVoted } from "../lib/post-voting-utilities";
 
 export default createWidget("post-voting-post", {
   tagName: "div.post-voting-post",
