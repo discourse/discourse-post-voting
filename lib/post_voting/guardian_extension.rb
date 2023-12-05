@@ -23,9 +23,7 @@ module PostVoting
     end
 
     def can_flag_post_voting_comment?(comment)
-      if !authenticated? || !comment || comment.trashed? || !comment.user
-        return false
-      end
+      return false if !authenticated? || !comment || comment.trashed? || !comment.user
       return false if comment.user.staff? && !SiteSetting.allow_flagging_staff
       return false if comment.user_id == @user.id
 
@@ -43,6 +41,5 @@ module PostVoting
 
       true
     end
-
   end
 end
