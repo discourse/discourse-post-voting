@@ -55,7 +55,7 @@ after_initialize do
     TopicListItemSerializer.include(PostVoting::TopicListItemSerializerExtension)
     User.include(PostVoting::UserExtension)
     Guardian.prepend(PostVoting::GuardianExtension)
-    
+
     ComposerMessagesFinder.prepend(PostVoting::ComposerMessagesFinderExtension)
   end
 
@@ -212,7 +212,6 @@ after_initialize do
   add_to_serializer(:basic_category, :only_post_voting_in_this_category) do
     object.only_post_voting_in_this_category
   end
-
 
   add_model_callback(:post, :before_create) do
     if SiteSetting.post_voting_enabled && self.is_post_voting_topic? && self.via_email &&
