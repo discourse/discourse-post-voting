@@ -15,6 +15,7 @@ en:
     category:
       post_voting_settings_heading: Post Voting
       create_as_post_voting_default: New topics default to Post Voting topics in this category.
+      only_post_voting_in_this_category: New topics can only be Post Voting topics in this category.
 
     composer:
       create_post_voting:

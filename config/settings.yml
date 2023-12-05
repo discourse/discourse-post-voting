@@ -15,3 +15,12 @@ plugins:
   post_voting_enable_likes_on_answers:
     client: true
     default: false
+  only_allow_post_voting_topics_in_this_caregory: 
+    client: true
+    type: category
+    default: ""
+  min_trust_to_flag_posts_voting_comments:
+    default: 1
+    enum: "TrustLevelSetting"
+    client: true
+    
