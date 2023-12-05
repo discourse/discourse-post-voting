@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe PostVoting::CommentsController do
   fab!(:user) { Fabricate(:user) }
   fab!(:admin) { Fabricate(:admin) }
+  fab!(:moderator) { Fabricate(:moderator) }
   fab!(:group) { Fabricate(:group) }
   fab!(:category) { Fabricate(:category) }
   fab!(:topic) { Fabricate(:topic, category: category, subtype: Topic::POST_VOTING_SUBTYPE) }
@@ -231,6 +232,23 @@ RSpec.describe PostVoting::CommentsController do
       expect(body["cooked"]).to eq("<p>this is some new raw</p>")
     end
 
+    it "should allow a moderator to update the comment" do
+      sign_in(moderator)
+
+      put "/post_voting/comments.json",
+          params: {
+            comment_id: comment.id,
+            raw: "this is some new raw",
+          }
+
+      expect(response.status).to eq(200)
+
+      body = response.parsed_body
+
+      expect(body["raw"]).to eq("this is some new raw")
+      expect(body["cooked"]).to eq("<p>this is some new raw</p>")
+    end
+
     it "should allow users to update their own comment and publishes a MessageBus message" do
       sign_in(comment.user)
 
@@ -295,6 +313,20 @@ RSpec.describe PostVoting::CommentsController do
 
     it "should allow an admin to delete a comment of another user" do
       sign_in(admin)
+
+      delete "/post_voting/comments.json", params: { comment_id: comment.id }
+
+      expect(response.status).to eq(200)
+      expect(
+        PostVotingComment
+          .with_deleted
+          .where("deleted_at IS NOT NULL AND id = ?", comment.id)
+          .exists?,
+      ).to eq(true)
+    end
+
+    it "should allow a moderator to delete a comment of another user" do
+      sign_in(moderator)
 
       delete "/post_voting/comments.json", params: { comment_id: comment.id }
 

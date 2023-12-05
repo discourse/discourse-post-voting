@@ -18,7 +18,7 @@ after_initialize do
   %w[
     ../lib/post_voting/engine.rb
     ../lib/post_voting/vote_manager.rb
-    ../lib/post_voting/guardian.rb
+    ../lib/post_voting/guardian_extension.rb
     ../lib/post_voting/comment_creator.rb
     ../extensions/post_extension.rb
     ../extensions/post_serializer_extension.rb
@@ -54,7 +54,8 @@ after_initialize do
     TopicViewSerializer.include(PostVoting::TopicViewSerializerExtension)
     TopicListItemSerializer.include(PostVoting::TopicListItemSerializerExtension)
     User.include(PostVoting::UserExtension)
-    Guardian.include(PostVoting::Guardian)
+    Guardian.prepend(PostVoting::GuardianExtension)
+    
     ComposerMessagesFinder.prepend(PostVoting::ComposerMessagesFinderExtension)
   end
 
@@ -198,6 +199,20 @@ after_initialize do
   add_to_serializer(:basic_category, :create_as_post_voting_default) do
     object.create_as_post_voting_default
   end
+
+  register_category_custom_field_type(PostVoting::ONLY_POST_VOTING_IN_THIS_CATEGORY, :boolean)
+  if Site.respond_to? :preloaded_category_custom_fields
+    Site.preloaded_category_custom_fields << PostVoting::ONLY_POST_VOTING_IN_THIS_CATEGORY
+  end
+  add_to_class(:category, :only_post_voting_in_this_category) do
+    ActiveModel::Type::Boolean.new.cast(
+      self.custom_fields[PostVoting::ONLY_POST_VOTING_IN_THIS_CATEGORY],
+    )
+  end
+  add_to_serializer(:basic_category, :only_post_voting_in_this_category) do
+    object.only_post_voting_in_this_category
+  end
+
 
   add_model_callback(:post, :before_create) do
     if SiteSetting.post_voting_enabled && self.is_post_voting_topic? && self.via_email &&
