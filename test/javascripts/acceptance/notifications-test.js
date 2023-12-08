@@ -1,10 +1,11 @@
 import { visit } from "@ember/test-helpers";
 import { test } from "qunit";
-import { acceptance, queryAll } from "discourse/tests/helpers/qunit-helpers";
+import { acceptance, query } from "discourse/tests/helpers/qunit-helpers";
 import I18n from "I18n";
 
 acceptance("Discourse Post Voting - notifications", function (needs) {
   needs.user();
+  needs.settings({ post_voting_enabled: true });
 
   needs.pretender((server, helper) => {
     server.get("/notifications", () => {
@@ -32,12 +33,18 @@ acceptance("Discourse Post Voting - notifications", function (needs) {
   test("viewing comments notifications", async (assert) => {
     await visit("/u/eviltrout/notifications");
 
-    const notification = queryAll("ul.notifications")[0];
+    const notification = query(".user-notifications-list .notification");
 
     assert.strictEqual(
-      notification.textContent,
-      "someuser some fancy title",
-      "displays the username of user that commented and topic's title in notification"
+      notification.querySelector(".item-label").textContent.trim(),
+      "someuser",
+      "Renders username"
+    );
+
+    assert.strictEqual(
+      notification.querySelector(".item-description").textContent.trim(),
+      "some fancy title",
+      "Renders description"
     );
 
     assert.ok(
