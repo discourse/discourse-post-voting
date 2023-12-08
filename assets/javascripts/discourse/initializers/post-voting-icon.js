@@ -1,5 +1,6 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { postUrl } from "discourse/lib/utilities";
+import I18n from "I18n";
 import { buildAnchorId } from "../components/post-voting-comment";
 
 export default {
