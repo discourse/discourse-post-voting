@@ -10,19 +10,8 @@ export function buildAnchorId(commentId) {
 }
 
 export default class PostVotingComment extends Component {
-  @service currentUser;
-
   @tracked isEditing = false;
   @tracked isVoting = false;
-
-  get canEdit() {
-    return (
-      this.currentUser &&
-      (this.args.comment.user_id === this.currentUser.id ||
-        this.currentUser.admin) &&
-      !this.args.disabled
-    );
-  }
 
   get anchorId() {
     return buildAnchorId(this.args.comment.id);

@@ -32,6 +32,11 @@ class PostVotingComment < ActiveRecord::Base
     PrettyText.cook(raw, features_override: MARKDOWN_FEATURES, markdown_it_rules: MARKDOWN_IT_RULES)
   end
 
+  def full_url
+    post = Post.find(post_id)
+    "#{Discourse.base_url}#{post.url}"
+  end
+
   private
 
   def cook_raw

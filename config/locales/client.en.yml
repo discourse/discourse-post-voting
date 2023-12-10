@@ -60,6 +60,43 @@ en:
             confirm: "Are you sure you want to delete this comment?"
           user:
             deleted: "(user deleted)"
+          reviewables:
+            comment_already_handled: "Thanks, but we've already reviewed this comment and determined it does not need to be flagged again."
+            actions:
+              agree:
+                title: "Agree..."
+              agree_and_keep_comment:
+                title: "Keep comment"
+                description: "Agree with flag and keep the comment unchanged."
+              agree_and_keep_deleted:
+                title: "Keep comment Deleted"
+                description: "Agree with flag and leave the comment deleted."
+              agree_and_suspend:
+                title: "Suspend User"
+                description: "Agree with flag and suspend the user."
+              agree_and_silence:
+                title: "Silence User"
+                description: "Agree with flag and silence the user."
+              agree_and_restore:
+                title: "Restore comment"
+                description: "Restore the comment so that users can see it."
+              agree_and_delete:
+                title: "Delete comment"
+                description: "Delete the comment so that users cannot see it."
+              delete_and_agree:
+                title: "Ignore Flag and Delete comment"
+                description: "Ignore the flag by removing it from the queue and delete the comment."
+              disagree_and_restore:
+                title: "Disagree and Restore comment"
+                description: "Restore the comment so that all users can see it."
+              disagree:
+                title: "Disagree"
+              ignore:
+                title: "Do Nothing"
+                description: "Ignore the flag by removing it from the queue without taking any action."
+            transcript:
+              view: "View previous comments transcript"
+
       topic:
         answer:
           label: "Answer"
@@ -70,3 +107,14 @@ en:
         answer_count:
           one: "%{count} Answer"
           other: "%{count} Answers"
+          
+    review:
+          transcript:
+            view: "View previous messages transcript"
+          types:
+            reviewable_post_voting_comment:
+              title: "Flagged Post Voting Comment"
+            # reviewable_chat_message:
+            #   title: "Flagged chat message"
+            #   noun: "chat message"
+   

@@ -14,28 +14,10 @@ export default {
 
     withPluginApi("0.13.0", (api) => {
       api.serializeOnCreate("create_as_post_voting", "createAsPostVoting");
-
-      api.customizeComposerText({
-        actionTitle(model) {
-          if (model.createAsPostVoting) {
-            return I18n.t("composer.create_post_voting.label");
-          } else if (model.topic?.is_post_voting) {
-            return I18n.t("post_voting.topic.answer.label");
-          } else {
-            return null;
-          }
-        },
-
-        saveLabel(model) {
-          if (model.createAsPostVoting) {
-            return "composer.create_post_voting.label";
-          } else if (model.topic?.is_post_voting) {
-            return "post_voting.topic.answer.label";
-          } else {
-            return null;
-          }
-        },
-      });
+      api.serializeOnCreate(
+        "only_post_voting_in_this_category",
+        "onlyPostVotingInThisCategory"
+      );
 
       api.modifyClass("component:composer-actions", {
         pluginId: "discourse-post-voting",
@@ -49,7 +31,11 @@ export default {
 
       api.modifySelectKit("composer-actions").appendContent((options) => {
         if (options.action === CREATE_TOPIC) {
-          if (options.composerModel.createAsPostVoting) {
+          debugger;
+          if (
+            options.composerModel.createAsPostVoting &&
+            !options.composerModel.onlyPostVotingInThisCategory
+          ) {
             return [
               {
                 name: I18n.t(
@@ -89,7 +75,17 @@ export default {
           const createAsPostVoting =
             this.category?.create_as_post_voting_default;
 
-          if (
+          const onlyPostVotingInThisCategory =
+            this.category?.only_post_voting_in_this_category;
+          debugger;
+
+          if (this.creatingTopic && onlyPostVotingInThisCategory) {
+            this.set("createAsPostVoting", true);
+            this.set(
+              "onlyPostVotingInThisCategory",
+              onlyPostVotingInThisCategory
+            );
+          } else if (
             this.creatingTopic &&
             createAsPostVoting !== this.createAsPostVoting
           ) {

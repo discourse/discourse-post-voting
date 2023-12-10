@@ -155,9 +155,18 @@
 
       .post-voting-comment-actions-delete-link {
         color: var(--primary-med-or-secondary-med);
+        margin-right: 0.25em;
       }
 
       .post-voting-comment-actions-delete-link:hover {
+        color: var(--danger);
+      }
+
+      .post-voting-comment-actions-flag-link {
+        color: var(--primary-med-or-secondary-med);
+      }
+
+      .post-voting-comment-actions-flag-link:hover {
         color: var(--danger);
       }
     }

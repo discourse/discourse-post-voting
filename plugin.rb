@@ -20,6 +20,7 @@ after_initialize do
     ../lib/post_voting/vote_manager.rb
     ../lib/post_voting/guardian.rb
     ../lib/post_voting/comment_creator.rb
+    ../lib/post_voting/comment_review_queue.rb
     ../extensions/post_extension.rb
     ../extensions/post_serializer_extension.rb
     ../extensions/topic_extension.rb
@@ -33,8 +34,10 @@ after_initialize do
     ../app/controllers/post_voting/comments_controller.rb
     ../app/models/post_voting_vote.rb
     ../app/models/post_voting_comment.rb
+    ../app/models/reviewable_post_voting_comment.rb
     ../app/serializers/basic_voter_serializer.rb
     ../app/serializers/post_voting_comment_serializer.rb
+    ../app/serializers/reviewable_post_voting_comments_serializer.rb
     ../config/routes.rb
   ].each { |path| load File.expand_path(path, __FILE__) }
 

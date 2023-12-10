@@ -8,6 +8,7 @@ PostVoting::Engine.routes.draw do
   post "comments" => "comments#create"
   delete "comments" => "comments#destroy"
   put "comments" => "comments#update"
+  put "comments/flag" => "comments#flag"
   post "vote/comment" => "votes#create_comment_vote"
   delete "vote/comment" => "votes#destroy_comment_vote"
 end
