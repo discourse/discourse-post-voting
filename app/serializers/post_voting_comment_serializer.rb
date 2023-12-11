@@ -38,7 +38,6 @@ class PostVotingCommentSerializer < ApplicationSerializer
     @reviewable_id = @options[:reviewable_ids][object.id]
   end
 
-  
   def available_flags
     return [] if !scope.can_flag_post_voting_comment?(object)
     return [] if reviewable_id.present? && user_flag_status == ReviewableScore.statuses[:pending]
