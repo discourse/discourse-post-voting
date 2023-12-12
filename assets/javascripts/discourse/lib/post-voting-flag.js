@@ -20,7 +20,6 @@ export default class PostVotingFlag extends Flag {
   }
 
   flagsAvailable(flagModal) {
-    debugger;
     let flagsAvailable = flagModal.site.flagTypes;
 
     flagsAvailable = flagsAvailable.filter((flag) => {
@@ -44,7 +43,6 @@ export default class PostVotingFlag extends Flag {
 
   async create(flagModal, opts) {
     flagModal.args.closeModal();
-    debugger;
 
     return ajax("/post_voting/comments/flag", {
       method: "PUT",

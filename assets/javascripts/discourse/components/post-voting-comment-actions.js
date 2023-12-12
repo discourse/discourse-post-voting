@@ -27,7 +27,6 @@ export default class PostVotingCommentActions extends Component {
   }
 
   get canFlag() {
-    debugger;
     return (
       this.currentUser &&
       (this.comment.user_id === this.currentUser.id ||
@@ -61,7 +60,6 @@ export default class PostVotingCommentActions extends Component {
   @action
   showFlag() {
     this.comment.availableFlags = this.comment.available_flags;
-    debugger;
     this.modal.show(FlagModal, {
       model: {
         flagTarget: new PostVotingFlag(),

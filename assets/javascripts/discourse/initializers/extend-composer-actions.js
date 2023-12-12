@@ -19,6 +19,30 @@ export default {
         "onlyPostVotingInThisCategory"
       );
 
+      api.customizeComposerText({
+        actionTitle(model) {
+          if (model.createAsPostVoting ||
+            model.onlyPostVotingInThisCategory) {
+            return I18n.t("composer.create_post_voting.label");
+          } else if (model.topic?.is_post_voting) {
+            return I18n.t("post_voting.topic.answer.label");
+          } 
+           else {
+            return null;
+          }
+        },
+
+        saveLabel(model) {
+          if (model.createAsPostVoting || model.onlyPostVotingInThisCategory) {
+            return "composer.create_post_voting.label";
+          } else if (model.topic?.is_post_voting) {
+            return "post_voting.topic.answer.label";
+          } else {
+            return null;
+          }
+        },
+      });
+
       api.modifyClass("component:composer-actions", {
         pluginId: "discourse-post-voting",
 
@@ -31,10 +55,8 @@ export default {
 
       api.modifySelectKit("composer-actions").appendContent((options) => {
         if (options.action === CREATE_TOPIC) {
-          debugger;
           if (
-            options.composerModel.createAsPostVoting &&
-            !options.composerModel.onlyPostVotingInThisCategory
+            options.composerModel.createAsPostVoting && !options.composerModel.onlyPostVotingInThisCategory
           ) {
             return [
               {
@@ -48,7 +70,11 @@ export default {
                 id: "togglePostVoting",
               },
             ];
-          } else {
+          }
+          else if(options.composerModel.onlyPostVotingInThisCategory){
+            return [];
+          }
+          else {
             return [
               {
                 name: I18n.t(
@@ -77,7 +103,6 @@ export default {
 
           const onlyPostVotingInThisCategory =
             this.category?.only_post_voting_in_this_category;
-          debugger;
 
           if (this.creatingTopic && onlyPostVotingInThisCategory) {
             this.set("createAsPostVoting", true);
@@ -85,6 +110,8 @@ export default {
               "onlyPostVotingInThisCategory",
               onlyPostVotingInThisCategory
             );
+            this.notifyPropertyChange("replyOptions");
+            this.notifyPropertyChange("action");
           } else if (
             this.creatingTopic &&
             createAsPostVoting !== this.createAsPostVoting

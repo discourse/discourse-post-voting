@@ -22,6 +22,16 @@ acceptance("Discourse Post Voting - composer", function (needs) {
         createAsPostVotingSetInRequest = true;
       }
 
+      if (parsePostData(request.requestBody).only_post_voting_in_this_category === "true") {
+        createAsPostVotingSetInRequest = true;
+      }
+
+      server.get("/c/feature/2/l/latest.json", () => {
+        return helper.response(
+          DiscoveryFixtures["/latest_can_create_topic.json"]
+        );
+      });
+
       return helper.response({
         post: {
           topic_id: 280,
@@ -96,6 +106,34 @@ acceptance("Discourse Post Voting - composer", function (needs) {
     await categoryChooser.expand();
     await categoryChooser.selectRowByValue(2);
 
+    assert.strictEqual(
+      query(".action-title").innerText.trim(),
+      I18n.t("composer.create_post_voting.label")
+    );
+  });
+
+  test("Creating new topic in category with only_post_voting_in_this_category enabled", async function (assert) {
+    const category = Category.findById(2);
+    category.set("only_post_voting_in_this_category", true);
+
+    await visit("/");
+    await click("#create-topic");
+
+    assert.strictEqual(
+      query(".action-title").innerText.trim(),
+      I18n.t("topic.create_long")
+    );
+
+    const categoryChooser = selectKit(".category-chooser");
+    await categoryChooser.expand();
+
+    debugger;
+    await categoryChooser.selectRowByValue(2);
+    await categoryChooser.collapse();
+    const newTopicType = selectKit(".dropdown-select-box");
+    debugger;
+    await newTopicType.expand();
+    debugger;
     assert.strictEqual(
       query(".action-title").innerText.trim(),
       I18n.t("composer.create_post_voting.label")
