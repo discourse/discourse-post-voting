@@ -127,13 +127,10 @@ acceptance("Discourse Post Voting - composer", function (needs) {
     const categoryChooser = selectKit(".category-chooser");
     await categoryChooser.expand();
 
-    debugger;
     await categoryChooser.selectRowByValue(2);
     await categoryChooser.collapse();
     const newTopicType = selectKit(".dropdown-select-box");
-    debugger;
     await newTopicType.expand();
-    debugger;
     assert.strictEqual(
       query(".action-title").innerText.trim(),
       I18n.t("composer.create_post_voting.label")
