@@ -1,5 +1,5 @@
-<span class="post-voting-comment-actions">
-  {{#if this.canEdit}}
+{{#if this.canEdit}}
+  <span class="post-voting-comment-actions">
     <DButton
       @display="link"
       @class="post-voting-comment-actions-edit-link"
@@ -12,13 +12,14 @@
       @action={{this.deleteConfirm}}
       @icon="far-trash-alt"
     />
-  {{/if}}
-  {{#if this.canFlag}}
-    <DButton
-      @display="link"
-      @class="post-voting-comment-actions-flag-link"
-      @action={{this.showFlag}}
-      @icon="flag"
-    />
-  {{/if}}
-</span>
+
+    {{#if this.canFlag}}
+      <DButton
+        @display="link"
+        @class="post-voting-comment-actions-flag-link"
+        @action={{this.showFlag}}
+        @icon="flag"
+      />
+    {{/if}}
+  </span>
+{{/if}}
