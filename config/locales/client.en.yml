@@ -108,14 +108,10 @@ en:
         answer_count:
           one: "%{count} Answer"
           other: "%{count} Answers"
-          
+
     review:
-          transcript:
-            view: "View previous messages transcript"
-          types:
-            reviewable_post_voting_comment:
-              title: "Flagged Post Voting Comment"
-            # reviewable_chat_message:
-            #   title: "Flagged chat message"
-            #   noun: "chat message"
-   
+      transcript:
+        view: "View previous messages transcript"
+      types:
+        reviewable_post_voting_comment:
+          title: "Flagged Post Voting Comment"

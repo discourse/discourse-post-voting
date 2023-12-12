@@ -1,6 +1,6 @@
-import Flag from "discourse/lib/flag-targets/flag";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
+import Flag from "discourse/lib/flag-targets/flag";
 
 export default class PostVotingFlag extends Flag {
   title() {

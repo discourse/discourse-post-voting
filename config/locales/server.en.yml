@@ -44,7 +44,6 @@ en:
         other: "You cannot undo vote %{count} minutes after voting."
       one_vote_per_post: "You can only vote once for each post."
       one_vote_per_comment: "You can only vote once for each comment."
-      
 
   post_voting:
     comment:
@@ -92,9 +91,8 @@ en:
         needs_review:
           title: "Needs Review"
         notify_user:
-          comment_pm_title: 'Your post voting comment'
+          comment_pm_title: "Your post voting comment"
           comment_pm_body: "%{link}\n\n%{comment}"
         notify_moderators:
-          comment_pm_title: 'A post voting comment requires staff attention'
+          comment_pm_title: "A post voting comment requires staff attention"
           comment_pm_body: "%{link}\n\n%{comment}"
-  

@@ -21,13 +21,11 @@ export default {
 
       api.customizeComposerText({
         actionTitle(model) {
-          if (model.createAsPostVoting ||
-            model.onlyPostVotingInThisCategory) {
+          if (model.createAsPostVoting || model.onlyPostVotingInThisCategory) {
             return I18n.t("composer.create_post_voting.label");
           } else if (model.topic?.is_post_voting) {
             return I18n.t("post_voting.topic.answer.label");
-          } 
-           else {
+          } else {
             return null;
           }
         },
@@ -56,7 +54,8 @@ export default {
       api.modifySelectKit("composer-actions").appendContent((options) => {
         if (options.action === CREATE_TOPIC) {
           if (
-            options.composerModel.createAsPostVoting && !options.composerModel.onlyPostVotingInThisCategory
+            options.composerModel.createAsPostVoting &&
+            !options.composerModel.onlyPostVotingInThisCategory
           ) {
             return [
               {
@@ -70,11 +69,9 @@ export default {
                 id: "togglePostVoting",
               },
             ];
-          }
-          else if(options.composerModel.onlyPostVotingInThisCategory){
+          } else if (options.composerModel.onlyPostVotingInThisCategory) {
             return [];
-          }
-          else {
+          } else {
             return [
               {
                 name: I18n.t(

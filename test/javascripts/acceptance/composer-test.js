@@ -22,15 +22,12 @@ acceptance("Discourse Post Voting - composer", function (needs) {
         createAsPostVotingSetInRequest = true;
       }
 
-      if (parsePostData(request.requestBody).only_post_voting_in_this_category === "true") {
+      if (
+        parsePostData(request.requestBody).only_post_voting_in_this_category ===
+        "true"
+      ) {
         createAsPostVotingSetInRequest = true;
       }
-
-      server.get("/c/feature/2/l/latest.json", () => {
-        return helper.response(
-          DiscoveryFixtures["/latest_can_create_topic.json"]
-        );
-      });
 
       return helper.response({
         post: {

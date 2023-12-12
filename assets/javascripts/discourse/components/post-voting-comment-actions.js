@@ -1,11 +1,11 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
+import FlagModal from "discourse/components/modal/flag";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import I18n from "I18n";
 import PostVotingFlag from "../lib/post-voting-flag";
-import FlagModal from "discourse/components/modal/flag";
 
 export default class PostVotingCommentActions extends Component {
   @service dialog;
