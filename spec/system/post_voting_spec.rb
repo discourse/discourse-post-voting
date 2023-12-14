@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe "Post voting", type: :system do
-  fab!(:admin) { Fabricate(:admin) }
-  fab!(:user1) { Fabricate(:user) }
-  fab!(:user2) { Fabricate(:user) }
+  fab!(:admin) { Fabricate(:admin, refresh_auto_groups: true) }
+  fab!(:user1) { Fabricate(:user, refresh_auto_groups: true) }
+  fab!(:user2) { Fabricate(:user, refresh_auto_groups: true) }
 
   let(:topic_page) { PageObjects::Pages::PostVotingTopic.new }
 
