@@ -1,12 +1,8 @@
-<div class="flagged-post-header">
-  <LinkTo
-    @route="post-voting-comment.near-message"
-    @models={{array
-      this.comment.slugifiedTitle
-      this.comment.id
-      @reviewable.target_id
-    }}
-  />
+<div class="post-topic">
+  <a class="title-text" href={{this.post.url}}> {{html-safe
+        @reviewable.topic.fancyTitle
+      }}</a>
+  {{category-badge @reviewable.category}}
 </div>
 
 <div class="post-contents-wrapper">

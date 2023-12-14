@@ -1,14 +1,15 @@
 import Component from "@glimmer/component";
-import { cached } from "@glimmer/tracking";
+import { tracked } from "@glimmer/tracking";
 import { inject as service } from "@ember/service";
-import ChatChannel from "discourse/plugins/chat/discourse/models/chat-channel";
 
 export default class ReviewableChatMessage extends Component {
   @service store;
-  @service chatChannelsManager;
+  @tracked post;
 
-  @cached
-  get chatChannel() {
-    return ChatChannel.create(this.args.reviewable.chat_channel);
+  constructor() {
+    super(...arguments);
+    this.store.find("post", this.args.reviewable.post_id).then((post) => {
+      this.post = post;
+    });
   }
 }

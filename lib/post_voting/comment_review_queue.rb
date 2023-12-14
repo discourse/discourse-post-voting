@@ -39,6 +39,7 @@ module PostVoting
             target: comment,
             reviewable_by_moderator: true,
             potential_spam: flag_type_id == ReviewableScore.types[:spam],
+            topic: comment.post.topic,
             payload: payload,
           )
         reviewable.update(target_created_by: comment.user)
