@@ -16,22 +16,22 @@ export default class PostVotingCommentActions extends Component {
 
   comment = this.args.comment;
 
-  get canEdit() {
+  hasPermission() {
     return (
-      this.currentUser &&
-      (this.comment.user_id === this.currentUser.id ||
-        this.currentUser.admin ||
-        this.currentUser.moderator) &&
-      !this.args.disabled
+      this.comment.user_id === this.currentUser.id ||
+      this.currentUser.admin ||
+      this.currentUser.moderator
     );
+  }
+
+  get canEdit() {
+    return this.currentUser && this.hasPermission && !this.args.disabled;
   }
 
   get canFlag() {
     return (
       this.currentUser &&
-      (this.comment.user_id === this.currentUser.id ||
-        this.currentUser.admin ||
-        this.currentUser.moderator ||
+      (this.hasPermission ||
         this.currentUser.trust_level >=
           this.siteSettings.min_trust_to_flag_posts_voting_comments) &&
       !this.args.disabled

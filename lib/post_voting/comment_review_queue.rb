@@ -74,8 +74,8 @@ module PostVoting
       return if reviewable.score <= Chat::ReviewableMessage.score_to_silence_user
 
       user = reviewable.target_created_by
-      return if user.admin?
       return unless user
+      return if user.admin?
       return if user.silenced?
 
       UserSilencer.silence(

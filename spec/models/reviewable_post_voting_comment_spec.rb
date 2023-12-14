@@ -19,9 +19,6 @@ RSpec.describe ReviewablePostVotingComment, type: :model do
     Fabricate(:reviewable_post_voting_comment, target: comment, created_by: moderator)
   end
 
-  #   it { is_expected.to validate_length_of(:type).is_at_most(100) }
-  #   it { is_expected.to validate_length_of(:target_type).is_at_most(100) }
-
   it "agree_and_keep agrees with the flag and doesn't delete the comment" do
     reviewable.perform(moderator, :agree_and_keep_comment)
 
