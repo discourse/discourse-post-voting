@@ -3,6 +3,9 @@ en:
     site_settings:
       categories:
         post_voting: Post Voting
+  post_voting:
+    reviewables:
+      comment_already_handled: "Thanks, but we've already reviewed this comment and determined it does not need to be flagged again."
 
   js:
     notifications:

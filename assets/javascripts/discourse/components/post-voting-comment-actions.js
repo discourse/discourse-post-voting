@@ -64,7 +64,7 @@ export default class PostVotingCommentActions extends Component {
       model: {
         flagTarget: new PostVotingFlag(),
         flagModel: this.comment,
-        setHidden: () => this.comment.set("hidden", true),
+        setHidden: () => (this.comment.hidden = true),
         site: this.site,
       },
     });
