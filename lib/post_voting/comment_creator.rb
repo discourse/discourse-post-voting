@@ -20,7 +20,11 @@ module PostVoting
       Scheduler::Defer.later "Publish new post voting comment" do
         comment.post.publish_change_to_clients!(
           :post_voting_post_commented,
-          comment: PostVotingCommentSerializer.new(comment, root: false).as_json,
+          comment:
+            PostVotingCommentSerializer.new(
+              comment,
+              { scope: anonymous_guardian, root: false },
+            ).as_json,
           comments_count: PostVotingComment.where(post_id: comment.post_id).count,
         )
       end
@@ -46,6 +50,12 @@ module PostVoting
         notification_type: Notification.types[:question_answer_user_commented],
         username: comment.user.username,
       )
+    end
+
+    private
+
+    def self.anonymous_guardian
+      Guardian.new(nil)
     end
   end
 end

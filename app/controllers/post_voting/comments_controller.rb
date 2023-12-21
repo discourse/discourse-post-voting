@@ -32,10 +32,10 @@ module PostVoting
           post_id: @post.id,
           raw: comments_params[:raw],
         )
-
       if comment.errors.present?
         render_json_error(comment.errors.full_messages, status: 403)
       else
+        DiscourseEvent.trigger(:post_voting_comment_created, comment, comment.user)
         render_serialized(comment, PostVotingCommentSerializer, root: false)
       end
     end
@@ -45,8 +45,8 @@ module PostVoting
       params.require(:raw)
 
       comment = find_comment(params[:comment_id])
-      @guardian.ensure_can_see!(comment.post)
 
+      @guardian.ensure_can_see!(comment.post)
       raise Discourse::InvalidAccess if !@guardian.can_edit_comment?(comment)
 
       if comment.update(raw: params[:raw])
@@ -58,7 +58,7 @@ module PostVoting
             comment_cooked: comment.cooked,
           )
         end
-
+        DiscourseEvent.trigger(:post_voting_comment_edited, comment, comment.user)
         render_serialized(comment, PostVotingCommentSerializer, root: false)
       else
         render_json_error(comment.errors.full_messages, status: 403)
@@ -83,6 +83,34 @@ module PostVoting
       end
 
       render json: success_json
+    end
+
+    def flag
+      RateLimiter.new(current_user, "flag_post_voting_comment", 4, 1.minutes).performed!
+      permitted_params =
+        params.permit(%i[comment_id flag_type_id message is_warning take_action queue_for_review])
+
+      comment = PostVotingComment.find(permitted_params[:comment_id])
+
+      flag_type_id = permitted_params[:flag_type_id].to_i
+
+      if !ReviewableScore.types.values.include?(flag_type_id)
+        raise Discourse::InvalidParameters.new(:flag_type_id)
+      end
+
+      result =
+        PostVoting::CommentReviewQueue.new.flag_comment(
+          comment,
+          guardian,
+          flag_type_id,
+          permitted_params,
+        )
+
+      if result[:success]
+        render json: success_json
+      else
+        render_json_error(result[:errors])
+      end
     end
 
     private

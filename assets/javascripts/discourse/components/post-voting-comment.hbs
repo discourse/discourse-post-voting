@@ -54,13 +54,13 @@
         {{format-date @comment.created_at}}
       </span>
 
-      {{#if this.canEdit}}
-        <PostVotingCommentActions
-          @id={{@comment.id}}
-          @updateComment={{this.expandEditor}}
-          @removeComment={{@removeComment}}
-        />
-      {{/if}}
+      <PostVotingCommentActions
+        @id={{@comment.id}}
+        @updateComment={{this.expandEditor}}
+        @removeComment={{@removeComment}}
+        @comment={{@comment}}
+        @disabled={{@disabled}}
+      />
 
     </div>
   {{/if}}

@@ -25,6 +25,7 @@ en:
     post_voting_enable_likes_on_answers: "Enable like button on replies on Post Voting topics"
     post_voting_undo_vote_action_window: "Number of minutes users are allowed to undo votes in Post Voting topics (enter 0 for no limit)"
     post_voting_comment_limit_per_post: "Number of comments allowed on each post"
+    min_trust_to_flag_posts_voting_comments: "Minimum trust level to flag a post voting comment"
 
   post_action_types:
     vote:
@@ -50,3 +51,48 @@ en:
         post_voting_not_enabled: "Commenting on a post that is not in a Post Voting topic is not permitted."
         not_permitted: "Commenting on associated post is not permitted."
         limit_exceeded: "Limit of %{limit} comments per post has been reached."
+        perform: "Post Voting Comment flagged with score high enough to silence user."
+      reviewables:
+        comment_already_handled: "Thanks, but we've already reviewed this comment and determined it does not need to be flagged again."
+        actions:
+          agree:
+          agree_and_keep_comment:
+            title: "Keep comment"
+            description: "Agree with flag and keep the comment unchanged."
+          agree_and_keep_deleted:
+            title: "Keep comment Deleted"
+            description: "Agree with flag and leave the comment deleted."
+          agree_and_suspend:
+            title: "Suspend User"
+            description: "Agree with flag and suspend the user."
+          agree_and_silence:
+            title: "Silence User"
+            description: "Agree with flag and silence the user."
+          agree_and_restore:
+            title: "Restore comment"
+            description: "Restore the comment so that users can see it."
+          agree_and_delete:
+            title: "Delete comment"
+            description: "Delete the comment so that users cannot see it."
+          delete_and_agree:
+            title: "Ignore Flag and Delete comment"
+            description: "Ignore the flag by removing it from the queue and delete the comment."
+          disagree_and_restore:
+            title: "Disagree and Restore comment"
+            description: "Restore the comment so that all users can see it."
+          disagree:
+            title: "Disagree"
+          ignore:
+            title: "Do Nothing"
+            description: "Ignore the flag by removing it from the queue without taking any action."
+        transcript:
+          view: "View previous comments transcript"
+      reviewable_score_types:
+        needs_review:
+          title: "Needs Review"
+        notify_user:
+          comment_pm_title: "Your post voting comment"
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_title: "A post voting comment requires staff attention"
+          comment_pm_body: "%{link}\n\n%{comment}"

@@ -4,25 +4,15 @@ import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-
 export function buildAnchorId(commentId) {
   return `post-voting-comment-${commentId}`;
 }
 
 export default class PostVotingComment extends Component {
   @service currentUser;
-
   @tracked isEditing = false;
   @tracked isVoting = false;
-
-  get canEdit() {
-    return (
-      this.currentUser &&
-      (this.args.comment.user_id === this.currentUser.id ||
-        this.currentUser.admin) &&
-      !this.args.disabled
-    );
-  }
+  @tracked hidden = false;
 
   get anchorId() {
     return buildAnchorId(this.args.comment.id);
