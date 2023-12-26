@@ -50,3 +50,23 @@ zh_CN:
         post_voting_not_enabled: "不允许对不在“帖子投票”话题中的帖子发表评论。"
         not_permitted: "不允许对关联帖子发表评论。"
         limit_exceeded: "已达到每篇帖子 %{limit} 条评论的限制。"
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "封禁用户"
+            description: "同意举报并封禁用户。"
+          agree_and_silence:
+            title: "将用户禁言"
+            description: "同意举报并将用户禁言。"
+          disagree:
+            title: "不同意"
+          ignore:
+            title: "不进行操作"
+            description: "不采取任何措施，将其从队列中移除，忽略该举报。"
+      reviewable_score_types:
+        needs_review:
+          title: "需要审核"
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

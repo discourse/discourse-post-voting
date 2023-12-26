@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 lv:
+  post_voting:
+    comment:
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "Apturētie lietotāji"
+          disagree:
+            title: "Nepiekrist"

@@ -56,6 +56,21 @@ zh_CN:
             confirm: "确定要删除此评论吗？"
           user:
             deleted: "（用户已删除）"
+          reviewables:
+            actions:
+              agree:
+                title: "同意…"
+              agree_and_suspend:
+                title: "封禁用户"
+                description: "同意举报并封禁用户。"
+              agree_and_silence:
+                title: "将用户禁言"
+                description: "同意举报并将用户禁言。"
+              disagree:
+                title: "不同意"
+              ignore:
+                title: "不进行操作"
+                description: "不采取任何措施，将其从队列中移除，忽略该举报。"
       topic:
         answer:
           label: "回答"
@@ -65,3 +80,6 @@ zh_CN:
         activity: "活动"
         answer_count:
           other: "%{count} 个回答"
+    review:
+      transcript:
+        view: "查看以前的消息副本"

@@ -13,5 +13,20 @@ id:
           cancel: "batal"
           user:
             deleted: "(pengguna dihapus)"
+          reviewables:
+            actions:
+              agree:
+                title: "Setuju..."
+              agree_and_suspend:
+                title: "Tangguhkan Pengguna"
+                description: "Setuju dengan penanda dan menangguhkan pengguna."
+              agree_and_silence:
+                title: "Senyapkan Pengguna"
+                description: "Setuju dengan penanda dan senyapkan pengguna."
+              disagree:
+                title: "Tidak setuju"
+              ignore:
+                title: "Tidak Melakukan Apapun"
+                description: "Abaikan penanda tersebut dengan menghapusnya dari antrean tanpa mengambil tindakan apa pun."
       topic:
         activity: "Activity"

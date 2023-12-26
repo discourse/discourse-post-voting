@@ -11,5 +11,11 @@ sr:
         post_voting_comment:
           edit: "izmeni"
           cancel: "otkaži"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Suspenduj Korisnika"
+              disagree:
+                title: "Odbaci"
       topic:
         activity: "Aktivnosti"

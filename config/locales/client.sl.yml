@@ -21,6 +21,18 @@ sl:
           cancel: "prekliči"
           user:
             deleted: "(uporabnik izbrisan)"
+          reviewables:
+            actions:
+              agree:
+                title: "Strinjam se..."
+              agree_and_suspend:
+                title: "Suspendiraj uporabnika"
+                description: "Strinjam se z prijavo in suspendiraj uporabnika."
+              agree_and_silence:
+                title: "Utišaj uporabnika"
+                description: "Potrdi prijavo in utišaj uporabnika"
+              disagree:
+                title: "Se ne strinjam"
       topic:
         sort_by: "Uredi po"
         activity: "Aktivnost"

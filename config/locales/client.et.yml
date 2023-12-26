@@ -19,6 +19,14 @@ et:
           cancel: "tühista"
           user:
             deleted: "(kasutaja kustutatud)"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Peata kasutaja"
+              agree_and_silence:
+                title: "Vaigista kasutaja"
+              disagree:
+                title: "Ei nõustu"
       topic:
         sort_by: "Järjesta"
         activity: "Aktiivsus"

@@ -27,6 +27,12 @@ fa_IR:
           cancel: "لغو"
           user:
             deleted: "(کاربر حذف شده)"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "کاربر تعلیق شده"
+              disagree:
+                title: "مخالف"
       topic:
         answer:
           label: "پاسخ"

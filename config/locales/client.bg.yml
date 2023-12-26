@@ -13,6 +13,12 @@ bg:
           cancel: "прекрати"
           user:
             deleted: "(потребителят е изтрит)"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Преустанови потребител"
+              disagree:
+                title: "Не съм съгласен "
       topic:
         sort_by: "Сортирай по"
         activity: "Активност"

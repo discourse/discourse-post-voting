@@ -13,3 +13,16 @@ fa_IR:
   post_action_types:
     vote:
       title: "رای"
+  post_voting:
+    comment:
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "کاربر تعلیق شده"
+          disagree:
+            title: "مخالف"
+      reviewable_score_types:
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

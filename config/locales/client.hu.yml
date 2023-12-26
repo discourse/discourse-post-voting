@@ -15,6 +15,16 @@ hu:
           cancel: "mégse"
           user:
             deleted: "(felhasználó törölve)"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Felhasználó felfüggesztése"
+                description: "Egyetértés a megjelöléssel, és a felhasználó felfüggesztése"
+              agree_and_silence:
+                title: "Felhasználó némítása"
+                description: "Egyetértés a megjelöléssel, és a felhasználó némítása"
+              disagree:
+                title: "Elutasítás"
       topic:
         sort_by: "Rendezés"
         activity: "Tevékenység"

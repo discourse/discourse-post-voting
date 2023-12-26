@@ -5,3 +5,20 @@
 # https://translate.discourse.org/
 
 ur:
+  post_voting:
+    comment:
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "صارف معطل کریں"
+            description: "فلَیگ کے ساتھ اتفاق کریں اور صارف معطل کریں۔"
+          agree_and_silence:
+            title: "صارف خاموش کریں"
+            description: "فلَیگ کے ساتھ اتفاق کریں اور صارف خاموش کریں۔"
+          disagree:
+            title: "اختلاف کریں"
+      reviewable_score_types:
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

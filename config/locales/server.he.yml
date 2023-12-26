@@ -56,3 +56,21 @@ he:
         post_voting_not_enabled: "לא ניתן להגיב על פוסט שאינו בתבנית שו\"ת."
         not_permitted: "הוספת תגובה על פוסט משויך אסורה."
         limit_exceeded: "הגעת למגבלה של %{limit} תגובות לפוסט."
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "השעיית משתמש"
+            description: "הבעת הסכמה עם הדגל והשעיית המשתמש."
+          agree_and_silence:
+            title: "השתקת משתמש"
+            description: "הבעת הסכמה עם הדגל והשתקת המשתמש."
+          disagree:
+            title: "אי קבלה"
+          ignore:
+            title: "לא לעשות דבר"
+            description: "התעלמות מהדגל על ידי הסרתו מהתור מבלי לנקוט בשום פעולה."
+      reviewable_score_types:
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

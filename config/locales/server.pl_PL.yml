@@ -5,3 +5,23 @@
 # https://translate.discourse.org/
 
 pl_PL:
+  post_voting:
+    comment:
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "Zawieś użytkownika"
+            description: "Zgódź się z flagą i zawieś konto użytkownika."
+          agree_and_silence:
+            title: "Wycisz użytkownika"
+            description: "Zgódź się z flagą i wycisz użytkownika."
+          disagree:
+            title: "Wycofaj"
+          ignore:
+            title: "Nic nie rób"
+            description: "Zignoruj flagę usuwając ją z kolejki bez podejmowania jakichkolwiek działań."
+      reviewable_score_types:
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

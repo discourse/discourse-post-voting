@@ -43,6 +43,18 @@ zh_TW:
             confirm: "您確定要刪除此評論嗎？"
           user:
             deleted: "（使用者已被刪除）"
+          reviewables:
+            actions:
+              agree:
+                title: "同意..."
+              agree_and_suspend:
+                title: "將使用者停權"
+                description: "同意檢舉並停權使用者"
+              agree_and_silence:
+                title: "將使用者禁言"
+                description: "同意檢舉並禁止使用者發文"
+              disagree:
+                title: "不同意"
       topic:
         answer:
           label: "回答"

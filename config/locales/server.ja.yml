@@ -48,3 +48,20 @@ ja:
         post_voting_not_enabled: "投稿の投票トピックに含まれない投稿へのコメントはできません。"
         not_permitted: "関連する投稿にコメントすることはできません。"
         limit_exceeded: "投稿あたり %{limit} 件のコメント数制限に達しました。"
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "ユーザーを凍結"
+            description: "通報に同意し、ユーザーを凍結します。"
+          agree_and_silence:
+            title: "ユーザーを投稿禁止"
+            description: "通報に同意し、ユーザーを投稿禁止にします。"
+          disagree:
+            title: "同意しない"
+      reviewable_score_types:
+        needs_review:
+          title: "要レビュー"
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

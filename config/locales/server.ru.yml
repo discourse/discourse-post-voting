@@ -54,3 +54,20 @@ ru:
         post_voting_not_enabled: "Комментирование сообщения, не относящегося к теме в формате «Голосование по сообщениям», не допускается."
         not_permitted: "Комментирование связанного сообщения не допускается."
         limit_exceeded: "Достигнут лимит комментариев на одно сообщение: %{limit}."
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "Блокировка пользователя"
+            description: "Согласиться с жалобой и заблокировать пользователя."
+          agree_and_silence:
+            title: "Заморозка пользователя"
+            description: "Согласиться с жалобой и заморозить пользователя."
+          disagree:
+            title: "Отклонить"
+      reviewable_score_types:
+        needs_review:
+          title: "Требуется проверка"
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

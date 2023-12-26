@@ -50,3 +50,20 @@ nl:
         post_voting_not_enabled: "Reageren op een bericht dat niet in een topic met Stemmen op berichten staat, is niet toegestaan."
         not_permitted: "Reageren op het gerelateerde bericht is niet toegestaan."
         limit_exceeded: "Limiet van %{limit} reacties per bericht is bereikt."
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "Gebruiker schorsen"
+            description: "Akkoord met markering en de gebruiker schorsen."
+          agree_and_silence:
+            title: "Gebruiker dempen"
+            description: "Akkoord met markering en de gebruiker dempen."
+          disagree:
+            title: "Niet akkoord"
+      reviewable_score_types:
+        needs_review:
+          title: "Beoordeling nodig"
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

@@ -18,6 +18,12 @@ lv:
           cancel: "atcelt"
           user:
             deleted: "(lietotājs dzēsts)"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Apturētie lietotāji"
+              disagree:
+                title: "Nepiekrist"
       topic:
         sort_by: "Kārtot pēc"
         activity: "Aktivitāte"

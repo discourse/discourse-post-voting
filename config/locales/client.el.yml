@@ -19,6 +19,14 @@ el:
           cancel: "ακύρωση"
           user:
             deleted: "(ο χρήστης διαγράφηκε)"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Αποβολή Χρήστη"
+              agree_and_silence:
+                title: "Σίγαση Χρήστη"
+              disagree:
+                title: "Διαφωνώ"
       topic:
         sort_by: "Ταξινόμηση κατά"
         activity: "Δραστηριότητα"

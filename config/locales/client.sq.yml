@@ -15,6 +15,12 @@ sq:
               other: "Futni së paku %{count} gërma"
           edit: "redakto"
           cancel: "anulo"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Pezullo anëtarin"
+              disagree:
+                title: "Jo dakord"
       topic:
         sort_by: "Rendit sipas"
         activity: "Aktiviteti"

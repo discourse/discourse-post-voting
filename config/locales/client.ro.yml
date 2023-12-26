@@ -20,6 +20,14 @@ ro:
           cancel: "Anulează"
           user:
             deleted: "(utilizator șters)"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Suspendă Utilizator"
+              agree_and_silence:
+                title: "Reducere la tăcere utilizator"
+              disagree:
+                title: "Nu sunt de acord"
       topic:
         sort_by: "Sortează după"
         activity: "Activitate"

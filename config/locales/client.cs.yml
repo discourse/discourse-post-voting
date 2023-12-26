@@ -21,6 +21,16 @@ cs:
           cancel: "zrušit"
           user:
             deleted: "(uživatel smazán)"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Zakázat uživatele"
+                description: "Schválit nahlášení a pozastavit uživatele."
+              agree_and_silence:
+                title: "Ztišit uživatele"
+                description: "Schválit nahlášení a ztišit uživatele."
+              disagree:
+                title: "Neschvaluji"
       topic:
         sort_by: "Seřadil"
         activity: "Aktivita"

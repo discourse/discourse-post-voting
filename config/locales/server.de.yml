@@ -50,3 +50,23 @@ de:
         post_voting_not_enabled: "Das Kommentieren eines Beitrags, der sich nicht in einem Beitragsabstimmungsthema befindet, ist nicht gestattet."
         not_permitted: "Das Kommentieren von zugehörigen Beiträgen ist nicht gestattet."
         limit_exceeded: "Das Limit von %{limit} Kommentaren pro Beitrag wurde erreicht."
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "Benutzer sperren"
+            description: "Markierung zustimmen und den Benutzer sperren."
+          agree_and_silence:
+            title: "Benutzer stummschalten"
+            description: "Markierung zustimmen und den Benutzer stummschalten."
+          disagree:
+            title: "Ablehnen"
+          ignore:
+            title: "Nichts tun"
+            description: "Ignoriere die Meldung, indem du sie aus der Warteschlange entfernst, ohne etwas zu unternehmen."
+      reviewable_score_types:
+        needs_review:
+          title: "Überprüfung erforderlich"
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

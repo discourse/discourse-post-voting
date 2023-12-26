@@ -50,3 +50,23 @@ tr_TR:
         post_voting_not_enabled: "Gönderi Oylama konusunda olmayan bir gönderiye yorum yapılmasına izin verilmez."
         not_permitted: "İlişkili gönderiye yorum yapılmasına izin verilmez."
         limit_exceeded: "Gönderi başına %{limit} yorum limitine ulaşıldı."
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "Kullanıcıyı Askıya Al"
+            description: "Bayrağı kabul edin ve kullanıcıyı askıya alın."
+          agree_and_silence:
+            title: "Kullanıcıyı Sustur"
+            description: "Bayrağı kabul edin ve kullanıcıyı susturun."
+          disagree:
+            title: "Katılma"
+          ignore:
+            title: "Hiçbir şey yapma"
+            description: "Herhangi bir işlem yapmadan bayrağı kuyruktan kaldırarak yok say."
+      reviewable_score_types:
+        needs_review:
+          title: "İnceleme Gerekiyor"
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

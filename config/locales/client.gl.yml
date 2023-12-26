@@ -19,6 +19,18 @@ gl:
           cancel: "cancelar"
           user:
             deleted: "(usuario eliminado)"
+          reviewables:
+            actions:
+              agree:
+                title: "De acordo..."
+              agree_and_suspend:
+                title: "Suspender un usuario"
+                description: "De acordo con esta denuncia e suspender o usuario."
+              agree_and_silence:
+                title: "Silenciar o usuario"
+                description: "De acordo con esta denuncia e silenciar o usuario."
+              disagree:
+                title: "Discrepar"
       topic:
         sort_by: "Ordenar por"
         activity: "Actividade"

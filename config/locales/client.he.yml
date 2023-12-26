@@ -71,6 +71,21 @@ he:
             confirm: "למחוק את ההערה הזאת?"
           user:
             deleted: "(משתמש נמחק)"
+          reviewables:
+            actions:
+              agree:
+                title: "הסכמה…"
+              agree_and_suspend:
+                title: "השעיית משתמש"
+                description: "הבעת הסכמה עם הדגל והשעיית המשתמש."
+              agree_and_silence:
+                title: "השתקת משתמש"
+                description: "הבעת הסכמה עם הדגל והשתקת המשתמש."
+              disagree:
+                title: "אי קבלה"
+              ignore:
+                title: "לא לעשות דבר"
+                description: "התעלמות מהדגל על ידי הסרתו מהתור מבלי לנקוט בשום פעולה."
       topic:
         answer:
           label: "מענה"

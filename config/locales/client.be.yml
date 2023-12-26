@@ -11,6 +11,18 @@ be:
         post_voting_comment:
           edit: "правіць"
           cancel: "адмена"
+          reviewables:
+            actions:
+              agree:
+                title: "Пагадзіцеся ..."
+              agree_and_suspend:
+                title: "прыпыненне карыстальніка"
+                description: "Пагадзіцеся са сцягамі і падвесіць карыстальнік."
+              agree_and_silence:
+                title: "Silence Карыстальнік"
+                description: "Пагадзіцеся са сцягамі і маўчанне карыстальніка."
+              disagree:
+                title: "не згаджацца"
       topic:
         sort_by: "сартаваць па"
         activity: "актыўнасць"
