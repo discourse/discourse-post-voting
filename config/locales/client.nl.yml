@@ -61,6 +61,18 @@ nl:
             confirm: "Weet je zeker dat je deze reactie wilt verwijderen?"
           user:
             deleted: "(gebruiker verwijderd)"
+          reviewables:
+            actions:
+              agree:
+                title: "Akkoord..."
+              agree_and_suspend:
+                title: "Gebruiker schorsen"
+                description: "Akkoord met markering en de gebruiker schorsen."
+              agree_and_silence:
+                title: "Gebruiker dempen"
+                description: "Akkoord met markering en de gebruiker dempen."
+              disagree:
+                title: "Niet akkoord"
       topic:
         answer:
           label: "Antwoorden"
@@ -71,3 +83,6 @@ nl:
         answer_count:
           one: "%{count} antwoord"
           other: "%{count} antwoorden"
+    review:
+      transcript:
+        view: "Transcript van eerdere berichten weergeven"

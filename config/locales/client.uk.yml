@@ -21,6 +21,24 @@ uk:
           cancel: "скасувати"
           user:
             deleted: "(користувача вилучено)"
+          reviewables:
+            actions:
+              agree:
+                title: "Погоджуюся…"
+              agree_and_suspend:
+                title: "Призупинити користувача"
+                description: "Погодитися з прапором та призупинити користувача."
+              agree_and_silence:
+                title: "Заблокувати користувача"
+                description: "Погодитися з прапором та заблокувати користувача."
+              disagree:
+                title: "Відмовити"
+              ignore:
+                title: "Нічого не робити"
+                description: "Ігнорувати прапорець, видаливши його з черги без жодних дій."
       topic:
         sort_by: "Сортувати за"
         activity: "Активність"
+    review:
+      transcript:
+        view: "Показати попередні повідомлення"

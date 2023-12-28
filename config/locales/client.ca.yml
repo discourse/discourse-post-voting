@@ -19,6 +19,18 @@ ca:
           cancel: "cancel·la"
           user:
             deleted: "(usuari suprimit)"
+          reviewables:
+            actions:
+              agree:
+                title: "D'acord..."
+              agree_and_suspend:
+                title: "Suspèn l'usuari"
+                description: "D'acord amb la bandera i suspèn l'usuari. "
+              agree_and_silence:
+                title: "Silencia l'usuari"
+                description: "D'acord amb la bandera i silencia l'usuari. "
+              disagree:
+                title: "En desacord"
       topic:
         sort_by: "Ordena per"
         activity: "Activitat"

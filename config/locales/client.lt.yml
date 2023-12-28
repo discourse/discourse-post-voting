@@ -21,6 +21,17 @@ lt:
           cancel: "atšaukti"
           user:
             deleted: "(naudotojas ištrintas)"
+          reviewables:
+            actions:
+              agree:
+                title: "Sutinku..."
+              agree_and_suspend:
+                title: "Suspenduoti narį"
+              agree_and_silence:
+                title: "Nutildyti narį"
+                description: "Sutikti su pranešimu ir nutildyti narį."
+              disagree:
+                title: "Nesutinka"
       topic:
         sort_by: "Rūšiuoti pagal"
         activity: "Aktyvumas"

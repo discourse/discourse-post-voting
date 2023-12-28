@@ -19,6 +19,16 @@ hy:
           cancel: "չեղարկել"
           user:
             deleted: "(օգտատերը ջնջված է)"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Սառեցնել Օգտատիրոջը"
+                description: "Ընդունել դրոշակավորումը և սառեցնել օգտատիրոջը:"
+              agree_and_silence:
+                title: "Լռեցնել Օգտատիրոջը"
+                description: "Ընդունել դրոշակը և սառեցնել օգտատիրոջը:"
+              disagree:
+                title: "Չընդունել"
       topic:
         sort_by: "Դասավորել ըստ"
         activity: "Ակտիվության"

@@ -36,3 +36,18 @@ zh_TW:
       errors:
         not_permitted: "不允許對相關貼文發表評論。"
         limit_exceeded: "已達到每篇貼文 %{limit} 條評論的限制。"
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "將使用者停權"
+            description: "同意檢舉並停權使用者"
+          agree_and_silence:
+            title: "將使用者禁言"
+            description: "同意檢舉並禁止使用者發文"
+          disagree:
+            title: "不同意"
+      reviewable_score_types:
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

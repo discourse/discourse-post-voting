@@ -5,3 +5,25 @@
 # https://translate.discourse.org/
 
 uk:
+  post_voting:
+    comment:
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "Призупинити користувача"
+            description: "Погодитися з прапором та призупинити користувача."
+          agree_and_silence:
+            title: "Заблокувати користувача"
+            description: "Погодитися з прапором та заблокувати користувача."
+          disagree:
+            title: "Відмовити"
+          ignore:
+            title: "Нічого не робити"
+            description: "Ігнорувати прапорець, видаливши його з черги без жодних дій."
+      reviewable_score_types:
+        needs_review:
+          title: "Потребує розгляду"
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}\n"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}\n"

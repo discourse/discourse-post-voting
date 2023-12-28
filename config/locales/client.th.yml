@@ -18,6 +18,10 @@ th:
           cancel: "ยกเลิก"
           user:
             deleted: "(ผู้ใช้ถูกลบ)"
+          reviewables:
+            actions:
+              disagree:
+                title: "ไม่เห็นด้วย"
       topic:
         sort_by: "เรียงโดย"
         activity: "กิจกรรม"

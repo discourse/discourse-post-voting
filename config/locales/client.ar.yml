@@ -81,6 +81,18 @@ ar:
             confirm: "هل تريد بالتأكيد حذف هذا التعليق؟"
           user:
             deleted: "(تم حذف المستخدم)"
+          reviewables:
+            actions:
+              agree:
+                title: "الموافقة..."
+              agree_and_suspend:
+                title: "تعليق المستخدم"
+                description: "الموافقة على البلاغ وتعليق المستخدم"
+              agree_and_silence:
+                title: "كتم المستخدم"
+                description: "الموافقة على البلاغ وكتم المستخدم"
+              disagree:
+                title: "عدم الموافقة"
       topic:
         answer:
           label: "إجابة"

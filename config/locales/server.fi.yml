@@ -50,3 +50,20 @@ fi:
         post_voting_not_enabled: "Sellaisen viestin kommentointi ei ole sallittua, joka ei ole viestiäänestysketjussa."
         not_permitted: "Liittyvän viestin kommentointi ei ole sallittua."
         limit_exceeded: "%{limit} kommentin viestikohtainen raja on saavutettu."
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "Aseta käyttäjä käyttökieltoon"
+            description: "Hyväksy liputus ja aseta käyttäjä käyttökieltoon."
+          agree_and_silence:
+            title: "Hiljennä käyttäjä"
+            description: "Hyväksy liputus ja hiljennä käyttäjä."
+          disagree:
+            title: "Hylkää"
+      reviewable_score_types:
+        needs_review:
+          title: "Vaatii käsittelyä"
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

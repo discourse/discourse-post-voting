@@ -71,6 +71,18 @@ ru:
             confirm: "Действительно удалить этот комментарий?"
           user:
             deleted: "(пользователь удалён)"
+          reviewables:
+            actions:
+              agree:
+                title: "Согласиться…"
+              agree_and_suspend:
+                title: "Блокировка пользователя"
+                description: "Согласиться с жалобой и заблокировать пользователя."
+              agree_and_silence:
+                title: "Заморозка пользователя"
+                description: "Согласиться с жалобой и заморозить пользователя."
+              disagree:
+                title: "Отклонить"
       topic:
         answer:
           label: "Ответ"
@@ -83,3 +95,6 @@ ru:
           few: "%{count} ответа"
           many: "%{count} ответов"
           other: "%{count} ответа"
+    review:
+      transcript:
+        view: "Просмотр предыдущих сообщений"

@@ -61,6 +61,18 @@ pt_BR:
             confirm: "Tem certeza de que deseja excluir este comentário?"
           user:
             deleted: "(usuário(a) excluído(a))"
+          reviewables:
+            actions:
+              agree:
+                title: "Concordo..."
+              agree_and_suspend:
+                title: "Suspender usuário(s)"
+                description: "Concorde com a sinalização e suspenda o usuário(a)."
+              agree_and_silence:
+                title: "Silenciar usuário(a)"
+                description: "Concorde com a sinalização e silencie o usuário(a)."
+              disagree:
+                title: "Discordar"
       topic:
         answer:
           label: "Resposta"
@@ -71,3 +83,6 @@ pt_BR:
         answer_count:
           one: "%{count} resposta"
           other: "%{count} respostas"
+    review:
+      transcript:
+        view: "Ver transcrição de mensagens anteriores"

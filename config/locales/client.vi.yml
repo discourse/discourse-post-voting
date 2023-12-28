@@ -18,6 +18,14 @@ vi:
           cancel: "hủy"
           user:
             deleted: "(người dùng đã bị xóa)"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Tạm ngưng người dùng"
+              agree_and_silence:
+                title: "Người dùng im lặng"
+              disagree:
+                title: "Không đồng ý"
       topic:
         sort_by: "Sắp xếp theo"
         activity: "Hoạt động"

@@ -19,6 +19,21 @@ sv:
           cancel: "avbryt"
           user:
             deleted: "(användare raderad)"
+          reviewables:
+            actions:
+              agree:
+                title: "Godkänn..."
+              agree_and_suspend:
+                title: "Stäng av användaren"
+                description: "Godkänn flaggning och stäng av användaren."
+              agree_and_silence:
+                title: "Tysta användaren"
+                description: "Godkänn flaggning och tysta användaren."
+              disagree:
+                title: "Håll inte med"
       topic:
         sort_by: "Sortera efter"
         activity: "Aktivitet"
+    review:
+      transcript:
+        view: "Visa tidigare meddelandens avskrift"

@@ -5,3 +5,18 @@
 # https://translate.discourse.org/
 
 ro:
+  post_voting:
+    comment:
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "Suspendă utilizator"
+          agree_and_silence:
+            title: "Reducere la tăcere utilizator"
+          disagree:
+            title: "Nu sunt de acord"
+      reviewable_score_types:
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

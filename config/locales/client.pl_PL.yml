@@ -21,6 +21,24 @@ pl_PL:
           cancel: "anuluj"
           user:
             deleted: "(użytkownik usunięty)"
+          reviewables:
+            actions:
+              agree:
+                title: "Zgadzam się..."
+              agree_and_suspend:
+                title: "Zawieś użytkownika"
+                description: "Zgódź się z flagą i zawieś konto użytkownika."
+              agree_and_silence:
+                title: "Wycisz użytkownika"
+                description: "Zgódź się z flagą i wycisz użytkownika."
+              disagree:
+                title: "Wycofaj"
+              ignore:
+                title: "Nic nie rób"
+                description: "Zignoruj flagę usuwając ją z kolejki bez podejmowania jakichkolwiek działań."
       topic:
         sort_by: "Sortuj po"
         activity: "Aktywność"
+    review:
+      transcript:
+        view: "Zobacz transkrypcję poprzednich wiadomości"

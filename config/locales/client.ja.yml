@@ -56,6 +56,18 @@ ja:
             confirm: "このコメントを削除してもよろしいですか？"
           user:
             deleted: "(削除されたユーザー)"
+          reviewables:
+            actions:
+              agree:
+                title: "同意…"
+              agree_and_suspend:
+                title: "ユーザーの凍結"
+                description: "通報に同意し、ユーザーを凍結します。"
+              agree_and_silence:
+                title: "ユーザーを投稿禁止"
+                description: "通報に同意し、ユーザーを投稿禁止にします。"
+              disagree:
+                title: "同意しない"
       topic:
         answer:
           label: "回答"
@@ -65,3 +77,6 @@ ja:
         activity: "アクティビティ"
         answer_count:
           other: "回答 %{count} 件"
+    review:
+      transcript:
+        view: "前のメッセージのトランスクリプトを表示"

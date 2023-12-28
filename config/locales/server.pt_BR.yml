@@ -50,3 +50,20 @@ pt_BR:
         post_voting_not_enabled: "Não é permitido comentar em uma postagem que não esteja em um tópico de \"Votação de publicação\"."
         not_permitted: "Não é permitido comentar na postagem associada."
         limit_exceeded: "O limite de %{limit} comentários por postagem foi atingido."
+      reviewables:
+        actions:
+          agree_and_suspend:
+            title: "Suspender usuário(s)"
+            description: "Concorde com a sinalização e suspenda o usuário(a)."
+          agree_and_silence:
+            title: "Silenciar usuário(a)"
+            description: "Concorde com a sinalização e silencie o usuário(a)."
+          disagree:
+            title: "Discordar"
+      reviewable_score_types:
+        needs_review:
+          title: "Precisa de revisão"
+        notify_user:
+          comment_pm_body: "%{link}\n\n%{comment}"
+        notify_moderators:
+          comment_pm_body: "%{link}\n\n%{comment}"

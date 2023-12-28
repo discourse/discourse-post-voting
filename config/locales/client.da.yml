@@ -19,6 +19,18 @@ da:
           cancel: "annuller"
           user:
             deleted: "(bruger slettet)"
+          reviewables:
+            actions:
+              agree:
+                title: "Enig..."
+              agree_and_suspend:
+                title: "Suspendér Bruger"
+              agree_and_silence:
+                title: "Ignorer Bruger"
+              disagree:
+                title: "Uenig"
+              ignore:
+                title: "Gør ingenting"
       topic:
         sort_by: "Sorter efter"
         activity: "Aktivitet"

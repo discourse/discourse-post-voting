@@ -11,5 +11,11 @@ te:
         post_voting_comment:
           edit: "సవరణ"
           cancel: "రద్దు"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "సభ్యుడిని సస్పెండు చేయి"
+              disagree:
+                title: "ఒప్పుకోకు"
       topic:
         activity: "కలాపం"

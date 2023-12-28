@@ -61,6 +61,21 @@ tr_TR:
             confirm: "Bu yorumu silmek istediğinizden emin misiniz?"
           user:
             deleted: "(kullanıcı silindi)"
+          reviewables:
+            actions:
+              agree:
+                title: "Kabul et..."
+              agree_and_suspend:
+                title: "Kullanıcıyı Askıya Al"
+                description: "Bayrağı kabul edin ve kullanıcıyı askıya alın."
+              agree_and_silence:
+                title: "Kullanıcıyı Sustur"
+                description: "Bayrağı kabul edin ve kullanıcıyı susturun."
+              disagree:
+                title: "Katılma"
+              ignore:
+                title: "Hiçbir şey yapma"
+                description: "Herhangi bir işlem yapmadan bayrağı kuyruktan kaldırarak yok say."
       topic:
         answer:
           label: "Yanıt"
@@ -71,3 +86,6 @@ tr_TR:
         answer_count:
           one: "%{count} Yanıt"
           other: "%{count} Yanıt"
+    review:
+      transcript:
+        view: "Önceki mesajların dökümünü görüntüle"

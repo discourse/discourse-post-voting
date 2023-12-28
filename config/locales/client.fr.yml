@@ -61,6 +61,18 @@ fr:
             confirm: "Voulez-vous vraiment supprimer ce commentaire ?"
           user:
             deleted: "(utilisateur supprimé)"
+          reviewables:
+            actions:
+              agree:
+                title: "D'accord…"
+              agree_and_suspend:
+                title: "Suspendre l'utilisateur"
+                description: "Accepter le signalement et suspendre l'utilisateur."
+              agree_and_silence:
+                title: "Désactiver l'utilisateur"
+                description: "Accepter le signalement et désactiver l'utilisateur."
+              disagree:
+                title: "Refuser"
       topic:
         answer:
           label: "Réponse"
@@ -71,3 +83,6 @@ fr:
         answer_count:
           one: "%{count} réponse"
           other: "%{count} réponses"
+    review:
+      transcript:
+        view: "Afficher la transcription des messages précédents"

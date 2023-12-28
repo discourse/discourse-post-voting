@@ -20,6 +20,16 @@ bs_BA:
           cancel: "otkaži"
           user:
             deleted: "(korisnik izbrisan)"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Suspend User"
+                description: "Složij se sa prijavom i suspendiraj prijavljenog korisnika (suspend)"
+              agree_and_silence:
+                title: "Stišaj korisnika"
+                description: "Složij se sa prijavom i utišaj prijavljenog korisnika (silence)"
+              disagree:
+                title: "Disagree"
       topic:
         sort_by: "Sortiraj po"
         activity: "Activity"

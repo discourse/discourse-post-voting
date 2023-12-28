@@ -61,6 +61,21 @@ it:
             confirm: "Vuoi davvero eliminare questo commento?"
           user:
             deleted: "(utente eliminato)"
+          reviewables:
+            actions:
+              agree:
+                title: "Accetta..."
+              agree_and_suspend:
+                title: "Sospendi utente"
+                description: "Accetta segnalazione e sospendi l'utente."
+              agree_and_silence:
+                title: "Silenzia utente"
+                description: "Accetta segnalazione e silenzia l'utente."
+              disagree:
+                title: "Rifiuta"
+              ignore:
+                title: "Non fare nulla"
+                description: "Ignora la segnalazione rimuovendola dalla coda senza intraprendere alcuna azione."
       topic:
         answer:
           label: "Risposta"
@@ -71,3 +86,6 @@ it:
         answer_count:
           one: "%{count} risposta"
           other: "%{count} risposte"
+    review:
+      transcript:
+        view: "Visualizza la trascrizione dei messaggi precedenti"

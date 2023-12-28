@@ -61,6 +61,21 @@ de:
             confirm: "Möchtest du wirklich diesen Kommentar löschen?"
           user:
             deleted: "(Benutzer gelöscht)"
+          reviewables:
+            actions:
+              agree:
+                title: "Zustimmen …"
+              agree_and_suspend:
+                title: "Benutzer sperren"
+                description: "Markierung zustimmen und den Benutzer sperren."
+              agree_and_silence:
+                title: "Benutzer stummschalten"
+                description: "Markierung zustimmen und den Benutzer stummschalten."
+              disagree:
+                title: "Ablehnen"
+              ignore:
+                title: "Nichts tun"
+                description: "Ignoriere die Meldung, indem du sie aus der Warteschlange entfernst, ohne etwas zu unternehmen."
       topic:
         answer:
           label: "Antwort"
@@ -71,3 +86,6 @@ de:
         answer_count:
           one: "%{count} Antwort"
           other: "%{count} Antworten"
+    review:
+      transcript:
+        view: "Transkript früherer Nachrichten anzeigen"

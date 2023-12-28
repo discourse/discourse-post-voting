@@ -11,6 +11,14 @@ sk:
         post_voting_comment:
           edit: "uprav"
           cancel: "zrušiť"
+          reviewables:
+            actions:
+              agree_and_suspend:
+                title: "Suspendovaný užívateľ"
+              agree_and_silence:
+                title: "Tichý užívateľ"
+              disagree:
+                title: "Nesúhlasiť"
       topic:
         sort_by: "Zoradiť podľa"
         activity: "Aktivity"
