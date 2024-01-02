@@ -9,6 +9,9 @@ he:
     site_settings:
       categories:
         post_voting: הצבעה על פוסטים
+  post_voting:
+    reviewables:
+      comment_already_handled: "תודה לך, כבר בדקנו את התגובה הזאת והחלטנו שאין צורך לסמן אותה בדגל פעם נוספת."
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
