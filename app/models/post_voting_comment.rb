@@ -36,12 +36,11 @@ class PostVotingComment < ActiveRecord::Base
   end
 
   def url
-    post_url = Post.find(post_id).url
+    Post.find(post_id).url
   end
 
   def full_url
-    post_url = url
-    "#{Discourse.base_url}#{post_url}"
+    "#{Discourse.base_url}#{url}"
   end
 
   private
