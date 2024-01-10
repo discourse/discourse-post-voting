@@ -2,12 +2,15 @@
 
 class PostVotingComment < ActiveRecord::Base
   include Trashable
+  include HasCustomFields
 
   # Bump this when changing MARKDOWN_FEATURES or MARKDOWN_IT_RULES
   COOKED_VERSION = 1
 
   belongs_to :post
   belongs_to :user
+
+  before_save { ensure_last_editor_id }
 
   validates :post_id, presence: true
   validates :user_id, presence: true
@@ -32,9 +35,12 @@ class PostVotingComment < ActiveRecord::Base
     PrettyText.cook(raw, features_override: MARKDOWN_FEATURES, markdown_it_rules: MARKDOWN_IT_RULES)
   end
 
+  def url
+    Post.find(post_id).url
+  end
+
   def full_url
-    post = Post.find(post_id)
-    "#{Discourse.base_url}#{post.url}"
+    "#{Discourse.base_url}#{url}"
   end
 
   private
@@ -59,6 +65,10 @@ class PostVotingComment < ActiveRecord::Base
         ),
       )
     end
+  end
+
+  def ensure_last_editor_id
+    self.last_editor_id ||= self.user_id
   end
 end
 

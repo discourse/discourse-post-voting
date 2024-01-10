@@ -34,6 +34,7 @@ after_initialize do
     ../app/controllers/post_voting/comments_controller.rb
     ../app/models/post_voting_vote.rb
     ../app/models/post_voting_comment.rb
+    ../app/models/post_voting_comment_custom_field.rb
     ../app/models/reviewable_post_voting_comment.rb
     ../app/serializers/basic_voter_serializer.rb
     ../app/serializers/post_voting_comment_serializer.rb
@@ -206,6 +207,7 @@ after_initialize do
   register_category_custom_field_type(PostVoting::ONLY_POST_VOTING_IN_THIS_CATEGORY, :boolean)
   if Site.respond_to? :preloaded_category_custom_fields
     Site.preloaded_category_custom_fields << PostVoting::ONLY_POST_VOTING_IN_THIS_CATEGORY
+    Site.preloaded_category_custom_fields << PostVoting::CREATE_AS_POST_VOTING_DEFAULT
   end
   add_to_class(:category, :only_post_voting_in_this_category) do
     ActiveModel::Type::Boolean.new.cast(
