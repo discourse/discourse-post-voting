@@ -5,6 +5,7 @@ import I18n from "I18n";
 
 export default {
   name: "extend-composer-actions",
+  after: "chat-setup",
   initialize(container) {
     const siteSettings = container.lookup("site-settings:main");
 
