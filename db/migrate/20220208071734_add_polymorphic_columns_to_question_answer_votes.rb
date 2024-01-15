@@ -14,7 +14,7 @@ class AddPolymorphicColumnsToQuestionAnswerVotes < ActiveRecord::Migration[6.1]
     change_column_null :question_answer_votes, :votable_id, false
 
     begin
-      # At this point in time, this plugin has not been publicaly released so just dropping it
+      # At this point in time, this plugin has not been publicly released so just dropping it
       Migration::SafeMigrate.disable!
       remove_column :question_answer_votes, :post_id
     ensure

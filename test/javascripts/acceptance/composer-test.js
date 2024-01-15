@@ -12,7 +12,7 @@ acceptance("Discourse Post Voting - composer", function (needs) {
   needs.user();
   needs.settings({ post_voting_enabled: true });
 
-  needs.hooks.afterEach(() => {
+  needs.hooks.afterEach(function () {
     createAsPostVotingSetInRequest = false;
   });
 

@@ -1,6 +1,6 @@
 <DButton
-  @class="btn-flat post-voting-button {{this.buttonClasses}}"
+  {{on "click" this.onClick}}
   @disabled={{this.disabled}}
   @icon={{this.iconName}}
-  {{on "click" this.onClick}}
+  class={{concat-class "btn-flat post-voting-button" this.buttonClasses}}
 />

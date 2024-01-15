@@ -130,7 +130,7 @@ function setupPostVoting(needs) {
     post_voting_enable_likes_on_answers: false,
   });
 
-  needs.hooks.afterEach(() => {
+  needs.hooks.afterEach(function () {
     filteredByActivity = false;
   });
 
@@ -527,7 +527,7 @@ acceptance("Discourse Post Voting - logged in user", function (needs) {
       I18n.t("post_voting.post.post_voting_comment.composer.length_ok", {
         count: 38,
       }),
-      "displays the right message when comment lenght is OK"
+      "displays the right message when comment length is OK"
     );
 
     assert.notOk(
