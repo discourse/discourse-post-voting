@@ -7,7 +7,7 @@ export default {
   name: "post-voting-icon",
 
   initialize(container) {
-    const siteSettings = container.lookup("site-settings:main");
+    const siteSettings = container.lookup("service:site-settings");
     if (!siteSettings.post_voting_enabled) {
       return;
     }
