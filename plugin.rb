@@ -204,6 +204,10 @@ after_initialize do
     object.create_as_post_voting_default
   end
 
+  add_to_serializer(:current_user, :can_flag_post_voting_comments) do
+    scope.can_flag_post_voting_comments?
+  end
+
   register_category_custom_field_type(PostVoting::ONLY_POST_VOTING_IN_THIS_CATEGORY, :boolean)
   if Site.respond_to? :preloaded_category_custom_fields
     Site.preloaded_category_custom_fields << PostVoting::ONLY_POST_VOTING_IN_THIS_CATEGORY
