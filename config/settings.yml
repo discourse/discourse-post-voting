@@ -19,10 +19,10 @@ plugins:
     default: 1
     enum: "TrustLevelSetting"
     client: true
+    hidden: true
   flag_posts_voting_comments_allowed_groups:
     default: "11" # auto group trust_level_1
     type: group_list
-    client: false
     allow_any: false
     refresh: true
     validator: "AtLeastOneGroupValidator"
