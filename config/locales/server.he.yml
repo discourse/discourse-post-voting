@@ -64,12 +64,20 @@ he:
           agree_and_silence:
             title: "השתקת משתמש"
             description: "הבעת הסכמה עם הדגל והשתקת המשתמש."
+          agree_and_restore:
+            title: "שחזור תגובה"
+            description: "לשחזר את התגובה כדי שמשתמשים יוכלו לראות אותה."
+          agree_and_delete:
+            title: "מחיקת תגובה"
+            description: "למחוק את התגובה כדי שמשתמשים לא יוכלו לראות אותה."
           disagree:
             title: "אי קבלה"
           ignore:
             title: "לא לעשות דבר"
             description: "התעלמות מהדגל על ידי הסרתו מהתור מבלי לנקוט בשום פעולה."
       reviewable_score_types:
+        needs_review:
+          title: "דורש סקירה"
         notify_user:
           comment_pm_body: "%{link}\n\n%{comment}"
         notify_moderators:
