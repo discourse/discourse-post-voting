@@ -31,9 +31,7 @@ export default class PostVotingCommentActions extends Component {
   get canFlag() {
     return (
       this.currentUser &&
-      (this.hasPermission ||
-        this.currentUser.trust_level >=
-          this.siteSettings.min_trust_to_flag_posts_voting_comments) &&
+      (this.hasPermission || this.currentUser.can_flag_post_voting_comments) &&
       !this.args.disabled
     );
   }

@@ -18,7 +18,7 @@ module PostVoting
       return false if self.user.silenced?
       return true if self.user.staff?
 
-      self.user.trust_level >= SiteSetting.min_trust_to_flag_posts_voting_comments
+      self.user.in_any_groups?(SiteSetting.flag_posts_voting_comments_allowed_groups_map)
     end
 
     def can_flag_post_voting_comment?(comment)
