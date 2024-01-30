@@ -9,6 +9,9 @@ fi:
     site_settings:
       categories:
         post_voting: Viestiäänestys
+  post_voting:
+    reviewables:
+      comment_already_handled: "Kiitos, mutta olemme jo käsitelleet tämän kommentin ja todenneet, ettei sitä tarvitse liputtaa uudelleen."
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -19,6 +22,7 @@ fi:
     category:
       post_voting_settings_heading: Viestiäänestys
       create_as_post_voting_default: Uusissa ketjuissa käytetään oletuksena tämän alueen viestiäänestysketjuja.
+      only_post_voting_in_this_category: Uudet ketjut voivat olla vain viestiäänestysketjuja tällä alueella.
     composer:
       create_post_voting:
         label: "Luo viestiäänestysketju"
@@ -62,17 +66,41 @@ fi:
           user:
             deleted: "(käyttäjä poistettu)"
           reviewables:
+            comment_already_handled: "Kiitos, mutta olemme jo käsitelleet tämän kommentin ja todenneet, ettei sitä tarvitse liputtaa uudelleen."
             actions:
               agree:
                 title: "Hyväksy..."
+              agree_and_keep_comment:
+                title: "Pidä kommentti"
+                description: "Hyväksy liputus ja pidä kommentti ennallaan."
+              agree_and_keep_deleted:
+                title: "Pidä kommentti poistettuna"
+                description: "Hyväksy liputus ja pidä kommentti poistettuna."
               agree_and_suspend:
                 title: "Aseta käyttäjä käyttökieltoon"
                 description: "Hyväksy liputus ja aseta käyttäjä käyttökieltoon."
               agree_and_silence:
                 title: "Hiljennä käyttäjä"
                 description: "Hyväksy liputus ja hiljennä käyttäjä."
+              agree_and_restore:
+                title: "Palauta kommentti"
+                description: "Palauta kommentti, jotta käyttäjät näkevät sen."
+              agree_and_delete:
+                title: "Poista kommentti"
+                description: "Poista kommentti, jotta käyttäjät eivät näe sitä."
+              delete_and_agree:
+                title: "Ohita liputus ja poista kommentti"
+                description: "Ohita lippu poistamalla se jonosta ja poista kommentti."
+              disagree_and_restore:
+                title: "Hylkää ja palauta kommentti"
+                description: "Palauta kommentti, jotta kaikki käyttäjät näkevät sen."
               disagree:
                 title: "Hylkää"
+              ignore:
+                title: "Älä tee mitään"
+                description: "Ohita lippu poistamalla se jonosta tekemättä toimia."
+            transcript:
+              view: "Näytä aiempien kommenttien transkriptio"
       topic:
         answer:
           label: "Vastaus"
@@ -86,3 +114,6 @@ fi:
     review:
       transcript:
         view: "Näytä aiempien viestien transkriptio"
+      types:
+        reviewable_post_voting_comment:
+          title: "Liputettu viestiäänestyskommentti"

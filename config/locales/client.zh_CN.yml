@@ -9,6 +9,9 @@ zh_CN:
     site_settings:
       categories:
         post_voting: 帖子投票
+  post_voting:
+    reviewables:
+      comment_already_handled: "谢谢，但我们已经审核这条评论，并确定不需要再次对其进行举报。"
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -19,6 +22,7 @@ zh_CN:
     category:
       post_voting_settings_heading: 帖子投票
       create_as_post_voting_default: 此类别中的新话题默认为“帖子投票”话题。
+      only_post_voting_in_this_category: 新话题只能是此类别中的“帖子投票”话题。
     composer:
       create_post_voting:
         label: "创建帖子投票话题"
@@ -57,20 +61,41 @@ zh_CN:
           user:
             deleted: "（用户已删除）"
           reviewables:
+            comment_already_handled: "谢谢，但我们已经审核这条评论，并确定不需要再次对其进行举报。"
             actions:
               agree:
                 title: "同意…"
+              agree_and_keep_comment:
+                title: "保留评论"
+                description: "同意举报并保持评论不变。"
+              agree_and_keep_deleted:
+                title: "保留评论删除状态"
+                description: "同意举报并保持评论的删除状态。"
               agree_and_suspend:
                 title: "封禁用户"
                 description: "同意举报并封禁用户。"
               agree_and_silence:
                 title: "将用户禁言"
                 description: "同意举报并将用户禁言。"
+              agree_and_restore:
+                title: "恢复评论"
+                description: "恢复评论，以便用户可以看到。"
+              agree_and_delete:
+                title: "删除评论"
+                description: "删除评论，使用户看不到。"
+              delete_and_agree:
+                title: "忽略举报并删除评论"
+                description: "通过从队列中移除来忽略举报并删除评论。"
+              disagree_and_restore:
+                title: "不同意并恢复评论"
+                description: "恢复评论，以便所有用户都可以看到。"
               disagree:
                 title: "不同意"
               ignore:
                 title: "不进行操作"
-                description: "不采取任何措施，将其从队列中移除，忽略该举报。"
+                description: "通过从队列中移除来忽略举报，不采取任何措施。"
+            transcript:
+              view: "查看以前的评论转录文本"
       topic:
         answer:
           label: "回答"
@@ -82,4 +107,7 @@ zh_CN:
           other: "%{count} 个回答"
     review:
       transcript:
-        view: "查看以前的消息副本"
+        view: "查看以前的消息转录文本"
+      types:
+        reviewable_post_voting_comment:
+          title: "被举报的“帖子投票”评论"

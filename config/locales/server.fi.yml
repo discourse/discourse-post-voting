@@ -13,6 +13,8 @@ fi:
         voting_not_permitted: "Et voi äänestää tätä viestiä."
         comment_cannot_be_downvoted: "Voit antaa vain positiivisia ääniä kommenteille."
         self_voting_not_permitted: "Et saa äänestää omaa viestiäsi tai kommenttiasi."
+        vote_archived_topic: "Et voi äänestää arkistoituja ketjuja."
+        vote_closed_topic: "Et voi äänestää suljettuja ketjuja."
   topic:
     post_voting:
       errors:
@@ -28,6 +30,10 @@ fi:
     post_voting_enable_likes_on_answers: "Ota käyttöön tykkäyspainike viestiäänestysketjujen vastauksissa"
     post_voting_undo_vote_action_window: "Minuuttien määrä, joiden aikana käyttäjät voivat perua ääniä viestiäänestysketjuissa (poista raja käytöstä syöttämällä 0)"
     post_voting_comment_limit_per_post: "Kussakin viestissä sallittavien kommenttien määrä"
+    min_trust_to_flag_posts_voting_comments: "Vähimmäisluottamustaso viestin äänestyskommentin liputtamiseen"
+    flag_posts_voting_comments_allowed_groups: "Ryhmät, jotka voivat liputtaa viestin äänestyskommentin"
+    keywords:
+      flag_posts_voting_comments_allowed_groups: "min_trust_to_flag_posts_voting_comments"
   post_action_types:
     vote:
       title: "Äänestä"
@@ -50,20 +56,47 @@ fi:
         post_voting_not_enabled: "Sellaisen viestin kommentointi ei ole sallittua, joka ei ole viestiäänestysketjussa."
         not_permitted: "Liittyvän viestin kommentointi ei ole sallittua."
         limit_exceeded: "%{limit} kommentin viestikohtainen raja on saavutettu."
+        perform: "Viestin äänestyskommentti liputettiin riittävän korkealla pistemäärällä käyttäjän hiljentämiseksi."
       reviewables:
+        comment_already_handled: "Kiitos, mutta olemme jo käsitelleet tämän kommentin ja todenneet, ettei sitä tarvitse liputtaa uudelleen."
         actions:
+          agree_and_keep_comment:
+            title: "Pidä kommentti"
+            description: "Hyväksy liputus ja pidä kommentti ennallaan."
+          agree_and_keep_deleted:
+            title: "Pidä kommentti poistettuna"
+            description: "Hyväksy liputus ja pidä kommentti poistettuna."
           agree_and_suspend:
             title: "Aseta käyttäjä käyttökieltoon"
             description: "Hyväksy liputus ja aseta käyttäjä käyttökieltoon."
           agree_and_silence:
             title: "Hiljennä käyttäjä"
             description: "Hyväksy liputus ja hiljennä käyttäjä."
+          agree_and_restore:
+            title: "Palauta kommentti"
+            description: "Palauta kommentti, jotta käyttäjät näkevät sen."
+          agree_and_delete:
+            title: "Poista kommentti"
+            description: "Poista kommentti, jotta käyttäjät eivät näe sitä."
+          delete_and_agree:
+            title: "Ohita liputus ja poista kommentti"
+            description: "Ohita lippu poistamalla se jonosta ja poista kommentti."
+          disagree_and_restore:
+            title: "Hylkää ja palauta kommentti"
+            description: "Palauta kommentti, jotta kaikki käyttäjät näkevät sen."
           disagree:
             title: "Hylkää"
+          ignore:
+            title: "Älä tee mitään"
+            description: "Ohita lippu poistamalla se jonosta tekemättä toimia."
+        transcript:
+          view: "Näytä aiempien kommenttien transkriptio"
       reviewable_score_types:
         needs_review:
           title: "Vaatii käsittelyä"
         notify_user:
+          comment_pm_title: "Viestin äänestyskommenttisi"
           comment_pm_body: "%{link}\n\n%{comment}"
         notify_moderators:
+          comment_pm_title: "Viestin äänestyskommentti vaatii henkilökunnan huomiota"
           comment_pm_body: "%{link}\n\n%{comment}"

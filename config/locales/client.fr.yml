@@ -9,6 +9,9 @@ fr:
     site_settings:
       categories:
         post_voting: Vote d'un message
+  post_voting:
+    reviewables:
+      comment_already_handled: "Merci, mais nous avons déjà examiné ce commentaire et déterminé qu'il n'a pas besoin d'être signalé à nouveau."
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -19,6 +22,7 @@ fr:
     category:
       post_voting_settings_heading: Vote d'un message
       create_as_post_voting_default: Les nouveaux sujets sont par défaut les sujets de vote de message dans cette catégorie.
+      only_post_voting_in_this_category: Les nouveaux sujets ne peuvent être que des sujets postérieurs au vote dans cette catégorie.
     composer:
       create_post_voting:
         label: "Créer un sujet de vote de message"
@@ -62,17 +66,41 @@ fr:
           user:
             deleted: "(utilisateur supprimé)"
           reviewables:
+            comment_already_handled: "Merci, mais nous avons déjà examiné ce commentaire et déterminé qu'il n'a pas besoin d'être signalé à nouveau."
             actions:
               agree:
                 title: "D'accord…"
+              agree_and_keep_comment:
+                title: "Conserver le commentaire"
+                description: "Accepter le signalement et conserver le commentaire tel quel."
+              agree_and_keep_deleted:
+                title: "Garder le commentaire supprimé"
+                description: "Accepter le signalement et laisser le commentaire supprimé."
               agree_and_suspend:
                 title: "Suspendre l'utilisateur"
                 description: "Accepter le signalement et suspendre l'utilisateur."
               agree_and_silence:
                 title: "Désactiver l'utilisateur"
                 description: "Accepter le signalement et désactiver l'utilisateur."
+              agree_and_restore:
+                title: "Restaurer le commentaire"
+                description: "Restaurer le commentaire pour que les utilisateurs puissent le voir."
+              agree_and_delete:
+                title: "Supprimer le commentaire"
+                description: "Supprimer le commentaire pour que les utilisateurs ne puissent pas le voir."
+              delete_and_agree:
+                title: "Ignorer le signalement et supprimer le commentaire"
+                description: "Ignorez le signalement en le supprimant de la file d'attente et supprimez le commentaire."
+              disagree_and_restore:
+                title: "Rejeter le signalement et rétablir le commentaire"
+                description: "Restaurer le commentaire pour que tous les utilisateurs puissent le voir."
               disagree:
                 title: "Refuser"
+              ignore:
+                title: "Ne rien faire"
+                description: "Ignorez le signalement en le supprimant de la file d'attente sans prendre aucune mesure."
+            transcript:
+              view: "Afficher la transcription des commentaires précédents"
       topic:
         answer:
           label: "Réponse"
@@ -86,3 +114,6 @@ fr:
     review:
       transcript:
         view: "Afficher la transcription des messages précédents"
+      types:
+        reviewable_post_voting_comment:
+          title: "Commentaire sur le vote de publication signalé"

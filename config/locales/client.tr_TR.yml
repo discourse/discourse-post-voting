@@ -9,6 +9,9 @@ tr_TR:
     site_settings:
       categories:
         post_voting: Gönderi Oylaması
+  post_voting:
+    reviewables:
+      comment_already_handled: "Teşekkürler, ancak bu yorumu daha önce inceledik ve yeniden bayrak eklenmesine gerek olmadığına karar verdik."
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -19,6 +22,7 @@ tr_TR:
     category:
       post_voting_settings_heading: Gönderi Oylaması
       create_as_post_voting_default: Yeni konular varsayılan olarak bu kategorideki Gönderi Oylaması konularıdır.
+      only_post_voting_in_this_category: Yeni konular yalnızca bu kategorideki Gönderi Oylaması konuları olabilir.
     composer:
       create_post_voting:
         label: "Gönderi oylaması konusu oluşturun"
@@ -62,20 +66,41 @@ tr_TR:
           user:
             deleted: "(kullanıcı silindi)"
           reviewables:
+            comment_already_handled: "Teşekkürler, ancak bu yorumu daha önce inceledik ve yeniden bayrak eklenmesine gerek olmadığına karar verdik."
             actions:
               agree:
                 title: "Kabul et..."
+              agree_and_keep_comment:
+                title: "Yorumu sakla"
+                description: "Bayrağı kabul edin ve yorumu değiştirmeyin."
+              agree_and_keep_deleted:
+                title: "Yorumu Silinmiş hâlde tut"
+                description: "Bayrağı kabul edin ve yorumu silinmiş olarak bırakın."
               agree_and_suspend:
                 title: "Kullanıcıyı Askıya Al"
                 description: "Bayrağı kabul edin ve kullanıcıyı askıya alın."
               agree_and_silence:
                 title: "Kullanıcıyı Sustur"
                 description: "Bayrağı kabul edin ve kullanıcıyı susturun."
+              agree_and_restore:
+                title: "Yorumu geri yükle"
+                description: "Kullanıcıların görebilmesi için yorumu geri yükleyin."
+              agree_and_delete:
+                title: "Yorumu sil"
+                description: "Kullanıcıların görememesi için yorumu silin."
+              delete_and_agree:
+                title: "Bayrağı yok say ve yorumu Sil"
+                description: "Kuyruktan kaldırarak bayrağı yok sayın ve yorumu silin."
+              disagree_and_restore:
+                title: "Katılma ve yorumu Geri Yükle"
+                description: "Tüm kullanıcıların görebilmesi için yorumu geri yükleyin."
               disagree:
                 title: "Katılma"
               ignore:
                 title: "Hiçbir şey yapma"
                 description: "Herhangi bir işlem yapmadan bayrağı kuyruktan kaldırarak yok say."
+            transcript:
+              view: "Önceki yorumların dökümünü görüntüle"
       topic:
         answer:
           label: "Yanıt"
@@ -89,3 +114,6 @@ tr_TR:
     review:
       transcript:
         view: "Önceki mesajların dökümünü görüntüle"
+      types:
+        reviewable_post_voting_comment:
+          title: "Bayraklı Gönderi Oylama Yorumu"

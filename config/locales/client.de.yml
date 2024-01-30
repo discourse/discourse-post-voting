@@ -9,6 +9,9 @@ de:
     site_settings:
       categories:
         post_voting: Beitragsabstimmung
+  post_voting:
+    reviewables:
+      comment_already_handled: "Danke, aber wir haben diesen Kommentar bereits überprüft und festgestellt, dass er nicht erneut gemeldet werden muss."
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -19,6 +22,7 @@ de:
     category:
       post_voting_settings_heading: Beitragsabstimmung
       create_as_post_voting_default: Neue Themen werden in dieser Kategorie standardmäßig als Beitragsabstimmungsthemen eingestellt.
+      only_post_voting_in_this_category: Neue Themen können in dieser Kategorie nur Themen zur Beitragsabstimmung sein.
     composer:
       create_post_voting:
         label: "Beitragsabstimmungsthema erstellen"
@@ -62,20 +66,41 @@ de:
           user:
             deleted: "(Benutzer gelöscht)"
           reviewables:
+            comment_already_handled: "Danke, aber wir haben diesen Kommentar bereits überprüft und festgestellt, dass er nicht erneut gemeldet werden muss."
             actions:
               agree:
                 title: "Zustimmen …"
+              agree_and_keep_comment:
+                title: "Kommentar behalten"
+                description: "Meldung zustimmen und den Kommentar unbearbeitet lassen."
+              agree_and_keep_deleted:
+                title: "Kommentar gelöscht lassen"
+                description: "Meldung zustimmen und den Kommentar gelöscht lassen."
               agree_and_suspend:
                 title: "Benutzer sperren"
-                description: "Markierung zustimmen und den Benutzer sperren."
+                description: "Meldung zustimmen und den Benutzer sperren."
               agree_and_silence:
                 title: "Benutzer stummschalten"
-                description: "Markierung zustimmen und den Benutzer stummschalten."
+                description: "Meldung zustimmen und den Benutzer stummschalten."
+              agree_and_restore:
+                title: "Kommentar wiederherstellen"
+                description: "Kommentar wiederherstellen, damit Benutzer ihn sehen können."
+              agree_and_delete:
+                title: "Kommentar löschen"
+                description: "Kommentar löschen, damit Benutzer ihn nicht sehen können."
+              delete_and_agree:
+                title: "Meldung ignorieren und Kommentar löschen"
+                description: "Ignoriere die Meldung, indem du sie aus der Warteschlange entfernst und den Kommentar löschst."
+              disagree_and_restore:
+                title: "Ablehnen und Kommentar wiederherstellen"
+                description: "Kommentar wiederherstellen, damit alle Benutzer ihn sehen können."
               disagree:
                 title: "Ablehnen"
               ignore:
                 title: "Nichts tun"
                 description: "Ignoriere die Meldung, indem du sie aus der Warteschlange entfernst, ohne etwas zu unternehmen."
+            transcript:
+              view: "Transkript früherer Kommentare anzeigen"
       topic:
         answer:
           label: "Antwort"
@@ -89,3 +114,6 @@ de:
     review:
       transcript:
         view: "Transkript früherer Nachrichten anzeigen"
+      types:
+        reviewable_post_voting_comment:
+          title: "Beitragsabstimmungskommentar gemeldet"
