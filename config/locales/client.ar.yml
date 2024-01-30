@@ -9,6 +9,9 @@ ar:
     site_settings:
       categories:
         post_voting: التصويت على المنشورات
+  post_voting:
+    reviewables:
+      comment_already_handled: "شكرًا، لكننا راجعنا هذا التعليق بالفعل وقررنا أنه لا يلزم الإبلاغ عنه مرة أخرى."
   js:
     notifications:
       question_answer_user_commented: "‏<span>⁨%{username}⁩</span> ‏%{description}"
@@ -19,6 +22,7 @@ ar:
     category:
       post_voting_settings_heading: التصويت على المنشورات
       create_as_post_voting_default: يتم تعيين الموضوعات الجديدة افتراضيًا إلى موضوعات "التصويت على المنشورات" في هذه الفئة.
+      only_post_voting_in_this_category: لا يمكن أن تكون الموضوعات الجديدة إلا موضوعات "تصويت على المنشورات" في هذه الفئة.
     composer:
       create_post_voting:
         label: "إنشاء موضوع للتصويت على المنشورات"
@@ -82,17 +86,41 @@ ar:
           user:
             deleted: "(تم حذف المستخدم)"
           reviewables:
+            comment_already_handled: "شكرًا، لكننا راجعنا هذا التعليق بالفعل وقررنا أنه لا يلزم الإبلاغ عنه مرة أخرى."
             actions:
               agree:
                 title: "الموافقة..."
+              agree_and_keep_comment:
+                title: "إبقاء التعليق"
+                description: "الموافقة على البلاغ والاحتفاظ بالتعليق دون تغيير."
+              agree_and_keep_deleted:
+                title: "إبقاء التعليق محذوفًا"
+                description: "الموافقة على البلاغ وترك التعليق محذوفًا."
               agree_and_suspend:
                 title: "تعليق المستخدم"
                 description: "الموافقة على البلاغ وتعليق المستخدم"
               agree_and_silence:
                 title: "كتم المستخدم"
                 description: "الموافقة على البلاغ وكتم المستخدم"
+              agree_and_restore:
+                title: "استعادة التعليق"
+                description: "استعادة التعليق حتى يتمكن المستخدمون من رؤيته."
+              agree_and_delete:
+                title: "حذف التعليق"
+                description: "حذف التعليق حتى لا يتمكن المستخدمون من رؤيته."
+              delete_and_agree:
+                title: "تجاهل البلاغ وحذف التعليق"
+                description: "تجاهل البلاغ بإزالته من قائمة الانتظار وحذف التعليق."
+              disagree_and_restore:
+                title: "عدم الموافقة واستعادة التعليق"
+                description: "استعادة التعليق حتى يتمكن جميع المستخدمين من رؤيته."
               disagree:
                 title: "عدم الموافقة"
+              ignore:
+                title: "عدم اتخاذ أي إجراء"
+                description: "تجاهل البلاغ بإزالته من قائمة الانتظار دون اتخاذ أي إجراء."
+            transcript:
+              view: "عرض نص التعليقات السابقة"
       topic:
         answer:
           label: "إجابة"
@@ -107,3 +135,9 @@ ar:
           few: "%{count} إجابات"
           many: "%{count} إجابات"
           other: "%{count} إجابات"
+    review:
+      transcript:
+        view: "عرض نص الرسائل السابقة"
+      types:
+        reviewable_post_voting_comment:
+          title: "تم الإبلاغ عن تعليق للتصويت على منشور"

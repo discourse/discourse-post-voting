@@ -8,7 +8,10 @@ pt_BR:
   admin_js:
     site_settings:
       categories:
-        post_voting: Votação de publicação
+        post_voting: Votação em publicação
+  post_voting:
+    reviewables:
+      comment_already_handled: "Agradecemos, mas já analisamos este comentário e determinamos que não precisa ser sinalizado novamente."
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -19,6 +22,7 @@ pt_BR:
     category:
       post_voting_settings_heading: Votação de publicação
       create_as_post_voting_default: Novos tópicos padrão para tópicos de "Votação de publicação" nesta categoria.
+      only_post_voting_in_this_category: Novos tópicos podem ser apenas tópicos de "votação em postagem" nesta categoria
     composer:
       create_post_voting:
         label: "Criar tópico de votação de publicação"
@@ -62,17 +66,41 @@ pt_BR:
           user:
             deleted: "(usuário(a) excluído(a))"
           reviewables:
+            comment_already_handled: "Agradecemos, mas já analisamos este comentário e determinamos que não precisa ser sinalizado novamente."
             actions:
               agree:
                 title: "Concordo..."
+              agree_and_keep_comment:
+                title: "Manter comentário"
+                description: "Concorde com o sinalizador e mantenha o comentário inalterado."
+              agree_and_keep_deleted:
+                title: "Manter comentário excluído"
+                description: "Concorde com o sinalizador e mantenha o comentário excluído."
               agree_and_suspend:
                 title: "Suspender usuário(s)"
-                description: "Concorde com a sinalização e suspenda o usuário(a)."
+                description: "Concorde com o sinalizador e suspenda o(a) usuário(a)."
               agree_and_silence:
                 title: "Silenciar usuário(a)"
-                description: "Concorde com a sinalização e silencie o usuário(a)."
+                description: "Concorde com o sinalizador e silencie o(a) usuário(a)."
+              agree_and_restore:
+                title: "Restaurar comentário"
+                description: "Restaure o comentário para que os(as) usuários(as) possam ver."
+              agree_and_delete:
+                title: "Excluir comentário"
+                description: "Exclua o comentário para que os(as) usuários(as) não possam ver."
+              delete_and_agree:
+                title: "Ignorar sinalizador e excluir comentário"
+                description: "Ignore o sinalizador ao removê-lo da fila e exclua o comentário."
+              disagree_and_restore:
+                title: "Discordar e restaurar comentário"
+                description: "Restaure o comentário para que todos(as) usuários(as) possam ver."
               disagree:
                 title: "Discordar"
+              ignore:
+                title: "Não fazer nada"
+                description: "Ignore o sinalizador ao removê-lo da fila sem realizar nenhuma ação."
+            transcript:
+              view: "Ver transcrição de comentários anteriores"
       topic:
         answer:
           label: "Resposta"
@@ -86,3 +114,6 @@ pt_BR:
     review:
       transcript:
         view: "Ver transcrição de mensagens anteriores"
+      types:
+        reviewable_post_voting_comment:
+          title: "Comentário de votação em postagem sinalizado"

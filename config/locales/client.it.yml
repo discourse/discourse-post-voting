@@ -9,6 +9,9 @@ it:
     site_settings:
       categories:
         post_voting: Votazioni dei messaggi
+  post_voting:
+    reviewables:
+      comment_already_handled: "Grazie, ma abbiamo già esaminato questo commento e stabilito che non è necessario contrassegnarlo di nuovo."
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -19,6 +22,7 @@ it:
     category:
       post_voting_settings_heading: Votazioni dei messaggi
       create_as_post_voting_default: I nuovi argomenti hanno come impostazione predefinita la votazione dei messaggi in questa categoria.
+      only_post_voting_in_this_category: I nuovi argomenti possono essere solo messaggi a votazione in questa categoria.
     composer:
       create_post_voting:
         label: "Crea un argomento di votazione dei messaggi"
@@ -62,20 +66,41 @@ it:
           user:
             deleted: "(utente eliminato)"
           reviewables:
+            comment_already_handled: "Grazie, ma abbiamo già esaminato questo commento e stabilito che non è necessario contrassegnarlo di nuovo."
             actions:
               agree:
                 title: "Accetta..."
+              agree_and_keep_comment:
+                title: "Mantieni il commento"
+                description: "Accetta la segnalazione e mantieni invariato il commento."
+              agree_and_keep_deleted:
+                title: "Mantieni il commento cancellato"
+                description: "Accetta segnalazione e conferma eliminazione del commento."
               agree_and_suspend:
                 title: "Sospendi utente"
                 description: "Accetta segnalazione e sospendi l'utente."
               agree_and_silence:
                 title: "Silenzia utente"
                 description: "Accetta segnalazione e silenzia l'utente."
+              agree_and_restore:
+                title: "Ripristina il commento"
+                description: "Ripristina il commento in modo che gli utenti possano vederlo."
+              agree_and_delete:
+                title: "Elimina il commento"
+                description: "Elimina il commento in modo che gli utenti non possano vederlo."
+              delete_and_agree:
+                title: "Ignora segnalazione ed elimina commento"
+                description: "Ignora la segnalazione rimuovendola dalla coda ed eliminando il commento."
+              disagree_and_restore:
+                title: "Esprimi disaccordo e ripristina il commento"
+                description: "Ripristina il commento in modo che tutti gli utenti possano vederlo."
               disagree:
                 title: "Rifiuta"
               ignore:
                 title: "Non fare nulla"
                 description: "Ignora la segnalazione rimuovendola dalla coda senza intraprendere alcuna azione."
+            transcript:
+              view: "Visualizza la trascrizione dei commenti precedenti"
       topic:
         answer:
           label: "Risposta"
@@ -89,3 +114,6 @@ it:
     review:
       transcript:
         view: "Visualizza la trascrizione dei messaggi precedenti"
+      types:
+        reviewable_post_voting_comment:
+          title: "Commento sulla votazione del messaggio contrassegnato"

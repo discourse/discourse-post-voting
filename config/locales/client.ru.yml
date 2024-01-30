@@ -8,7 +8,10 @@ ru:
   admin_js:
     site_settings:
       categories:
-        post_voting: Голосование по сообщениям
+        post_voting: Голосование по публикациям
+  post_voting:
+    reviewables:
+      comment_already_handled: "Спасибо, но мы уже просмотрели этот комментарий и решили, что на него не нужно снова отправлять жалобу."
   js:
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
@@ -19,6 +22,7 @@ ru:
     category:
       post_voting_settings_heading: Голосование по сообщениям
       create_as_post_voting_default: Новые темы в этой категории по умолчанию отображаются в формате «Голосование по сообщениям».
+      only_post_voting_in_this_category: Новые темы в этой категории могут отображаться только в формате «Голосование по публикациям».
     composer:
       create_post_voting:
         label: "Cоздать тему с голосованием по сообщению"
@@ -72,17 +76,41 @@ ru:
           user:
             deleted: "(пользователь удалён)"
           reviewables:
+            comment_already_handled: "Спасибо, но мы уже просмотрели этот комментарий и решили, что на него не нужно снова отправлять жалобу."
             actions:
               agree:
                 title: "Согласиться…"
+              agree_and_keep_comment:
+                title: "Сохранить комментарий"
+                description: "Согласиться с жалобой, но оставить комментарий без изменений."
+              agree_and_keep_deleted:
+                title: "Оставить комментарий удаленным"
+                description: "Согласиться с жалобой и оставить комментарий удаленным."
               agree_and_suspend:
                 title: "Блокировка пользователя"
                 description: "Согласиться с жалобой и заблокировать пользователя."
               agree_and_silence:
                 title: "Заморозка пользователя"
                 description: "Согласиться с жалобой и заморозить пользователя."
+              agree_and_restore:
+                title: "Восстановить комментарий"
+                description: "Восстановить комментарий, чтобы пользователи могли его видеть."
+              agree_and_delete:
+                title: "Удалить комментарий"
+                description: "Удалить комментарий, чтобы пользователи не могли его видеть."
+              delete_and_agree:
+                title: "Игнорировать жалобу и удалить комментарий"
+                description: "Проигнорировать жалобу, удалив ее из очереди, и удалить комментарий."
+              disagree_and_restore:
+                title: "Отклонить жалобу и восстановить комментарий"
+                description: "Восстановить комментарий, чтобы все пользователи могли его видеть."
               disagree:
                 title: "Отклонить"
+              ignore:
+                title: "Ничего не делать"
+                description: "Проигнорировать жалобу, удалив ее из очереди, не предпринимая никаких действий."
+            transcript:
+              view: "Просмотр содержимого предыдущих комментариев"
       topic:
         answer:
           label: "Ответ"
@@ -97,4 +125,7 @@ ru:
           other: "%{count} ответа"
     review:
       transcript:
-        view: "Просмотр предыдущих сообщений"
+        view: "Просмотр содержимого предыдущих сообщений"
+      types:
+        reviewable_post_voting_comment:
+          title: "Помеченный комментарий к публикации с голосованием"

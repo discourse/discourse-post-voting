@@ -22,6 +22,7 @@ he:
     category:
       post_voting_settings_heading: מענה על שאלות
       create_as_post_voting_default: נושאים חדשים מגיעים לשו"ת בקטגוריה זו.
+      only_post_voting_in_this_category: נושאים חדשים יכולים להצביע על פוסטים בנושאים בקטגוריה זו.
     composer:
       create_post_voting:
         label: "יצירת נושא שו\"ת"
@@ -71,24 +72,45 @@ he:
             many: הצגת %{count} תגובות נוספות
             other: הצגת %{count} תגובות נוספות
           delete:
-            confirm: "למחוק את ההערה הזאת?"
+            confirm: "למחוק את התגובה הזאת?"
           user:
             deleted: "(משתמש נמחק)"
           reviewables:
+            comment_already_handled: "תודה לך, כבר בדקנו את התגובה הזאת והחלטנו שאין צורך לסמן אותה בדגל פעם נוספת."
             actions:
               agree:
                 title: "הסכמה…"
+              agree_and_keep_comment:
+                title: "להשאיר את התגובה"
+                description: "הבעת הסכמה עם הדגל והשארת התגובה ללא שינוי."
+              agree_and_keep_deleted:
+                title: "להשאיר את התגובה מחוקה"
+                description: "הבעת הסכמה עם הדגל והשארת התגובה מחוקה."
               agree_and_suspend:
                 title: "השעיית משתמש"
                 description: "הבעת הסכמה עם הדגל והשעיית המשתמש."
               agree_and_silence:
                 title: "השתקת משתמש"
                 description: "הבעת הסכמה עם הדגל והשתקת המשתמש."
+              agree_and_restore:
+                title: "שחזור תגובה"
+                description: "לשחזר את התגובה כדי שמשתמשים יוכלו לראות אותה."
+              agree_and_delete:
+                title: "מחיקת תגובה"
+                description: "למחוק את התגובה כדי שמשתמשים לא יוכלו לראות אותה."
+              delete_and_agree:
+                title: "התעלמות מהדגל ומחיקת התגובה"
+                description: "התעלמות מהדגל על ידי הסרתו מהתור ומחיקת התגובה."
+              disagree_and_restore:
+                title: "לסרב ולשחזר תגובה"
+                description: "לשחזר את התגובה כדי שכל המשתמשים יוכלו לראות אותה."
               disagree:
                 title: "אי קבלה"
               ignore:
                 title: "לא לעשות דבר"
                 description: "התעלמות מהדגל על ידי הסרתו מהתור מבלי לנקוט בשום פעולה."
+            transcript:
+              view: "הצגת תמליל התגובות הקודמות"
       topic:
         answer:
           label: "מענה"
@@ -101,3 +123,6 @@ he:
           two: "%{count} תשובות"
           many: "%{count} תשובות"
           other: "%{count} תשובות"
+    review:
+      transcript:
+        view: "הצגת תמליל ההודעות הקודמות"
