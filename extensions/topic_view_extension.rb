@@ -19,6 +19,26 @@ module PostVoting
       end
     end
 
+    def next_page
+      return super if !topic.is_post_voting?
+      return super if @filter == TopicView::ACTIVITY_FILTER
+
+      @highest_post_number = @filtered_posts.last.post_number
+
+      if @posts.blank?
+        @last_post = nil
+      else
+        @last_post ||= @posts.last
+      end
+
+      @next_page ||=
+        begin
+          if @last_post && @highest_post_number && (@highest_post_number != @last_post.post_number)
+            @page + 1
+          end
+        end
+    end
+
     # Monkey patch core's method. In an ideal world, we wouldn't have to do this here but `TopicView` in core does not
     # yet properly support ordering posts in any other order except by `Post#sort_order` and several methods in
     # core's `TopicView` is strongly tied to the assumption that posts are always ordered by `Post#sort_order`. Fixing
@@ -27,7 +47,7 @@ module PostVoting
     # to figure out what the "row_number" for each post. From there, we can then properly fetch the window of posts
     # near a given post number.
     def filter_posts_near(post_number)
-      return super unless topic.is_post_voting?
+      return super if !topic.is_post_voting?
       return super if @filter == TopicView::ACTIVITY_FILTER
 
       post_number = 1 if post_number == 0
