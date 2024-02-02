@@ -27,8 +27,7 @@ module PostVoting
     # to figure out what the "row_number" for each post. From there, we can then properly fetch the window of posts
     # near a given post number.
     def filter_posts_near(post_number)
-      return super unless topic.is_post_voting?
-      return super if @filter == TopicView::ACTIVITY_FILTER
+      return super if !post_voting_topic?
 
       post_number = 1 if post_number == 0
 
@@ -81,6 +80,21 @@ module PostVoting
       SQL
 
       filter_posts_by_ids(post_ids)
+    end
+
+    def next_page
+      return super if !post_voting_topic?
+
+      @highest_post_number = @filtered_posts.last.post_number
+
+      @next_page ||=
+        if last_post && @highest_post_number && (@highest_post_number != last_post.post_number)
+          @page + 1
+        end
+    end
+
+    def post_voting_topic?
+      topic.is_post_voting? && @filter != TopicView::ACTIVITY_FILTER
     end
   end
 end
