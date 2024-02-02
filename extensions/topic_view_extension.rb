@@ -94,8 +94,7 @@ module PostVoting
     end
 
     def post_voting_topic?
-      return false if !topic.is_post_voting? || @filter == TopicView::ACTIVITY_FILTER
-      true
+      topic.is_post_voting? && @filter != TopicView::ACTIVITY_FILTER
     end
   end
 end
