@@ -5,7 +5,7 @@ require "rails_helper"
 describe PostVotingCommentSerializer do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:post) { Fabricate(:post, topic: topic) }
-  fab!(:user) { Fabricate(:user) }
+  fab!(:user)
   fab!(:comment) { Fabricate(:post_voting_comment, post: post) }
 
   before do

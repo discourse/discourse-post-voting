@@ -3,8 +3,8 @@
 require "rails_helper"
 
 describe Topic do
-  fab!(:user) { Fabricate(:user) }
-  fab!(:category) { Fabricate(:category) }
+  fab!(:user)
+  fab!(:category)
   fab!(:topic) { Fabricate(:topic, category: category, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
 

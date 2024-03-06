@@ -7,7 +7,7 @@ describe PostVoting::TopicViewSerializerExtension do
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:answer) { Fabricate(:post, topic: topic, reply_to_post_number: nil) }
   fab!(:comment) { Fabricate(:post_voting_comment, post: answer) }
-  fab!(:user) { Fabricate(:user) }
+  fab!(:user)
   fab!(:guardian) { Guardian.new(user) }
   let(:topic_view) { TopicView.new(topic, user) }
 

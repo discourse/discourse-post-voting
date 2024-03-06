@@ -2,6 +2,8 @@
 
 module PostVoting
   class VotesController < ::ApplicationController
+    requires_plugin PLUGIN_NAME
+
     before_action :ensure_logged_in
     before_action :find_vote_post, only: %i[create destroy voters]
     before_action :ensure_can_see_post, only: %i[create destroy voters]

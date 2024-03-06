@@ -6,9 +6,9 @@ describe PostVotingVote do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:post) { Fabricate(:post, topic: topic) }
-  fab!(:user) { Fabricate(:user) }
+  fab!(:user)
   fab!(:post_1) { Fabricate(:post, topic: topic, user: user) }
-  fab!(:tag) { Fabricate(:tag) }
+  fab!(:tag)
 
   before { SiteSetting.post_voting_enabled = true }
 

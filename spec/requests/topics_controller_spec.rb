@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe TopicsController do
-  fab!(:user) { Fabricate(:user) }
+  fab!(:user)
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:post) { create_post(topic: topic) }
   fab!(:comment) { Fabricate(:post_voting_comment, raw: "this is a comment!", post: post) }

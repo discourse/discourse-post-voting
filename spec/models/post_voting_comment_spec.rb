@@ -5,8 +5,8 @@ require "rails_helper"
 describe PostVotingComment do
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:post) { Fabricate(:post, topic: topic) }
-  fab!(:user) { Fabricate(:user) }
-  fab!(:tag) { Fabricate(:tag) }
+  fab!(:user)
+  fab!(:tag)
 
   before { SiteSetting.post_voting_enabled = true }
 
