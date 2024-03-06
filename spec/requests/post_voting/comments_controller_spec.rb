@@ -3,11 +3,11 @@
 require "rails_helper"
 
 RSpec.describe PostVoting::CommentsController do
-  fab!(:user) { Fabricate(:user) }
-  fab!(:admin) { Fabricate(:admin) }
-  fab!(:moderator) { Fabricate(:moderator) }
-  fab!(:group) { Fabricate(:group) }
-  fab!(:category) { Fabricate(:category) }
+  fab!(:user)
+  fab!(:admin)
+  fab!(:moderator)
+  fab!(:group)
+  fab!(:category)
   fab!(:topic) { Fabricate(:topic, category: category, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:answer) { Fabricate(:post, topic: topic) }

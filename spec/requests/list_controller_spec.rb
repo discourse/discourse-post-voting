@@ -3,14 +3,14 @@
 require "rails_helper"
 
 describe ListController do
-  fab!(:user) { Fabricate(:user) }
-  fab!(:category) { Fabricate(:category) }
+  fab!(:user)
+  fab!(:category)
   fab!(:post_voting_topic) do
     Fabricate(:topic, category: category, subtype: Topic::POST_VOTING_SUBTYPE)
   end
   fab!(:post_voting_topic_post) { Fabricate(:post, topic: post_voting_topic) }
   fab!(:post_voting_topic_answer) { create_post(topic: post_voting_topic, reply_to_post: nil) }
-  fab!(:topic) { Fabricate(:topic) }
+  fab!(:topic)
 
   before do
     SiteSetting.post_voting_enabled = true

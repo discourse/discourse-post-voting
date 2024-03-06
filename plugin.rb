@@ -14,33 +14,35 @@ register_asset "stylesheets/common/post-voting-crawler.scss"
 
 enabled_site_setting :post_voting_enabled
 
+module ::PostVoting
+  PLUGIN_NAME = "discourse-post-voting"
+end
+
 after_initialize do
-  %w[
-    ../lib/post_voting/engine.rb
-    ../lib/post_voting/vote_manager.rb
-    ../lib/post_voting/guardian_extension.rb
-    ../lib/post_voting/comment_creator.rb
-    ../lib/post_voting/comment_review_queue.rb
-    ../extensions/post_extension.rb
-    ../extensions/post_serializer_extension.rb
-    ../extensions/topic_extension.rb
-    ../extensions/topic_list_item_serializer_extension.rb
-    ../extensions/topic_view_serializer_extension.rb
-    ../extensions/topic_view_extension.rb
-    ../extensions/user_extension.rb
-    ../extensions/composer_messages_finder_extension.rb
-    ../app/validators/post_voting_comment_validator.rb
-    ../app/controllers/post_voting/votes_controller.rb
-    ../app/controllers/post_voting/comments_controller.rb
-    ../app/models/post_voting_vote.rb
-    ../app/models/post_voting_comment.rb
-    ../app/models/post_voting_comment_custom_field.rb
-    ../app/models/reviewable_post_voting_comment.rb
-    ../app/serializers/basic_voter_serializer.rb
-    ../app/serializers/post_voting_comment_serializer.rb
-    ../app/serializers/reviewable_post_voting_comments_serializer.rb
-    ../config/routes.rb
-  ].each { |path| load File.expand_path(path, __FILE__) }
+  require_relative "lib/post_voting/engine"
+  require_relative "lib/post_voting/vote_manager"
+  require_relative "lib/post_voting/guardian_extension"
+  require_relative "lib/post_voting/comment_creator"
+  require_relative "lib/post_voting/comment_review_queue"
+  require_relative "extensions/post_extension"
+  require_relative "extensions/post_serializer_extension"
+  require_relative "extensions/topic_extension"
+  require_relative "extensions/topic_list_item_serializer_extension"
+  require_relative "extensions/topic_view_serializer_extension"
+  require_relative "extensions/topic_view_extension"
+  require_relative "extensions/user_extension"
+  require_relative "extensions/composer_messages_finder_extension"
+  require_relative "app/validators/post_voting_comment_validator"
+  require_relative "app/controllers/post_voting/votes_controller"
+  require_relative "app/controllers/post_voting/comments_controller"
+  require_relative "app/models/post_voting_vote"
+  require_relative "app/models/post_voting_comment"
+  require_relative "app/models/post_voting_comment_custom_field"
+  require_relative "app/models/reviewable_post_voting_comment"
+  require_relative "app/serializers/basic_voter_serializer"
+  require_relative "app/serializers/post_voting_comment_serializer"
+  require_relative "app/serializers/reviewable_post_voting_comments_serializer"
+  require_relative "config/routes"
 
   if respond_to?(:register_svg_icon)
     register_svg_icon "angle-up"

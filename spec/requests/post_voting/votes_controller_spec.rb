@@ -3,15 +3,15 @@
 require "rails_helper"
 
 RSpec.describe PostVoting::VotesController do
-  fab!(:user) { Fabricate(:user) }
+  fab!(:user)
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
   fab!(:topic_post) { Fabricate(:post, topic: topic) }
   fab!(:answer) { Fabricate(:post, topic: topic) }
   fab!(:answer_2) { Fabricate(:post, topic: topic) }
   fab!(:answer_3) { Fabricate(:post, topic: topic, user: user) }
 
-  fab!(:admin) { Fabricate(:admin) }
-  fab!(:category) { Fabricate(:category) }
+  fab!(:admin)
+  fab!(:category)
 
   before { SiteSetting.post_voting_enabled = true }
 
@@ -145,7 +145,7 @@ RSpec.describe PostVoting::VotesController do
   end
 
   describe "#voters" do
-    fab!(:user) { Fabricate(:user) }
+    fab!(:user)
 
     it "should return the right response for an anon user" do
       get "/post_voting/voters.json", params: { post_id: answer.id }

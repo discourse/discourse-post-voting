@@ -15,7 +15,7 @@ RSpec.describe Email::Receiver do
 
   describe "reply" do
     let(:reply_key) { "4f97315cc828096c9cb34c6f1a0d6fe8" }
-    fab!(:category) { Fabricate(:category) }
+    fab!(:category)
     fab!(:user) { Fabricate(:user, email: "discourse@bar.com", refresh_auto_groups: true) }
     fab!(:topic) do
       create_topic(category: category, user: user, subtype: Topic::POST_VOTING_SUBTYPE)

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe PostVoting::VoteManager do
-  fab!(:user) { Fabricate(:user) }
+  fab!(:user)
   fab!(:user_2) { Fabricate(:user) }
   fab!(:user_3) { Fabricate(:user) }
   fab!(:topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }

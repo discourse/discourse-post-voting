@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe BasicCategorySerializer do
-  fab!(:category) { Fabricate(:category) }
+  fab!(:category)
 
   let(:serialized) do
     serializer = BasicCategorySerializer.new(category, root: false)

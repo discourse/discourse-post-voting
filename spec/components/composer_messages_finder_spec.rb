@@ -5,8 +5,8 @@ require "composer_messages_finder"
 
 describe ComposerMessagesFinder do
   describe ".check_sequential_replies" do
-    fab!(:user) { Fabricate(:user) }
-    fab!(:topic) { Fabricate(:topic) }
+    fab!(:user)
+    fab!(:topic)
     fab!(:post_voting_topic) { Fabricate(:topic, subtype: Topic::POST_VOTING_SUBTYPE) }
 
     before do
