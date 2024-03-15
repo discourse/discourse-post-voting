@@ -1,9 +1,19 @@
 import { h } from "virtual-dom";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import { smallUserAtts } from "discourse/widgets/actions-summary";
+import { userPath } from "discourse/lib/url";
 import { createWidget } from "discourse/widgets/widget";
 import { iconNode } from "discourse-common/lib/icon-library";
 import { castVote, removeVote, whoVoted } from "../lib/post-voting-utilities";
+
+export function smallUserAtts(user) {
+  return {
+    template: user.avatar_template,
+    username: user.username,
+    post_url: user.post_url,
+    url: userPath(user.username_lower),
+    unknown: user.unknown,
+  };
+}
 
 export default createWidget("post-voting-post", {
   tagName: "div.post-voting-post",
