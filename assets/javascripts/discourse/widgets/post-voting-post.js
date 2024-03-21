@@ -5,7 +5,7 @@ import { createWidget } from "discourse/widgets/widget";
 import { iconNode } from "discourse-common/lib/icon-library";
 import { castVote, removeVote, whoVoted } from "../lib/post-voting-utilities";
 
-export function smallUserAtts(user) {
+function smallUserAtts(user) {
   return {
     template: user.avatar_template,
     username: user.username,
