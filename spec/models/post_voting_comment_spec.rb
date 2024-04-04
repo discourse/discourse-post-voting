@@ -61,7 +61,7 @@ describe PostVotingComment do
 
       expect(post_voting_comment.valid?).to eq(false)
       expect(post_voting_comment.errors[:raw]).to eq(
-        [I18n.t("errors.messages.too_long_validation", max: max, length: raw.length)],
+        [I18n.t("errors.messages.too_long_validation", count: max, length: raw.length)],
       )
     end
 
