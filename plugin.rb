@@ -190,6 +190,20 @@ after_initialize do
     false
   end
 
+  register_modifier(:topic_embed_import_create_args) do |args|
+    category_id = args[:category]
+    next args unless category_id
+    next args if args[:archetype] != Archetype.default && !args[:archetype].blank?
+
+    category = Category.find_by(id: category_id)
+
+    if category&.create_as_post_voting_default || category&.only_post_voting_in_this_category
+      args[:subtype] = Topic::POST_VOTING_SUBTYPE
+    end
+
+    args
+  end
+
   register_category_custom_field_type(PostVoting::CREATE_AS_POST_VOTING_DEFAULT, :boolean)
   if respond_to?(:register_preloaded_category_custom_fields)
     register_preloaded_category_custom_fields(PostVoting::CREATE_AS_POST_VOTING_DEFAULT)
