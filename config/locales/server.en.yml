@@ -57,6 +57,7 @@ en:
         not_permitted: "Commenting on associated post is not permitted."
         limit_exceeded: "Limit of %{limit} comments per post has been reached."
         perform: "Post Voting Comment flagged with score high enough to silence user."
+        auto_silence_from_flags: "Automatically silenced due to flagging."
       reviewables:
         comment_already_handled: "Thanks, but we've already reviewed this comment and determined it does not need to be flagged again."
         actions:
