@@ -29,7 +29,7 @@ module PostVoting
     end
 
     def last_answered_at
-      return unless answers.present?
+      return if answers.blank?
 
       answers.last[:created_at]
     end
@@ -45,7 +45,7 @@ module PostVoting
     end
 
     def last_commented_on
-      return unless comments.present?
+      return if comments.blank?
 
       comments.last.created_at
     end
