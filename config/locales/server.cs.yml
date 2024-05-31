@@ -5,6 +5,9 @@
 # https://translate.discourse.org/
 
 cs:
+  post_action_types:
+    vote:
+      title: "Hlasovat"
   post_voting:
     comment:
       reviewables:

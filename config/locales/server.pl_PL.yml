@@ -13,6 +13,8 @@ pl_PL:
         voting_not_permitted: "Nie możesz głosować na ten post."
   topic:
     post_voting:
+      errors:
+        post_voting_not_enabled: "Głosowanie na post nie jest włączone."
       answer_count:
         one: "%{count} odpowiedź"
         few: "%{count} odpowiedzi"
@@ -23,6 +25,7 @@ pl_PL:
     post_voting_comment_limit_per_post: "Liczba komentarzy dozwolonych pod każdym postem"
   post_action_types:
     vote:
+      title: "Głosuj"
       description: "Zagłosuj na ten post"
       short_description: "Zagłosuj na ten post"
   vote:
