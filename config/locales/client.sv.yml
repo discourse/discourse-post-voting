@@ -31,6 +31,9 @@ sv:
                 description: "Godkänn flaggning och tysta användaren."
               disagree:
                 title: "Håll inte med"
+              ignore:
+                title: "Gör ingenting"
+                description: "Ignorera flaggan genom att ta bort den från kön utan att vidta någon åtgärd."
       topic:
         sort_by: "Sortera efter"
         activity: "Aktivitet"

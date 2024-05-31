@@ -57,6 +57,7 @@ de:
         not_permitted: "Das Kommentieren von zugehörigen Beiträgen ist nicht gestattet."
         limit_exceeded: "Das Limit von %{limit} Kommentaren pro Beitrag wurde erreicht."
         perform: "Beitragsabstimmungskommentar wurde mit einer Punktzahl gemeldet, die hoch genug ist, um den Benutzer stummzuschalten."
+        auto_silence_from_flags: "Aufgrund von Meldungen automatisch stummgeschaltet."
       reviewables:
         comment_already_handled: "Danke, aber wir haben diesen Kommentar bereits überprüft und festgestellt, dass er nicht erneut gemeldet werden muss."
         actions:

@@ -82,6 +82,8 @@ pl_PL:
               agree_and_delete:
                 title: "Usuń komentarz"
                 description: "Usuń komentarz, aby użytkownicy nie mogli go zobaczyć."
+              disagree_and_restore:
+                description: "Przywróć komentarz, aby wszyscy użytkownicy mogli go zobaczyć."
               disagree:
                 title: "Wycofaj"
               ignore:

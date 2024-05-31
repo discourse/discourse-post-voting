@@ -11,6 +11,10 @@ hu:
     post_voting:
       post:
         post_voting_comment:
+          composer:
+            too_short:
+              one: "Nem lehet rövidebb, mint %{count} karakter"
+              other: "Nem lehet rövidebb, mint %{count} karakter"
           edit: "szerkesztés"
           cancel: "mégse"
           user:

@@ -5,6 +5,9 @@
 # https://translate.discourse.org/
 
 id:
+  post_action_types:
+    vote:
+      title: "Pilih"
   post_voting:
     comment:
       reviewables:
