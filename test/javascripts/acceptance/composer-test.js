@@ -122,7 +122,6 @@ acceptance("Discourse Post Voting - composer", function (needs) {
     await categoryChooser.expand();
 
     await categoryChooser.selectRowByValue(2);
-    await categoryChooser.collapse();
     const newTopicType = selectKit(".dropdown-select-box");
     await newTopicType.expand();
     assert.strictEqual(
