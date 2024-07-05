@@ -203,10 +203,6 @@ function setupPostVoting(needs) {
     server.get("/latest.json", () => {
       return helper.response(postVotingTopicListResponse());
     });
-
-    server.get("/session/passkey/challenge.json", () => {
-      return helper.response({});
-    });
   });
 }
 
