@@ -55,6 +55,7 @@ zh_CN:
         not_permitted: "不允许对关联帖子发表评论。"
         limit_exceeded: "已达到每篇帖子 %{limit} 条评论的限制。"
         perform: "帖子投票评论举报得分很高，高到足以将用户禁言。"
+        auto_silence_from_flags: "由于举报而被自动禁言。"
       reviewables:
         comment_already_handled: "谢谢，但我们已经审核这条评论，并确定不需要再次对其进行举报。"
         actions:

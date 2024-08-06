@@ -55,6 +55,7 @@ ja:
         not_permitted: "関連する投稿にコメントすることはできません。"
         limit_exceeded: "投稿あたり %{limit} 件のコメント数制限に達しました。"
         perform: "ユーザーを投稿禁止にするのに十分なスコアで通報された投稿の投票コメント。"
+        auto_silence_from_flags: "通報により自動的に投稿禁止にされました。"
       reviewables:
         comment_already_handled: "ありがとうございます。ただ、このコメントはすでにレビュー済みで、通報の必要がないと判断されています。"
         actions:

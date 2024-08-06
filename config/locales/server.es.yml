@@ -57,6 +57,7 @@ es:
         not_permitted: "No se permite comentar los mensajes asociados."
         limit_exceeded: "Se ha alcanzado el límite de %{limit} comentarios por publicación."
         perform: "Comentario de votación de publicación denunciado con una puntuación lo suficientemente alta como para silenciar al usuario."
+        auto_silence_from_flags: "Silenciado automáticamente debido a denuncias."
       reviewables:
         comment_already_handled: "Gracias, pero ya hemos revisado este comentario y hemos determinado que no es necesario denunciarlo de nuevo."
         actions:

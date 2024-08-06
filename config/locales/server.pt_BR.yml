@@ -57,6 +57,7 @@ pt_BR:
         not_permitted: "Não é permitido comentar na postagem associada."
         limit_exceeded: "O limite de %{limit} comentários por postagem foi atingido."
         perform: "Comentário de votação em postagem sinalizado com pontuação alta o suficiente para silenciar o(a) usuário(a)."
+        auto_silence_from_flags: "Silenciado(a) automaticamente devido à sinalização."
       reviewables:
         comment_already_handled: "Agradecemos, mas já analisamos este comentário e determinamos que não precisa ser sinalizado novamente."
         actions:
