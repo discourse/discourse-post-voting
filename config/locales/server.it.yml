@@ -57,6 +57,7 @@ it:
         not_permitted: "Non è consentito commentare messaggi associati."
         limit_exceeded: "È stato raggiunto il limite di %{limit} commenti per messaggio."
         perform: "Commento di votazione di messaggio contrassegnato con un punteggio sufficientemente alto per silenziare l'utente."
+        auto_silence_from_flags: "Silenziato automaticamente a causa della segnalazione."
       reviewables:
         comment_already_handled: "Grazie, ma abbiamo già esaminato questo commento e stabilito che non è necessario contrassegnarlo di nuovo."
         actions:

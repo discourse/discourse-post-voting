@@ -57,6 +57,7 @@ fi:
         not_permitted: "Liittyvän viestin kommentointi ei ole sallittua."
         limit_exceeded: "%{limit} kommentin viestikohtainen raja on saavutettu."
         perform: "Viestin äänestyskommentti liputettiin riittävän korkealla pistemäärällä käyttäjän hiljentämiseksi."
+        auto_silence_from_flags: "Hiljennetty automaattisesti liputuksen vuoksi."
       reviewables:
         comment_already_handled: "Kiitos, mutta olemme jo käsitelleet tämän kommentin ja todenneet, ettei sitä tarvitse liputtaa uudelleen."
         actions:
