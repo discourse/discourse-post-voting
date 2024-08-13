@@ -57,6 +57,7 @@ tr_TR:
         not_permitted: "İlişkili gönderiye yorum yapılmasına izin verilmez."
         limit_exceeded: "Gönderi başına %{limit} yorum limitine ulaşıldı."
         perform: "Kullanıcıyı susturmaya yetecek kadar yüksek puanla bayrak eklenen Gönderi Oylama Yorumu."
+        auto_silence_from_flags: "Bayrak eklenmesi nedeniyle otomatik olarak susturuldu."
       reviewables:
         comment_already_handled: "Teşekkürler, ancak bu yorumu daha önce inceledik ve yeniden bayrak eklenmesine gerek olmadığına karar verdik."
         actions:
