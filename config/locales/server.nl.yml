@@ -57,6 +57,7 @@ nl:
         not_permitted: "Reageren op het gerelateerde bericht is niet toegestaan."
         limit_exceeded: "Limiet van %{limit} reacties per bericht is bereikt."
         perform: "Stemmen op berichten-reactie gemarkeerd met een score die hoog genoeg is om de gebruiker te dempen."
+        auto_silence_from_flags: "Automatisch gedempt wegens markeringen."
       reviewables:
         comment_already_handled: "Bedankt, maar we hebben deze reactie al beoordeeld en vastgesteld dat deze niet opnieuw hoeft te worden gemarkeerd."
         actions:

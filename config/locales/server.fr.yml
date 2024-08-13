@@ -57,6 +57,7 @@ fr:
         not_permitted: "Il n'est pas permis de commenter un message associé."
         limit_exceeded: "La limite de %{limit} commentaires par message a été atteinte."
         perform: "Commentaire de vote signalé avec un score suffisamment élevé pour désactiver l'utilisateur."
+        auto_silence_from_flags: "Automatiquement mis en sourdine en raison d'un signalement."
       reviewables:
         comment_already_handled: "Merci, mais nous avons déjà examiné ce commentaire et déterminé qu'il n'a pas besoin d'être signalé à nouveau."
         actions:
