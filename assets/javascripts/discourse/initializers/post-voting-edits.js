@@ -95,7 +95,6 @@ function initPlugin(api) {
 
     _refreshController() {
       this._topicController().updateQueryParams();
-      this._topicController().appEvents.trigger("post-voting-topic-updated");
     },
 
     _topicController() {
