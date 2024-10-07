@@ -1,7 +1,7 @@
 import { visit } from "@ember/test-helpers";
 import { test } from "qunit";
-import { acceptance, query } from "discourse/tests/helpers/qunit-helpers";
-import I18n from "I18n";
+import { acceptance } from "discourse/tests/helpers/qunit-helpers";
+import I18n from "discourse-i18n";
 
 acceptance("Discourse Post Voting - notifications", function (needs) {
   needs.user();
@@ -20,7 +20,7 @@ acceptance("Discourse Post Voting - notifications", function (needs) {
             fancy_title: "some fancy title",
             slug: "some-slug",
             data: {
-              display_username: "someuser",
+              display_username: "some_user",
               post_voting_comment_id: 123,
             },
           },
@@ -33,31 +33,28 @@ acceptance("Discourse Post Voting - notifications", function (needs) {
   test("viewing comments notifications", async (assert) => {
     await visit("/u/eviltrout/notifications");
 
-    const notification = query(".user-notifications-list .notification");
+    assert
+      .dom(".user-notifications-list .notification .item-label")
+      .hasText("some_user", "Renders username");
 
-    assert.strictEqual(
-      notification.querySelector(".item-label").textContent.trim(),
-      "someuser",
-      "Renders username"
-    );
+    assert
+      .dom(".user-notifications-list .notification .item-description")
+      .hasText("some fancy title", "Renders description");
 
-    assert.strictEqual(
-      notification.querySelector(".item-description").textContent.trim(),
-      "some fancy title",
-      "Renders description"
-    );
+    assert
+      .dom(".user-notifications-list .notification a")
+      .hasAttribute(
+        "href",
+        /\/t\/some-slug\/59#post-voting-comment-123/,
+        "displays a link with a hash fragment pointing to the comment id"
+      );
 
-    assert.ok(
-      notification
-        .querySelector("a")
-        .href.includes("/t/some-slug/59#post-voting-comment-123"),
-      "displays a link with a hash fragment pointing to the comment id"
-    );
-
-    assert.strictEqual(
-      notification.querySelector("a").title,
-      I18n.t("notifications.titles.question_answer_user_commented"),
-      "displays the right title"
-    );
+    assert
+      .dom(".user-notifications-list .notification a")
+      .hasAttribute(
+        "title",
+        I18n.t("notifications.titles.question_answer_user_commented"),
+        "displays the right title"
+      );
   });
 });
