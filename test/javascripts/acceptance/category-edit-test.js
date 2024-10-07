@@ -17,7 +17,7 @@ acceptance("Category Edit", function (needs) {
       pretender.handledRequests[pretender.handledRequests.length - 1]
         .requestBody
     );
-    assert.ok(payload.custom_fields.create_as_post_voting_default);
+    assert.true(payload.custom_fields.create_as_post_voting_default);
   });
 
   test("Editing the category to only_post_voting_in_this_category", async function (assert) {
@@ -30,6 +30,6 @@ acceptance("Category Edit", function (needs) {
       pretender.handledRequests[pretender.handledRequests.length - 1]
         .requestBody
     );
-    assert.ok(payload.custom_fields.only_post_voting_in_this_category);
+    assert.true(payload.custom_fields.only_post_voting_in_this_category);
   });
 });
