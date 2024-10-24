@@ -72,5 +72,6 @@ end
 #
 # Indexes
 #
-#  idx_votable_user_id  (votable_type,votable_id,user_id) UNIQUE
+#  post_voting_votes_votable_type_and_votable_id_and_user_id_idx  (votable_type,votable_id,user_id) UNIQUE
+#  post_voting_votes_votable_type_votable_id_user_id_idx          (votable_type,votable_id,user_id) UNIQUE
 #
