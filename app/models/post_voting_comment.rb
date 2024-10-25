@@ -87,10 +87,15 @@ end
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  qa_vote_count  :integer          default(0)
+#  last_editor_id :integer          not null
 #
 # Indexes
 #
-#  index_post_voting_comments_on_deleted_by_id  (deleted_by_id) WHERE (deleted_by_id IS NOT NULL)
-#  index_post_voting_comments_on_post_id        (post_id)
-#  index_post_voting_comments_on_user_id        (user_id)
+#  index_post_voting_comments_on_deleted_by_id   (deleted_by_id) WHERE (deleted_by_id IS NOT NULL)
+#  index_post_voting_comments_on_last_editor_id  (last_editor_id)
+#  index_post_voting_comments_on_post_id         (post_id)
+#  index_post_voting_comments_on_user_id         (user_id)
+#  post_voting_comments_deleted_by_id_idx        (deleted_by_id) WHERE (deleted_by_id IS NOT NULL)
+#  post_voting_comments_post_id_idx              (post_id)
+#  post_voting_comments_user_id_idx              (user_id)
 #

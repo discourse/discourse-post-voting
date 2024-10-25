@@ -8,10 +8,14 @@ end
 #
 # Table name: post_voting_comment_custom_fields
 #
-#  id                        :integer          not null, primary key
-#  post_voting_comment_id    :integer          not null
-#  name                      :string(256)      not null
-#  value                     :text
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
+#  id                     :bigint           not null, primary key
+#  post_voting_comment_id :integer          not null
+#  name                   :string(256)      not null
+#  value                  :text
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+# Indexes
+#
+#  idx_post_voting_comment_custom_fields  (post_voting_comment_id,name)
 #
