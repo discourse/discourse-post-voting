@@ -1,45 +1,20 @@
+import Component from "@glimmer/component";
+import {
+  POST_MENU_LIKE_BUTTON_KEY,
+  POST_MENU_REPLY_BUTTON_KEY,
+  POST_MENU_SHOW_MORE_BUTTON_KEY,
+} from "discourse/components/post/menu";
 import { withPluginApi } from "discourse/lib/plugin-api";
+import { withSilencedDeprecations } from "discourse-common/lib/deprecated";
 import I18n from "I18n";
+import PostVotingAnswerButton from "../components/post-voting-answer-button";
+import PostVotingComments from "../components/post-voting-comments";
 
 export const ORDER_BY_ACTIVITY_FILTER = "activity";
 const pluginId = "discourse-post-voting";
 
-function initPlugin(api) {
-  api.removePostMenuButton("reply", (attrs) => {
-    return attrs.post_voting_has_votes !== undefined;
-  });
-
-  api.removePostMenuButton("like", (_attrs, _state, siteSetting) => {
-    return (
-      _attrs.post_voting_has_votes !== undefined &&
-      _attrs.post_number !== 1 &&
-      !siteSetting.post_voting_enable_likes_on_answers
-    );
-  });
-
-  api.addPostMenuButton("answer", (attrs) => {
-    if (
-      attrs.post_voting_has_votes === undefined ||
-      attrs.post_number !== 1 ||
-      !attrs.canCreatePost
-    ) {
-      return;
-    }
-
-    const args = {
-      action: "replyToPost",
-      title: "post_voting.topic.answer.help",
-      icon: "reply",
-      className: "reply create fade-out",
-      position: "last",
-    };
-
-    if (!attrs.mobileView) {
-      args.label = "post_voting.topic.answer.label";
-    }
-
-    return args;
-  });
+function initPlugin(api, container) {
+  customizePostMenu(api, container);
 
   api.modifyClass("model:post-stream", {
     pluginId,
@@ -74,6 +49,7 @@ function initPlugin(api) {
       }
     }
   }
+
   api.registerCustomLastUnreadUrlCallback(customLastUnreadUrl);
 
   api.reopenWidget("post", {
@@ -166,28 +142,6 @@ function initPlugin(api) {
     return result;
   });
 
-  api.decorateWidget("post-menu:after", (helper) => {
-    const result = [];
-    const attrs = helper.widget.attrs;
-
-    if (
-      attrs.post_voting_has_votes !== undefined &&
-      !attrs.reply_to_post_number &&
-      !helper.widget.state.filteredRepliesShown
-    ) {
-      const post = helper.getModel();
-
-      result.push(
-        helper.attach("post-voting-comments", {
-          post,
-          canCreatePost: attrs.canCreatePost,
-        })
-      );
-    }
-
-    return result;
-  });
-
   api.decorateWidget("post-avatar:after", function (helper) {
     const result = [];
     const model = helper.getModel();
@@ -212,6 +166,120 @@ function initPlugin(api) {
   );
 }
 
+function customizePostMenu(api, container) {
+  const siteSettings = container.lookup("service:site-settings");
+
+  const transformerRegistered = api.registerValueTransformer(
+    "post-menu-buttons",
+    ({ value: dag, context: { post } }) => {
+      if (post.post_voting_has_votes !== undefined) {
+        dag.add("post-voting-answer", PostVotingAnswerButton, {
+          after: [POST_MENU_SHOW_MORE_BUTTON_KEY, POST_MENU_REPLY_BUTTON_KEY],
+        });
+
+        dag.delete(POST_MENU_REPLY_BUTTON_KEY);
+
+        if (
+          post.post_number !== 1 &&
+          !siteSettings.post_voting_enable_likes_on_answers
+        ) {
+          dag.delete(POST_MENU_LIKE_BUTTON_KEY);
+        }
+      }
+
+      return dag;
+    }
+  );
+
+  api.renderInOutlet(
+    "post-menu__after",
+    class extends Component {
+      static shouldRender(outletArgs) {
+        return (
+          outletArgs.post.post_voting_has_votes !== undefined &&
+          !outletArgs.post.reply_to_post_number &&
+          !(
+            outletArgs.context.filteredRepliesView &&
+            outletArgs.context.repliesShown
+          )
+        );
+      }
+
+      <template>
+        <PostVotingComments
+          @post={{@outletArgs.post}}
+          @canCreatePost={{@outletArgs.context.canCreatePost}}
+        />
+      </template>
+    }
+  );
+
+  const silencedKey =
+    transformerRegistered && "discourse.post-menu-widget-overrides";
+
+  withSilencedDeprecations(silencedKey, () => customizeWidgetPostMenu(api));
+}
+
+function customizeWidgetPostMenu(api) {
+  api.removePostMenuButton("reply", (attrs) => {
+    return attrs.post_voting_has_votes !== undefined;
+  });
+
+  api.removePostMenuButton("like", (_attrs, _state, siteSetting) => {
+    return (
+      _attrs.post_voting_has_votes !== undefined &&
+      _attrs.post_number !== 1 &&
+      !siteSetting.post_voting_enable_likes_on_answers
+    );
+  });
+
+  api.addPostMenuButton("answer", (attrs) => {
+    if (
+      attrs.post_voting_has_votes === undefined ||
+      attrs.post_number !== 1 ||
+      !attrs.canCreatePost
+    ) {
+      return;
+    }
+
+    const args = {
+      action: "replyToPost",
+      title: "post_voting.topic.answer.help",
+      icon: "reply",
+      className: "reply create fade-out",
+      position: "last",
+    };
+
+    if (!attrs.mobileView) {
+      args.label = "post_voting.topic.answer.label";
+    }
+
+    return args;
+  });
+
+  api.decorateWidget("post-menu:after", (helper) => {
+    const result = [];
+    const attrs = helper.widget.attrs;
+
+    if (
+      attrs.post_voting_has_votes !== undefined &&
+      !attrs.reply_to_post_number &&
+      !helper.widget.state.filteredRepliesShown
+    ) {
+      const post = helper.getModel();
+
+      result.push(
+        helper.attach("post-voting-comments", {
+          post,
+          canCreatePost: attrs.canCreatePost,
+        })
+      );
+    }
+
+    return result;
+  });
+}
+
 export default {
   name: "post-voting-edits",
   initialize(container) {
@@ -221,6 +289,8 @@ export default {
       return;
     }
 
-    withPluginApi("1.2.0", initPlugin);
+    withPluginApi("1.13.0", (api) => {
+      initPlugin(api, container);
+    });
   },
 };
