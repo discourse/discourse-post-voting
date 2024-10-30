@@ -5,7 +5,7 @@ import concatClass from "discourse/helpers/concat-class";
 
 export default class PostVotingAnswerButton extends Component {
   static shouldRender(args) {
-    return args.context.canCreatePost && args.post.post_number === 1;
+    return args.state.canCreatePost && args.post.post_number === 1;
   }
 
   @service site;

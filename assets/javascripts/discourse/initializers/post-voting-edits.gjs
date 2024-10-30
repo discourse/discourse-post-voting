@@ -194,21 +194,18 @@ function customizePostMenu(api, container) {
   api.renderInOutlet(
     "post-menu__after",
     class extends Component {
-      static shouldRender(outletArgs) {
+      static shouldRender(args) {
         return (
-          outletArgs.post.post_voting_has_votes !== undefined &&
-          !outletArgs.post.reply_to_post_number &&
-          !(
-            outletArgs.context.filteredRepliesView &&
-            outletArgs.context.repliesShown
-          )
+          args.post.post_voting_has_votes !== undefined &&
+          !args.post.reply_to_post_number &&
+          !(args.state.filteredRepliesView && args.state.repliesShown)
         );
       }
 
       <template>
         <PostVotingComments
           @post={{@outletArgs.post}}
-          @canCreatePost={{@outletArgs.context.canCreatePost}}
+          @canCreatePost={{@outletArgs.state.canCreatePost}}
         />
       </template>
     }
