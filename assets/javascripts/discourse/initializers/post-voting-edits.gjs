@@ -186,8 +186,6 @@ function customizePostMenu(api, container) {
           dag.delete(POST_MENU_LIKE_BUTTON_KEY);
         }
       }
-
-      return dag;
     }
   );
 
