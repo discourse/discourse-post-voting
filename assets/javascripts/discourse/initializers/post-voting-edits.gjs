@@ -1,9 +1,4 @@
 import Component from "@glimmer/component";
-import {
-  POST_MENU_LIKE_BUTTON_KEY,
-  POST_MENU_REPLY_BUTTON_KEY,
-  POST_MENU_SHOW_MORE_BUTTON_KEY,
-} from "discourse/components/post/menu";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { withSilencedDeprecations } from "discourse-common/lib/deprecated";
 import I18n from "I18n";
@@ -171,19 +166,19 @@ function customizePostMenu(api, container) {
 
   const transformerRegistered = api.registerValueTransformer(
     "post-menu-buttons",
-    ({ value: dag, context: { post } }) => {
+    ({ value: dag, context: { post, buttonKeys } }) => {
       if (post.post_voting_has_votes !== undefined) {
         dag.add("post-voting-answer", PostVotingAnswerButton, {
-          after: [POST_MENU_SHOW_MORE_BUTTON_KEY, POST_MENU_REPLY_BUTTON_KEY],
+          after: [buttonKeys.SHOW_MORE, buttonKeys.REPLY],
         });
 
-        dag.delete(POST_MENU_REPLY_BUTTON_KEY);
+        dag.delete(buttonKeys.REPLY);
 
         if (
           post.post_number !== 1 &&
           !siteSettings.post_voting_enable_likes_on_answers
         ) {
-          dag.delete(POST_MENU_LIKE_BUTTON_KEY);
+          dag.delete(buttonKeys.LIKE);
         }
       }
     }
