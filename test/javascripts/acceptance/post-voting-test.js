@@ -129,6 +129,7 @@ function setupPostVoting(needs) {
     min_post_length: 5,
     post_voting_comment_max_raw_length: 50,
     post_voting_enable_likes_on_answers: false,
+    glimmer_post_menu_mode: "enabled",
   });
 
   needs.hooks.afterEach(function () {
