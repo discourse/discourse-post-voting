@@ -68,7 +68,7 @@ end
 #  created_at   :datetime         not null
 #  direction    :string           not null
 #  votable_type :string           not null
-#  votable_id   :integer          not null
+#  votable_id   :bigint           not null
 #
 # Indexes
 #

@@ -9,7 +9,7 @@ end
 # Table name: post_voting_comment_custom_fields
 #
 #  id                     :bigint           not null, primary key
-#  post_voting_comment_id :integer          not null
+#  post_voting_comment_id :bigint           not null
 #  name                   :string(256)      not null
 #  value                  :text
 #  created_at             :datetime         not null
