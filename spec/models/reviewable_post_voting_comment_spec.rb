@@ -86,4 +86,13 @@ RSpec.describe ReviewablePostVotingComment, type: :model do
       expect(user.reload.silenced?).to eq(false)
     end
   end
+
+  context "when author of the flagged comment is deleted" do
+    it "deletes comment and review" do
+      UserDestroyer.new(Discourse.system_user).destroy(comment_poster, { delete_posts: true })
+      expect { comment_poster.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { comment.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { reviewable.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 end
