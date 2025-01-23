@@ -52,6 +52,8 @@ after_initialize do
   register_post_custom_field_type("vote_history", :json)
   register_post_custom_field_type("vote_count", :integer)
 
+  register_reviewable_type ReviewablePostVotingComment
+
   reloadable_patch do
     Post.include(PostVoting::PostExtension)
     Topic.include(PostVoting::TopicExtension)
@@ -247,7 +249,12 @@ after_initialize do
 
   register_user_destroyer_on_content_deletion_callback(
     Proc.new do |user|
-      PostVotingComment.where(user_id: user.id).delete_all
+      post_voting_comment_ids = PostVotingComment.where(user_id: user.id).pluck(:id)
+      PostVotingComment.where(id: post_voting_comment_ids).delete_all
+      ReviewablePostVotingComment.where(
+        target_id: post_voting_comment_ids,
+        target_type: "PostVotingComment",
+      ).delete_all
       PostVoting::VoteManager.bulk_remove_votes_by(user)
     end,
   )
