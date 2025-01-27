@@ -8,6 +8,8 @@ en:
       comment_already_handled: "Thanks, but we've already reviewed this comment and determined it does not need to be flagged again."
 
   js:
+    discourse_post_voting:
+      title: "Post voting"
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
       titles:
