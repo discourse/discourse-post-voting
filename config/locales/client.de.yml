@@ -13,6 +13,8 @@ de:
     reviewables:
       comment_already_handled: "Danke, aber wir haben diesen Kommentar bereits überprüft und festgestellt, dass er nicht erneut gemeldet werden muss."
   js:
+    discourse_post_voting:
+      title: "Beitragsabstimmung"
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
       titles:
