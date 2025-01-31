@@ -13,6 +13,8 @@ he:
     reviewables:
       comment_already_handled: "תודה לך, כבר בדקנו את התגובה הזאת והחלטנו שאין צורך לסמן אותה בדגל פעם נוספת."
   js:
+    discourse_post_voting:
+      title: "הצבעה על פוסטים"
     notifications:
       question_answer_user_commented: "<span>%{username}</span> %{description}"
       titles:
