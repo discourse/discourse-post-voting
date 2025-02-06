@@ -1,7 +1,7 @@
 import Component from "@glimmer/component";
+import { withSilencedDeprecations } from "discourse/lib/deprecated";
 import { withPluginApi } from "discourse/lib/plugin-api";
-import { withSilencedDeprecations } from "discourse-common/lib/deprecated";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 import PostVotingAnswerButton from "../components/post-voting-answer-button";
 import PostVotingComments from "../components/post-voting-comments";
 
@@ -106,13 +106,13 @@ function initPlugin(api, container) {
       helper.h("div.post-voting-answers-header.small-action", [
         helper.h(
           "span.post-voting-answers-headers-count",
-          I18n.t("post_voting.topic.answer_count", { count: answersCount })
+          i18n("post_voting.topic.answer_count", { count: answersCount })
         ),
         helper.h("span.post-voting-answers-headers-sort", [
-          helper.h("span", I18n.t("post_voting.topic.sort_by")),
+          helper.h("span", i18n("post_voting.topic.sort_by")),
           helper.attach("button", {
             action: "orderByVotes",
-            contents: I18n.t("post_voting.topic.votes"),
+            contents: i18n("post_voting.topic.votes"),
             disabled: topicController.filter !== ORDER_BY_ACTIVITY_FILTER,
             className: `post-voting-answers-headers-sort-votes ${
               topicController.filter === ORDER_BY_ACTIVITY_FILTER
@@ -122,7 +122,7 @@ function initPlugin(api, container) {
           }),
           helper.attach("button", {
             action: "orderByActivity",
-            contents: I18n.t("post_voting.topic.activity"),
+            contents: i18n("post_voting.topic.activity"),
             disabled: topicController.filter === ORDER_BY_ACTIVITY_FILTER,
             className: `post-voting-answers-headers-sort-activity ${
               topicController.filter === ORDER_BY_ACTIVITY_FILTER

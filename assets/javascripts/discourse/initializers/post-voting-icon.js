@@ -1,6 +1,6 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { postUrl } from "discourse/lib/utilities";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 import { buildAnchorId } from "../components/post-voting-comment";
 
 export default {
@@ -18,7 +18,7 @@ export default {
         (NotificationTypeBase) => {
           return class extends NotificationTypeBase {
             get linkTitle() {
-              return I18n.t(
+              return i18n(
                 "notifications.titles.question_answer_user_commented"
               );
             }

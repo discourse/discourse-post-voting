@@ -8,6 +8,7 @@ import {
   visit,
 } from "@ember/test-helpers";
 import { test } from "qunit";
+import { cloneJSON } from "discourse/lib/object";
 import discoveryFixtures from "discourse/tests/fixtures/discovery-fixtures";
 import topicFixtures from "discourse/tests/fixtures/topic";
 import {
@@ -15,8 +16,7 @@ import {
   publishToMessageBus,
   updateCurrentUser,
 } from "discourse/tests/helpers/qunit-helpers";
-import { cloneJSON } from "discourse-common/lib/object";
-import I18n from "discourse-i18n";
+import { i18n } from "discourse-i18n";
 
 const topicResponse = cloneJSON(topicFixtures["/t/280/1.json"]);
 const topicList = cloneJSON(discoveryFixtures["/latest.json"]);
@@ -245,7 +245,7 @@ acceptance(
         .dom(
           "#post_2 .post-voting-comments #post-voting-comment-6 .post-voting-comment-info-username"
         )
-        .hasText(I18n.t("post_voting.post.post_voting_comment.user.deleted"));
+        .hasText(i18n("post_voting.post.post_voting_comment.user.deleted"));
     });
 
     test("adding a comment", async function (assert) {
@@ -315,7 +315,7 @@ acceptance(
       assert
         .dom(".reply.create .d-button-label")
         .hasText(
-          I18n.t("post_voting.topic.answer.label"),
+          i18n("post_voting.topic.answer.label"),
           "displays the correct reply label"
         );
     });
@@ -402,7 +402,7 @@ acceptance(
       await fillIn(".post-voting-comment-composer-textarea", "a".repeat(4));
 
       assert.dom(".post-voting-comment-composer-flash").hasText(
-        I18n.t("post_voting.post.post_voting_comment.composer.too_short", {
+        i18n("post_voting.post.post_voting_comment.composer.too_short", {
           count: 5,
         }),
         "displays the right message about raw length when it is too short"
@@ -415,7 +415,7 @@ acceptance(
       await fillIn(".post-voting-comment-composer-textarea", "a".repeat(6));
 
       assert.dom(".post-voting-comment-composer-flash").hasText(
-        I18n.t("post_voting.post.post_voting_comment.composer.length_ok", {
+        i18n("post_voting.post.post_voting_comment.composer.length_ok", {
           count: 44,
         }),
         "displays the right message about raw length when it is OK"
@@ -428,7 +428,7 @@ acceptance(
       await fillIn(".post-voting-comment-composer-textarea", "a".repeat(51));
 
       assert.dom(".post-voting-comment-composer-flash").hasText(
-        I18n.t("post_voting.post.post_voting_comment.composer.too_long", {
+        i18n("post_voting.post.post_voting_comment.composer.too_long", {
           count: 50,
         }),
         "displays the right message about raw length when it is too long"
@@ -510,7 +510,7 @@ acceptance(
       await fillIn(".post-voting-comment-composer-textarea", "a".repeat(4));
 
       assert.dom(".post-voting-comment-composer-flash").hasText(
-        I18n.t("post_voting.post.post_voting_comment.composer.too_short", {
+        i18n("post_voting.post.post_voting_comment.composer.too_short", {
           count: 5,
         }),
         "displays the right message about raw length when it is too short"
@@ -526,7 +526,7 @@ acceptance(
       );
 
       assert.dom(".post-voting-comment-composer-flash").hasText(
-        I18n.t("post_voting.post.post_voting_comment.composer.length_ok", {
+        i18n("post_voting.post.post_voting_comment.composer.length_ok", {
           count: 38,
         }),
         "displays the right message when comment length is OK"

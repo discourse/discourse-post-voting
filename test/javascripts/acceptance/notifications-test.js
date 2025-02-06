@@ -1,7 +1,7 @@
 import { visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import { acceptance } from "discourse/tests/helpers/qunit-helpers";
-import I18n from "discourse-i18n";
+import { i18n } from "discourse-i18n";
 
 acceptance("Discourse Post Voting - notifications", function (needs) {
   needs.user();
@@ -53,7 +53,7 @@ acceptance("Discourse Post Voting - notifications", function (needs) {
       .dom(".user-notifications-list .notification a")
       .hasAttribute(
         "title",
-        I18n.t("notifications.titles.question_answer_user_commented"),
+        i18n("notifications.titles.question_answer_user_commented"),
         "displays the right title"
       );
   });

@@ -4,7 +4,7 @@ import Category from "discourse/models/category";
 import { parsePostData } from "discourse/tests/helpers/create-pretender";
 import { acceptance } from "discourse/tests/helpers/qunit-helpers";
 import selectKit from "discourse/tests/helpers/select-kit-helper";
-import I18n from "discourse-i18n";
+import { i18n } from "discourse-i18n";
 
 let createAsPostVotingSetInRequest = false;
 
@@ -45,38 +45,38 @@ acceptance("Discourse Post Voting - composer", function (needs) {
     const composerActions = selectKit(".composer-actions");
     await composerActions.expand();
     await composerActions.selectKitSelectRowByName(
-      I18n.t("composer.composer_actions.create_as_post_voting.label")
+      i18n("composer.composer_actions.create_as_post_voting.label")
     );
 
     assert
       .dom(".action-title")
       .hasText(
-        I18n.t("composer.create_post_voting.label"),
+        i18n("composer.create_post_voting.label"),
         "displays the right composer action title when creating Post Voting topic"
       );
 
     assert
       .dom(".create .d-button-label")
       .hasText(
-        I18n.t("composer.create_post_voting.label"),
+        i18n("composer.create_post_voting.label"),
         "displays the right label for composer create button"
       );
 
     await composerActions.expand();
     await composerActions.selectKitSelectRowByName(
-      I18n.t("composer.composer_actions.remove_as_post_voting.label")
+      i18n("composer.composer_actions.remove_as_post_voting.label")
     );
 
     assert
       .dom(".action-title")
       .doesNotIncludeText(
-        I18n.t("composer.create_post_voting.label"),
+        i18n("composer.create_post_voting.label"),
         "reverts to original composer title when post voting format is disabled"
       );
 
     await composerActions.expand();
     await composerActions.selectKitSelectRowByName(
-      I18n.t("composer.composer_actions.create_as_post_voting.label")
+      i18n("composer.composer_actions.create_as_post_voting.label")
     );
 
     await fillIn("#reply-title", "this is some random topic title");
@@ -95,7 +95,7 @@ acceptance("Discourse Post Voting - composer", function (needs) {
     await visit("/");
     await click("#create-topic");
 
-    assert.dom(".action-title").hasText(I18n.t("topic.create_long"));
+    assert.dom(".action-title").hasText(i18n("topic.create_long"));
 
     const categoryChooser = selectKit(".category-chooser");
     await categoryChooser.expand();
@@ -103,7 +103,7 @@ acceptance("Discourse Post Voting - composer", function (needs) {
 
     assert
       .dom(".action-title")
-      .hasText(I18n.t("composer.create_post_voting.label"));
+      .hasText(i18n("composer.create_post_voting.label"));
   });
 
   test("Creating new topic in category with only_post_voting_in_this_category enabled", async function (assert) {
@@ -113,7 +113,7 @@ acceptance("Discourse Post Voting - composer", function (needs) {
     await visit("/");
     await click("#create-topic");
 
-    assert.dom(".action-title").hasText(I18n.t("topic.create_long"));
+    assert.dom(".action-title").hasText(i18n("topic.create_long"));
 
     const categoryChooser = selectKit(".category-chooser");
     await categoryChooser.expand();
@@ -123,6 +123,6 @@ acceptance("Discourse Post Voting - composer", function (needs) {
     await newTopicType.expand();
     assert
       .dom(".action-title")
-      .hasText(I18n.t("composer.create_post_voting.label"));
+      .hasText(i18n("composer.create_post_voting.label"));
   });
 });

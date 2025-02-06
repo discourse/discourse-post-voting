@@ -1,7 +1,7 @@
+import { observes } from "discourse/lib/decorators";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { CREATE_TOPIC } from "discourse/models/composer";
-import { observes } from "discourse-common/utils/decorators";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 
 export default {
   name: "extend-composer-actions",
@@ -23,9 +23,9 @@ export default {
       api.customizeComposerText({
         actionTitle(model) {
           if (model.createAsPostVoting || model.onlyPostVotingInThisCategory) {
-            return I18n.t("composer.create_post_voting.label");
+            return i18n("composer.create_post_voting.label");
           } else if (model.topic?.is_post_voting) {
-            return I18n.t("post_voting.topic.answer.label");
+            return i18n("post_voting.topic.answer.label");
           } else {
             return null;
           }
@@ -60,10 +60,10 @@ export default {
           ) {
             return [
               {
-                name: I18n.t(
+                name: i18n(
                   "composer.composer_actions.remove_as_post_voting.label"
                 ),
-                description: I18n.t(
+                description: i18n(
                   "composer.composer_actions.remove_as_post_voting.desc"
                 ),
                 icon: "plus",
@@ -75,10 +75,10 @@ export default {
           } else {
             return [
               {
-                name: I18n.t(
+                name: i18n(
                   "composer.composer_actions.create_as_post_voting.label"
                 ),
-                description: I18n.t(
+                description: i18n(
                   "composer.composer_actions.create_as_post_voting.desc"
                 ),
                 icon: "plus",
