@@ -2,7 +2,7 @@ import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 
 export default class PostVotingCommentComposer extends Component {
   @service siteSettings;
@@ -17,7 +17,7 @@ export default class PostVotingCommentComposer extends Component {
 
   get errorMessage() {
     if (this.value.length < this.siteSettings.min_post_length) {
-      return I18n.t("post_voting.post.post_voting_comment.composer.too_short", {
+      return i18n("post_voting.post.post_voting_comment.composer.too_short", {
         count: this.siteSettings.min_post_length,
       });
     }
@@ -25,7 +25,7 @@ export default class PostVotingCommentComposer extends Component {
     if (
       this.value.length > this.siteSettings.post_voting_comment_max_raw_length
     ) {
-      return I18n.t("post_voting.post.post_voting_comment.composer.too_long", {
+      return i18n("post_voting.post.post_voting_comment.composer.too_long", {
         count: this.siteSettings.post_voting_comment_max_raw_length,
       });
     }

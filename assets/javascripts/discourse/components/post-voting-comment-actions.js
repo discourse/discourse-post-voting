@@ -4,7 +4,7 @@ import { service } from "@ember/service";
 import FlagModal from "discourse/components/modal/flag";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 import PostVotingFlag from "../lib/post-voting-flag";
 
 export default class PostVotingCommentActions extends Component {
@@ -39,7 +39,7 @@ export default class PostVotingCommentActions extends Component {
   @action
   deleteConfirm() {
     this.dialog.deleteConfirm({
-      message: I18n.t("post_voting.post.post_voting_comment.delete.confirm"),
+      message: i18n("post_voting.post.post_voting_comment.delete.confirm"),
       didConfirm: () => {
         const data = { comment_id: this.args.id };
 

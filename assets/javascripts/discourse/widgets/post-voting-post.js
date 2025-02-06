@@ -1,8 +1,8 @@
 import { h } from "virtual-dom";
 import { popupAjaxError } from "discourse/lib/ajax-error";
+import { iconNode } from "discourse/lib/icon-library";
 import { userPath } from "discourse/lib/url";
 import { createWidget } from "discourse/widgets/widget";
-import { iconNode } from "discourse-common/lib/icon-library";
 import { castVote, removeVote, whoVoted } from "../lib/post-voting-utilities";
 
 function smallUserAtts(user) {
