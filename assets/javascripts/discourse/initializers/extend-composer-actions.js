@@ -1,4 +1,4 @@
-import { observes } from "discourse/lib/decorators";
+import { observer } from "@ember/object";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { CREATE_TOPIC } from "discourse/models/composer";
 import { i18n } from "discourse-i18n";
@@ -94,8 +94,7 @@ export default {
       api.modifyClass("model:composer", {
         pluginId: "discourse-post-voting",
 
-        @observes("categoryId")
-        categoryCreateAsPostVotingDefault() {
+        categoryCreateAsPostVotingDefault: observer("categoryId", function () {
           const createAsPostVoting =
             this.category?.create_as_post_voting_default;
 
@@ -118,7 +117,7 @@ export default {
             this.notifyPropertyChange("replyOptions");
             this.notifyPropertyChange("action");
           }
-        },
+        }),
       });
     });
   },
