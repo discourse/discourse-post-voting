@@ -248,14 +248,14 @@ acceptance("Discourse Post Voting - anon user", function (needs) {
     await visit("/t/280");
     await click(".post-voting-comment-add-link");
 
-    assert.dom(".login-modal").exists("displays the login modal");
+    assert.dom("#login-form").exists("displays the login screen");
   });
 
   test("voting a comment", async function (assert) {
     await visit("/t/280");
     await click("#post_2 #post-voting-comment-2 .post-voting-button-upvote");
 
-    assert.dom(".login-modal").exists("displays the login modal");
+    assert.dom("#login-form").exists("displays the login screen");
   });
 });
 
