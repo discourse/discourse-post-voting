@@ -10,7 +10,7 @@ body > noscript {
     .post-voting-comment-row {
       display: flex;
       border-top: 1px solid var(--primary-low);
-      padding: 5px 0px 5px 0px;
+      padding: 5px 0 5px 0;
 
       .post-voting-comment-cooked p,
       .post-voting-comment-creator {
