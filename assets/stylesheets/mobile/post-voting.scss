@@ -8,6 +8,7 @@
     border-bottom: 1px solid var(--primary-low);
     margin-bottom: 1em;
   }
+
   .topic-avatar {
     position: relative;
   }
@@ -22,9 +23,10 @@
 
 .post-voting-post {
   position: absolute;
-  left: 0px;
+  left: 0;
   top: 45px;
   width: 45px;
+
   .post-voting-post-list {
     left: -5px;
   }

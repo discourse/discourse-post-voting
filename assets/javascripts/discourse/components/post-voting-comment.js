@@ -4,12 +4,14 @@ import { action } from "@ember/object";
 import { service } from "@ember/service";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
+
 export function buildAnchorId(commentId) {
   return `post-voting-comment-${commentId}`;
 }
 
 export default class PostVotingComment extends Component {
   @service currentUser;
+
   @tracked isEditing = false;
   @tracked isVoting = false;
   @tracked hidden = false;

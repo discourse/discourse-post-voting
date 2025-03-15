@@ -37,6 +37,7 @@
     .btn {
       color: var(--primary-high);
       border: 1px solid var(--primary-low-mid);
+
       &:hover {
         background-color: var(--primary-very-low);
       }
@@ -66,12 +67,12 @@
 
     .btn {
       + .btn {
-        margin-left: 0em;
+        margin-left: 0;
         margin-right: 0.3em;
       }
 
       &:first-of-type {
-        margin-left: 0em;
+        margin-left: 0;
         margin-right: 0.5em;
       }
     }
@@ -208,7 +209,6 @@
     &.error {
       color: var(--danger-hover);
     }
-
     margin-bottom: 0.5em;
   }
 }
