@@ -60,6 +60,7 @@ he:
         post_voting_not_enabled: "לא ניתן להגיב על פוסט שאינו בתבנית שו\"ת."
         not_permitted: "הוספת תגובה על פוסט משויך אסורה."
         limit_exceeded: "הגעת למגבלה של %{limit} תגובות לפוסט."
+        perform: "הערת הצבעת פוסט סומנה עם ניקוד גבוה מספיק כדי להשתיק את המשתמש."
         auto_silence_from_flags: "הושתק אוטומטית עקב סימון."
       reviewables:
         comment_already_handled: "תודה לך, כבר בדקנו את התגובה הזאת והחלטנו שאין צורך לסמן אותה בדגל פעם נוספת."
@@ -102,4 +103,5 @@ he:
           comment_pm_title: "הערת הצבעה שלך על פוסט"
           comment_pm_body: "%{link}\n\n%{comment}"
         notify_moderators:
+          comment_pm_title: "הערת הצבעה על פוסטים דורשת את תשומת לב הסגל"
           comment_pm_body: "%{link}\n\n%{comment}"
