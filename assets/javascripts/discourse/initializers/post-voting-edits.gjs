@@ -164,7 +164,7 @@ function initPlugin(api, container) {
 function customizePostMenu(api, container) {
   const siteSettings = container.lookup("service:site-settings");
 
-  const transformerRegistered = api.registerValueTransformer(
+  api.registerValueTransformer(
     "post-menu-buttons",
     ({ value: dag, context: { post, buttonKeys } }) => {
       if (post.post_voting_has_votes !== undefined) {
@@ -203,71 +203,6 @@ function customizePostMenu(api, container) {
       </template>
     }
   );
-
-  const silencedKey =
-    transformerRegistered && "discourse.post-menu-widget-overrides";
-
-  withSilencedDeprecations(silencedKey, () => customizeWidgetPostMenu(api));
-}
-
-function customizeWidgetPostMenu(api) {
-  api.removePostMenuButton("reply", (attrs) => {
-    return attrs.post_voting_has_votes !== undefined;
-  });
-
-  api.removePostMenuButton("like", (_attrs, _state, siteSetting) => {
-    return (
-      _attrs.post_voting_has_votes !== undefined &&
-      _attrs.post_number !== 1 &&
-      !siteSetting.post_voting_enable_likes_on_answers
-    );
-  });
-
-  api.addPostMenuButton("answer", (attrs) => {
-    if (
-      attrs.post_voting_has_votes === undefined ||
-      attrs.post_number !== 1 ||
-      !attrs.canCreatePost
-    ) {
-      return;
-    }
-
-    const args = {
-      action: "replyToPost",
-      title: "post_voting.topic.answer.help",
-      icon: "reply",
-      className: "reply create fade-out",
-      position: "last",
-    };
-
-    if (!attrs.mobileView) {
-      args.label = "post_voting.topic.answer.label";
-    }
-
-    return args;
-  });
-
-  api.decorateWidget("post-menu:after", (helper) => {
-    const result = [];
-    const attrs = helper.widget.attrs;
-
-    if (
-      attrs.post_voting_has_votes !== undefined &&
-      !attrs.reply_to_post_number &&
-      !helper.widget.state.filteredRepliesShown
-    ) {
-      const post = helper.getModel();
-
-      result.push(
-        helper.attach("post-voting-comments", {
-          post,
-          canCreatePost: attrs.canCreatePost,
-        })
-      );
-    }
-
-    return result;
-  });
 }
 
 export default {
