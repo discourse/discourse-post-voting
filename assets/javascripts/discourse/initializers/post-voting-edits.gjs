@@ -64,12 +64,18 @@ function customizePost(api) {
 
   api.renderAfterWrapperOutlet(
     "post-avatar",
-    <template>
-      <PostVotingVoteControls
-        @post={{@outletArgs.post}}
-        @showLogin={{routeAction "showLogin"}}
-      />
-    </template>
+    class extends Component {
+      static shouldRender(args) {
+        return args.post.topic?.is_post_voting;
+      }
+
+      <template>
+        <PostVotingVoteControls
+          @post={{@outletArgs.post}}
+          @showLogin={{routeAction "showLogin"}}
+        />
+      </template>
+    }
   );
   api.renderBeforeWrapperOutlet("post-article", PostVotingAnswerHeader);
 
