@@ -1,29 +1,19 @@
 import Component from "@glimmer/component";
+import { getOwner } from "@ember/owner";
+import { withSilencedDeprecations } from "discourse/lib/deprecated";
 import { withPluginApi } from "discourse/lib/plugin-api";
+import { registerWidgetShim } from "discourse/widgets/render-glimmer";
 import { i18n } from "discourse-i18n";
 import PostVotingAnswerButton from "../components/post-voting-answer-button";
+import PostVotingAnswerHeader, {
+  ORDER_BY_ACTIVITY_FILTER,
+} from "../components/post-voting-answer-header";
 import PostVotingComments from "../components/post-voting-comments";
-
-export const ORDER_BY_ACTIVITY_FILTER = "activity";
-const pluginId = "discourse-post-voting";
+import PostVotingVoteControls from "../components/post-voting-vote-controls";
 
 function initPlugin(api, container) {
+  customizePost(api);
   customizePostMenu(api, container);
-
-  api.modifyClass("model:post-stream", {
-    pluginId,
-
-    orderStreamByActivity() {
-      this.cancelFilter();
-      this.set("filter", ORDER_BY_ACTIVITY_FILTER);
-      return this.refreshAndJumpToSecondVisible();
-    },
-
-    orderStreamByVotes() {
-      this.cancelFilter();
-      return this.refreshAndJumpToSecondVisible();
-    },
-  });
 
   function customLastUnreadUrl(context) {
     if (context.is_post_voting && context.last_read_post_number) {
@@ -45,7 +35,41 @@ function initPlugin(api, container) {
   }
 
   api.registerCustomLastUnreadUrlCallback(customLastUnreadUrl);
+}
 
+function customizePost(api) {
+  api.addTrackedPostProperties(
+    "comments",
+    "comments_count",
+    "post_voting_user_voted_direction",
+    "post_voting_has_votes"
+  );
+
+  api.modifyClass(
+    "model:post-stream",
+    (Superclass) =>
+      class extends Superclass {
+        orderStreamByActivity() {
+          this.cancelFilter();
+          this.set("filter", ORDER_BY_ACTIVITY_FILTER);
+          return this.refreshAndJumpToSecondVisible();
+        }
+
+        orderStreamByVotes() {
+          this.cancelFilter();
+          return this.refreshAndJumpToSecondVisible();
+        }
+      }
+  );
+
+  api.renderBeforeWrapperOutlet("post-article", PostVotingAnswerHeader);
+
+  withSilencedDeprecations("discourse.post-stream-widget-overrides", () =>
+    customizeWidgetPost(api)
+  );
+}
+
+function customizeWidgetPost(api) {
   api.reopenWidget("post", {
     orderByVotes() {
       this._topicController()
@@ -136,14 +160,27 @@ function initPlugin(api, container) {
     return result;
   });
 
+  registerWidgetShim(
+    "post-voting-vote-controls",
+    "div.post-voting-post-shim",
+    <template>
+      <PostVotingVoteControls
+        @post={{@data.post}}
+        @showLogin={{@data.showLogin}}
+      />
+    </template>
+  );
+
   api.decorateWidget("post-avatar:after", function (helper) {
     const result = [];
     const model = helper.getModel();
 
     if (model.topic?.is_post_voting) {
-      const postVotingPost = helper.attach("post-voting-post", {
-        count: model.get("post_voting_vote_count"),
+      const postVotingPost = helper.attach("post-voting-vote-controls", {
         post: model,
+        showLogin: () => {
+          getOwner(this).lookup("route:application").send("showLogin");
+        },
       });
 
       result.push(postVotingPost);
@@ -151,13 +188,6 @@ function initPlugin(api, container) {
 
     return result;
   });
-
-  api.includePostAttributes(
-    "comments",
-    "comments_count",
-    "post_voting_user_voted_direction",
-    "post_voting_has_votes"
-  );
 }
 
 function customizePostMenu(api, container) {
