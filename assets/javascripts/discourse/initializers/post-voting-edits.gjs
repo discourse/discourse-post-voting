@@ -1,5 +1,5 @@
 import Component from "@glimmer/component";
-import { getOwner } from "@ember/owner";
+import routeAction from "discourse/helpers/route-action";
 import { withSilencedDeprecations } from "discourse/lib/deprecated";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { registerWidgetShim } from "discourse/widgets/render-glimmer";
@@ -62,6 +62,15 @@ function customizePost(api) {
       }
   );
 
+  api.renderAfterWrapperOutlet(
+    "post-avatar",
+    <template>
+      <PostVotingVoteControls
+        @post={{@outletArgs.post}}
+        @showLogin={{routeAction "showLogin"}}
+      />
+    </template>
+  );
   api.renderBeforeWrapperOutlet("post-article", PostVotingAnswerHeader);
 
   withSilencedDeprecations("discourse.post-stream-widget-overrides", () =>
@@ -166,7 +175,7 @@ function customizeWidgetPost(api) {
     <template>
       <PostVotingVoteControls
         @post={{@data.post}}
-        @showLogin={{@data.showLogin}}
+        @showLogin={{routeAction "showLogin"}}
       />
     </template>
   );
@@ -178,9 +187,6 @@ function customizeWidgetPost(api) {
     if (model.topic?.is_post_voting) {
       const postVotingPost = helper.attach("post-voting-vote-controls", {
         post: model,
-        showLogin: () => {
-          getOwner(this).lookup("route:application").send("showLogin");
-        },
       });
 
       result.push(postVotingPost);
