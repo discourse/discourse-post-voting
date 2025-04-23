@@ -58,13 +58,11 @@ export default class PostVotingWhoVotedList extends Component {
     >
       <AsyncContent @asyncData={{this.loadWhoVoted}}>
         <:loading>
-          <div class="spinner small"></div>
           {{i18n "loading"}}
         </:loading>
         <:content as |voters|>
           {{#if whoVoted}}
             {{#let (this.splitUpAndDownLists voters) as |splitVoters|}}
-              {{log voters splitVoters}}
               <PostVotingSmallUserList
                 @list={{get splitVoters "up"}}
                 @direction="up"
