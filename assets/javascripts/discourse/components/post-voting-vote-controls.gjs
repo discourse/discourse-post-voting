@@ -101,7 +101,7 @@ export default class PostVotingVoteControls extends Component {
   }
 
   @action
-  async toggleWhoVoted() {
+  toggleWhoVoted() {
     this.showWhoVoted = !this.showWhoVoted;
   }
 
