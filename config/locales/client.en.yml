@@ -113,6 +113,9 @@ en:
         answer_count:
           one: "%{count} Answer"
           other: "%{count} Answers"
+        voters_count_diff:
+          one: "and %{count} more user..."
+          other: "and %{count} more users..."
 
     review:
       transcript:
