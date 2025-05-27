@@ -1,6 +1,8 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
+import PostVotingComment from "./post-voting-comment";
+import PostVotingCommentsMenu from "./post-voting-comments-menu";
 
 export default class PostVotingComments extends Component {
   @tracked comments = this.args.post.comments;
@@ -73,4 +75,29 @@ export default class PostVotingComments extends Component {
     };
     this.comments.replace(index, 1, [updatedComment]);
   }
+
+  <template>
+    <div class="post-voting-comments">
+      {{#each this.comments as |comment|}}
+        <PostVotingComment
+          @comment={{comment}}
+          @removeComment={{this.removeComment}}
+          @updateComment={{this.updateComment}}
+          @vote={{this.vote}}
+          @removeVote={{this.removeVote}}
+          @disabled={{this.disabled}}
+        />
+      {{/each}}
+
+      {{#if @canCreatePost}}
+        <PostVotingCommentsMenu
+          @id={{@post.id}}
+          @postNumber={{@post.post_number}}
+          @moreCommentCount={{this.moreCommentCount}}
+          @lastCommentId={{this.lastCommentId}}
+          @appendComments={{this.appendComments}}
+        />
+      {{/if}}
+    </div>
+  </template>
 }

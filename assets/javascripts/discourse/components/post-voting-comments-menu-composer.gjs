@@ -2,8 +2,10 @@ import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import DButton from "discourse/components/d-button";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
+import PostVotingCommentComposer from "./post-voting-comment-composer";
 
 export default class PostVotingCommentsMenuComposer extends Component {
   @service siteSettings;
@@ -43,4 +45,28 @@ export default class PostVotingCommentsMenuComposer extends Component {
         this.submitDisabled = false;
       });
   }
+
+  <template>
+    <div class="post-voting-comments-menu-composer">
+      <PostVotingCommentComposer
+        @onInput={{this.updateValue}}
+        @onKeyDown={{this.onKeyDown}}
+      />
+
+      <DButton
+        @action={{this.saveComment}}
+        @disabled={{this.submitDisabled}}
+        @icon="reply"
+        @label="post_voting.post.post_voting_comment.submit"
+        class="btn-primary post-voting-comments-menu-composer-submit"
+      />
+
+      <DButton
+        @display="link"
+        @action={{@onCancel}}
+        @label="post_voting.post.post_voting_comment.cancel"
+        class="post-voting-comments-menu-composer-cancel"
+      />
+    </div>
+  </template>
 }

@@ -1,6 +1,7 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import DButton from "discourse/components/d-button";
 import FlagModal from "discourse/components/modal/flag";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
@@ -67,4 +68,32 @@ export default class PostVotingCommentActions extends Component {
       },
     });
   }
+
+  <template>
+    {{#if this.canEdit}}
+      <span class="post-voting-comment-actions">
+        <DButton
+          @display="link"
+          class="post-voting-comment-actions-edit-link"
+          @action={{@updateComment}}
+          @icon="pencil"
+        />
+        <DButton
+          @display="link"
+          class="post-voting-comment-actions-delete-link"
+          @action={{this.deleteConfirm}}
+          @icon="far-trash-can"
+        />
+
+        {{#if this.canFlag}}
+          <DButton
+            @display="link"
+            class="post-voting-comment-actions-flag-link"
+            @action={{this.showFlag}}
+            @icon="flag"
+          />
+        {{/if}}
+      </span>
+    {{/if}}
+  </template>
 }
