@@ -31,7 +31,6 @@ after_initialize do
   require_relative "extensions/topic_view_serializer_extension"
   require_relative "extensions/topic_view_extension"
   require_relative "extensions/user_extension"
-  require_relative "extensions/composer_messages_finder_extension"
   require_relative "app/validators/post_voting_comment_validator"
   require_relative "app/controllers/post_voting/votes_controller"
   require_relative "app/controllers/post_voting/comments_controller"
@@ -63,8 +62,6 @@ after_initialize do
     TopicListItemSerializer.include(PostVoting::TopicListItemSerializerExtension)
     User.include(PostVoting::UserExtension)
     Guardian.prepend(PostVoting::GuardianExtension)
-
-    ComposerMessagesFinder.prepend(PostVoting::ComposerMessagesFinderExtension)
   end
 
   # TODO: Performance of the query degrades as the number of posts a user has voted
