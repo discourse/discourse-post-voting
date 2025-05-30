@@ -4,8 +4,12 @@ import { action } from "@ember/object";
 import { schedule } from "@ember/runloop";
 import { service } from "@ember/service";
 import { Promise } from "rsvp";
+import DButton from "discourse/components/d-button";
+import routeAction from "discourse/helpers/route-action";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
+import { i18n } from "discourse-i18n";
+import PostVotingCommentsMenuComposer from "./post-voting-comments-menu-composer";
 
 export default class PostVotingCommentsMenu extends Component {
   @service currentUser;
@@ -64,4 +68,45 @@ export default class PostVotingCommentsMenu extends Component {
       })
       .catch(popupAjaxError);
   }
+
+  <template>
+    <div class="post-voting-comments-menu">
+      {{#if this.expanded}}
+        <PostVotingCommentsMenuComposer
+          @id={{@id}}
+          @onSave={{this.handleSave}}
+          @onCancel={{this.closeComposer}}
+        />
+      {{else}}
+        <DButton
+          @display="link"
+          @action={{if
+            this.currentUser
+            this.expandComposer
+            (routeAction "showLogin")
+          }}
+          @label="post_voting.post.post_voting_comment.add"
+          class="post-voting-comment-add-link"
+        />
+      {{/if}}
+
+      {{#if this.hasMoreComments}}
+        {{#unless this.expanded}}
+          <span class="post-voting-comments-menu-separator"></span>
+        {{/unless}}
+
+        <div class="post-voting-comments-menu-show-more">
+          <DButton
+            @display="link"
+            @action={{this.fetchComments}}
+            @translatedLabel={{i18n
+              "post_voting.post.post_voting_comment.show"
+              count=@moreCommentCount
+            }}
+            class="post-voting-comments-menu-show-more-link"
+          />
+        </div>
+      {{/if}}
+    </div>
+  </template>
 }
