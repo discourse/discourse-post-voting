@@ -1,5 +1,8 @@
 # Discourse Post Voting
 
+> [!IMPORTANT]
+> This plugin has now been bundled into Discourse core. See: https://meta.discourse.org/t/bundling-more-popular-plugins-with-discourse-core/373574
+
 Discourse Post Voting allows the creation of topics with votable posts.
 
 ![image](https://user-images.githubusercontent.com/5862206/214548831-4de072d2-0bc0-470b-98b9-2850cbd46138.png)
